@@ -22,6 +22,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'jquery-infinite-pages'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 #gem 'turbolinks', '~> 5.x'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -36,18 +37,25 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'bootstrap_form'
+gem "font-awesome-rails"
 
 gem 'figaro'
 gem 'parsley-rails'
 gem "flutie"
 
 gem 'paypal-express'
+gem 'stripe'
 gem 'money-rails'
 gem 'friendly_id', '~> 5.1.0'
 
+gem "paranoia", branch: "core"
+gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on' # rails 5 (4/25/16
+
+# images + media
 gem 'rmagick'
 gem 'carrierwave'
 gem "fog"
+gem 'dropzonejs-rails'
 
 gem 'active_link_to'
 
