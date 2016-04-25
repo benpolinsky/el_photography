@@ -26,12 +26,8 @@
     <%= f.text_field :slug %>
   </div>
 
-  <div class="field">
-    <%= f.label :deleted_at %>
-    <%= f.datetime_select :deleted_at %>
-  </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.button "Add", class: "btn btn-primary"%>
   </div>
 <% end %>

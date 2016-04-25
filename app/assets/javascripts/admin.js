@@ -14,4 +14,6 @@
 //= require jquery_ujs
 //= require tether
 //= require bootstrap
+//= require dropzone
+//= require admin/dropzone.js
 //= require_tree .

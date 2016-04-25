@@ -5,10 +5,9 @@
 <table class='table'>
   <thead>
     <tr>
-      <th>Caption</th>
       <th>Image</th>
+      <th>Caption</th>
       <th>Slug</th>
-      <th>Deleted at</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,10 +15,9 @@
   <tbody>
     <% @photos.each do |photo| %>
       <tr>
+        <td><%= image_tag photo.image.url(:thumb) %></td>
         <td><%= photo.caption %></td>
-        <td><%= photo.image %></td>
         <td><%= photo.slug %></td>
-        <td><%= photo.deleted_at %></td>
         <td><%= link_to 'Show', [:admin, photo] %></td>
         <td><%= link_to 'Edit', edit_admin_photo_path(photo) %></td>
         <td><%= link_to 'Destroy', [:admin, photo], method: :delete, data: { confirm: 'Are you sure?' } %></td>
