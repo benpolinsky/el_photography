@@ -2,7 +2,7 @@
 
 <h1>Videos</h1>
 
-<table>
+<table class='table'>
   <thead>
     <tr>
       <th>Caption</th>
@@ -20,9 +20,9 @@
         <td><%= video.address %></td>
         <td><%= video.slug %></td>
         <td><%= video.deleted_at %></td>
-        <td><%= link_to 'Show', video %></td>
-        <td><%= link_to 'Edit', edit_video_path(video) %></td>
-        <td><%= link_to 'Destroy', video, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', [:admin, video] %></td>
+        <td><%= link_to 'Edit', edit_admin_video_path(video) %></td>
+        <td><%= link_to 'Destroy', [:admin, video], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Video', new_video_path %>
+<%= link_to 'New Video', new_admin_video_path %>

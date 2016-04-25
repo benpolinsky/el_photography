@@ -1,4 +1,4 @@
-class VideosController < ApplicationController
+class Admin::VideosController < AdminController
   before_action :set_video, only: [:show, :edit, :update, :destroy]
 
   # GET /videos
@@ -28,8 +28,8 @@ class VideosController < ApplicationController
 
     respond_to do |format|
       if @video.save
-        format.html { redirect_to @video, notice: 'Video was successfully created.' }
-        format.json { render :show, status: :created, location: @video }
+        format.html { redirect_to [:admin, @video], notice: 'Video was successfully created.' }
+        format.json { render :show, status: :created, location: [:admin, @video] }
       else
         format.html { render :new }
         format.json { render json: @video.errors, status: :unprocessable_entity }
@@ -42,7 +42,7 @@ class VideosController < ApplicationController
   def update
     respond_to do |format|
       if @video.update(video_params)
-        format.html { redirect_to @video, notice: 'Video was successfully updated.' }
+        format.html { redirect_to [:admin, @video], notice: 'Video was successfully updated.' }
         format.json { render :show, status: :ok, location: @video }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class VideosController < ApplicationController
   def destroy
     @video.destroy
     respond_to do |format|
-      format.html { redirect_to videos_url, notice: 'Video was successfully destroyed.' }
+      format.html { redirect_to admin_videos_url, notice: 'Video was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
