@@ -36,7 +36,7 @@ gem 'jbuilder', '~> 2.0'
 # gem 'capistrano-rails', group: :development
 
 gem 'bootstrap', '~> 4.0.0.alpha3'
-gem 'bootstrap_form'
+#gem 'bootstrap_form'
 gem "font-awesome-rails"
 
 gem 'figaro'
@@ -73,6 +73,8 @@ group :development, :test do
   gem "rspec-mocks", git: "https://github.com/rspec/rspec-mocks.git", branch: "master"
   gem 'rails-controller-testing'
   gem 'byebug'
+  
+  gem "factory_girl_rails", "~> 4.0"
 end
 
 group :development do
