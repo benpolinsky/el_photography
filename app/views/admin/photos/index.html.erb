@@ -7,7 +7,7 @@
     <tr>
       <th>Image</th>
       <th>Caption</th>
-      <th>Slug</th>
+      <th>Tags</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,10 +17,14 @@
       <tr>
         <td><%= image_tag photo.image.url(:thumb) %></td>
         <td><%= photo.caption %></td>
-        <td><%= photo.slug %></td>
-        <td><%= link_to 'Show', [:admin, photo] %></td>
-        <td><%= link_to 'Edit', edit_admin_photo_path(photo) %></td>
-        <td><%= link_to 'Destroy', [:admin, photo], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= photo.tag_list %></td>
+        <td>
+          <div class='btn-group'>
+            <%= link_to 'Show', [:admin, photo], class: "btn btn-default" %>
+            <%= link_to 'Edit', edit_admin_photo_path(photo), class: "btn nt btn-default" %>
+            <%= link_to 'Destroy', [:admin, photo], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
+          </div>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Photo', new_admin_photo_path %>
+<%= link_to 'Add Photos', add_admin_photos_path, class: "btn btn-primary" %>

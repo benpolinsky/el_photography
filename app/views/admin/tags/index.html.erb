@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Admin Tags</h1>
+
+<table class='table'>
+  <thead>
+
+    <tr>
+      <td>Tag Name</td>
+      <td>Number of Photos + Videos</td>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tags.each do |tag| %>
+    
+      <tr>
+        <td><%= tag.name %></td>
+        <td><%= tag.taggings.size %></td>
+        <td><%= link_to 'Edit', edit_admin_tag_path(tag) %></td>
+        <td><%= link_to 'Destroy', admin_tag_path(tag), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin Tag', new_admin_tag_path %>

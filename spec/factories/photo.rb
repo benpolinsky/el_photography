@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :photo do
-   image "http://image.com" 
+   image { File.open("#{Rails.root}/spec/support/files/fake_image.png") } 
   end
 end

@@ -38,6 +38,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'bootstrap', '~> 4.0.0.alpha3'
 #gem 'bootstrap_form'
 gem "font-awesome-rails"
+gem "selectize-rails"
 
 gem 'figaro'
 gem 'parsley-rails'

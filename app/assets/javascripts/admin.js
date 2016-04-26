@@ -16,4 +16,5 @@
 //= require bootstrap
 //= require dropzone
 //= require admin/dropzone.js
+//= require selectize
 //= require_tree .

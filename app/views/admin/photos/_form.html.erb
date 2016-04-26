@@ -1,4 +1,5 @@
-<%= form_for([:admin, photo], html: {class: "dropzone"}) do |f| %>
+<div class='row'>
+<%= form_for([:admin, photo], html: {class: "#{dropzone_classes}"}) do |f| %>
   <% if photo.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(photo.errors.count, "error") %> prohibited this photo from being saved:</h2>
@@ -10,15 +11,33 @@
       </ul>
     </div>
   <% end %>
+  <fieldset class='form-group'>
+    <%= f.label :tag_list, "Tags: " %>
+    <select name="photo[tag_list][]" class="taggable" multiple="true">
+      <% Tag.all.each do |tag| %>
+        <%= content_tag :option, value: tag.name, selected: tag_selected?(photo, tag) do %>
+          <%= tag.name %>
+        <% end %>
+      <% end %>
+    </select>
+  </fieldset>
 
   <div class="fallback">
-    <%= f.label :image %>
-    <%= f.file_field :image %>
+    <fieldset class="form-group">
+      <%= f.label :image %>
+      <% if photo.image && photo.persisted? %>
+        <%= image_tag photo.image.url(:thumb) %>
+      <% end %>
+      <%= f.file_field :image, class: "form-control" %>      
+    </fieldset>
+
 
     <div class="actions">
-      <%= f.button "Add", class: "btn btn-primary"%>
+      <%= f.button nil, class: "btn btn-primary"%>
     </div>
   </div>
 
 
 <% end %>
+  
+</div>
