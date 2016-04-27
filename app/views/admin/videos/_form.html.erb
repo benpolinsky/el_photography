@@ -11,23 +11,18 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :caption %>
-    <%= f.text_field :caption %>
+    <%= f.text_field :caption, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :address %>
-    <%= f.text_field :address %>
-  </div>
-
-  <div class="field">
-    <%= f.label :slug %>
-    <%= f.text_field :slug %>
+    <%= f.text_field :address, class: "form-control"  %>
   </div>
 
 
-  <div class="actions">
+  <div class="form-group">
     <%= f.button "Add", class: "btn btn-primary"%>
   </div>
 <% end %>

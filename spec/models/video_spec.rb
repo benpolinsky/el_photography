@@ -22,4 +22,50 @@ RSpec.describe Video, type: :model do
       end
     end
   end
+  
+  context "addresses and ids" do
+    before do
+      @video = build(:video)
+    end
+    
+    it "can convert a vimeo url to its id without www" do
+      @video.address = "https://vimeo.com/87110435"
+      expect(@video.video_id).to eq "87110435"
+    end
+    
+    it "can convert a vimeo url to its id with www" do
+      @video.address = "https://www.vimeo.com/87110435"
+      expect(@video.video_id).to eq "87110435"
+    end
+    
+    it "can convert a vimeo url to its id with https" do
+      @video.address = "https://vimeo.com/87110435"
+      expect(@video.video_id).to eq "87110435"
+    end
+    
+    it "can convert a vimeo url to its id without https" do
+      @video.address = "http://www.vimeo.com/87110435"
+      expect(@video.video_id).to eq "87110435"
+    end
+    
+    it "can convert a youtube url to its id without www" do
+      @video.address = "https://youtube.com/watch?v=XQu8TTBmGhA"
+      expect(@video.video_id).to eq "XQu8TTBmGhA"
+    end
+    
+    it "can convert a youtube url to its id with www" do
+      @video.address = "https://www.youtube.com/watch?v=XQu8TTBmGhA"
+      expect(@video.video_id).to eq "XQu8TTBmGhA"
+    end
+    
+    it "can convert a youtube url to its id with https" do
+      @video.address = "https://www.youtube.com/watch?v=XQu8TTBmGhA"
+      expect(@video.video_id).to eq "XQu8TTBmGhA"
+    end
+    
+    it "can convert a youtube url to its id without https" do
+      @video.address = "https://www.youtube.com/watch?v=XQu8TTBmGhA"
+      expect(@video.video_id).to eq "XQu8TTBmGhA"
+    end
+  end
 end

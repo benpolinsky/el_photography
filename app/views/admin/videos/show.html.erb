@@ -9,16 +9,14 @@
   <strong>Address:</strong>
   <%= @video.address %>
 </p>
+<div class="col-xs-12 video">
+ <div class='embed-container'>
+   <iframe src='https://player.vimeo.com/video/<%= @video.video_id %>' frameborder='0' allowfullscreen></iframe>
+ </div>
+</div>
 
-<p>
-  <strong>Slug:</strong>
-  <%= @video.slug %>
-</p>
+<div class='btn-group'>
+  <%= link_to 'Edit', edit_admin_video_path(@video), class: "btn btn-primary" %>
+  <%= link_to 'All Videos', admin_videos_path, class: "btn btn-primary" %>  
+</div>
 
-<p>
-  <strong>Deleted at:</strong>
-  <%= @video.deleted_at %>
-</p>
-
-<%= link_to 'Edit', edit_admin_video_path(@video) %> |
-<%= link_to 'Videos', admin_videos_path %>
