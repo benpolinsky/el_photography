@@ -9,10 +9,10 @@
   <strong>Address:</strong>
   <%= @video.address %>
 </p>
+
 <div class="col-xs-12 video">
- <div class='embed-container'>
-   <iframe src='https://player.vimeo.com/video/<%= @video.video_id %>' frameborder='0' allowfullscreen></iframe>
- </div>
+   <%= render :partial => 'shared/embed_video', locals: {address: @video.embed_address} %>
+
 </div>
 
 <div class='btn-group'>

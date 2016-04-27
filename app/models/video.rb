@@ -11,6 +11,14 @@ class Video < ApplicationRecord
     end
   end
   
+  def embed_address
+    if is_vimeo?
+      "https://player.vimeo.com/video/#{video_id}"
+    else
+      "https://www.youtube.com/embed/#{video_id}"
+    end
+  end
+  
   private
   
   def is_vimeo?
