@@ -11,7 +11,17 @@
   </head>
 
   <body>
-
+    <header class='front-header'>
+      <nav class='front-navigation'>
+        <span class="front-nav-item">
+          <%= link_to "Home" %>
+          <%= link_to "Photography" %>
+          <%= link_to "Video" %>
+          <%= link_to "Shop" %>
+          <%= link_to "About" %>
+        </span>
+      </nav>
+    </header>
     
     <div class='container-fluid'>
       <%= yield %>

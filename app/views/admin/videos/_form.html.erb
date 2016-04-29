@@ -10,7 +10,16 @@
       </ul>
     </div>
   <% end %>
-
+  <fieldset class='form-group'>
+    <%= f.label :tag_list, "Tags: " %>
+    <select name="video[tag_list][]" class="taggable" multiple="true">
+      <% Tag.all.each do |tag| %>
+        <%= content_tag :option, value: tag.name, selected: tag_selected?(video, tag) do %>
+          <%= tag.name %>
+        <% end %>
+      <% end %>
+    </select>
+  </fieldset>
   <div class="form-group">
     <%= f.label :caption %>
     <%= f.text_field :caption, class: "form-control" %>

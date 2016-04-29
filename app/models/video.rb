@@ -19,9 +19,21 @@ class Video < ApplicationRecord
     end
   end
   
+  def image_url
+    if is_vimeo?
+     vimeo_json["thumbnail_url"]
+    else
+      "http://img.youtube.com/vi/#{video_id}/hqdefault.jpg"
+    end
+  end
+  
   private
   
   def is_vimeo?
     address.include? "vimeo"
+  end
+  
+  def vimeo_json
+    JSON.load(open("https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/#{video_id}"))
   end
 end

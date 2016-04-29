@@ -1,2 +1,12 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<ul class='front-asset-list'>
+  <% @tags.each do |tag| %>
+    <% if Tag.first_asset_for_tag_with_image(tag) %>
+      <%= content_tag :li, class: 'front-asset-list-item' do %>
+        <%= content_tag :h2, tag.name, class: "front-asset-list-item-name" %>
+          <%= content_tag :div, class: "front-asset-list-item-image-container" do %>
+            <%= image_tag Tag.first_asset_for_tag_with_image(tag) %>
+          <% end %>
+        <% end %>
+      <% end %>
+  <% end %>
+</ul>
