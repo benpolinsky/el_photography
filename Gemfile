@@ -43,6 +43,7 @@ gem "selectize-rails"
 gem 'figaro'
 gem 'parsley-rails'
 gem "flutie"
+gem 'trix'
 
 gem 'paypal-express'
 gem 'stripe'

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Themes</h1>
+
+<table class='table'>
+  <thead>
+    <tr>
+      <th></th>
+      <th>ID</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @themes.each do |theme| %>
+      <tr>
+        <td><%= "<span class='label label-success'>Active</span>".html_safe if theme.active? %></td>
+        <td><%= theme.id %></td>
+        <td>
+          <div class='btn-group'>
+            <%= link_to 'Show', [:admin, theme], class: "btn btn-default" %>
+            <%= link_to 'Edit', edit_admin_theme_path(theme), class: "btn btn-default" %>
+            <%= link_to 'Destroy', [:admin, theme], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
+            <% if theme.active? %>
+              <%= link_to "Deactivate", [:deactivate, :admin, theme], method: :PUT, class: "btn btn-default" %>
+            <% else %>
+              <%= link_to 'Activate', [:activate, :admin, theme], method: :PUT, class: "btn btn-default" %>
+            <% end %>
+          </div>
+        
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Theme', new_admin_theme_path %>

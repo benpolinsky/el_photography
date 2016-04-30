@@ -17,4 +17,5 @@
 //= require dropzone
 //= require admin/dropzone.js
 //= require selectize
+//= require trix
 //= require_tree .
