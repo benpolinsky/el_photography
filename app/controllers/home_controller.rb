@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @tags = Tag.latest
+    @tags = ActsAsTaggableOn::Tag.rank(:row_order).latest
   end
   
 end

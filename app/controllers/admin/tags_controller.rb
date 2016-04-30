@@ -1,7 +1,7 @@
 class Admin::TagsController < AdminController
   
   def index
-    @tags = Tag.all
+    @tags = ActsAsTaggableOn::Tag.rank(:row_order)
   end
 
   
@@ -30,6 +30,13 @@ class Admin::TagsController < AdminController
   # DELETE /admin/tags/1.json
   def destroy
  
+  end
+  
+  def update_row_order
+    @tag = ActsAsTaggableOn::Tag.find(params[:item][:item_id])
+    @tag.row_order_position = params[:item][:row_order_position]
+    @tag.save
+    head :created
   end
 
   private

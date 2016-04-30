@@ -1,6 +1,9 @@
 class Video < ApplicationRecord
   validates :address, presence: true
   acts_as_taggable
+  
+  include RankedModel
+  ranks :row_order
 
 
   def video_id

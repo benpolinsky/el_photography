@@ -12,10 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require tether
 //= require bootstrap
 //= require dropzone
 //= require admin/dropzone.js
 //= require selectize
 //= require trix
+//= require admin/update_row_order
 //= require_tree .

@@ -2,7 +2,7 @@
 
 <h1>Videos</h1>
 
-<table class='table'>
+<table class='table sortable'>
   <thead>
     <tr>
       <th>Caption</th>
@@ -15,7 +15,7 @@
 
   <tbody>
     <% @videos.each do |video| %>
-      <tr>
+      <%= content_tag :tr, class: "item", data: {item_id: video.id, post_path: url_for([:update_row_order, :admin, :videos])} do %>
         <td><%= video.caption %></td>
         <td><%= video.address %></td>
         <td><%= video.slug %></td>
@@ -23,7 +23,7 @@
         <td><%= link_to 'Show', [:admin, video] %></td>
         <td><%= link_to 'Edit', edit_admin_video_path(video) %></td>
         <td><%= link_to 'Destroy', [:admin, video], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

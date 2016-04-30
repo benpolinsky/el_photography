@@ -4,7 +4,7 @@ class Admin::PhotosController < AdminController
   # GET /photos
   # GET /photos.json
   def index
-    @photos = Photo.all
+    @photos = Photo.rank(:row_order)
   end
 
   # GET /photos/1
@@ -60,7 +60,14 @@ class Admin::PhotosController < AdminController
       format.json { head :no_content }
     end
   end
-
+  
+  def update_row_order
+    @photo = Photo.find(params[:item][:item_id])
+    @photo.row_order_position = params[:item][:row_order_position]
+    @photo.save
+    head :created
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_photo

@@ -4,7 +4,7 @@ class Admin::VideosController < AdminController
   # GET /videos
   # GET /videos.json
   def index
-    @videos = Video.all
+    @videos = Video.rank(:row_order)
   end
 
   # GET /videos/1
@@ -61,6 +61,13 @@ class Admin::VideosController < AdminController
     end
   end
 
+  def update_row_order
+    @video = Video.find(params[:item][:item_id])
+    @video.row_order_position = params[:item][:row_order_position]
+    @video.save
+    head :created
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_video

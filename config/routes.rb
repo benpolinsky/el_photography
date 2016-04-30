@@ -1,7 +1,17 @@
 Rails.application.routes.draw do
 
   namespace :admin do
-    resources :videos, :tags
+    resources :videos do
+      collection do
+        post 'update_row_order'
+      end
+    end
+    
+    resources :tags do
+      collection do
+        post 'update_row_order'
+      end
+    end
 
     resources :themes do
       member do
@@ -12,7 +22,10 @@ Rails.application.routes.draw do
     end
     
     resources :photos do
-      get 'add', to: "photos#new", on: :collection
+      collection do
+        post 'update_row_order'
+        get 'add', to: "photos#new"
+      end
     end
     get 'dashboard/index'
     root to: 'dashboard#index'
