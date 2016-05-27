@@ -1,0 +1,89 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @product.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @product.description %>
+</p>
+
+<p>
+  <strong>Price cents:</strong>
+  <%= @product.price_cents %>
+</p>
+
+<p>
+  <strong>Price cents currency:</strong>
+  <%= @product.price_cents_currency %>
+</p>
+
+<p>
+  <strong>Published at:</strong>
+  <%= @product.published_at %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @product.quantity %>
+</p>
+
+<p>
+  <strong>Weight in oz:</strong>
+  <%= @product.weight_in_oz %>
+</p>
+
+<p>
+  <strong>Row order:</strong>
+  <%= @product.row_order %>
+</p>
+
+<p>
+  <strong>Photo:</strong>
+  <%= @product.photo %>
+</p>
+
+<p>
+  <strong>Shipping cents:</strong>
+  <%= @product.shipping_cents %>
+</p>
+
+<p>
+  <strong>Shipping currency:</strong>
+  <%= @product.shipping_currency %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @product.slug %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @product.state %>
+</p>
+
+<p>
+  <strong>Deleted at:</strong>
+  <%= @product.deleted_at %>
+</p>
+
+<p>
+  <strong>Uid:</strong>
+  <%= @product.uid %>
+</p>
+
+<p>
+  <strong>International shipping cents:</strong>
+  <%= @product.international_shipping_cents %>
+</p>
+
+<p>
+  <strong>International shipping currency:</strong>
+  <%= @product.international_shipping_currency %>
+</p>
+
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>

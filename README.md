@@ -10,8 +10,16 @@
   - test in production env
   - eventually extract theme into gem
 
-- wysiwig - hopefully trix
+- wysiwig - hopefully trix, medium also an option
 
 ### Qs
 
 - How are you breaking down your navigation?
+
+Distinct Shop: (with ability to link from photos, so ability to link a product to a photo):
+- No tags in shop to start.
+- List of photos with a few sizes and then each size would have to have a unique photo.
+- So each photo must have a size
+- PayPal to start then move to stripe
+
+Product has_many ProductSize ->

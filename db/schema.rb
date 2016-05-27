@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160430221218) do
+ActiveRecord::Schema.define(version: 20160527005149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,29 @@ ActiveRecord::Schema.define(version: 20160430221218) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "row_order"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "price_cents"
+    t.string   "price_cents_currency"
+    t.datetime "published_at"
+    t.integer  "quantity"
+    t.integer  "weight_in_oz"
+    t.integer  "row_order"
+    t.integer  "photo_id"
+    t.integer  "shipping_cents"
+    t.string   "shipping_currency"
+    t.string   "slug"
+    t.integer  "state"
+    t.datetime "deleted_at"
+    t.string   "uid"
+    t.integer  "international_shipping_cents"
+    t.string   "international_shipping_currency"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.index ["photo_id"], name: "index_products_on_photo_id", using: :btree
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -70,4 +93,5 @@ ActiveRecord::Schema.define(version: 20160430221218) do
     t.integer  "row_order"
   end
 
+  add_foreign_key "products", "photos"
 end

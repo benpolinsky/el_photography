@@ -1,4 +1,4 @@
-<%= form_for(admin_tag) do |f| %>
+<%= form_for(admin_tag, url: admin_tags_path) do |f| %>
   <% if admin_tag.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(admin_tag.errors.count, "error") %> prohibited this admin_tag from being saved:</h2>
@@ -11,6 +11,12 @@
     </div>
   <% end %>
 
+  <div class='form-group'>
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>    
+  </div>
+
+  
   <div class="actions">
     <%= f.submit %>
   </div>

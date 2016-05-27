@@ -9,7 +9,7 @@
     <%= javascript_include_tag 'application' %>
     <%= favicon_link_tag 'favicon.png' %>
     
-    <%= stylesheet_link_tag Theme.active.css_file %>
+    <%= stylesheet_link_tag(Theme.active.css_file) if Theme.active %>
   </head>
 
   <body class="<%= theme_class %>">
