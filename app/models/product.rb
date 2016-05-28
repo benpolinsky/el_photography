@@ -28,6 +28,7 @@ class Product < ApplicationRecord
       self.create_from_properties_and_options(deconstituted_options, true)
     end  
   end
+  
   has_and_belongs_to_many :options
   
   validates_presence_of :name, :price_cents
@@ -90,6 +91,17 @@ class Product < ApplicationRecord
     !taken_down?
   end
   
+  
+  def self.create_from_photo(photo_id)
+    return unless photo = Photo.find(photo_id)
+    product_name = photo.caption.present? ? photo.caption : "Product ##{Product.count + 1}"
+    create({
+      name: product_name,
+      price_cents: 100,
+      quantity: 0,
+      photo: photo
+    })
+  end
   
   def self.not_taken_down
     where(taken_down: false)

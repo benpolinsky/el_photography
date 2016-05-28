@@ -1,26 +1,20 @@
-<p id="notice"><%= notice %></p>
+<% if flash[:notice] %>
+  <%= flash[:notice] %>
+<% end %>
+
+<% if flash[:error] %>
+  <%= flash[:error] %>
+<% end %>
 <div class='row'>
   <div class='col-xs-12'>
+    <%= image_tag @photo.image.url(:main) %>
+
 <p>
   <strong>Caption:</strong>
   <%= @photo.caption %>
 </p>
 
-<p>
-  <strong>Image:</strong>
-  <%= @photo.image %>
-</p>
-
-<p>
-  <strong>Slug:</strong>
-  <%= @photo.slug %>
-</p>
-
-<p>
-  <strong>Deleted at:</strong>
-  <%= @photo.deleted_at %>
-</p>
-
+<%= link_to "Create Product", create_from_photo_admin_products_path(@photo), method: :post %>
 <%= link_to 'Edit', edit_admin_photo_path(@photo) %> |
 <%= link_to 'photos', admin_photos_path %>
     

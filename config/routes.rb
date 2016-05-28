@@ -1,7 +1,15 @@
 Rails.application.routes.draw do
 
-  resources :products
+
   namespace :admin do
+    
+    resources :products do
+      collection do
+        post 'create_from_photo/:photo_id' => 'products#create_from_photo', as: :create_from_photo
+      end
+      resources :variants
+    end
+    
     resources :videos do
       collection do
         post 'update_row_order'
@@ -28,6 +36,7 @@ Rails.application.routes.draw do
         get 'add', to: "photos#new"
       end
     end
+    
     get 'dashboard/index'
     root to: 'dashboard#index'
   end
