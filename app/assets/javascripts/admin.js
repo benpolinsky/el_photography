@@ -20,4 +20,6 @@
 //= require selectize
 //= require trix
 //= require admin/update_row_order
+//= require flatpickr.min
+//= require admin/general
 //= require_tree .

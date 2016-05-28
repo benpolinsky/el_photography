@@ -4,8 +4,8 @@
 - reorder tags
 - quick way to add or remove tag
 - and quick way to add/change caption for each
-
-- flatpickr
+- shop: 
+  - boolean of whether or not quantity is being used
 - friendly id with changeable/updateable w/ history slugs
 
 - very basic dynamic css added
@@ -27,12 +27,9 @@ Distinct Shop: (with ability to link from photos, so ability to link a product t
 - So each photo must have a size
 - PayPal to start then move to stripe
 
-Products, Variants, Options, OptionValues added to store
+Products, Variants, Options, OptionValues, LineItems, Carts added to store
 
 Need:
-Cart Item
-Order Item
-Cart
 Order
-Payment (see weisscoach)
+Payment (see min+weisscoach)
 

@@ -40,7 +40,21 @@ Rails.application.routes.draw do
     get 'dashboard/index'
     root to: 'dashboard#index'
   end
-
+  
+  
+  # Store 
+  
+  get 'store/index' => 'store#index', as: :store
+  get 'store/product/:id' => 'store#product', as: :product
+  get 'store/help' => 'store#help', as: :help
+  
+  resource :cart do
+    post 'add_item'
+    put 'change_item_quantity'
+    put 'change_item_quantity_to'
+    get 'empty'
+  end
+  
   get 'home/index'
   root to: 'home#index'
 end

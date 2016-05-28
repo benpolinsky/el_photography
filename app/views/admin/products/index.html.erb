@@ -8,7 +8,7 @@
       <th>Name</th>
       <th>Price</th>
       <th>Quantity</th>
-      <th>State</th>
+      <th>Published?</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -19,7 +19,7 @@
         <td><%= product.name %></td>
         <td><%= product.price %></td>
         <td><%= product.quantity %></td>
-        <td><%= product.state %></td>
+        <td><%= product.published? %></td>
         <td><%= link_to 'Show', [:admin, product], class: "btn btn-default" %></td>
         <td><%= link_to 'Edit', edit_admin_product_path(product), class: "btn btn-default" %></td>
         <td><%= link_to 'Destroy', [:admin, product], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %></td>

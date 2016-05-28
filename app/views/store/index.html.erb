@@ -1,0 +1,13 @@
+<h1>Welcome to The Spine Tingling Show</h1>
+
+
+<div class='product-grid'>
+<% @products.each do |product| %>
+  <div class='product'>
+    <%= image_tag product.primary_image if product.primary_image %>
+    <%= link_to product.name, product_path(product) %>
+    <%= product.price.format %>
+    <%= render :partial => 'add_to_cart', locals: {product: product, cart: @cart} %>
+  </div>
+<% end %>  
+</div>

@@ -11,10 +11,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160527210221) do
+ActiveRecord::Schema.define(version: 20160528191244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "carts", force: :cascade do |t|
+    t.string   "uid"
+    t.integer  "status",     default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "line_items", force: :cascade do |t|
+    t.string   "itemized_type"
+    t.integer  "itemized_id"
+    t.integer  "product_id"
+    t.integer  "variant_id"
+    t.string   "product_type"
+    t.integer  "quantity",                                            default: 0
+    t.string   "name"
+    t.string   "uid"
+    t.integer  "price_cents"
+    t.string   "price_cents_currency"
+    t.integer  "shipping_base_cents"
+    t.string   "shipping_base_currency"
+    t.integer  "additional_shipping_per_item_cents"
+    t.string   "additional_shipping_per_item_currency"
+    t.integer  "international_shipping_base_cents"
+    t.string   "international_shipping_base_currency"
+    t.integer  "additional_international_shipping_per_item_cents"
+    t.string   "additional_international_shipping_per_item_currency"
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
+    t.index ["itemized_type", "itemized_id"], name: "index_line_items_on_itemized_type_and_itemized_id", using: :btree
+    t.index ["product_id"], name: "index_line_items_on_product_id", using: :btree
+    t.index ["variant_id"], name: "index_line_items_on_variant_id", using: :btree
+  end
 
   create_table "option_values", force: :cascade do |t|
     t.string   "value"

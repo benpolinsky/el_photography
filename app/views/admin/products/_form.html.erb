@@ -29,7 +29,7 @@
 
   <div class="field form-group">
     <%= f.label :published_at %>
-    <%= f.datetime_select :published_at, class: "form-control" %>
+    <%= f.text_field :published_at, class: "form-control elp-date-field", data: {enabletime: true} %>
   </div>
 
   <div class="field form-group">

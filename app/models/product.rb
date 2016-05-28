@@ -47,6 +47,12 @@ class Product < ApplicationRecord
 
   accepts_nested_attributes_for :variants
   
+  
+  def primary_image
+    photo.try(:image)
+  end
+  
+  
   def sizes_list_present?
     sizes_list.present?
   end
@@ -62,8 +68,6 @@ class Product < ApplicationRecord
   def name_or_slug
     name.empty? ? slug : name
   end
-  
-
   
   def publish!
     if self.publishable? && !self.published?

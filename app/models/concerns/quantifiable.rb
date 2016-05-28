@@ -23,6 +23,12 @@ module Quantifiable
     update_attributes(state: 'out_of_stock', quantity:0)
   end
   
+  
+  # this is more appropriately "quantity_not_lockedm or something to that effect"
+  def available_quantity
+    quantity
+  end
+  
   module ClassMethods
 
     def stocked
