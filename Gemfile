@@ -75,7 +75,8 @@ group :development, :test do
   gem "rspec-mocks", git: "https://github.com/rspec/rspec-mocks.git", branch: "master"
   gem 'rails-controller-testing'
   gem 'byebug'
-  
+  gem 'faker'
+  gem 'timecop'
   gem "factory_girl_rails", "~> 4.0"
 end
 

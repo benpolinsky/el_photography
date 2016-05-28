@@ -1,17 +1,18 @@
-class CreateProducts < ActiveRecord::Migration[5.0]
+class CreateVariants < ActiveRecord::Migration[5.0]
   def change
-    create_table :products do |t|
-      t.string :name
-      t.text :description
+    create_table :variants do |t|
       t.integer :price_cents
       t.string :price_cents_currency
-      t.datetime :published_at
+      t.string :sku
       t.integer :quantity
       t.integer :weight_in_oz
       t.integer :row_order
-      t.references :photo, foreign_key: true
-
-      # money fields:
+      t.string :slug
+      t.boolean :published
+      t.string :state
+      t.string :uid
+      t.datetime :deleted_at
+      t.references :product
       
       t.integer :shipping_base_cents
       t.string :shipping_base_currency
@@ -24,13 +25,6 @@ class CreateProducts < ActiveRecord::Migration[5.0]
       
       t.integer :additional_international_shipping_per_item_cents
       t.string :additional_international_shipping_per_item_currency      
-
-      t.string :slug
-      t.integer :state
-      t.datetime :deleted_at
-      t.string :uid
-      
-      t.boolean :taken_down
 
       t.timestamps
     end

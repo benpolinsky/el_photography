@@ -1,21 +1,21 @@
 FactoryGirl.define do
-  factory :product do
-    name "MyString"
-    description "MyText"
-    price_cents 1
-    price_cents_currency "MyString"
-    published_at "2016-05-26 20:51:49"
-    quantity 1
-    weight_in_oz 1
-    row_order 1
-    photo nil
-    shipping_cents 1
-    shipping_currency "MyString"
-    slug "MyString"
-    state 1
-    deleted_at "2016-05-26 20:51:49"
-    uid "MyString"
-    international_shipping_cents 1
-    international_shipping_currency "MyString"
+  factory :product do |p|
+    p.sequence(:name) {|n| "#{Faker::Commerce.product_name})_#{n}"}
+    p.price 100
+    p.quantity 1
+
+  end
+  
+  factory :published_product, parent: :product do |p|
+    p.name { "#{Faker::Lorem.word})_#{Random.new.rand(0..111110000)}"}
+    p.quantity 1
+    p.price 150
+    p.taken_down false
+    p.description Faker::Lorem.paragraph
+    before(:create) do |product|
+      product.save
+      product.publish!
+    end
+
   end
 end

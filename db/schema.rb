@@ -11,10 +11,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160527005149) do
+ActiveRecord::Schema.define(version: 20160527210221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "option_values", force: :cascade do |t|
+    t.string   "value"
+    t.integer  "option_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["option_id"], name: "index_option_values_on_option_id", using: :btree
+  end
+
+  create_table "option_values_variants", id: false, force: :cascade do |t|
+    t.integer "option_value_id"
+    t.integer "variant_id"
+    t.index ["option_value_id"], name: "index_option_values_variants_on_option_value_id", using: :btree
+    t.index ["variant_id"], name: "index_option_values_variants_on_variant_id", using: :btree
+  end
+
+  create_table "options", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "options_products", id: false, force: :cascade do |t|
+    t.integer "option_id"
+    t.integer "product_id"
+    t.index ["option_id"], name: "index_options_products_on_option_id", using: :btree
+    t.index ["product_id"], name: "index_options_products_on_product_id", using: :btree
+  end
 
   create_table "photos", force: :cascade do |t|
     t.string   "caption"
@@ -36,16 +64,21 @@ ActiveRecord::Schema.define(version: 20160527005149) do
     t.integer  "weight_in_oz"
     t.integer  "row_order"
     t.integer  "photo_id"
-    t.integer  "shipping_cents"
-    t.string   "shipping_currency"
+    t.integer  "shipping_base_cents"
+    t.string   "shipping_base_currency"
+    t.integer  "additional_shipping_per_item_cents"
+    t.string   "additional_shipping_per_item_currency"
+    t.integer  "international_shipping_base_cents"
+    t.string   "international_shipping_base_currency"
+    t.integer  "additional_international_shipping_per_item_cents"
+    t.string   "additional_international_shipping_per_item_currency"
     t.string   "slug"
     t.integer  "state"
     t.datetime "deleted_at"
     t.string   "uid"
-    t.integer  "international_shipping_cents"
-    t.string   "international_shipping_currency"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.boolean  "taken_down"
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.index ["photo_id"], name: "index_products_on_photo_id", using: :btree
   end
 
@@ -83,6 +116,32 @@ ActiveRecord::Schema.define(version: 20160527005149) do
     t.string   "css_file"
   end
 
+  create_table "variants", force: :cascade do |t|
+    t.integer  "price_cents"
+    t.string   "price_cents_currency"
+    t.string   "sku"
+    t.integer  "quantity"
+    t.integer  "weight_in_oz"
+    t.integer  "row_order"
+    t.string   "slug"
+    t.boolean  "published"
+    t.string   "state"
+    t.string   "uid"
+    t.datetime "deleted_at"
+    t.integer  "product_id"
+    t.integer  "shipping_base_cents"
+    t.string   "shipping_base_currency"
+    t.integer  "additional_shipping_per_item_cents"
+    t.string   "additional_shipping_per_item_currency"
+    t.integer  "international_shipping_base_cents"
+    t.string   "international_shipping_base_currency"
+    t.integer  "additional_international_shipping_per_item_cents"
+    t.string   "additional_international_shipping_per_item_currency"
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+    t.index ["product_id"], name: "index_variants_on_product_id", using: :btree
+  end
+
   create_table "videos", force: :cascade do |t|
     t.string   "caption"
     t.string   "address"
@@ -93,5 +152,6 @@ ActiveRecord::Schema.define(version: 20160527005149) do
     t.integer  "row_order"
   end
 
+  add_foreign_key "option_values", "options"
   add_foreign_key "products", "photos"
 end
