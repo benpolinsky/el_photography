@@ -70,11 +70,11 @@ class Variant < ApplicationRecord
     self.joins(:option_values).where('option_values.option_id' => option_id)
   end
   
-  # Clean up any variants with the same name
+  # Clean up any variants with the same name, keeping the older variants
   def self.clean_up
     variants = self.all.group_by {|variant| variant.name }
     variants.values.each do |duplicates|
-      one_to_return = duplicates.shift
+      one_to_return = duplicates.sort!.shift
       duplicates.each {|d| d.destroy}
       one_to_return.destroy if one_to_return.name.blank?
     end

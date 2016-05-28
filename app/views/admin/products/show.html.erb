@@ -11,18 +11,8 @@
 </p>
 
 <p>
-  <strong>Price cents:</strong>
-  <%= @product.price_cents %>
-</p>
-
-<p>
-  <strong>Price cents currency:</strong>
-  <%= @product.price_cents_currency %>
-</p>
-
-<p>
-  <strong>Published at:</strong>
-  <%= @product.published_at %>
+  <strong>Price:</strong>
+  <%= @product.price %>
 </p>
 
 <p>
@@ -30,24 +20,15 @@
   <%= @product.quantity %>
 </p>
 
-<p>
-  <strong>Weight in oz:</strong>
-  <%= @product.weight_in_oz %>
-</p>
-
-<p>
-  <strong>Row order:</strong>
-  <%= @product.row_order %>
-</p>
 
 <p>
   <strong>Photo:</strong>
-  <%= @product.photo %>
+  <%= image_tag @product.photo.image %>
 </p>
 
 <p>
-  <strong>Shipping cents:</strong>
-  <%= @product.shipping_base_cents %>
+  <strong>Shipping base:</strong>
+  <%= @product.shipping_base %>
 </p>
 
 
@@ -58,23 +39,8 @@
 </p>
 
 <p>
-  <strong>State:</strong>
-  <%= @product.state %>
-</p>
-
-<p>
-  <strong>Deleted at:</strong>
-  <%= @product.deleted_at %>
-</p>
-
-<p>
-  <strong>Uid:</strong>
-  <%= @product.uid %>
-</p>
-
-<p>
-  <strong>International shipping cents:</strong>
-  <%= @product.international_shipping_base_cents %>
+  <strong>International shipping base:</strong>
+  <%= @product.international_shipping_base %>
 </p>
 
 

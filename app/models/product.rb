@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  attr_accessor :sizes_list 
   
   include DateTimeScopes
   include RankedModel
@@ -19,6 +20,7 @@ class Product < ApplicationRecord
       array_of_properties = properties_and_options.keys
       array_of_options = prepare_multidimensional_options(properties_and_options)
       final_variants = construct_from_properties_and_multi_array(array_of_options, array_of_properties)
+      clean_up
       clean_up_strays(array_of_properties.size) if adding
     end
     
@@ -41,7 +43,21 @@ class Product < ApplicationRecord
   monetize :additional_shipping_per_item_cents, allow_nil: 'true'
   monetize :additional_international_shipping_per_item_cents, allow_nil: 'true'
 
+  after_save :add_sizes, if: :sizes_list_present?
+
   accepts_nested_attributes_for :variants
+  
+  def sizes_list_present?
+    sizes_list.present?
+  end
+  
+  def add_sizes
+    # create or find our option (sizes in this case)
+    size_option = options.find_or_create_by(name: "Size")
+    variants.create_from_properties_and_options({
+     size_option => sizes_list
+    })
+  end
   
   def name_or_slug
     name.empty? ? slug : name

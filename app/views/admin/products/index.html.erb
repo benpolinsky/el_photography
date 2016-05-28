@@ -17,7 +17,7 @@
     <% @products.each do |product| %>
       <tr>
         <td><%= product.name %></td>
-        <td><%= product.price_cents %></td>
+        <td><%= product.price %></td>
         <td><%= product.quantity %></td>
         <td><%= product.state %></td>
         <td><%= link_to 'Show', [:admin, product], class: "btn btn-default" %></td>

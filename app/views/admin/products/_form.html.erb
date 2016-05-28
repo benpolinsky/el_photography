@@ -11,85 +11,72 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :description %>
-    <%= f.text_area :description %>
+    <%= f.text_area :description, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= f.label :price_cents %>
-    <%= f.number_field :price_cents %>
+
+  <div class="field form-group">
+    <%= f.label :price, (f.object.variants.any? ? "Variants Control Price &#8595;".html_safe : "Price") %>
+    <%= f.number_field :price, {class: "form-control", disabled: (f.object.variants.any?)} %>
   </div>
 
-  <div class="field">
-    <%= f.label :price_cents_currency %>
-    <%= f.text_field :price_cents_currency %>
-  </div>
-
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :published_at %>
-    <%= f.datetime_select :published_at %>
+    <%= f.datetime_select :published_at, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :quantity %>
-    <%= f.number_field :quantity %>
+    <%= f.number_field :quantity, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= f.label :weight_in_oz %>
-    <%= f.number_field :weight_in_oz %>
+  <div class="field form-group">
+    <%= f.label :shipping_base %>
+    <%= f.number_field :shipping_base, class: "form-control" %>
   </div>
-
-  <div class="field">
-    <%= f.label :row_order %>
-    <%= f.number_field :row_order %>
-  </div>
-
-  <div class="field">
-    <%= f.label :photo_id %>
-    <%= f.text_field :photo_id %>
-  </div>
-
-  <div class="field">
-    <%= f.label :shipping_base_cents %>
-    <%= f.number_field :shipping_base_cents %>
+  
+  <div class="field form-group">
+    <%= f.label :additional_shipping_per_item %>
+    <%= f.number_field :additional_shipping_per_item, class: "form-control" %>
   </div>
 
 
-
-  <div class="field">
-    <%= f.label :slug %>
-    <%= f.text_field :slug %>
+  <hr />
+  <h2>Sizes</h2>
+  <div class='field form-group'>
+    <%= f.label :sizes_list, 'Enter OR SELECT sizes to create variants from.' %>
+    <%= f.text_field :sizes_list, class: "form-control" %>
   </div>
-
-  <div class="field">
-    <%= f.label :state %>
-    <%= f.number_field :state %>
-  </div>
-
-  <div class="field">
-    <%= f.label :deleted_at %>
-    <%= f.datetime_select :deleted_at %>
-  </div>
-
-  <div class="field">
-    <%= f.label :uid %>
-    <%= f.text_field :uid %>
-  </div>
-
-  <div class="field">
-    <%= f.label :international_shipping_base_cents %>
-    <%= f.number_field :international_shipping_base_cents %>
+  
+  <div class='field form-group variants'>
+    <%= f.fields_for :variants do |v| %>
+      
+      <div class='field form-group'>
+        <%= v.object.name %>
+      </div>
+      
+      <div class='field form-group'>
+        <%= v.label :price %>
+        <%= v.text_field :price, class: "form-control" %>
+      </div>
+      
+      <div class='field form-group'>
+        <%= v.label :shipping_base %>
+        <%= v.text_field :shipping_base, class: "form-control" %>
+      </div>
+            
+    <% end %>
   </div>
 
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.button "Save", class: 'btn' %>
   </div>
 <% end %>

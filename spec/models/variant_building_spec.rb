@@ -68,33 +68,34 @@ RSpec.describe 'Variant Building' do
 
    it "raises an error with a nil value" do
      color_values = nil
-     expect{@product.create_from_properties_and_options({
+     expect{@product.variants.create_from_properties_and_options({
        @color_option => color_values
-     })}.to raise_error
+     })}.to raise_error NoMethodError
    end
   
    
-   
-   # it "doesn't overwrite variants which already exist with the same name", focus: true do
-  #    existing_variant = Variant.new(price: "999")
-  #    existing_variant.option_values << VariantOptionValue.new(product_option: @color_option, name: "Black")
-  #    existing_variant.option_values << VariantOptionValue.new(product_option: @size_option, name: "XS")
-  #    @product.variants << existing_variant
-  #    @product.save
-  #    expect(@product.variants.include?(existing_variant)).to be true
-  #    expect(@product.variants.count).to eq 1
-  #
-  #    color_values = "Black"
-  #    size_values = "XS"
-  #
-  #    @product.variants.create_from_properties_and_options({
-  #     @color_option => color_values,
-  #     @size_option => size_values
-  #    })
-  #    expect(@product.variants.include?(existing_variant)).to be true
-  #    expect(@product.variants.count).to eq 1
-  #  end
-   
+
+   it "doesn't overwrite variants which already exist with the same name", focus: true do
+     existing_variant = Variant.new(price: "999")
+     existing_variant.option_values << OptionValue.new(option: @color_option, value: "Black")
+     existing_variant.option_values << OptionValue.new(option: @size_option, value: "XS")
+     @product.variants << existing_variant
+     @product.save
+     expect(@product.variants.include?(existing_variant)).to be true
+     expect(@product.variants.count).to eq 1
+
+     color_values = "Black"
+     size_values = "XS"
+
+     @product.variants.create_from_properties_and_options({
+      @color_option => color_values,
+      @size_option => size_values
+     })
+     
+     expect(@product.variants.map(&:price_cents).include?(99900)).to be true
+     expect(@product.variants.count).to eq 1
+   end
+
    it "can deconstitute itself to a hash of options and value" do
      color_values = "Black, White, Green"
      size_values = "XS, S, M, L, XL"

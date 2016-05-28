@@ -5,6 +5,9 @@
 - quick way to add or remove tag
 - and quick way to add/change caption for each
 
+- flatpickr
+- friendly id with changeable/updateable w/ history slugs
+
 - very basic dynamic css added
   - Perhaps lint or other safety check?
   - Clean up past stylesheets in public directory
