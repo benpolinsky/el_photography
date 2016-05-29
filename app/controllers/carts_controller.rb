@@ -7,10 +7,10 @@ class CartsController < ApplicationController
     
     respond_to do |format|
       if @cart_item.save
-        format.html {redirect_to :back, notice: "Item Added to Cart!"}
+        format.html {redirect_back(fallback_location: store_path, notice: "Item Added to Cart!")}
         format.js 
       else
-        format.html { redirect_to :back, notice: "Whoops something went wrong!" }
+        format.html {redirect_back(fallback_location: store_path, notice: "Whoops something went wrong!")}
         format.js
       end
     end
@@ -19,6 +19,11 @@ class CartsController < ApplicationController
   
   def show
       
+  end
+  
+  def empty
+    @cart.empty_contents
+    redirect_back(fallback_location: store_path, notice: "Cart Emptied")
   end
   
   private

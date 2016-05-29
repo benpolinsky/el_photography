@@ -48,11 +48,16 @@ Rails.application.routes.draw do
   get 'store/product/:id' => 'store#product', as: :product
   get 'store/help' => 'store#help', as: :help
   
-  resource :cart do
-    post 'add_item'
-    put 'change_item_quantity'
-    put 'change_item_quantity_to'
-    get 'empty'
+  scope '/store' do
+    resource :cart do
+      post 'add_item'
+      put 'change_item_quantity'
+      put 'change_item_quantity_to'
+      get 'empty'
+    end
+    
+    resource :orders
+    get 'checkout' => 'orders#new', as: :checkout
   end
   
   get 'home/index'

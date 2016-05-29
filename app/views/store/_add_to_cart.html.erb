@@ -1,4 +1,3 @@
-
 <% if product.variants.any? %>
     <%= form_tag(add_item_cart_path(LineItem.new), class: "add-item-to-cart") do %>
       <%= hidden_field_tag "line_item[product_id]", product.id  %>
@@ -10,6 +9,10 @@
   <% if product.quantity < 1 %>
     <%= form_tag('', {:class => "form"}) do %>    
       <%= link_to "Unavailable", '', class: "btn no-click" %>    
+    <% end %>
+  <% elsif product.quantity - cart.number_of_products_inside(product.id, "product") < 1 %>
+    <%= form_tag('', {:class => "form"}) do %>    
+      <%= link_to "Already In Cart", '', class: "btn no-click" %>    
     <% end %>
   <% elsif !(product.only_one? && cart.has_product(product.id, "product")) %>
     <%= form_tag(add_item_cart_path(LineItem.new), class: "add-item-to-cart") do %>

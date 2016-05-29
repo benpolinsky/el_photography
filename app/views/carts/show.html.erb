@@ -1,7 +1,32 @@
-<ul>
-  <% @cart.line_items.each do |item| %>
-    <li>
-      <%= item.name %> | <%= item.price %>
-    </li>
+<div id="display-cart">
+  <% if @cart.line_items.any? %>
+  <header id="bag">
+    <p>Your Cart</p>
+    <%= link_to "Empty Contents", empty_cart_path, remote: true, data: {confirm: "Are you sure?"} %>
+  </header>
+
+  <div id="cart_line_items">
+    <% @cart.line_items.each do |item|%>
+      <div class="item-slice slice" id="cart_item_<%= item.id %>">
+        <%= render :partial => 'cart_item', locals: {cart_item: item, cart: @cart, item_view: ItemView.new(item)} %>
+      </div>
+    <% end %>
+  </div>
+  
+  <div id="total-slices">
+    <%= @cart_view.checkout_order_subtotal %>
+
+    <%= @cart_view.checkout_estimated_shipping %>
+
+    <%= @cart_view.checkout_grand_total %>
+
+    <div class="bag-checkout-slice slice">
+      <%= link_to "Checkout", checkout_path %>
+    </div>
+  </div>
+  
+  <% else %>
+  No Items
+  <%= link_to "Keep Shopping", store_path %>
   <% end %>
-</ul>
+</div>

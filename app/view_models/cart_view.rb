@@ -17,25 +17,29 @@ class CartView
 
   # checkout
   
-  def checkout_order_subtotal(line_items)
+  def checkout_order_subtotal(line_items=@cart.line_items)
+    return if line_items.none?
     content_tag :div, class: "checkout-order-subtotal" do
       concat content_tag :p, "Subtotal: <span>#{number_to_currency(line_items_subtotal(line_items))}</span>".html_safe 
     end
   end
   
-  def checkout_grand_total(line_items)
-    content_tag :p, "Grand total: <span class='grand-total'>#{number_to_currency line_items_grand_total(line_items)/100.00} (USD)</span>".html_safe
+  def checkout_grand_total(line_items=@cart.line_items)
+    return if line_items.none?
+    content_tag :p, "Grand total: <span class='grand-total'>#{number_to_currency line_items_grand_total(line_items)} (USD)</span>".html_safe
   end
   
-  def checkout_estimated_shipping(line_items)
+  def checkout_estimated_shipping(line_items=@cart.line_items)
+    return if line_items.none?
     content_tag :div, class: "checkout-order-subtotal" do
-      content_tag :p, "Estimated Shipping: <span>#{display_shipping valid_line_items_shipping_total(line_items)/100.00}</span>".html_safe
+      content_tag :p, "Estimated Shipping: <span>#{display_shipping line_items_shipping_total(line_items)/100.00}</span>".html_safe
     end
   end
   
-  def checkout_final_shipping(line_items)
+  def checkout_final_shipping(line_items=@cart.line_items)
+    return if line_items.none?
     content_tag :div, class: "checkout-order-subtotal" do
-      content_tag :p, "Shipping: <span>#{display_shipping valid_line_items_shipping_total(line_items)/100.00}</span>".html_safe
+      content_tag :p, "Shipping: <span>#{display_shipping line_items_shipping_total(line_items)/100.00}</span>".html_safe
     end
   end
 
@@ -58,7 +62,7 @@ class CartView
   end
   
   def line_items_grand_total(line_items)
-    line_items_subtotal(line_items).cents + line_items_shipping_total(line_items)
+    line_items_subtotal(line_items).to_i + line_items_shipping_total(line_items).to_i
   end
   
   def display_shipping(price)
