@@ -11,10 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160528191244) do
+ActiveRecord::Schema.define(version: 20160529022101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.integer  "order_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "street_line_1"
+    t.string   "street_line_2"
+    t.string   "street_line_3"
+    t.string   "country"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip_code"
+    t.string   "kind"
+    t.string   "phone_number"
+    t.integer  "row_order"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["order_id"], name: "index_addresses_on_order_id", using: :btree
+  end
 
   create_table "carts", force: :cascade do |t|
     t.string   "uid"
@@ -75,6 +94,29 @@ ActiveRecord::Schema.define(version: 20160528191244) do
     t.integer "product_id"
     t.index ["option_id"], name: "index_options_products_on_option_id", using: :btree
     t.index ["product_id"], name: "index_options_products_on_product_id", using: :btree
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string   "uid"
+    t.string   "short_uid"
+    t.datetime "purchased_at"
+    t.integer  "status",                  default: 0
+    t.string   "payment_method"
+    t.datetime "deleted_at"
+    t.string   "payment_provider_key"
+    t.boolean  "live",                    default: true
+    t.string   "payment_email"
+    t.string   "slug"
+    t.string   "shipping_total"
+    t.string   "grand_total"
+    t.integer  "subtotal_cents"
+    t.string   "subtotal_cents_currency"
+    t.integer  "shipping_total_cents"
+    t.string   "shipping_total_currency"
+    t.integer  "grand_total_cents"
+    t.string   "grand_total_currency"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
   end
 
   create_table "photos", force: :cascade do |t|

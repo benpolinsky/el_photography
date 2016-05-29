@@ -1,0 +1,10 @@
+<%= item_view.thumb_image %>
+
+<%= content_tag :div, class: "item-slice-info" do %>
+  <%= item_view.name_and_link %>
+  <%= item_view.display_quantity %>
+<% end %>
+
+<%= item_view.subtotal %>
+<%= item_view.estimated_shipping %>
+

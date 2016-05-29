@@ -51,6 +51,10 @@ class ItemView
       yield
     end
   end
+
+  def display_quantity
+    content_tag :span, "Quantity: #{@item.quantity}", class: "quantity"
+  end
   
   def remove
     content_tag :span, "Remove", class: "decrement-quantity"

@@ -1,0 +1,28 @@
+<h1>Checkout</h1>
+<div class='order-summary'>
+  <% @order.line_items.each do |item| %>
+    <%= render partial: 'order_item', locals: {item_view: ItemView.new(item)} %>
+  <% end %>
+</div>
+
+<p>You can check out using PayPal or Stripe :)</p>
+
+<%= form_for @order do |f| %>
+<div class='shipping-address'>
+  <%= f.fields_for :address, @shipping_address do |address| %>
+    <%= address.hidden_field :kind, value: 'shipping', disabled: 'disabled'%>
+    <%= render partial: 'address_fields', locals: {address: address, no_names: false} %>
+  <% end %>
+</div>
+
+<div class='billing-address'>
+  <%= f.fields_for :address, @billing_address do |address| %>
+    <%= address.hidden_field :kind, value: 'billing', disabled: 'disabled'%>
+    <%= render partial: 'address_fields', locals: {address: address} %>
+  <% end %>
+</div>
+  
+<% end %>
+<div class='enter_addressses'>
+
+</div>

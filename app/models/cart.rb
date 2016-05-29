@@ -2,6 +2,9 @@ class Cart < ApplicationRecord
   has_many :line_items, as: :itemized, dependent: :delete_all
   enum status: [:empty, :has_items, :in_line]
 
+  monetize :subtotal_cents
+  monetize :shipping_cents
+  monetize :total_cents
   
   def add_cart_item(product_id, product_type)
     if current_item = line_items.find_by(product_id: product_id, product_type: product_type)
@@ -43,5 +46,17 @@ class Cart < ApplicationRecord
   
   def number_of_products_inside(product_id, product_type="product")
     line_items.find_by(product_id: product_id, product_type: product_type).try(:quantity).to_i
+  end
+  
+  def subtotal_cents
+    line_items.to_a.sum(&:subtotal_cents)
+  end
+
+  def shipping_cents
+    line_items.to_a.sum(&:shipping_total_cents)
+  end
+
+  def total_cents
+    line_items.to_a.sum(&:total_cents)
   end
 end

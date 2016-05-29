@@ -44,6 +44,7 @@ gem 'figaro'
 gem 'parsley-rails'
 gem "flutie"
 gem 'trix'
+gem 'country_select'
 
 gem 'paypal-express'
 gem 'stripe'
@@ -82,8 +83,8 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 3.0'
-  gem 'listen', '~> 3.0.5'
+  # gem 'web-console', '~> 3.0'
+  # gem 'listen', '~> 3.0.5'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

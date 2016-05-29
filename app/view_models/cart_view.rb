@@ -20,26 +20,26 @@ class CartView
   def checkout_order_subtotal(line_items=@cart.line_items)
     return if line_items.none?
     content_tag :div, class: "checkout-order-subtotal" do
-      concat content_tag :p, "Subtotal: <span>#{number_to_currency(line_items_subtotal(line_items))}</span>".html_safe 
+      concat content_tag :p, "Subtotal: <span>#{line_items_subtotal.format}</span>".html_safe 
     end
   end
   
   def checkout_grand_total(line_items=@cart.line_items)
     return if line_items.none?
-    content_tag :p, "Grand total: <span class='grand-total'>#{number_to_currency line_items_grand_total(line_items)} (USD)</span>".html_safe
+    content_tag :p, "Grand total: <span class='grand-total'>#{line_items_grand_total.format} (USD)</span>".html_safe
   end
   
   def checkout_estimated_shipping(line_items=@cart.line_items)
     return if line_items.none?
     content_tag :div, class: "checkout-order-subtotal" do
-      content_tag :p, "Estimated Shipping: <span>#{display_shipping line_items_shipping_total(line_items)/100.00}</span>".html_safe
+      content_tag :p, "Estimated Shipping: <span>#{display_shipping line_items_shipping_total}</span>".html_safe
     end
   end
   
   def checkout_final_shipping(line_items=@cart.line_items)
     return if line_items.none?
     content_tag :div, class: "checkout-order-subtotal" do
-      content_tag :p, "Shipping: <span>#{display_shipping line_items_shipping_total(line_items)/100.00}</span>".html_safe
+      content_tag :p, "Shipping: <span>#{display_shipping line_items_shipping_total}</span>".html_safe
     end
   end
 
@@ -53,19 +53,19 @@ class CartView
     LineItem.calculate_shipping_total(line_items)/100.00
   end
   
-  def line_items_subtotal(line_items)
-    line_items.to_a.sum(&:subtotal)
+  def line_items_subtotal
+    @cart.subtotal
   end
   
-  def line_items_shipping_total(line_items)
-    line_items.to_a.sum(&:shipping_total_cents)
+  def line_items_shipping_total
+    @cart.shipping
   end
   
-  def line_items_grand_total(line_items)
-    line_items_subtotal(line_items).to_i + line_items_shipping_total(line_items).to_i
+  def line_items_grand_total
+    @cart.total
   end
   
   def display_shipping(price)
-    price > 0 ? number_to_currency(price) : "Free"
+    price.cents > 0 ? price.format : "Free"
   end
 end
