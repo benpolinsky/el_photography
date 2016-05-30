@@ -15,14 +15,11 @@
 <%= address.label :country, "Country", class: "control-label" %>
 <%= address.country_select :country, {priority_countries: Address::STRIPE_COUNTRIES}, {class: 'country-field'} %>
 
-
 <% address.label :city, "City:" %>
 <%= address.text_field :city, data: {parsley_required: 'true', parsley_error_message: "Please Enter Your City"}, class: 'field city', placeholder: "City" %>
 
-
 <% address.label :state, "State:" %>
 <%= address.text_field :state, data: {parsley_required: 'true', parsley_error_message: "Please Enter Your State"}, class: 'field state', placeholder: "State" %>
-
 
 <% address.label :zip_code, "Zip Code:" %>
 <%= address.text_field :zip_code, data: {parsley_required: 'true', parsley_error_message: "Please Enter Your Zip/Postal Code"}, class: 'field zip', placeholder: "Zip" %>

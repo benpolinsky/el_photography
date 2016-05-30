@@ -1,7 +1,6 @@
 class CreateAddresses < ActiveRecord::Migration[5.0]
   def change
     create_table :addresses do |t|
-      t.references :order
       t.string :first_name
       t.string :last_name
       t.string :street_line_1
@@ -14,6 +13,7 @@ class CreateAddresses < ActiveRecord::Migration[5.0]
       t.string :kind
       t.string :phone_number
       t.integer :row_order
+      t.references :addressable, polymorphic: true
 
       t.timestamps
     end

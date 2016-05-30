@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(version: 20160529022101) do
   enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
-    t.integer  "order_id"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "street_line_1"
@@ -30,9 +29,11 @@ ActiveRecord::Schema.define(version: 20160529022101) do
     t.string   "kind"
     t.string   "phone_number"
     t.integer  "row_order"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.index ["order_id"], name: "index_addresses_on_order_id", using: :btree
+    t.string   "addressable_type"
+    t.integer  "addressable_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id", using: :btree
   end
 
   create_table "carts", force: :cascade do |t|
@@ -100,12 +101,13 @@ ActiveRecord::Schema.define(version: 20160529022101) do
     t.string   "uid"
     t.string   "short_uid"
     t.datetime "purchased_at"
-    t.integer  "status",                  default: 0
+    t.string   "status"
     t.string   "payment_method"
     t.datetime "deleted_at"
     t.string   "payment_provider_key"
     t.boolean  "live",                    default: true
     t.string   "payment_email"
+    t.string   "contact_email"
     t.string   "slug"
     t.string   "shipping_total"
     t.string   "grand_total"

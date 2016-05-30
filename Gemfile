@@ -50,6 +50,7 @@ gem 'paypal-express'
 gem 'stripe'
 gem 'money-rails'
 gem 'friendly_id', '~> 5.1.0'
+gem 'aasm'
 
 gem "paranoia", branch: "core"
 gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on' # rails 5 (4/25/16

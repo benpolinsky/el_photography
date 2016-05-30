@@ -77,6 +77,7 @@ GEM
   remote: https://rails-assets.org/
   specs:
     CFPropertyList (2.3.2)
+    aasm (4.10.1)
     actioncable (5.0.0.rc1)
       actionpack (= 5.0.0.rc1)
       nio4r (~> 1.2)
@@ -449,6 +450,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm
   active_link_to
   acts-as-taggable-on!
   bootstrap (~> 4.0.0.alpha3)

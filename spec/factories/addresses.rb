@@ -1,17 +1,21 @@
-FactoryGirl.define do
-  factory :address do
-    order nil
-    first_name "MyString"
-    last_name "MyString"
-    street_line_1 "MyString"
-    street_line_2 "MyString"
-    street_line_3 "MyString"
-    country "MyString"
-    city "MyString"
-    state "MyString"
-    zip_code "MyString"
-    kind "MyString"
-    phone_number "MyString"
-    row_order 1
+FactoryGirl.define do  
+  factory :full_address, class: Address do
+    first_name "Joe"
+    last_name "Person"
+    street_line_1 "123 Fake St"
+    street_line_2 "Apt 21 2nd Floor"
+    country "U.S."
+    city "Philadelphia"
+    state "PA"
+    zip_code "19119"
+    phone_number "2152113111"
+  end
+  
+  factory :billing_address, parent: :full_address do
+    kind "billing"
+  end
+  
+  factory :shipping_address, parent: :full_address do
+    kind "shipping"
   end
 end
