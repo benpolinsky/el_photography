@@ -57,6 +57,8 @@ class Order < ApplicationRecord
   has_one :billing_address, -> {where(kind: 'billing')}, class_name: 'Address', as: :addressable, :dependent => :destroy
   has_one :shipping_address, -> {where(kind: 'shipping')}, class_name: 'Address', as: :addressable, :dependent => :destroy
     
+  before_create :assign_uid
+  after_create :assign_short_uid
   # this belongs in checkout
   def self.new_from_cart(cart)
     new_order = self.new
@@ -105,4 +107,49 @@ class Order < ApplicationRecord
     Payment.new(self).confirmed?
   end
   
+  def calculate_totals
+    self.assign_attributes({
+      subtotal_cents: items_subtotal_cents,
+      shipping_total_cents: items_shipping_cents,
+      grand_total_cents: items_subtotal_cents + items_shipping_cents
+    })
+  end
+  
+  def items_subtotal_cents
+    self.line_items.to_a.sum(&:subtotal_cents)
+  end
+
+  def items_shipping_cents
+    ShippingCalculator.new(self).total_shipping.cents
+  end
+
+  def items_total_cents
+    self.line_items.to_a.sum(&:total_cents)
+  end
+  
+  def assign_uid
+    self.uid = SecureRandom.uuid
+  end
+  
+  def assign_short_uid
+    hashids = Hashids.new(self.created_at.to_i.to_s)
+    self.update_attribute(:short_uid, hashids.encode(self.line_items.size, self.id, Order.all.size))
+  end
+  
+  def short_or_uid
+    short_uid ? short_uid : uid
+  end
+  
+  
+  def corresponding_products
+    products = []
+    self.line_items.each do |item|
+      products << item.product_type.classify.constantize.find(item.product_id)
+    end
+    products
+  end
+    
+  def self.find_product_from_item(item)
+    item.product_type.classify.constantize.find(item.product_id)
+  end  
 end

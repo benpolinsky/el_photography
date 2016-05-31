@@ -3,9 +3,9 @@ class ShippingCalculator
   attr_accessor :source_country, :destination_country, :line_items
   
   def initialize(order, source=nil, destination=nil)
-    if order.present?
+    if order
       @source_country ||= order.try(:seller).try(:shop).try(:address) ? order.shop.address.country : "US"
-      @destination_country ||= order.addresses.shipping.first.present? ? order.addresses.shipping.first.country : "US"
+      @destination_country ||= order.shipping_address.present? ? order.shipping_address.country : "US"
       @line_items ||= order.line_items
     else
       @source_country = source
@@ -60,7 +60,7 @@ class ShippingCalculator
   end
   
   def additional_shipping_cost(line_item)
-    line_item.shipping_base + ((line_item.quantity.to_i - 1) * line_item.additional_shipping_per_item)
+    line_item.shipping_base + ((line_item.quantity.to_i - 1) * line_item.additional_shipping_per_item.to_i)
   end
   
   def international_shipping_cost(line_item)

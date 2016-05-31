@@ -193,123 +193,126 @@ RSpec.describe Order, :type => :model do
     end
 
    end
-  #
-  # context "totals" do
-  #   before do
-  #     items = [
-  #       create(:line_item_with_product, price_cents: 100, shipping_cents: 50, quantity:5),
-  #       create(:line_item_with_product, price_cents: 1100, shipping_cents: 50, quantity:1),
-  #       create(:line_item_with_product, price_cents: 500, shipping_cents: 1250, quantity:1)
-  #     ]
-  #     @order = Order.new
-  #     @order.line_items << items
-  #
-  #     @order.save
-  #   end
-  #
-  #   it "calculates totals correctly from line items" do
-  #     @order.calculate_totals
-  #     expect(@order.subtotal_cents).to eq 500+1100+500
-  #     expect(@order.total_cents).to eq 500+250+1100+50+500+1250
-  #
-  #     items = [
-  #       create(:line_item_with_product, price_cents: 0, shipping_cents: 50, quantity:5),
-  #       create(:line_item_with_product, price_cents: 50, shipping_cents: 50, quantity:2),
-  #       create(:line_item_with_product, price_cents: 500, shipping_cents: 1250, quantity:1)
-  #     ]
-  #
-  #
-  #     @order.line_items.delete_all
-  #     @order.line_items << items
-  #     @order.save
-  #     @order.calculate_totals
-  #     expect(@order.subtotal_cents).to eq 0+100+500
-  #     expect(@order.total_cents).to eq 250+200+1750
-  #
-  #
-  #     items = [
-  #         create(:line_item_with_product, price_cents: 0, shipping_cents: 50, quantity:5),
-  #         create(:line_item_with_product, price_cents: 50, shipping_cents: 50, quantity:2),
-  #         create(:line_item_with_product, price_cents: 500, shipping_cents: 1250, quantity:1)
-  #     ]
-  #
-  #
-  #     @order.line_items.delete_all
-  #     @order.line_items << items
-  #     @order.save
-  #     expect(@order.subtotal_cents).to eq 0+100+500
-  #     expect(@order.total_cents).to eq 250+200+1750
-  #   end
-  #
-  #   it "calculates the total with no discounts" do
-  #     order = create(:order_shipping_filled)
-  #     order.calculate_totals!
-  #     expect(order.discount_type).to eq nil
-  #     expect(order.discount).to eq Money.new(0)
-  #     expect(order.subtotal).to eq Money.new(2100)
-  #     expect(order.subtotal_with_discount).to eq Money.new(2100)
-  #     expect(order.total_with_discount).to eq Money.new(2100+1550)
-  #   end
-  # end
-  #
-  # context "deletion" do
-  #   before do
-  #     items = [
-  #       LineItem.create(price_cents: 100, shipping_cents: 50, quantity:5),
-  #       LineItem.create(price_cents: 1100, shipping_cents: 50, quantity:1),
-  #       LineItem.create(price_cents: 500, shipping_cents: 1250, quantity:1)
-  #     ]
-  #     @order = Order.new
-  #     @order.line_items << items
-  #
-  #     @order.save
-  #   end
-  #
-  #   it "cant be deleted" do
-  #     expect(@order.deleted_at).to be nil
-  #     @order.delete
-  #     expect(@order.deleted_at).to_not be nil
-  #   end
-  # end
-  #
-  #
-  #
-  #
-  # context "instance methods" do
-  #   it "can find all products corresponding to its lineitems" do
-  #     order = create(:shipped_order)
-  #     products = []
-  #     order.line_items.each do |item|
-  #       products << Product.find(item.product_id)
-  #     end
-  #     expect(order.corresponding_products).to match products
-  #   end
-  # end
-  #
-  # context "class methods" do
-  #   it "can find a line_item's corresponding product" do
-  #     order = create(:shipped_order)
-  #     line_item = order.line_items.last
-  #     product = Order.find_product_from_item(line_item)
-  #     product_type = line_item.product_type
-  #     expect(product).to eq product_type.classify.constantize.find(order.line_items.last.product_id)
-  #   end
-  # end
-  #
-  # context "Order short-uid" do
-  #   it "is a hashid of a users id, an orders id, and number of orders for user" do
-  #     order = create(:paid_order)
-  #     hashids = Hashids.new(order.seller.created_at.to_i.to_s)
-  #     expect(order.short_uid).to eq hashids.encode(order.seller.id, order.id, order.seller.orders.count)
-  #     expect(hashids.decode(order.short_uid)).to eq([order.seller.id, order.id, order.seller.orders.count])
-  #   end
-  #
-  #   it "is unique to each order" do
-  #     order = create(:paid_order)
-  #     order_two = create(:paid_order)
-  #     expect(order.short_uid).to_not eq order_two.short_uid
-  #   end
-  #
-  # end
+ 
+  context "totals" do
+    before do
+      items = [
+        create(:line_item_with_product, price_cents: 100, shipping_base_cents: 50, quantity:5),
+        create(:line_item_with_product, price_cents: 1100, shipping_base_cents: 50, quantity:1),
+        create(:line_item_with_product, price_cents: 500, shipping_base_cents: 1250, quantity:1)
+      ]
+      @order = Order.new
+      @order.line_items << items
+
+      @order.save
+    end
+
+    it "calculates totals correctly from line items", focus: true do
+      @order.calculate_totals
+      expect(@order.subtotal_cents).to eq 500+1100+500
+      expect(@order.shipping_total_cents).to eq 250+50+1250
+      expect(@order.grand_total_cents).to eq 500+250+1100+50+500+1250
+
+      items = [
+        create(:line_item_with_product, price_cents: 0, shipping_base_cents: 50, quantity:5),
+        create(:line_item_with_product, price_cents: 50, shipping_base_cents: 50, quantity:2),
+        create(:line_item_with_product, price_cents: 500, shipping_base_cents: 1250, quantity:1)
+      ]
+
+
+      @order.line_items.delete_all
+      @order.line_items << items
+      @order.save
+      @order.calculate_totals
+      expect(@order.subtotal_cents).to eq 0+100+500
+      expect(@order.grand_total_cents).to eq 250+200+1750
+
+
+      items = [
+          create(:line_item_with_product, price_cents: 0, shipping_base_cents: 50, quantity:5),
+          create(:line_item_with_product, price_cents: 50, shipping_base_cents: 50, quantity:2),
+          create(:line_item_with_product, price_cents: 500, shipping_base_cents: 1250, quantity:1)
+      ]
+
+
+      @order.line_items.delete_all
+      @order.line_items << items
+      @order.save
+      expect(@order.subtotal_cents).to eq 0+100+500
+      expect(@order.grand_total_cents).to eq 250+200+1750
+    end
+
+    # discounts not implemented yet
+    pending "calculates the total with no discounts" do
+      order = create(:order_shipping_filled)
+      order.calculate_totals!
+      expect(order.discount_type).to eq nil
+      expect(order.discount).to eq Money.new(0)
+      expect(order.subtotal).to eq Money.new(2100)
+      expect(order.subtotal_with_discount).to eq Money.new(2100)
+      expect(order.total_with_discount).to eq Money.new(2100+1550)
+    end
+  end
+  
+  # pending dependency mess vis-a-vis paranoia 2 + rails 5, which for some reason I cannot get to resolve
+  pending "deletion" do
+    before do
+      items = [
+        LineItem.create(price_cents: 100, shipping_base_cents: 50, quantity:5),
+        LineItem.create(price_cents: 1100, shipping_base_cents: 50, quantity:1),
+        LineItem.create(price_cents: 500, shipping_base_cents: 1250, quantity:1)
+      ]
+      @order = Order.new
+      @order.line_items << items
+
+      @order.save
+    end
+
+    it "cant be deleted" do
+      expect(@order.deleted_at).to be nil
+      @order.delete
+      expect(@order.deleted_at).to_not be nil
+    end
+  end
+
+
+
+ 
+  context "instance methods" do
+    it "can find all products corresponding to its lineitems" do
+      order = create(:shipped_order)
+      products = []
+      order.line_items.each do |item|
+        products << Product.find(item.product_id)
+      end
+      expect(order.corresponding_products).to match products
+    end
+  end
+
+  context "class methods" do
+    it "can find a line_item's corresponding product" do
+      order = create(:shipped_order, line_items: [create(:line_item_with_product)])
+      line_item = order.line_items.last
+      product = Order.find_product_from_item(line_item)
+      product_type = line_item.product_type
+      expect(product).to eq product_type.classify.constantize.find(order.line_items.last.product_id)
+    end
+  end
+
+  context "Order short-uid" do
+    it "is a hashid of a users id, an orders id, and number of orders for user" do
+      order = create(:paid_paypal_order)
+      hashids = Hashids.new(order.created_at.to_i.to_s)
+      expect(order.short_uid).to eq hashids.encode(order.line_items.size, order.id, Order.all.size)
+      expect(hashids.decode(order.short_uid)).to eq([order.line_items.size, order.id, Order.all.size])
+    end
+
+    it "is unique to each order" do
+      order = create(:paid_paypal_order)
+      order_two = create(:paid_paypal_order)
+      expect(order.short_uid).to_not eq order_two.short_uid
+    end
+
+  end
   
 end

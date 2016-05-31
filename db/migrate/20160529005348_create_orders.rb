@@ -15,9 +15,6 @@ class CreateOrders < ActiveRecord::Migration[5.0]
       
       # the monies
 
-      t.string :shipping_total
-      t.string :grand_total
-
 
       t.integer :subtotal_cents
       t.string :subtotal_cents_currency

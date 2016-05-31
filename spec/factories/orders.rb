@@ -50,6 +50,10 @@ FactoryGirl.define do
     end
   end
   
+  factory :shipped_order, parent: :order_with_addresses do
+    status "order_shipped"
+  end
+  
 
 
 end
