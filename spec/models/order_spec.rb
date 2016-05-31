@@ -107,41 +107,91 @@ RSpec.describe Order, :type => :model do
     end
     
     
-    it "transitions to payment accepted after accepting a payment" do
+    it "transitions to payment accepted if a paypal payment is successful" do
       paypal_order = create(:paypal_order)
-      Payment.any_instance.stub(:pay_via_paypal).and_return(true)
+      expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(true)
       expect{paypal_order.accept_payment}.to change{paypal_order.status}.from('payment_added').to('payment_accepted')
     end
-  #
-  #   it "transitions to payment failed after a failed payment" do
-  #     order_with_addresses = create(:order_shipping_filled)
-  #     expect(order_with_addresses.status).to eq "shipping_filled"
-  #     payment_response = PaymentResponseMock.new(false)
-  #     order_with_addresses.accept_payment!(payment_response.paid)
-  #     expect(order_with_addresses.status).to eq "payment_failed"
-  #   end
-  #
-  #   it "transitions to payment failed from payment accepted if payment succeeds" do
-  #     failed_order = create(:failed_order)
-  #     expect(failed_order.status).to eq "payment_failed"
-  #     payment_response = PaymentResponseMock.new(true)
-  #     failed_order.accept_payment!(payment_response.paid)
-  #     expect(failed_order.status).to eq "payment_accepted"
-  #   end
-  #
-  #   it "transitions to shipped from payment accepted if order ships" do
-  #     paid_order = create(:paid_order)
-  #     paid_order.ship!
-  #     expect(paid_order.status).to eq "order_shipped"
-  #   end
-  #
-  #   it "transitions to received if order recieved" do
-  #     shipped_order = create(:shipped_order)
-  #     shipped_order.received!
-  #     expect(shipped_order.status).to eq "order_received"
-  #   end
-  #
-  #
+    
+    it "transitions to payment accepted if a stripe payment is successful" do
+      order = create(:stripe_order)
+      order.credit_card_number = 100
+      order.credit_card_exp_month = 1
+      order.credit_card_exp_year = 2020
+      order.credit_card_security_code = 999
+      order.initialize_payment
+      expect_any_instance_of(Payment).to receive(:pay_via_stripe).and_return(true)
+      expect{order.accept_payment}.to change{order.status}.from('payment_added').to('payment_accepted')
+    end
+
+    it "transitions to payment failed after a failed paypal payment" do
+      paypal_order = create(:paypal_order)
+      expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(false)
+      expect{paypal_order.accept_payment}.to change{paypal_order.status}.from('payment_added').to('payment_failed')
+    end
+
+    it "transitions to payment failed after a failed stripe payment" do
+      order = create(:stripe_order)
+      order.credit_card_number = 100
+      order.credit_card_exp_month = 1
+      order.credit_card_exp_year = 2020
+      order.credit_card_security_code = 999
+      order.initialize_payment
+      expect_any_instance_of(Payment).to receive(:pay_via_stripe).and_return(false)
+      expect{order.accept_payment}.to change{order.status}.from('payment_added').to('payment_failed')
+    end
+    
+    it "transitions to payment confirmed from payment accepted when recieving confirmation from a paypal ipn" do
+      order = create(:paid_paypal_order)
+      expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(true)
+      order.accept_payment
+      expect_any_instance_of(Payment).to receive(:receive_paypal_ipn).and_return(true)
+      expect{order.confirm_payment}.to change{order.status}.from("payment_accepted").to("payment_confirmed")
+    end
+
+    it "confirmed from payment accepted when recieving confirmation from a stripe webhook" do
+      order = create(:stripe_order)
+      order.credit_card_number = 100
+      order.credit_card_exp_month = 1
+      order.credit_card_exp_year = 2020
+      order.credit_card_security_code = 999
+      order.initialize_payment
+      expect_any_instance_of(Payment).to receive(:pay_via_stripe).and_return(true)
+      expect{order.accept_payment}.to change{order.status}.from('payment_added').to('payment_accepted')
+      expect_any_instance_of(Payment).to receive(:receive_stripe_webhook).and_return(true)
+      expect{order.confirm_payment}.to change{order.status}.from("payment_accepted").to("payment_confirmed")
+    end
+
+    it "isn't confirmed if a failed paypal ipn response is received" do
+      order = create(:paid_paypal_order)
+      expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(true)
+      order.accept_payment
+      expect_any_instance_of(Payment).to receive(:receive_paypal_ipn).and_return(false)
+      expect(order.confirm_payment).to eq false
+    end
+    
+    it "isn't confirmed if a failed stripe webhook is received" do
+      order = create(:stripe_order)
+      order.credit_card_number = 100
+      order.credit_card_exp_month = 1
+      order.credit_card_exp_year = 2020
+      order.credit_card_security_code = 999
+      order.initialize_payment
+      expect_any_instance_of(Payment).to receive(:pay_via_stripe).and_return(true)
+      expect{order.accept_payment}.to change{order.status}.from('payment_added').to('payment_accepted')
+      expect_any_instance_of(Payment).to receive(:receive_stripe_webhook).and_return(false)
+      expect(order.confirm_payment).to eq false
+    end
+
+    it "transitions to shipped from payment confirmed if order ships" do
+      order = create(:paid_paypal_order)
+      expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(true)
+      order.accept_payment
+      expect_any_instance_of(Payment).to receive(:receive_paypal_ipn).and_return(true)
+      order.confirm_payment
+      expect{order.ship}.to change{order.status}.from('payment_confirmed').to('order_shipped')
+    end
+
    end
   #
   # context "totals" do

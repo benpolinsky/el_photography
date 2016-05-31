@@ -12,8 +12,8 @@ class Order < ApplicationRecord
     state :payment_failed
     state :payment_confirmed
     state :order_shipped
-    state :order_received
-    state :return_requested
+    # state :order_received
+    # state :return_requested
     
     event :add_email do
       transitions from: :empty, to: :email_added, :if => :contact_email
@@ -38,7 +38,11 @@ class Order < ApplicationRecord
     end
     
     event :confirm_payment do
-      transitions from: :payment_accepted, to: :payment_confirmed
+      transitions from: :payment_accepted, to: :payment_confirmed, if: :payment_confirmed?
+    end
+    
+    event :ship do
+      transitions from: :payment_confirmed, to: :order_shipped
     end
     
   end
@@ -95,6 +99,10 @@ class Order < ApplicationRecord
   
   def payment_successful?
     Payment.new(self).successful?
+  end
+  
+  def payment_confirmed?
+    Payment.new(self).confirmed?
   end
   
 end

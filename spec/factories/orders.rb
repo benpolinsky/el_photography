@@ -32,6 +32,24 @@ FactoryGirl.define do
     end
   end
   
+  factory :stripe_order, parent: :order_with_addresses do
+    payment_method "stripe"
+    credit_card_number = 100
+    credit_card_exp_month = 1
+    credit_card_exp_year = 2020
+    credit_card_security_code = 999
+    before(:create) do |order|
+      order.initialize_payment
+    end
+  end
+  
+  factory :paid_paypal_order, parent: :order_with_addresses do
+    payment_method "paypal"
+    after(:create) do |order|
+      order.initialize_payment
+    end
+  end
+  
 
 
 end
