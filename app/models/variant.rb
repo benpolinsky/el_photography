@@ -5,7 +5,7 @@ class Variant < ApplicationRecord
   
   belongs_to :product
   has_many :options, through: :product
-  has_and_belongs_to_many :option_values
+  has_and_belongs_to_many :option_values, dependent: :destroy
   
   monetize :price_cents, disable_validation: true
   monetize :shipping_base_cents, disable_validation: true

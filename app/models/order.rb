@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   include AASM
-  attr_accessor :shipping_same, :credit_card_number, :credit_card_exp_month, :credit_card_exp_year, :credit_card_security_code
+  attr_accessor :credit_card_number, :credit_card_exp_month, :credit_card_exp_year, :credit_card_security_code
     
   aasm :column => :status, :whiny_transitions => false do
     state :empty

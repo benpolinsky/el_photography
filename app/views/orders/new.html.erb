@@ -8,17 +8,24 @@
 <p>You can check out using PayPal or Stripe :)</p>
 
 <%= form_for @order do |f| %>
-<div class='shipping-address'>
-  <%= f.fields_for :address, @shipping_address do |address| %>
-    <%= address.hidden_field :kind, value: 'shipping', disabled: 'disabled'%>
-    <%= render partial: 'address_fields', locals: {address: address, no_names: false} %>
-  <% end %>
-</div>
+
 
 <div class='billing-address'>
+<h2>Billing Address</h2>
   <%= f.fields_for :address, @billing_address do |address| %>
     <%= address.hidden_field :kind, value: 'billing', disabled: 'disabled'%>
     <%= render partial: 'address_fields', locals: {address: address} %>
+  <% end %>
+  <%= f.label :shipping_same, "Shipping Address Same As Billing?" %>
+  <%= f.check_box :shipping_same %>
+</div>
+
+
+<div class='shipping-address'>
+<h2>Shipping Address</h2>
+  <%= f.fields_for :address, @shipping_address do |address| %>
+    <%= address.hidden_field :kind, value: 'shipping', disabled: 'disabled'%>
+    <%= render partial: 'address_fields', locals: {address: address, no_names: false} %>
   <% end %>
 </div>
   

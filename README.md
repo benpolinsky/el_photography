@@ -5,6 +5,7 @@
 - quick way to add or remove tag
 - and quick way to add/change caption for each
 - shop: 
+ - variants to cart is no good...
   - boolean of whether or not quantity is being used
   - in the above vein, you'll have to test out all the quantity/cart/add_to_cart options
 - friendly id with changeable/updateable w/ history slugs

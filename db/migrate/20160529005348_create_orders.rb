@@ -12,6 +12,7 @@ class CreateOrders < ActiveRecord::Migration[5.0]
       t.string :payment_email
       t.string :contact_email
       t.string :slug
+      t.boolean :shipping_same
       
       # the monies
 

@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 20160529022101) do
     t.string   "payment_email"
     t.string   "contact_email"
     t.string   "slug"
+    t.boolean  "shipping_same"
     t.integer  "subtotal_cents"
     t.string   "subtotal_cents_currency"
     t.integer  "shipping_total_cents"

@@ -1,25 +1,42 @@
+<div class='form-group'>
+  <%= address.label :first_name, "First Name:" %>
+  <%= address.text_field :first_name, data: {parsley_required: 'true', parsley_error_message: "Please Enter a First Name"}, class: 'field_2', placeholder: "First Name"  %>
+</div>
 
-<% address.label :first_name, "First Name:" %>
-<%= address.text_field :first_name, data: {parsley_required: 'true', parsley_error_message: "Please Enter a First Name"}, class: 'field_2', placeholder: "First Name"  %>
+<div class='form-group'>
+  <%= address.label :last_name, "Last Name:" %>
+  <%= address.text_field :last_name, data: {parsley_required: 'true', parsley_error_message: "Please Enter a Last Name"}, class: 'field_2 end', placeholder: "Last Name" %>  
+</div>
+
+<div class='form-group'>
+  <%= address.label :street_line_1, "Street Address 1:" %>
+  <%= address.text_field :street_line_1, data: {parsley_required: 'true', parsley_error_message: "Please Enter a Street"}, class: 'field_1', placeholder: "Street Address 1" %>  
+</div>
+
+<div class='form-group'>
+  <%= address.label :street_line_2, "Street Address 2:" %>
+  <%= address.text_field :street_line_2, class: 'field_1', placeholder: "Street Address 2" %>  
+</div>
+
+<div class='form-group'>
+  <%= address.label :country, "Country", class: "control-label" %>
+  <%= address.country_select :country, {priority_countries: Address::STRIPE_COUNTRIES}, {class: 'country-field'} %>  
+</div>
+
+<div class='form-group'>
+  <%= address.label :city, "City:" %>
+  <%= address.text_field :city, data: {parsley_required: 'true', parsley_error_message: "Please Enter Your City"}, class: 'field city', placeholder: "City" %>  
+</div>
+
+<div class='form-group'>
+  <%= address.label :state, "State:" %>
+  <%= address.text_field :state, data: {parsley_required: 'true', parsley_error_message: "Please Enter Your State"}, class: 'field state', placeholder: "State" %>  
+</div>
+
+<div class='form-group'>
+  <%= address.label :zip_code, "Zip Code:" %>
+  <%= address.text_field :zip_code, data: {parsley_required: 'true', parsley_error_message: "Please Enter Your Zip/Postal Code"}, class: 'field zip', placeholder: "Zip" %>  
+</div>
 
 
-<% address.label :last_name, "Last Name:" %>
-<%= address.text_field :last_name, data: {parsley_required: 'true', parsley_error_message: "Please Enter a Last Name"}, class: 'field_2 end', placeholder: "Last Name" %>
 
-<% address.label :street_line_1, "Street Address 1:" %>
-<%= address.text_field :street_line_1, data: {parsley_required: 'true', parsley_error_message: "Please Enter a Street"}, class: 'field_1', placeholder: "Street Address 1" %>
-
-<% address.label :street_line_2, "Street Address 2:" %>
-<%= address.text_field :street_line_2, class: 'field_1', placeholder: "Street Address 2" %>
-
-<%= address.label :country, "Country", class: "control-label" %>
-<%= address.country_select :country, {priority_countries: Address::STRIPE_COUNTRIES}, {class: 'country-field'} %>
-
-<% address.label :city, "City:" %>
-<%= address.text_field :city, data: {parsley_required: 'true', parsley_error_message: "Please Enter Your City"}, class: 'field city', placeholder: "City" %>
-
-<% address.label :state, "State:" %>
-<%= address.text_field :state, data: {parsley_required: 'true', parsley_error_message: "Please Enter Your State"}, class: 'field state', placeholder: "State" %>
-
-<% address.label :zip_code, "Zip Code:" %>
-<%= address.text_field :zip_code, data: {parsley_required: 'true', parsley_error_message: "Please Enter Your Zip/Postal Code"}, class: 'field zip', placeholder: "Zip" %>

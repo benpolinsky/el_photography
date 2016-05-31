@@ -70,7 +70,7 @@ class ItemView
   def estimated_shipping
     content_tag :div, class: "item-price-total" do
       content_tag :span, 'Estimated Shipping', class: "label"
-      content_tag :span, @item.shipping_base.format, class: "value"
+      content_tag :span, @item.shipping_base.try(:format), class: "value"
     end
   end
   
