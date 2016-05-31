@@ -46,7 +46,6 @@ RSpec.describe Order, :type => :model do
       order = create(:order_with_email)
       order.billing_address = address
       order.shipping_same = true
-      order.save
       order.add_billing
       expect(order.shipping_address.attributes.except("id", "created_at", "updated_at", "kind")).
       to eq order.billing_address.attributes.except!("id", "created_at", "updated_at", "kind")
@@ -57,19 +56,62 @@ RSpec.describe Order, :type => :model do
       expect(order.add_billing).to eq false
     end
     
+    it "transitions to shipping filled after a shipping address is added" do
+      order = create(:order_with_billing_address)
+      order.create_shipping_address(attributes_for(:shipping_address))
+      expect(order.add_shipping).to eq true
+    end
     
-    # it "transitions to shipping filled after a shipping address is added" do
-    #
-    # end
-  #
-  #   it "transitions to payment accepted after accepting a payment" do
-  #     order_with_addresses = create(:order_shipping_filled)
-  #     expect(order_with_addresses.status).to eq "shipping_filled"
-  #     PaymentResponseMock ||= Struct.new(:paid)
-  #     payment_response = PaymentResponseMock.new(true)
-  #     order_with_addresses.accept_payment!(payment_response.paid)
-  #     expect(order_with_addresses.status).to eq "payment_accepted"
-  #   end
+    it "doesnt transition to shipping filled if no shipping address is added" do
+      order = create(:order_with_billing_address)
+      expect(order.add_shipping).to eq false
+    end
+
+    it 'transitions to payment_initiated if paypal is selected' do
+      order = create(:order_with_addresses)
+      order.payment_method = "paypal"
+      expect{order.initialize_payment}.to change{order.status}.from("shipping_added").to("payment_added")
+    end
+    
+    it "transitions to payment_initiated if stripe is selected and cc info entered" do
+      order = create(:order_with_addresses)
+      order.payment_method = "stripe"
+      order.credit_card_number = 100
+      order.credit_card_exp_month = 1
+      order.credit_card_exp_year = 2020
+      order.credit_card_security_code = 999
+      expect{order.initialize_payment}.to change{order.status}.from("shipping_added").to("payment_added")
+    end
+    
+    it "doesnt transition to payment_initiated if no payment method selected" do
+      order = create(:order_with_addresses)
+      expect(order.initialize_payment).to eq false
+    end
+    
+    it "doesnt transition to payment_initiated if all stripe fields are not entered" do
+      order = create(:order_with_addresses)
+      order.payment_method = "stripe"
+      order.credit_card_number = nil
+      order.credit_card_exp_month = nil
+      order.credit_card_exp_year = nil
+      order.credit_card_security_code = nil
+      expect(order.initialize_payment).to eq false
+      order.credit_card_number = 9999999999999999
+      expect(order.initialize_payment).to eq false
+      order.credit_card_exp_month = 9
+      expect(order.initialize_payment).to eq false
+      order.credit_card_exp_year = 2019
+      expect(order.initialize_payment).to eq false
+      order.credit_card_security_code = 999
+      expect(order.initialize_payment).to eq true
+    end
+    
+    
+    it "transitions to payment accepted after accepting a payment" do
+      paypal_order = create(:paypal_order)
+      Payment.any_instance.stub(:pay_via_paypal).and_return(true)
+      expect{paypal_order.accept_payment}.to change{paypal_order.status}.from('payment_added').to('payment_accepted')
+    end
   #
   #   it "transitions to payment failed after a failed payment" do
   #     order_with_addresses = create(:order_shipping_filled)

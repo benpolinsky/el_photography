@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   include AASM
-  attr_accessor :shipping_same
+  attr_accessor :shipping_same, :credit_card_number, :credit_card_exp_month, :credit_card_exp_year, :credit_card_security_code
     
   aasm :column => :status, :whiny_transitions => false do
     state :empty
@@ -21,20 +21,20 @@ class Order < ApplicationRecord
     
     event :add_billing do
       transitions from: :email_added, to: :shipping_added, if: :shipping_same_as_billing, after: :copy_shipping_address
-      transitions from: :email_added, to: :billing_added, if: :billing_address_added
+      transitions from: :email_added, to: :billing_added, if: :billing_address
     end
     
     event :add_shipping do
-      transitions from: :email_added, to: :shipping_added
+      transitions from: :billing_added, to: :shipping_added, if: :shipping_address
     end
     
     event :initialize_payment do
-      transitions from: :shipping_added, to: :payment_added
+      transitions from: :shipping_added, to: :payment_added, if: :payment_credentials
     end
     
     event :accept_payment do
-      transitions from: :payment_added, to: :payment_accepted
-      transitions from: :payment_added, to: :payment_failed # if failed
+      transitions from: :payment_added, to: :payment_accepted, if: :payment_successful?
+      transitions from: :payment_added, to: :payment_failed
     end
     
     event :confirm_payment do
@@ -53,6 +53,7 @@ class Order < ApplicationRecord
   has_one :billing_address, -> {where(kind: 'billing')}, class_name: 'Address', as: :addressable, :dependent => :destroy
   has_one :shipping_address, -> {where(kind: 'shipping')}, class_name: 'Address', as: :addressable, :dependent => :destroy
     
+  # this belongs in checkout
   def self.new_from_cart(cart)
     new_order = self.new
     cart.line_items.each do |item|
@@ -69,10 +70,6 @@ class Order < ApplicationRecord
    end    
   end
   
-  def billing_address_added
-    billing_address.present?
-  end
-  
   def shipping_same_as_billing
     billing_address && shipping_same
   end
@@ -84,5 +81,20 @@ class Order < ApplicationRecord
     shipping_address.save
   end
   
+  
+  def payment_credentials
+    case payment_method
+    when "paypal"
+      true 
+    when "stripe"
+      [credit_card_number, credit_card_exp_month, credit_card_exp_year, credit_card_security_code].all?(&:present?)
+    else
+      false
+    end
+  end
+  
+  def payment_successful?
+    Payment.new(self).successful?
+  end
   
 end
