@@ -1,6 +1,18 @@
 $(document).ready(function() {
-  // $('#exp-year').hide();
-  // $('#exp-month').hide();
+  $('.paypal-fields').hide();
+  $('.stripe-fields').hide();
+  $('.payment-chooser input#order_payment_method_paypal').on('click', function(event) {
+    $('.stripe-fields').hide();
+    $('.paypal-fields').show();
+  });
+  
+  $('.payment-chooser input#order_payment_method_stripe').on('click', function(event) {
+    $('.stripe-fields').show();
+    $('.paypal-fields').hide();
+  });
+  
+  $('#exp-year').hide();
+  $('#exp-month').hide();
 
   $('#card_month').change(function () {
     var month = $(this).val();
@@ -13,24 +25,23 @@ $(document).ready(function() {
   });
   
   $('form#submit-payment').submit(function (event) {
-    var $form = $(this);
-    $form.find('input[type="submit"]').prop('disabled', true);
-    $form.find('input[type="submit"]').attr('data-disable-with', '<i class="fa fa-spinner fa-spin"></i>Paying…');
-    Stripe.createToken($form, stripeResponseHandler);
-    return false;
+    if (!$(this).hasClass('paypal-submit')) {
+      var $form = $(this);
+      $form.find('input[type="submit"]').prop('disabled', true);
+      $form.find('input[type="submit"]').attr('data-disable-with', '<i class="fa fa-spinner fa-spin"></i>Paying…');
+      Stripe.createToken($form, stripeResponseHandler);
+      return false;      
+    }
   });
   
   
-  $('input[name="paypal"]').on('click', function(event) {
+  $('button[name="paypal"]').on('click', function(event) {
     event.preventDefault();
-    $('form#submit-payment').append($("<input type='hidden' name='paypal' />").val('true'));
+    $('form#submit-payment').addClass('paypal-submit');
     $('form#submit-payment').get(0).submit();
     return false;
   });
-  // $('.country-field').chosen({
-  //  disable_search: false,
-  //  width: '100%'
-  // });
+
 });
 
 

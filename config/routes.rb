@@ -37,6 +37,8 @@ Rails.application.routes.draw do
       end
     end
     
+    get 'orders' => 'orders#index'
+    
     get 'dashboard/index'
     root to: 'dashboard#index'
   end
@@ -61,7 +63,10 @@ Rails.application.routes.draw do
         get 'enter_address' => 'orders#enter_address'
         get 'enter_payment' => 'orders#enter_payment'
         get 'payment_accepted' => 'orders#payment_accepted'
+        get 'cancel_payment' => 'order#cancel_payment'
       end
+      get 'success', on: :collection
+      get 'cancel', on: :collection
     end
     get 'checkout' => 'orders#new', as: :checkout
 

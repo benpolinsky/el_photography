@@ -8,13 +8,16 @@
 <%# order summary %>
 <%= form_for @order, html: {id: "submit-payment"} do |f| %>
   <h2>Choose Payment Method</h2>
-  <div class='form-group'>
-    <%= f.radio_button :payment_method, "paypal" %> <%= f.label :payment_method, "Paypal" %>    
-  </div>
+  <div class='payment-chooser'>
+    <div class='form-group'>
+      <%= f.radio_button :payment_method, "paypal" %> <%= f.label :payment_method, "Paypal" %>    
+    </div>
   
-  <div class='form-group'>
-    <%= f.radio_button :payment_method, "stripe" %> <%= f.label :payment_method, "Card Via Stripe" %>    
+    <div class='form-group'>
+      <%= f.radio_button :payment_method, "stripe" %> <%= f.label :payment_method, "Card Via Stripe" %>    
+    </div>    
   </div>
+
   
   <div class="stripe-fields">
     <div class="payment-errors"></div>
@@ -36,10 +39,29 @@
       <%= f.label :credit_card_security_code %>
       <%= f.text_field :credit_card_security_code, name: nil, title: "Security Code", data: {stripe: "cvc"}, class: "field_1", placeholder: "Security Code" %>
     </div>
-    <%= hidden_field_tag :current_step, "process_payment" %>
     <%= f.button "Pay With Card", data: {disable_with: "Processing..."} %>
-
-    
+  </div>
+  <%= hidden_field_tag :current_step, "process_payment" %>
+  
+  <div class='paypal-fields'>
+    <%= f.button "Pay With Paypal", name: "paypal" %>
+    <p>When you click on "Pay With Paypal" you'll be taken to Paypal's site to finish payment.</p>
+    <%= content_tag :div, '<i class="fa fa-spinner fa-spin"></i>'.html_safe, class: "payment-spinner inactive" %>
+    <div class='paypal-image-container'>
+      <table border="0" cellpadding="10" cellspacing="0" align="center">
+        <tr>
+          <td align="center"></td>
+        </tr>
+        <tr>
+          <td align="center">
+            <a href="https://www.paypal.com/webapps/mpp/paypal-popup" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/bdg_secured_by_pp_2line.png" border="0" alt="Secured by PayPal"></a>
+            <div style="text-align:center">
+              <a href="https://www.paypal.com/webapps/mpp/paypal-popup" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><font size="2" face="Arial" color="#0079CD"><b>How PayPal Works</b></font></a>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
 
 

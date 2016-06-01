@@ -63,4 +63,13 @@ class Checkout
     end
     order
   end
+  
+  def remove_cart
+    @cart.destroy
+    @session[:cart_id] = nil
+  end
+  
+  def clear_order
+    @session[:order_id] = nil
+  end
 end

@@ -1,5 +1,5 @@
 <%= form_for @order do |f| %>
-  <%= f.fields_for :addresses do |address| %>
+  <%= f.fields_for :addresses, @order.addresses.billing_first do |address| %>
     <%= address.hidden_field :kind %>
     <%= render partial: 'address_fields', locals: {address: address} %>
     <%= hidden_field_tag :current_step, 'process_address' %>

@@ -58,6 +58,8 @@ class Order < ApplicationRecord
   before_create :assign_uid
   after_create :assign_short_uid
   
+  monetize :grand_total_cents
+  
   
   def shipping_same_as_billing
     billing_address && shipping_same
