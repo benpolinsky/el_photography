@@ -50,19 +50,23 @@ modulejs.define('payments', function () {
       if (response.error) {
         $form.find(".payment-errors").text(response.error.message);
         $form.find('input[type="submit"]').prop('disabled', false);
-      }else {
+      } else {
         var token = response.id;
         $form.data("remote", 'true');
         $form.append($("<input type='hidden' name='stripeToken' />").val(token));
         $form.get(0).submit();
       }
+    },
+    
+    hideShippingAddress: function () {
+      $('.shipping-address').addClass('hidden');
+    },
+
+    showShippingAddress: function () {
+      $('.shipping-address').removeClass('hidden');  
     }
-  
   }
-
-
-
-return Payments
   
+  return Payments  
 });
 
