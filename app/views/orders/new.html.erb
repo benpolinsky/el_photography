@@ -7,22 +7,21 @@
 
 <p>You can check out using PayPal or Stripe :)</p>
 
-<%= form_for @order do |f| %>
-
-
-<div class='addresses'>
-
-  <%= f.fields_for :addresses do |address| %>
-    <h2><%= address.object.kind.capitalize %> Address</h2>
-    <%= address.hidden_field :kind %>
-    <%= render partial: 'address_fields', locals: {address: address} %>
-    <%= hidden_field_tag :current_step, 'process_address' %>
-  <% end %>
-
-  <%= f.label :shipping_same, "Shipping Address Same As Billing?" %>
-  <%= f.check_box :shipping_same %>
-</div>
-
-<%= f.submit "Submit", :disable_with => 'Submiting...' %>  
+<%= form_for @order, remote: true do |f| %>
+  <div class='addresses'>
+    <%= f.fields_for :addresses, [@order.billing_address, @order.shipping_address] do |address| %>
+      <div class="<%= address.object.kind %>-address">
+        <h2><%= address.object.kind.capitalize %> Address</h2>
+        <%= address.hidden_field :kind %>
+        <%= render partial: 'address_fields', locals: {address: address} %>
+        <%= hidden_field_tag :current_step, 'process_address' %>
+        <% if address.object.kind == "billing" %>
+          <%= f.label :shipping_same, "Shipping Address Same As Billing?" %>
+          <%= f.check_box :shipping_same %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <%= f.submit "Submit", :disable_with => 'Submiting...' %>  
 <% end %>
 

@@ -4,12 +4,21 @@
 - reorder tags
 - quick way to add or remove tag
 - and quick way to add/change caption for each
+
 - shop: 
- - the checkout wizard should be reimplemented with json as opposed to erbs and partials, after.
+ - Wizard. 
+ - Fill out totals, quantities, add js for quantities, etc (cart etc)
  - order id to uid to obfuscate id
  - variants to cart is no good...
-  - boolean of whether or not quantity is being used
-  - in the above vein, you'll have to test out all the quantity/cart/add_to_cart options
+ - boolean of whether or not quantity is being used
+ - in the above vein(s), you'll have to test out all the quantity/cart/add_to_cart options
+ - the checkout wizard should be reimplemented with json as opposed to erbs and partials, after.
+ - Better storage of orders
+
+- Payments: 
+  - IPN + Webhooks
+  
+
 - friendly id with changeable/updateable w/ history slugs
 - notices + errors both front and back end
 - very basic dynamic css added

@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 20160529022101) do
     t.integer  "weight_in_oz"
     t.integer  "row_order"
     t.integer  "photo_id"
+    t.boolean  "using_inventory",                                     default: false
     t.integer  "shipping_base_cents"
     t.string   "shipping_base_currency"
     t.integer  "additional_shipping_per_item_cents"
@@ -153,8 +154,8 @@ ActiveRecord::Schema.define(version: 20160529022101) do
     t.datetime "deleted_at"
     t.string   "uid"
     t.boolean  "taken_down"
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.datetime "created_at",                                                          null: false
+    t.datetime "updated_at",                                                          null: false
     t.index ["photo_id"], name: "index_products_on_photo_id", using: :btree
   end
 

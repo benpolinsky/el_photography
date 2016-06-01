@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   respond_to :html, :js
-  before_filter :find_order, except: [:new, :create, :success, :cancel]
+  before_action :find_order, except: [:new, :create, :success, :cancel]
   
   # create on new.  allows for tracking of abandoned orders
   def new

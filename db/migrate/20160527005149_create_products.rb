@@ -10,7 +10,7 @@ class CreateProducts < ActiveRecord::Migration[5.0]
       t.integer :weight_in_oz
       t.integer :row_order
       t.references :photo, foreign_key: true
-
+      t.boolean :using_inventory, default: :false
       # money fields:
       
       t.integer :shipping_base_cents

@@ -16,7 +16,7 @@ module Quantifiable
   
   
   def has_stock?
-    quantity.to_i > 0
+    !using_inventory || quantity.to_i > 0
   end
   
   def out_of_stock!
@@ -24,9 +24,13 @@ module Quantifiable
   end
   
   
-  # this is more appropriately "quantity_not_lockedm or something to that effect"
+  # this is more appropriately "quantity_not_locked" or something to that effect
   def available_quantity
-    quantity
+    if using_inventory
+      quantity
+    else
+      Float::INFINITY # maybe this'll work
+    end
   end
   
   module ClassMethods

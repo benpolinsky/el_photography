@@ -187,6 +187,7 @@ class Product < ApplicationRecord
       product.created_at.beginning_of_week
     end.sort.to_h
   end
+
   
   # def self.with_visible_stock(cart)
   #   stocked.reject { |product| cart.number_of_products_inside(product.id, "product") >= product.quantity }
