@@ -96,6 +96,7 @@ RSpec.describe LineItem, :type => :model do
     end
     
     it "shipping total cents uses ShippingCalculator" do
+
       line_item = build(:line_item, quantity: 12, shipping_base_cents: 100, additional_shipping_per_item_cents: 50)
       expect(line_item.shipping_total_cents).to eq 650
     end
@@ -181,7 +182,7 @@ RSpec.describe LineItem, :type => :model do
   end
   
   context "class methods" do
-    it "can return a total of all of its line items", focus: true do
+    it "can return a total of all of its line items" do
       LineItem.delete_all
       
       items = [

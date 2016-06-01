@@ -10,26 +10,19 @@
 <%= form_for @order do |f| %>
 
 
-<div class='billing-address'>
-<h2>Billing Address</h2>
-  <%= f.fields_for :address, @billing_address do |address| %>
-    <%= address.hidden_field :kind, value: 'billing', disabled: 'disabled'%>
+<div class='addresses'>
+
+  <%= f.fields_for :addresses do |address| %>
+    <h2><%= address.object.kind.capitalize %> Address</h2>
+    <%= address.hidden_field :kind %>
     <%= render partial: 'address_fields', locals: {address: address} %>
+    <%= hidden_field_tag :current_step, 'process_address' %>
   <% end %>
+
   <%= f.label :shipping_same, "Shipping Address Same As Billing?" %>
   <%= f.check_box :shipping_same %>
 </div>
 
-
-<div class='shipping-address'>
-<h2>Shipping Address</h2>
-  <%= f.fields_for :address, @shipping_address do |address| %>
-    <%= address.hidden_field :kind, value: 'shipping', disabled: 'disabled'%>
-    <%= render partial: 'address_fields', locals: {address: address, no_names: false} %>
-  <% end %>
-</div>
-  
+<%= f.submit "Submit", :disable_with => 'Submiting...' %>  
 <% end %>
-<div class='enter_addressses'>
 
-</div>

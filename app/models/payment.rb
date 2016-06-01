@@ -1,6 +1,7 @@
 class Payment
-  def initialize(order)
+  def initialize(order, card = nil)
     @order = order
+    @card = card
   end
   
   def pay
@@ -12,6 +13,13 @@ class Payment
   end
   
   def pay_via_stripe
+    byebug
+    Stripe::Charge.create({
+      amount: @order.grand_total_cents,
+      currency: "usd",
+      source: @card,
+      description: "@order.description"
+    })
   end
   
   def receive_paypal_ipn

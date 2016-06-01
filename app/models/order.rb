@@ -48,33 +48,16 @@ class Order < ApplicationRecord
   end
   
   has_many :line_items, as: :itemized, dependent: :delete_all
-  has_many :addresses, as: :addressable do
-    def find_or_build_by(attributes = nil, &block)
-      find_by(attributes) || build(attributes, &block)
-    end
-  end
+  has_many :addresses, as: :addressable 
 
   has_one :billing_address, -> {where(kind: 'billing')}, class_name: 'Address', as: :addressable, :dependent => :destroy
   has_one :shipping_address, -> {where(kind: 'shipping')}, class_name: 'Address', as: :addressable, :dependent => :destroy
-    
+  
+  accepts_nested_attributes_for :addresses
+  
   before_create :assign_uid
   after_create :assign_short_uid
-  # this belongs in checkout
-  def self.new_from_cart(cart)
-    new_order = self.new
-    cart.line_items.each do |item|
-      new_item = item.dup
-      new_item.itemized = new_order
-      new_item.quantity = item.quantity
-      new_order.line_items << new_item
-    end    
-   if new_order.line_items.any?
-     new_order
-   else
-     new_order.errors.add(:base, "Please check quantity available!")
-     false
-   end    
-  end
+  
   
   def shipping_same_as_billing
     billing_address && shipping_same
@@ -85,6 +68,10 @@ class Order < ApplicationRecord
     shipping_address = billing_address.dup
     shipping_address.kind = "shipping"
     shipping_address.save
+  end
+  
+  def both_addresses_filled?
+    billing_address && (shipping_address || shipping_same)
   end
   
   
@@ -148,7 +135,8 @@ class Order < ApplicationRecord
     end
     products
   end
-    
+
+  
   def self.find_product_from_item(item)
     item.product_type.classify.constantize.find(item.product_id)
   end  

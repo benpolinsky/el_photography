@@ -1,6 +1,6 @@
 class LineItem < ApplicationRecord
   belongs_to :product
-  belongs_to :variant, foreign_key: :product_id, class_name: Variant
+  belongs_to :variant
   
   belongs_to :itemized, polymorphic: true
   
@@ -108,5 +108,6 @@ class LineItem < ApplicationRecord
     self.product_id = product.id
     self.product_type = "product"
   end
+
   
 end

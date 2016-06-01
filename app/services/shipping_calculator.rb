@@ -34,6 +34,7 @@ class ShippingCalculator
   end
   
   def determine_shipping_cost(line_item)
+
     if additional?(line_item)
       domestic? ? additional_shipping_cost(line_item) : international_additional_shipping_cost(line_item)
     else
@@ -60,7 +61,7 @@ class ShippingCalculator
   end
   
   def additional_shipping_cost(line_item)
-    line_item.shipping_base + ((line_item.quantity.to_i - 1) * line_item.additional_shipping_per_item.to_i)
+    line_item.shipping_base + ((line_item.quantity.to_i - 1) * line_item.additional_shipping_per_item)
   end
   
   def international_shipping_cost(line_item)

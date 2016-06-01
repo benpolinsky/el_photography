@@ -56,8 +56,15 @@ Rails.application.routes.draw do
       get 'empty'
     end
     
-    resource :orders
+    resources :orders do
+      member do
+        get 'enter_address' => 'orders#enter_address'
+        get 'enter_payment' => 'orders#enter_payment'
+        get 'payment_accepted' => 'orders#payment_accepted'
+      end
+    end
     get 'checkout' => 'orders#new', as: :checkout
+
   end
   
   get 'home/index'

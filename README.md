@@ -5,6 +5,8 @@
 - quick way to add or remove tag
 - and quick way to add/change caption for each
 - shop: 
+ - the checkout wizard should be reimplemented with json as opposed to erbs and partials, after.
+ - order id to uid to obfuscate id
  - variants to cart is no good...
   - boolean of whether or not quantity is being used
   - in the above vein, you'll have to test out all the quantity/cart/add_to_cart options

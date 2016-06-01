@@ -10,6 +10,7 @@
     <%= favicon_link_tag 'favicon.png' %>
     
     <%= stylesheet_link_tag(Theme.active.css_file) if Theme.active %>
+    <%= yield :extra_js %>
   </head>
 
   <body class="<%= theme_class %>">
