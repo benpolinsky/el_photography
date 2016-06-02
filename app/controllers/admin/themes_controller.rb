@@ -12,6 +12,7 @@ class Admin::ThemesController < AdminController
     if @theme.save
       redirect_to [:admin, :themes]
     else
+      @resource = @theme
       render :new, notice: "Sorry!  Forgive-a-ness please"
     end
   end
@@ -30,6 +31,7 @@ class Admin::ThemesController < AdminController
       @theme.compile if @theme.active?
       redirect_to [:admin, :themes]
     else
+      @resource = @theme
       render :new, notice: "Sorry!  Forgive-a-ness please"
     end
   end

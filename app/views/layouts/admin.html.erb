@@ -10,7 +10,9 @@
     <%= favicon_link_tag 'favicon.png' %>
   </head>
 
+
   <body>
+    <%= render :partial => 'alerts_and_notices' %>
     <nav class="navbar navbar-light bg-faded">
       <%= link_to "ESP", root_path, class: "navbar-brand" %>
       <ul class="nav navbar-nav">

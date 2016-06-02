@@ -1,15 +1,16 @@
 class Video < ApplicationRecord
-  validates :address, presence: true
+  validates_presence_of :address
   acts_as_taggable
   
   include RankedModel
   ranks :row_order
   extend FriendlyId
-  
+
   friendly_id :video_id, use: [:slugged, :history]
 
 
   def video_id
+    return unless address.present?
     if is_vimeo?
       address.match(/\/(\d+)/)[1]
     else

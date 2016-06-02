@@ -31,6 +31,7 @@ class Admin::PhotosController < AdminController
         format.html { redirect_to [:admin, @photo], notice: 'Photo was successfully created.' }
         format.json { render :show, status: :created, location: [:admin, @photo] }
       else
+        @resource = @photo
         format.html { render :new }
         format.json { render json: @photo.errors, status: :unprocessable_entity }
       end
@@ -45,6 +46,7 @@ class Admin::PhotosController < AdminController
         format.html { redirect_to [:admin, @photo], notice: 'Photo was successfully updated.' }
         format.json { render :show, status: :ok, location: [:admin, @photo] }
       else
+        @resource = @photo
         format.html { render :edit }
         format.json { render json: @photo.errors, status: :unprocessable_entity }
       end

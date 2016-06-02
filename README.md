@@ -5,7 +5,6 @@
 - quick way to add or remove tag
 - and quick way to add/change caption for each
 
-- Breadcrumbs
 - notices + errors both front and back end
 
 - shop: 

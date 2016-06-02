@@ -22,6 +22,7 @@ class Admin::TagsController < AdminController
     if @tag.save
       redirect_to admin_tags_path
     else
+      @resource = @tag
       render :new
     end
   end
@@ -33,6 +34,7 @@ class Admin::TagsController < AdminController
     if @tag.update_attribtues(tag_params)
       redirect_to admin_tags_path
     else
+      @resource = @tag
       render :edit
     end
   end

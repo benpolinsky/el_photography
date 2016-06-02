@@ -1,0 +1,24 @@
+<% if flash[:notice] || flash[:alert] || resource.try(:errors).try(:any?)%>
+ <div id="alerts_and_notices" class="active"> 
+   <% if flash[:notice] %>
+     <div>
+       <%= content_tag :p, flash[:notice] %>
+     </div>
+   <% end %>
+   <!-- <div>
+     <% content_tag :p, "** We're currently launching ** Things may be a bit awkward while we complete the process - thanks for your patience!" %>
+   </div> -->
+   <% if flash[:alert] %>
+     <div>
+       <%= content_tag :p, flash[:alert] %>
+     </div>
+   <% end %>
+   
+   <% if resource.try(:errors).try(:any?) %>
+     <div>
+       <%= resource.errors.full_messages.join(", ") %>
+     </div>
+   <% end %>
+  <span class='close'></span>
+ </div>
+<% end %>

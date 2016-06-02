@@ -8,6 +8,15 @@ class Admin::OrdersController < AdminController
   def show
   end
 
+
+  def ship
+    if # it workds
+      # great
+    else
+      @resource = @order
+      render :show
+    end
+  end
   private
   def find_order
     @order = Order.friendly.find(params[:id]) if params[:id]

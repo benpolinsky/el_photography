@@ -31,6 +31,7 @@ class Admin::VideosController < AdminController
         format.html { redirect_to [:admin, @video], notice: 'Video was successfully created.' }
         format.json { render :show, status: :created, location: [:admin, @video] }
       else
+        @resource = @video
         format.html { render :new }
         format.json { render json: @video.errors, status: :unprocessable_entity }
       end
@@ -45,6 +46,7 @@ class Admin::VideosController < AdminController
         format.html { redirect_to [:admin, @video], notice: 'Video was successfully updated.' }
         format.json { render :show, status: :ok, location: @video }
       else
+        @resource = @video
         format.html { render :edit }
         format.json { render json: @video.errors, status: :unprocessable_entity }
       end

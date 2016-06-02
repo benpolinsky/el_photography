@@ -36,6 +36,7 @@ class Admin::ProductsController < AdminController
           format.html { redirect_to [:edit, :admin, @product], notice: 'Product was successfully created.' }
           format.json { render :show, status: :created, location: @product }
         else
+          @resource = @product
           format.html { redirect_to admin_photo_path(params[:photo_id]) }
           format.json { render json: @product.errors, status: :unprocessable_entity }
         end
@@ -48,6 +49,7 @@ class Admin::ProductsController < AdminController
         format.html { redirect_to [:edit, :admin, @product], notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
       else
+        @resource = @product
         format.html { render :edit }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
