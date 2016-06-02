@@ -5,14 +5,11 @@ class StoreController < ApplicationController
   end
 
   def product
+    @product = Product.friendly.find(params[:id])
   end
   
 
   def help
   end
   
-  private
-  def find_model
-    @model = Shop.find(params[:id]) if params[:id]
-  end
 end

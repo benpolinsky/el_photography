@@ -65,7 +65,7 @@ class Admin::ProductsController < AdminController
   private
 
   def set_product
-    @product = Product.find(params[:id])
+    @product = Product.friendly(params[:id])
   end
 
   def product_params
