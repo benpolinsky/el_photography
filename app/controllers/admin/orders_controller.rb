@@ -10,6 +10,6 @@ class Admin::OrdersController < AdminController
 
   private
   def find_order
-    @order = Order.find(params[:id]) if params[:id]
+    @order = Order.friendly.find(params[:id]) if params[:id]
   end
 end

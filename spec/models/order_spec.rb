@@ -295,7 +295,7 @@ RSpec.describe Order, :type => :model do
     it "can find a line_item's corresponding product" do
       order = create(:shipped_order, line_items: [create(:line_item_with_product)])
       line_item = order.line_items.last
-      product = Order.find_product_from_item(line_item)
+      product = Order.friendly.find_product_from_item(line_item)
       product_type = line_item.product_type
       expect(product).to eq product_type.classify.constantize.find(order.line_items.last.product_id)
     end

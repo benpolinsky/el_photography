@@ -38,7 +38,7 @@ class Checkout
   end
 
   def find_order_from_cart
-    @order = Order.find(@session[:order_id])
+    @order = Order.friendly.find(@session[:order_id])
     if @order && @order.updated_at > @cart.updated_at
       @order
     elsif @order && @order.updated_at < @cart.updated_at

@@ -1,5 +1,8 @@
 class Order < ApplicationRecord
-  include AASM
+  include AASM;
+  extend FriendlyId
+  
+  friendly_id :uid
   attr_accessor :credit_card_number, :credit_card_exp_month, :credit_card_exp_year, :credit_card_security_code, :skip_email_validation
     
   aasm :column => :status, :whiny_transitions => false do

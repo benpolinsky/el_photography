@@ -4,6 +4,9 @@ class Video < ApplicationRecord
   
   include RankedModel
   ranks :row_order
+  extend FriendlyId
+  
+  friendly_id :video_id, use: [:slugged, :history]
 
 
   def video_id

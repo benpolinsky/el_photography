@@ -13,13 +13,9 @@
    - finish this off, but refactored a little...
    - order must have purchase date
 
- - parsley
  - Fill out totals, quantities, add js for quantities, etc (cart etc)
  - variants to cart is no good...
- - boolean of whether or not quantity is being used
  - in the above vein(s), you'll have to test out all the quantity/cart/add_to_cart options
- - the checkout wizard should be reimplemented with json as opposed to erbs and partials, after.
- - Better storage of orders
 
 - Payments: 
   - IPN + Webhooks

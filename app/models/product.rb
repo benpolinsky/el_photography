@@ -1,6 +1,9 @@
 class Product < ApplicationRecord
   attr_accessor :sizes_list 
   
+  extend FriendlyId
+  friendly_id :name, use: [:slugged, :history]  
+  
   include DateTimeScopes
   include RankedModel
   include Quantifiable

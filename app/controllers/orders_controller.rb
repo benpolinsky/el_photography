@@ -77,7 +77,7 @@ class OrdersController < ApplicationController
   private
 
   def find_order
-    @order = Order.find(params[:id])
+    @order = Order.friendly.find(params[:id])
   end
   
   def find_addresses
