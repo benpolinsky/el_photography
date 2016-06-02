@@ -9,7 +9,7 @@
 
 <%= form_for @order, remote: true do |f| %>
   <div class='addresses'>
-    <%= f.fields_for :addresses, [@order.billing_address, @order.shipping_address] do |address| %>
+    <%= f.fields_for :addresses, [@billing_address, @shipping_address] do |address| %>
       <div class="<%= address.object.kind %>-address">
         <h2><%= address.object.kind.capitalize %> Address</h2>
         <%= address.hidden_field :kind %>
