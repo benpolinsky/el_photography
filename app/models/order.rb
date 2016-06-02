@@ -62,7 +62,7 @@ class Order < ApplicationRecord
   after_create :assign_short_uid
   
   monetize :grand_total_cents, allow_nil: true
-  
+  monetize :shipping_total_cents, allow_nil: true  
   
   def shipping_same_as_billing
     billing_address && shipping_same

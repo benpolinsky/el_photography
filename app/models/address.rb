@@ -4,10 +4,13 @@ class Address < ApplicationRecord
   
   validate :main_validation
 
-
   def main_validation
-      [:first_name, :last_name, :street_line_1, :city, :state, :zip_code, :country].each do |required_att|
-        errors.add(required_att, "#{required_att.to_s} is required") if self[required_att].blank?
-      end
+    [:first_name, :last_name, :street_line_1, :city, :state, :zip_code, :country].each do |required_att|
+      errors.add(required_att, "#{required_att.to_s} is required") if self[required_att].blank?
+    end
+  end
+  
+  def name
+    [first_name, last_name].join(" ")
   end
 end

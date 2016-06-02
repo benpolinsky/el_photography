@@ -1,0 +1,74 @@
+<%# breadcrumb :show_sold, @order, current_user %>
+<%= link_to "&laquo; Back to All Orders".html_safe, admin_orders_path, class: "admin-back-link" %>
+
+<div class='page-header'>
+  <h2>Order Details</h2>
+	<p class='label label-default pull-right'><%= @order.status.titleize %></p>
+</div>
+
+<div class='col-xs-12 col-sm-6 left-order-side'>
+  <div class="main-order-information">
+		<h3>General Info</h3>
+		<%= quick_row "Order ID: ", @order.short_or_uid %>		
+		<%= quick_row "Order Created On", l(@order.created_at, format: :long) %>
+		<%= quick_row "Order Purchased On", l(@order.purchased_at, format: :long) if @order.purchased_at %>
+		<%= quick_row "Order Last Updated", l(@order.updated_at, format: :long) %>
+		<%= quick_row "Subtotal", number_to_currency(@order.items_subtotal_cents/100.00) %>
+		<%= quick_row "Shipping", number_to_currency(@order.shipping_total) %>
+		<%= quick_row "Grand Total", number_to_currency(@order.grand_total_cents/100.00) %>
+  </div>
+
+	<hr/>  
+  <div class="order-contents">
+		<h3>Order Items (<%= @order.line_items.size %>)</h3>
+ 		<% @order.line_items.each do |item| %>
+	    <div class="order-item">
+        <% if item.product || item.variant %>
+          <% if item.product %>
+    				<%= link_to product_path(item.product) do %>
+    					<%= image_tag item.product.primary_image.image.url(:thumb) if item.product.primary_image %>
+    				<% end %>
+          <% elsif item.variant %>
+    				<%= link_to product_path(item.variant.product) do %>
+    					<%= image_tag item.variant.product.primary_image.image.url(:thumb) if item.variant.product.primary_image %>
+    				<% end %>
+          <% end %>
+          
+          
+  				<% if item.variant? %>
+  					<%= quick_row "Listing Name", link_to(item.variant.name_with_product, product_path(item.product)) %>	
+  				<% else %>
+  					<%= quick_row "Listing Name", link_to(item.name, product_path(item.product)) %>
+  				<% end %>
+        <% end %>
+				<%= quick_row "Quantity", item.quantity %>
+				<%= quick_row "Price", number_to_currency(item.subtotal) %>
+				<%= quick_row "Shipping", number_to_currency(item.shipping_total_cents/100.00) %>
+				<%= quick_row "Grand Total", number_to_currency(item.total) %>
+	    </div>
+
+     
+   <% end %>
+   </div>
+</div>
+
+
+<div class='col-xs-12 col-sm-5 col-sm-offset-1 right-order-side'>
+
+	<div class='buyer-information'>
+			<h3>Buyer Information</h3>
+			
+      <%= display_admin_address(@order.billing_address, "Billed To").html_safe if @order.billing_address %>  
+
+			<%= display_admin_address(@order.shipping_address, "Ships To").html_safe if @order.shipping_address %>
+
+      <% if @order.order_shipped? %>
+        <%= content_tag :strong, "Shipped", class: "highlight order-shipping-status" %>
+      <% else %>
+       <%= link_to "Mark as Shipped (This Will Email Buyer)", [:ship, :admin, @order], method: :PUT, class: 'btn order-shipping-status' %>
+       <% end %>
+			<%= link_to "Contact Buyer", '', class: 'btn trigger-feedback contact-buyer-modal-link', data: {toggle: "modal", target: "#contact-buyer-modal"} %>
+	</div>
+</div>
+
+<%= render :partial => 'contact_buyer_modal' %>

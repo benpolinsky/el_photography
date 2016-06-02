@@ -38,7 +38,11 @@ Rails.application.routes.draw do
       end
     end
     
-    get 'orders' => 'orders#index'
+    resources :orders do
+      member do
+        put 'ship'
+      end
+    end
     
     get 'dashboard/index'
     root to: 'dashboard#index'

@@ -1,3 +1,28 @@
-<% @orders.each do |order| %>
-  <%= order.id %>
-<% end %>
+<h1>Orders</h1>
+
+<table class='table'>
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Purchase Date</th>
+      <th>Grand Total</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.short_or_uid %></td> <%# uid soon %>
+        <td><%= order.purchased_at %></td>
+        <td><%= order.grand_total.format %></td>
+        <td><%= order.status %></td>
+        <td>
+          <div class='btn-group'>
+            <%= link_to "View", [:admin, order], class: "btn" %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

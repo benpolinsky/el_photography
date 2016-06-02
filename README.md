@@ -4,12 +4,16 @@
 - reorder tags
 - quick way to add or remove tag
 - and quick way to add/change caption for each
+- Breadcrumbs
 
 - shop: 
- - Wizard. 
+ - order mark as shipped
+ - order uid to friendly id
+ - you need to use the machine you've setup and tested for the order.
+   - order must have purchase date
+   - contact email must be added
  - parsley
  - Fill out totals, quantities, add js for quantities, etc (cart etc)
- - order id to uid to obfuscate id
  - variants to cart is no good...
  - boolean of whether or not quantity is being used
  - in the above vein(s), you'll have to test out all the quantity/cart/add_to_cart options

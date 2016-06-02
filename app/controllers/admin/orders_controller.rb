@@ -5,8 +5,11 @@ class Admin::OrdersController < AdminController
     @orders = Order.all
   end
 
+  def show
+  end
+
   private
   def find_order
-    @model = Orders.find(params[:id]) if params[:id]
+    @order = Order.find(params[:id]) if params[:id]
   end
 end
