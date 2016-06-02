@@ -7,6 +7,7 @@
 
 - shop: 
  - Wizard. 
+ - parsley
  - Fill out totals, quantities, add js for quantities, etc (cart etc)
  - order id to uid to obfuscate id
  - variants to cart is no good...

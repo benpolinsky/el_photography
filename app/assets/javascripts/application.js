@@ -12,5 +12,5 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require 'modulejs'
+//= require modulejs
 //= require_tree .

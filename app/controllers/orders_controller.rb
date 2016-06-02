@@ -5,8 +5,7 @@ class OrdersController < ApplicationController
   # create on new.  allows for tracking of abandoned orders
   def new
     @order = Checkout.new(@cart, session).order
-    @billing_address = @order.addresses.find_or_initialize_by(kind: "billing")
-    @shipping_address = @order.addresses.find_or_initialize_by(kind: "shipping")
+    find_addresses
     if @order.line_items.any?
       session[:order_id] = @order.id
     else
@@ -30,6 +29,10 @@ class OrdersController < ApplicationController
     if @order.update_attributes(order_params) && @order.both_addresses_filled?
       redirect_to [:enter_payment, @order]
     else
+      find_addresses
+      @errors = error_list_for(@order)
+      byebug
+      p @errors
       render :new
     end
   end
@@ -92,6 +95,11 @@ class OrdersController < ApplicationController
 
   def find_order
     @order = Order.find(params[:id])
+  end
+  
+  def find_addresses
+    @billing_address = @order.addresses.find_or_initialize_by(kind: "billing")
+    @shipping_address = @order.addresses.find_or_initialize_by(kind: "shipping")
   end
   
   def order_params

@@ -16,12 +16,13 @@
         <%= render partial: 'address_fields', locals: {address: address} %>
         <%= hidden_field_tag :current_step, 'process_address' %>
         <% if address.object.kind == "billing" %>
-          <%= f.label :shipping_same, "Shipping Address Same As Billing?" %>
-          <%= f.check_box :shipping_same %>
+          <%= link_to "Ship To Billing Address", '', class: 'ship-to-same' %>
+          <%= link_to "Enter Different Shipping Address", '', class: 'enter-shipping-address' %>
+          <%= f.hidden_field :shipping_same %>
         <% end %>
       </div>
     <% end %>
   </div>
-  <%= f.submit "Submit", :disable_with => 'Submiting...' %>  
+  <%# f.submit "Submit", :disable_with => 'Submiting...' %>  
 <% end %>
 

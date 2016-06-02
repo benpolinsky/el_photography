@@ -54,6 +54,9 @@ class Order < ApplicationRecord
   has_one :shipping_address, -> {where(kind: 'shipping')}, class_name: 'Address', as: :addressable, :dependent => :destroy
   
   accepts_nested_attributes_for :addresses
+
+  validates_associated :billing_address
+  validates_associated :shipping_address, unless: :shipping_same_as_billing
   
   before_create :assign_uid
   after_create :assign_short_uid

@@ -12,4 +12,9 @@ class ApplicationController < ActionController::Base
     ensure
       @cart_view = CartView.new(@cart)
   end
+  
+  def error_list_for(model)
+    # doesn't account for associated models...
+    model.errors.full_messages.join(", ")
+  end
 end
