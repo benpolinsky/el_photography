@@ -39,9 +39,9 @@ modulejs.define('cart', function () {
     },
     
     increase_quantity: function (item, cart_item_partial, add_to_cart_partial, display_quantity_partial) {
-      $("#cart_item_" + item).html("'" + cart_item_partial + "'");
-      $('.add-to-cart-container').html("'" + add_to_cart_partial + "'");
-      $('.listing-quantity-container').html("'" + display_quantity_partial + "'");
+      $("#cart_item_" + item).html(cart_item_partial);
+      $('.add-to-cart-container').html(add_to_cart_partial);
+      $('.listing-quantity-container').html(display_quantity_partial);
     }
     
   }

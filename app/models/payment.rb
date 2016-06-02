@@ -1,4 +1,7 @@
 class Payment  
+  attr_accessor :successful_payment_path, :card
+  delegate :url_helpers, to: 'Rails.application.routes'
+  
   PAYPAL_OPTIONS = {
     no_shipping: true, # if you want to disable shipping information
     allow_note: false, # if you want to disable notes
@@ -21,7 +24,12 @@ class Payment
 
   def pay_via_paypal
     begin
-      paypal_request.setup(paypal_payment_request, 'http://localhost:3000/store/orders/success', 'http://localhost:3000/store/orders/cancel', PAYPAL_OPTIONS)
+      response = paypal_request.setup(paypal_payment_request, 'http://localhost:3000/store/orders/success', 'http://localhost:3000/store/orders/cancel', PAYPAL_OPTIONS)
+      if response
+        @successful_payment_path = response.try(:redirect_uri)
+      else
+        false
+      end
     rescue Paypal::Exception::APIError => e
       p e.message
       p e.response
@@ -50,12 +58,18 @@ class Payment
   end
   
   def pay_via_stripe
-    Stripe::Charge.create({
+    response = Stripe::Charge.create({
       amount: @order.grand_total_cents,
       currency: "usd",
       source: @card,
       description: "@order.description"
     })
+    if response
+      @successful_payment_path = url_helpers.payment_accepted_order_path(@order)
+      true
+    else
+      # error checking
+    end
   end
   
   def receive_paypal_ipn

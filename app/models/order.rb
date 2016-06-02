@@ -3,7 +3,9 @@ class Order < ApplicationRecord
   extend FriendlyId
   
   friendly_id :uid
-  attr_accessor :credit_card_number, :credit_card_exp_month, :credit_card_exp_year, :credit_card_security_code, :skip_email_validation
+
+  attr_accessor :credit_card_number, :credit_card_exp_month, :credit_card_exp_year, 
+  :credit_card_security_code, :skip_email_validation, :payment
     
   aasm :column => :status, :whiny_transitions => false do
     state :empty
@@ -83,18 +85,18 @@ class Order < ApplicationRecord
     when "paypal"
       true 
     when "stripe"
-      [credit_card_number, credit_card_exp_month, credit_card_exp_year, credit_card_security_code].all?(&:present?)
+      payment.card.present?
     else
       false
     end
   end
   
   def payment_successful?
-    Payment.new(self).successful?
+    payment.successful?
   end
   
   def payment_confirmed?
-    Payment.new(self).confirmed?
+    payment.confirmed?
   end
   
   def calculate_totals
@@ -150,7 +152,9 @@ class Order < ApplicationRecord
   def process_payment(params, card=nil)
     self.calculate_totals
     self.update_attributes(params)
-    Payment.new(self, card).pay
+    self.payment = Payment.new(self, card)
+    self.initialize_payment
+    self.accept_payment!
   end
   
   def self.find_product_from_item(item)
