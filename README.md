@@ -5,7 +5,7 @@
 - quick way to add or remove tag
 - and quick way to add/change caption for each
 
-- notices + errors both front and back end
+- notices + errors both front end - 
 
 - shop: 
  - order mark as shipped

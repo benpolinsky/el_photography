@@ -1,0 +1,27 @@
+var cart_item = <%= @cart_item.id %>;
+
+update_counts_and_totals();
+
+<% unless @cart_item.quantity == 0 %>
+  add_item_or_increase_quantity(cart_item);
+<% else %>  
+  decrease_quantity(cart_item);
+<% end %>    
+
+if (<%= @cart_quantity %> == 0 ) closeCart();
+
+function decrease_quantity(item) {
+  $("#cart_item_" + item).remove();
+  $('.add-to-cart-container').html("<%= j render :partial => 'add_to_cart_complex', locals: {product: @cart_item.product, cart: @cart} %>");
+  $('.listing-quantity-container').html("<%= j render partial: 'listing_quantity', locals: {product: @product, cart: @cart} %>");
+}
+
+function add_item_or_increase_quantity(item) {
+  $("#cart_item_" + item).html("<%= j render :partial => 'cart_item', locals: {cart_item: @cart_item, cart: @cart, still_available: (@cart_item.product_or_variant.quantity_i_can_checkout(current_or_guest_user))} %>");
+  $('.listing-quantity-container').html("<%= j render partial: 'listing_quantity', locals: {product: @product, cart: @cart} %>");
+}
+
+function update_counts_and_totals() {
+  $('.bag-item-count').text("<%= @cart_quantity %>");
+  $('#total-slices').html("<%= j render :partial => 'shopping_bag_totals', locals: {cart: @cart}%>");
+}

@@ -10,13 +10,16 @@ class Admin::OrdersController < AdminController
 
 
   def ship
-    if # it workds
-      # great
+    if @order.ship
+      # email buyer
+      redirect_to [:admin, @order], notice: "Order Marked as Shipped and Buyer Notified"
     else
       @resource = @order
-      render :show
+      redirect_to [:admin, @order], notice: "Sorry, we couldn't mark this as shipped..."
     end
   end
+  
+  
   private
   def find_order
     @order = Order.friendly.find(params[:id]) if params[:id]

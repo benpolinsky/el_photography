@@ -5,6 +5,11 @@
 <% @products.each do |product| %>
   <div class='product'>
     <%= image_tag product.primary_image if product.primary_image %>
+    <div class='listing-quantity-container'> 
+     <%= render :partial => 'display_product_quantity', locals: {product: product, cart: @cart} %>
+
+    </div>
+    
     <%= link_to product.name, product_path(product) %>
     <%= product.price.format %>
     <%= render :partial => 'add_to_cart', locals: {product: product, cart: @cart} %>

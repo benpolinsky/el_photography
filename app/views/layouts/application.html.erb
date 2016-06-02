@@ -25,6 +25,10 @@
           <%= link_to "About" %>
         </span>
       </nav>
+      
+      <div id="cart-slice">
+        <%= render :partial => 'shopping_cart', locals: {cart: @cart} %>
+      </div>
     </header>
     
     <div class='container-fluid'>

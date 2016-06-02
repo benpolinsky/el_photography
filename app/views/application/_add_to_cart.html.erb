@@ -1,5 +1,5 @@
 <% if product.variants.any? %>
-    <%= form_tag(add_item_cart_path(LineItem.new), class: "add-item-to-cart") do %>
+    <%= form_tag(add_item_cart_path(LineItem.new), {class: "add-item-to-cart", data: {remote: true}}) do %>
       <%= hidden_field_tag "line_item[product_id]", product.id  %>
       <%= hidden_field_tag 'line_item[product_type]', "variant"  %>
       <%= select_tag 'line_item[variant_id]', options_for_select(product.variants.with_quantity.map {|variant| [variant.name, variant.id, {'data-unique-key' => variant.unique_key}] unless cart.has_product(variant.id, "variant")}) %>
@@ -7,21 +7,21 @@
     <% end %>
 <% else %>
   <% if !product.has_stock? %>
-    <%= form_tag('', {:class => "form"}) do %>    
+    <%= form_tag('', {:class => "form", data: {remote: true}}) do %>    
       <%= link_to "Unavailable", '', class: "btn no-click" %>    
     <% end %>
   <% elsif product.available_quantity - cart.number_of_products_inside(product.id, "product") < 1 %>
-    <%= form_tag('', {:class => "form"}) do %>    
+    <%= form_tag('', {:class => "form", data: {remote: true}}) do %>    
       <%= link_to "Already In Cart", '', class: "btn no-click" %>    
     <% end %>
   <% elsif !(product.only_one? && cart.has_product(product.id, "product")) %>
-    <%= form_tag(add_item_cart_path(LineItem.new), class: "add-item-to-cart") do %>
+    <%= form_tag(add_item_cart_path(LineItem.new), {class: "add-item-to-cart", data: {remote: true}}) do %>
       <%= hidden_field_tag "line_item[product_id]", product.id  %>
       <%= hidden_field_tag 'line_item[product_type]', "product"  %>
       <%= submit_tag "Add To Cart", class: "btn add-to-cart" %>
     <% end %>
   <% else %>
-    <%= form_tag('', {:class => "form"}) do %>    
+    <%= form_tag('', {:class => "form", data: {remote: true}}) do %>    
       <%= link_to "Listing Unavailable", '', class: "btn no-click" %>    
     <% end %>
   <% end %>
