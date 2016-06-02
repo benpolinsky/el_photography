@@ -11,6 +11,10 @@ class Payment
     @card = card
   end
   
+  def process
+    payment_response = self.pay
+  end
+  
   def pay
     self.method("pay_via_#{@order.payment_method}").call
   end

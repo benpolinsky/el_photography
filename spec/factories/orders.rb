@@ -14,14 +14,14 @@ FactoryGirl.define do
   factory :order_with_billing_address, parent: :order_with_email do
     association :billing_address, factory: :billing_address
     after(:create) do |order|
-      order.add_billing
+      order.add_addresses
     end
   end
   
   factory :order_with_addresses, parent: :order_with_billing_address do
     association :shipping_address, factory: :shipping_address
     after(:create) do |order|
-      order.add_shipping
+      order.add_addresses
     end
   end
   

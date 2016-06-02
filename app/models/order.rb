@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   include AASM
-  attr_accessor :credit_card_number, :credit_card_exp_month, :credit_card_exp_year, :credit_card_security_code
+  attr_accessor :credit_card_number, :credit_card_exp_month, :credit_card_exp_year, :credit_card_security_code, :skip_email_validation
     
   aasm :column => :status, :whiny_transitions => false do
     state :empty
@@ -19,12 +19,10 @@ class Order < ApplicationRecord
       transitions from: :empty, to: :email_added, :if => :contact_email
     end
     
-    event :add_billing do
-      transitions from: :email_added, to: :shipping_added, if: :shipping_same_as_billing, after: :copy_shipping_address
+    event :add_addresses do
+      transitions from: :email_added, to: :shipping_added, if: :shipping_same, after: :copy_shipping_address
       transitions from: :email_added, to: :billing_added, if: :billing_address
-    end
-    
-    event :add_shipping do
+      transitions from: :email_added, to: :shipping_added, if: :both_addresses_filled?
       transitions from: :billing_added, to: :shipping_added, if: :shipping_address
     end
     
@@ -53,10 +51,11 @@ class Order < ApplicationRecord
   has_one :billing_address, -> {where(kind: 'billing')}, class_name: 'Address', as: :addressable, :dependent => :destroy
   has_one :shipping_address, -> {where(kind: 'shipping')}, class_name: 'Address', as: :addressable, :dependent => :destroy
   
-  accepts_nested_attributes_for :addresses
+  accepts_nested_attributes_for :addresses, reject_if: proc { |attributes| attributes.except(:addressable_id, :addressable_type, :kind, :id).all?(&:blank?) }
 
   validates_associated :billing_address
-  validates_associated :shipping_address, unless: :shipping_same_as_billing
+  validates_associated :shipping_address, unless: :shipping_same
+  validates_presence_of :contact_email, unless: :skip_email_validation
   
   before_create :assign_uid
   after_create :assign_short_uid
@@ -64,15 +63,11 @@ class Order < ApplicationRecord
   monetize :grand_total_cents, allow_nil: true
   monetize :shipping_total_cents, allow_nil: true  
   
-  def shipping_same_as_billing
-    billing_address && shipping_same
-  end
-  
-  
+
   def copy_shipping_address
     self.shipping_address = billing_address.dup
     self.shipping_address.kind = "shipping"
-    save
+    self.shipping_address.save
   end
   
   def both_addresses_filled?
@@ -141,6 +136,19 @@ class Order < ApplicationRecord
     products
   end
 
+  def process_addresses(params)
+    assign_attributes(params)
+    save(validate: false)
+    add_email!
+    add_addresses!
+    save
+  end
+  
+  def process_payment(params, card=nil)
+    self.calculate_totals
+    self.update_attributes(params)
+    Payment.new(self, card).pay
+  end
   
   def self.find_product_from_item(item)
     item.product_type.classify.constantize.find(item.product_id)

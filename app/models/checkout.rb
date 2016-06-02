@@ -29,6 +29,7 @@ class Checkout
     @order = find_order_from_cart if @session[:order_id]
     @order ||= create_order_from_cart
     if @order && @order.line_items.any?
+      @order.skip_email_validation = true
       @order.save
     else
       @order.errors.add(:base, "Please check quantity available!") if @order

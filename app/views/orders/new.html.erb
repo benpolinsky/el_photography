@@ -13,7 +13,11 @@
 
 <p>You can check out using PayPal or Stripe :)</p>
 <div class="wizard-step active">
-  <%= form_for @order, remote: true do |f| %>
+  <%= form_for @order, data: {parsley_validate: "true", remote: true, parsley_excluded: "input[type=button], input[type=submit], input[type=reset], input[type=hidden], [disabled], :hidden"} do |f| %>
+  <div class='field'>
+    <%= f.label :contact_email, "Your Email Address" %>
+    <%= f.email_field :contact_email, data: {parsley_required: 'true', parsley_error_message: "Please Enter an Email"} %>
+  </div>
     <div class='addresses'>
       <%= f.fields_for :addresses, [@billing_address, @shipping_address] do |address| %>
         <div class="<%= address.object.kind %>-address">

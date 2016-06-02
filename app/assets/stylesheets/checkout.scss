@@ -13,3 +13,32 @@
     opacity:0.4;
   }
 }
+
+.parsley-errors-list {
+  margin: 2px 0 3px;
+  padding: 0;
+  list-style-type: none;
+  font-size: 0.8em;
+  line-height: 0.8em;
+  opacity: 0;
+  width:0;
+  position:absolute;
+  
+  transition: all .3s ease-in;
+  -o-transition: all .3s ease-in;
+  -moz-transition: all .3s ease-in;
+  -webkit-transition: all .3s ease-in;
+  &.filled{
+    opacity:1;
+    width:auto;
+    margin:3px 0;
+    position:absolute;
+  };
+  li{
+    color:red;
+  }
+}
+
+.stripe-fields .payment-errors{
+  color:red;
+}

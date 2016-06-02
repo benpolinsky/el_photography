@@ -1,5 +1,5 @@
 <div class='wizard-step active'>
-<%= form_for @order, html: {id: "submit-payment"} do |f| %>
+<%= form_for @order, html: {id: "submit-payment", data: {parsley_validate: "true", remote: true}} do |f| %>
   <h2>Choose Payment Method</h2>
   <div class='payment-chooser'>
     <div class='form-group'>

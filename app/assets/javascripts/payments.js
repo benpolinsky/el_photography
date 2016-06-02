@@ -80,10 +80,12 @@ modulejs.define('payments', function () {
     
     hideShippingAddress: function () {
       $('.shipping-address').addClass('hidden');
+      $('.shipping-address').find(':input').prop('disabled', true);
     },
 
     showShippingAddress: function () {
       $('.shipping-address').removeClass('hidden');  
+      $('.shipping-address').find(':input').prop('disabled', false);
     }
   }
   

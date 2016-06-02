@@ -26,13 +26,11 @@ class OrdersController < ApplicationController
   
   # Receive + Process
   def process_address
-    if @order.update_attributes(order_params) && @order.both_addresses_filled?
+    if @order.process_addresses(order_params)
       redirect_to [:enter_payment, @order]
     else
       find_addresses
       @errors = error_list_for(@order)
-      byebug
-      p @errors
       render :new
     end
   end
@@ -43,28 +41,13 @@ class OrdersController < ApplicationController
   
   # Receive + Process
   def process_payment
-    card = params[:stripeToken]
-    @order.calculate_totals
-    if @order.update_attributes(order_params)
-      if @order.payment_method == "stripe"
-        # damnit this pay abstraction isn't working:
-        if payment = Payment.new(@order, card).pay
-          redirect_to [:payment_accepted, @order]
-        else
-          render :enter_payment, notice: "Sorry, something went wrong"
-        end
-      else
-        payment_response = Payment.new(@order).pay
-        pp payment_response.inspect
-        if payment_response.try(:redirect_uri)
-          redirect_to(payment_response.redirect_uri)
-        else
-          render :enter_payment, notice: "Sorry, something went wrong"
-        end
-      end
+    payment_response = @order.process_payment(order_params, params[:stripeToken])
+    if @order.payment_method == "paypal" && payment_response.try(:redirect_uri)
+      redirect_to(payment_response.redirect_uri)
+    elsif @order.payment_method == "stripe" && payment_response
+      redirect_to [:payment_accepted, @order]
     else
-      byebug
-      render :enter_payment
+      render :enter_payment, notice: "Sorry, something went wrong"
     end
   end
   
@@ -105,7 +88,8 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:id, :payment_method, :shipping_same, 
       :credit_card_number, :credit_card_exp_month, :credit_card_exp_year, 
-      :credit_card_security_code, addresses_attributes: [:id, :first_name, 
+      :credit_card_security_code, :contact_email, 
+      addresses_attributes: [:id, :first_name, 
       :last_name, :kind, :street_line_1, :street_line_2, :stree_line_3, 
       :country, :city, :state, :zip_code])
   end

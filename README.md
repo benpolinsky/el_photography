@@ -10,8 +10,9 @@
  - order mark as shipped
  - order uid to friendly id
  - you need to use the machine you've setup and tested for the order.
+   - finish this off, but refactored a little...
    - order must have purchase date
-   - contact email must be added
+
  - parsley
  - Fill out totals, quantities, add js for quantities, etc (cart etc)
  - variants to cart is no good...

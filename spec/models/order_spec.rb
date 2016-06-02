@@ -15,20 +15,22 @@ RSpec.describe Order, :type => :model do
       expect{order.add_email}.to change{order.status}.from('empty').to('email_added')
     end
     
-    it "doesn't transition to contact_added after email_added if email is not present" do
+    it "doesn't transition to contact_added after email_added if email is not present", focus: true do
       expect(order.add_email).to eq false
+      expect(order).to_not be_valid
+      expect(order.errors[:contact_email].size).to eq 1
     end
     
     it "transitions to billing_added after billing address is added" do
       address = build(:billing_address)
       order = create(:order_with_email)
       order.billing_address = address
-      expect{order.add_billing}.to change{order.status}.from('email_added').to('billing_added')
+      expect{order.add_addresses}.to change{order.status}.from('email_added').to('billing_added')
     end
     
     it "doesn't transition to billing_added if an address isn't present" do
       order = create(:order_with_email)
-      expect(order.add_billing).to eq false
+      expect(order.add_addresses).to eq false
     end
     
     it "transitions shipping_added if shipping is marked as same as billing" do
@@ -38,33 +40,33 @@ RSpec.describe Order, :type => :model do
 
       order.shipping_same = true
       order.save
-      expect{order.add_billing}.to change{order.status}.from('email_added').to('shipping_added')
+      expect{order.add_addresses}.to change{order.status}.from('email_added').to('shipping_added')
     end
     
-    it "copies the billing address to shipping address if shipping same is marked as true", focus: true do
+    it "copies the billing address to shipping address if shipping same is marked as true" do
       address = create(:billing_address)
       order = create(:order_with_email)
       order.billing_address = address
       order.shipping_same = true
-      order.add_billing
+      order.add_addresses
       expect(order.shipping_address.attributes.except("id", "created_at", "updated_at", "kind")).
       to eq order.billing_address.attributes.except!("id", "created_at", "updated_at", "kind")
     end
     
     it "doesn't transition to shipping_added if shipping is marked as same as billing but no billing address is present" do
       order = create(:order_with_email, shipping_same: true)
-      expect(order.add_billing).to eq false
+      expect(order.add_addresses).to eq false
     end
     
     it "transitions to shipping filled after a shipping address is added" do
       order = create(:order_with_billing_address)
       order.create_shipping_address(attributes_for(:shipping_address))
-      expect(order.add_shipping).to eq true
+      expect(order.add_addresses).to eq true
     end
     
     it "doesnt transition to shipping filled if no shipping address is added" do
       order = create(:order_with_billing_address)
-      expect(order.add_shipping).to eq false
+      expect(order.add_addresses).to eq false
     end
 
     it 'transitions to payment_initiated if paypal is selected' do

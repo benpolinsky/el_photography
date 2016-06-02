@@ -13,4 +13,12 @@ class Address < ApplicationRecord
   def name
     [first_name, last_name].join(" ")
   end
+  
+  def self.billing
+    where(kind: "billing")
+  end
+  
+  def self.shipping
+    where(kind: "shipping")
+  end
 end
