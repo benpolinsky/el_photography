@@ -1,3 +1,4 @@
+<% breadcrumb :admin_product, @product %>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -23,7 +24,7 @@
 
 <p>
   <strong>Photo:</strong>
-  <%= image_tag @product.photo.image %>
+  <%= image_tag @product.primary_image if @product.primary_image %>
 </p>
 
 <p>

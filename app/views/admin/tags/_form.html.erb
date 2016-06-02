@@ -1,3 +1,4 @@
+<% breadcrumb :admin_tag, @tag %>
 <%= form_for(admin_tag, url: admin_tags_path) do |f| %>
   <% if admin_tag.errors.any? %>
     <div id="error_explanation">

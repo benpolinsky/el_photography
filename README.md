@@ -4,7 +4,9 @@
 - reorder tags
 - quick way to add or remove tag
 - and quick way to add/change caption for each
+
 - Breadcrumbs
+- notices + errors both front and back end
 
 - shop: 
  - order mark as shipped
@@ -21,8 +23,7 @@
   - IPN + Webhooks
   
 
-- friendly id with changeable/updateable w/ history slugs
-- notices + errors both front and back end
+
 - very basic dynamic css added
   - Perhaps lint or other safety check?
   - Clean up past stylesheets in public directory

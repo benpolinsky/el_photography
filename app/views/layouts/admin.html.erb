@@ -24,7 +24,9 @@
         <%= active_link_to "Themes", admin_themes_path, class: "nav-item nav-link" %>
       </ul>
     </nav>
-    
+      <div class='crumbs'>
+        <%= breadcrumbs separator: " &rsaquo; ", autoroot: false %>
+      </div>
     <div class='container'>
       <%= yield %>
     </div>

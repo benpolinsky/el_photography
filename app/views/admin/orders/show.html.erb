@@ -1,5 +1,5 @@
-<%# breadcrumb :show_sold, @order, current_user %>
-<%= link_to "&laquo; Back to All Orders".html_safe, admin_orders_path, class: "admin-back-link" %>
+<% breadcrumb :order, @order %>
+<%# link_to "&laquo; Back to All Orders".html_safe, admin_orders_path, class: "admin-back-link" %>
 
 <div class='page-header'>
   <h2>Order Details</h2>

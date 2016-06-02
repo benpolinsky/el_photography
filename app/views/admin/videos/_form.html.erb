@@ -1,3 +1,4 @@
+<% breadcrumb :admin_video, @video %>
 <%= form_for([:admin, video]) do |f| %>
   <% if video.errors.any? %>
     <div id="error_explanation">

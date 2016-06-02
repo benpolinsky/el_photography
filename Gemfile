@@ -25,10 +25,15 @@ gem 'modulejs-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-infinite-pages'
+
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+
 #gem 'turbolinks', '~> 5.x'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+
 gem 'jbuilder', '~> 2.0'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
@@ -39,6 +44,7 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'bootstrap', '~> 4.0.0.alpha3'
 #gem 'bootstrap_form'
+gem 'gretel', github: 'craig1410/gretel', branch: 'dep_alias_method_chain'
 gem "font-awesome-rails"
 gem "selectize-rails"
 
