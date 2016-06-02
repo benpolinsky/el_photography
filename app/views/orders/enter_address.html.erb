@@ -1,4 +1,5 @@
-<%= form_for @order do |f| %>
+<div class='wizard-step active'>
+  <%= form_for @order do |f| %>
   <%= f.fields_for :addresses, @order.addresses.billing_first do |address| %>
     <%= address.hidden_field :kind %>
     <%= render partial: 'address_fields', locals: {address: address} %>
@@ -6,3 +7,4 @@
   <% end %>
 <% end %>
 
+</div>

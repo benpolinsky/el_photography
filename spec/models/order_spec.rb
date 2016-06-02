@@ -207,7 +207,7 @@ RSpec.describe Order, :type => :model do
       @order.save
     end
 
-    it "calculates totals correctly from line items", focus: true do
+    it "calculates totals correctly from line items" do
       @order.calculate_totals
       expect(@order.subtotal_cents).to eq 500+1100+500
       expect(@order.shipping_total_cents).to eq 250+50+1250

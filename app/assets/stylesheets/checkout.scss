@@ -1,3 +1,15 @@
 .shipping-address.hidden{
   display:none;
 }
+
+.wizard-step.active {
+  pointer-events: auto;
+}
+
+.wizard-step.inactive {
+  pointer-events: none;
+  opacity:0.4;
+   > * {
+    opacity:0.4;
+  }
+}

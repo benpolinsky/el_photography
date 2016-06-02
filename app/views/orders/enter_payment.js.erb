@@ -1,2 +1,4 @@
+$('.wizard-step').removeClass('active').addClass('inactive');
 $('body').append("<%= j render(partial: 'enter_payment') %>");
-modulejs.require('payments').setup();
+var payments = modulejs.require('payments');
+payments.setup();

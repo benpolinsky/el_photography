@@ -1,11 +1,4 @@
-<%= content_for :extra_js do %>
-  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-  <script type='text/javascript'>
-    Stripe.setPublishableKey("<%= ENV['stripe_test_publishable'] %>");
-  </script>
-<% end %>
-
-<%# order summary %>
+<div class='wizard-step active'>
 <%= form_for @order, html: {id: "submit-payment"} do |f| %>
   <h2>Choose Payment Method</h2>
   <div class='payment-chooser'>
@@ -32,7 +25,7 @@
     <div class='field'>
       <%= select_year Time.zone.now, {start_year: Date.today.year, end_year: Date.today.year+10}, {name: nil, id: "card_year", title: "Credit Card Expiration Year", class: "field_2"} %>
     </div>
-    hide these fields:
+
     <input type="number" size="2" data-stripe="exp-month" id="exp-month" value="<%= Date.today.month %>"/>
     <input type="number" size="4" data-stripe="exp-year" id="exp-year" value="<%= Date.today.year %>"/>
     <div class='field'>
@@ -66,3 +59,4 @@
 
 
 <% end %>
+</div>

@@ -54,7 +54,7 @@ RSpec.describe LineItem, :type => :model do
       expect(line_item.subtotal_cents).to eq 0
     end
     
-    it 'caluclates totals correctly' do
+    it 'calculates totals correctly' do
       line_item = build(:line_item, quantity: 1, price_cents: 300, shipping_base_cents: 100)
       expect(line_item.total_cents).to eq 400
       
@@ -137,7 +137,7 @@ RSpec.describe LineItem, :type => :model do
     
     it "can return its products available_quantity" do
       line_item = create(:line_item_with_product)
-      line_item.product.update(quantity: 2)
+      line_item.product.update_attributes(quantity: 2, using_inventory: true)
       expect(line_item.available_quantity).to eq 2
     end
     

@@ -1,3 +1,9 @@
+<%= content_for :extra_js do %>
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <script type='text/javascript'>
+    Stripe.setPublishableKey("<%= ENV['stripe_test_publishable'] %>");
+  </script>
+<% end %>
 <h1>Checkout</h1>
 <div class='order-summary'>
   <% @order.line_items.each do |item| %>
@@ -6,23 +12,25 @@
 </div>
 
 <p>You can check out using PayPal or Stripe :)</p>
+<div class="wizard-step active">
+  <%= form_for @order, remote: true do |f| %>
+    <div class='addresses'>
+      <%= f.fields_for :addresses, [@billing_address, @shipping_address] do |address| %>
+        <div class="<%= address.object.kind %>-address">
+          <h2><%= address.object.kind.capitalize %> Address</h2>
+          <%= address.hidden_field :kind %>
+          <%= render partial: 'address_fields', locals: {address: address} %>
+          <%= hidden_field_tag :current_step, 'process_address' %>
+          <% if address.object.kind == "billing" %>
+            <%= link_to "Ship To Billing Address", '', class: 'ship-to-same' %>
+            <%= link_to "Enter Different Shipping Address", '', class: 'enter-shipping-address' %>
+            <%= f.hidden_field :shipping_same %>
+          <% elsif address.object.kind == "shipping" %>
+            <%= f.submit "Submit", :disable_with => 'Submiting...' %>  
+          <% end %>
+        </div>
+      <% end %>
+    </div>
 
-<%= form_for @order, remote: true do |f| %>
-  <div class='addresses'>
-    <%= f.fields_for :addresses, [@billing_address, @shipping_address] do |address| %>
-      <div class="<%= address.object.kind %>-address">
-        <h2><%= address.object.kind.capitalize %> Address</h2>
-        <%= address.hidden_field :kind %>
-        <%= render partial: 'address_fields', locals: {address: address} %>
-        <%= hidden_field_tag :current_step, 'process_address' %>
-        <% if address.object.kind == "billing" %>
-          <%= link_to "Ship To Billing Address", '', class: 'ship-to-same' %>
-          <%= link_to "Enter Different Shipping Address", '', class: 'enter-shipping-address' %>
-          <%= f.hidden_field :shipping_same %>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-  <%# f.submit "Submit", :disable_with => 'Submiting...' %>  
-<% end %>
-
+  <% end %>
+</div>

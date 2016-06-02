@@ -70,9 +70,9 @@ class Order < ApplicationRecord
   
   
   def copy_shipping_address
-    shipping_address = billing_address.dup
-    shipping_address.kind = "shipping"
-    shipping_address.save
+    self.shipping_address = billing_address.dup
+    self.shipping_address.kind = "shipping"
+    save
   end
   
   def both_addresses_filled?

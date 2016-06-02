@@ -1,3 +1,6 @@
+// setup, as a function, is way too big... break IT UP!
+// and this should probably be defined as a wizard
+
 modulejs.define('payments', function () {
   var Payments = {
     setup: function () {
@@ -6,11 +9,19 @@ modulejs.define('payments', function () {
       $('.payment-chooser input#order_payment_method_paypal').on('click', function(event) {
         $('.stripe-fields').hide();
         $('.paypal-fields').show();
+        $('html, body').animate({
+          scrollTop: $(this).parent().offset().top
+          }, 400);  
       });
   
       $('.payment-chooser input#order_payment_method_stripe').on('click', function(event) {
         $('.stripe-fields').show();
         $('.paypal-fields').hide();
+        $('html, body').animate({
+          scrollTop: $(this).parent().offset().top
+          }, 400, function () {
+            $('#order_credit_card_number').focus();
+          });
       });
   
       $('#exp-year').hide();
@@ -25,13 +36,22 @@ modulejs.define('payments', function () {
         var year = $(this).val();
         $('#exp-year').val(year);
       });
-  
+      
+      $('.wizard-step.inactive').find('form').find(':input').prop('disabled', true);
+      var next_step = $('.wizard-step.active');
+      $('html, body').animate({
+        scrollTop: next_step.offset().top - 50
+        }, 400, function () {
+        next_step.focus()      
+      });
+
+      
       $('form#submit-payment').submit(function (event) {
         if (!$(this).hasClass('paypal-submit')) {
           var $form = $(this);
           $form.find('input[type="submit"]').prop('disabled', true);
           $form.find('input[type="submit"]').attr('data-disable-with', '<i class="fa fa-spinner fa-spin"></i>Paying…');
-          Stripe.createToken($form, stripeResponseHandler);
+          Stripe.createToken($form, Payments.stripeResponseHandler);
           return false;      
         }
       });
