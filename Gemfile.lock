@@ -511,6 +511,3 @@ DEPENDENCIES
   trix
   tzinfo-data
   uglifier (>= 1.3.0)
-
-BUNDLED WITH
-   1.11.2

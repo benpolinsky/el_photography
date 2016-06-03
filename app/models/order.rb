@@ -36,8 +36,12 @@ class Order < ApplicationRecord
     end
     
     event :accept_payment do
-      transitions from: :payment_added, to: :payment_accepted, if: :payment_successful?
+      transitions from: :payment_added, to: :payment_accepted, if: :payment_successful?, after: :update_purchased_at
       transitions from: :payment_added, to: :payment_failed
+    end
+    
+    event :fail_payment do
+      transitions from: :payment_accepted, to: :payment_failed, after: :update_purchased_at
     end
     
     event :confirm_payment do
@@ -155,6 +159,15 @@ class Order < ApplicationRecord
     self.payment = Payment.new(self, card)
     self.initialize_payment
     self.accept_payment!
+  end
+  
+  def update_purchased_at
+
+    if aasm.to_state == :payment_accepted
+      update(purchased_at: Time.zone.now)
+    else
+      update(purchased_at: nil)
+    end
   end
   
   def self.find_product_from_item(item)

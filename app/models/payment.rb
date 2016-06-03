@@ -3,8 +3,8 @@ class Payment
   delegate :url_helpers, to: 'Rails.application.routes'
   
   PAYPAL_OPTIONS = {
-    no_shipping: true, # if you want to disable shipping information
-    allow_note: false, # if you want to disable notes
+    no_shipping: false, 
+    allow_note: false, 
     pay_on_paypal: true # if you don't plan on showing your own confirmation step
   }
   
@@ -24,16 +24,14 @@ class Payment
 
   def pay_via_paypal
     begin
-      response = paypal_request.setup(paypal_payment_request, 'http://localhost:3000/store/orders/success', 'http://localhost:3000/store/orders/cancel', PAYPAL_OPTIONS)
-      if response
-        @successful_payment_path = response.try(:redirect_uri)
-      else
-        false
-      end
+      response = paypal_request.setup(paypal_payment_request, ENV['paypal_success_url'], ENV['paypal_cancel_url'], PAYPAL_OPTIONS)
+      @successful_payment_path = response.try(:redirect_uri) if response
     rescue Paypal::Exception::APIError => e
-      p e.message
-      p e.response
-      p e.response.details
+      @order.fail_payment!
+      # TODO: log error if occured 
+      # e.message
+      # e.response
+      # e.response.details
     end    
   end
   
@@ -68,7 +66,7 @@ class Payment
       @successful_payment_path = url_helpers.payment_accepted_order_path(@order)
       true
     else
-      # error checking
+      @order.fail_payment!
     end
   end
   
@@ -84,5 +82,14 @@ class Payment
   
   def confirmed?
     @order.payment_method == 'paypal' ? receive_paypal_ipn : receive_stripe_webhook
+  end
+  
+  def complete_paypal(token, payer_id)
+    info = checkout(token, payer_id).payment_info
+    if info.first.payment_status == "Completed"
+      true
+    else
+      @order.fail_payment!
+    end
   end
 end

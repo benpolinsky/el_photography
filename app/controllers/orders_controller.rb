@@ -48,30 +48,14 @@ class OrdersController < ApplicationController
     end
   end
   
-  # Receive + Process
-  # def process_payment
- #    payment_response = @order.process_payment(order_params, params[:stripeToken])
- #
- #    if @order.payment_method == "paypal" && payment_response.try(:redirect_uri)
- #      redirect_to(payment_response.redirect_uri)
- #    elsif @order.payment_method == "stripe" && payment_response
- #      redirect_to [:payment_accepted, @order]
- #    else
- #      render :enter_payment, notice: "Sorry, something went wrong"
- #    end
- #  end
-  
- 
+ # rename to confirm_paypal_payment
   def success
     @order = Order.find(session[:order_id])
-    payment = Payment.new(@order)
-    info = payment.checkout(params[:token], params[:PayerID]).payment_info.first
-    if info.payment_status == "Completed"
-      pp info
+    Payment.new(@order).complete_paypal(params[:token], params[:PayerID])
+    if @order.status == 'payment_accepted'
       redirect_to [:payment_accepted, @order]
     else
-      # order failed
-      redirect_to [:enter_payment, @order], notice: "Sorry, something went wrong with you PayPal Payment."
+      redirect_to [:enter_payment, @order], notice: "Sorry, something went wrong with your PayPal Payment."
     end
   end
   
