@@ -35,13 +35,11 @@ class ItemView
       elsif @item.quantity.to_i > 0 && @item.product_solo?
         remove
       elsif @item.quantity.to_i > 0
-        concat content_tag :span, '-', class: "decrement-quantity"
+        concat link_to '-', url_helpers.decrease_item_quantity_cart_path(@item), {method: :PUT, class: "decrement-quantity", data: {remote: true}}
         concat content_tag :span, @item.quantity, id: "cart-item-#{@item.id}", class: "quantity"
-        concat content_tag :span, '+', class: "increment-quantity"
+        concat link_to '+', url_helpers.increase_item_quantity_cart_path(@item), {method: :PUT, class: "increment-quantity", data: {remote: true}}
         concat spinner
       else
-        remove
-        alert('none-left', 'Oh No!  Someone beat you to it and bought this item while you shopped.')
       end
     end
   end
@@ -70,7 +68,7 @@ class ItemView
   def estimated_shipping
     content_tag :div, class: "item-price-total" do
       content_tag :span, 'Estimated Shipping', class: "label"
-      content_tag :span, @item.shipping_base.try(:format), class: "value"
+      content_tag :span, @item.shipping_total.format, class: "value"
     end
   end
   

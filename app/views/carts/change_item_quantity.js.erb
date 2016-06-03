@@ -1,41 +1,23 @@
+var cart = $('#cart-slice');
+var Cart = modulejs.require('cart');
 var cart_item = <%= @cart_item.id %>;
-update_counts_and_totals();
-<% unless @cart_item.quantity == 0 %>
-  add_item_or_change_quantity(cart_item);
-<% else %>  
-  decrease_quantity(cart_item);
-<% end %>    
 
-if (<%= @cart_quantity %> == 0 ) {
-    closeCart();
-}
+var item_partial = '<%= j render :partial => "cart_item", locals: {cart_item: @cart_item, cart: @cart, item_view: ItemView.new(@cart_item)} %>';
+var add_to_cart_partial = "<%= j render :partial => 'add_to_cart', locals: {product: @cart_item.product, cart: @cart} %>";
+var quantity_partial = "<%= j render partial: 'display_product_quantity', locals: {product: @product, cart: @cart} %>";
 
-if (<%= @cart_items.none? %>) {
-  removeSellerSection();
-}
+Cart.change_quantity(cart_item, item_partial, add_to_cart_partial, quantity_partial);
+<%# unless @cart_item.quantity == 0 %>
+  //add_item_or_change_quantity(cart_item);
+<%# else %>  
+  //decrease_quantity(cart_item);
+<%# end %>    
 
-function decrease_quantity(item) {
-  $('.cart-checkout').addClass('disabled');
-  $("#cart_item_" + item).remove();
-  $('.add-to-cart-container').html("<%= j render :partial => 'add_to_cart_complex', locals: {product: @cart_item.product, cart: @cart} %>");
-  $('.listing-quantity-container').html("<%= j render partial: 'listing_quantity', locals: {product: @product, cart: @cart} %>");
-}
+// if (<%# @cart_quantity %> == 0 ) {
+//     closeCart();
+// }
 
-function add_item_or_change_quantity(item) {
-  $("#cart_item_" + item).html("<%= j render :partial => 'cart_item', locals: {cart_item: @cart_item, cart: @cart, still_available: (@cart_item.product_or_variant.quantity_i_can_checkout(current_or_guest_user))} %>");
-  $('.add-to-cart-container').html("<%= j render :partial => 'add_to_cart_complex', locals: {product: @cart_item.product, cart: @cart} %>");
-  $('.listing-quantity-container').html("<%= j render partial: 'listing_quantity', locals: {product: @product, cart: @cart} %>");
-}
+// if (<%# @cart_items.none? %>) {
+//   removeSellerSection();
+// }
 
-function update_counts_and_totals() {
-  $('.bag-item-count').text("<%= @cart_quantity %>");
-  <% if @cart_items.none? %>
-    $("#cart-shop-<%= @shop.id %>-totals").remove();
-  <% else %>
-    $("#cart-shop-<%= @shop.id %>-totals").html("<%= j render :partial => 'cart_shop_totals', locals: {cart: @cart, shop: @shop, cart_items: @cart_items}  %>");
-  <% end %>
-}
-
-function removeSellerSection() {
-  $('#seller-group-<%= @shop.id %>').remove();
-}

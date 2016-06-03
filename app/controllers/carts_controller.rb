@@ -17,6 +17,33 @@ class CartsController < ApplicationController
     end
   end
   
+  def increase_item_quantity
+    @cart_item = @cart.line_items.find(params[:item_id])
+    @cart_item.increment_quantity
+    @new_quantity = @cart_item.quantity
+    @cart_item.save unless @cart_item.frozen?
+    @cart.save
+    @cart.reload
+    @cart_quantity = @cart.number_of_items
+    @product = @cart_item.product
+    @cart_items = @cart.line_items
+    render :change_item_quantity
+  end
+  
+  def decrease_item_quantity
+    @cart_item = @cart.line_items.find(params[:item_id])
+    @cart_item.decrement_quantity
+    @cart.empty! if @cart.line_items.count == 0
+    @new_quantity = @cart_item.quantity
+    @cart_item.save unless @cart_item.frozen?
+    @cart.save
+    @cart.reload
+    @cart_quantity = @cart.number_of_items
+    @product = @cart_item.product
+    @cart_items = @cart.line_items
+    render :change_item_quantity
+  end
+  
   
   def show
       

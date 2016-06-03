@@ -58,6 +58,8 @@ Rails.application.routes.draw do
   scope '/store' do
     resource :cart do
       post 'add_item'
+      put 'increase_item_quantity/:item_id' => 'carts#increase_item_quantity', as: :increase_item_quantity
+      put 'decrease_item_quantity/:item_id' => 'carts#decrease_item_quantity', as: :decrease_item_quantity
       put 'change_item_quantity'
       put 'change_item_quantity_to'
       get 'empty'

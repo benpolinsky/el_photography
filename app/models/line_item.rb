@@ -12,6 +12,7 @@ class LineItem < ApplicationRecord
   
   monetize :subtotal_cents
   monetize :total_cents
+  monetize :shipping_total_cents
   # TODO: Custom validation, some of the money fields can be blank, but obviously not all of them.
   
   def subtotal_cents
