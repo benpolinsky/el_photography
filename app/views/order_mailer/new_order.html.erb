@@ -1,0 +1,45 @@
+<h1>Elliot, You've Received a New Order from Elliotpolinsky.com</h1>
+
+  <% @order.line_items.each do |item| %>
+    <div class="checkout-order-item">
+      <%= image_tag item.product.primary_image.image.url(:thumb), class: "item-image" if item.product.primary_image %>
+      <%= content_tag :div, "#{item.name} x #{item.quantity}", class: "item-name" %>
+      <%= content_tag :div, "Total: #{item.subtotal.format}", class: "slice-value" %>
+      <% if item.variant? %>
+        <div class="item-variant-choice">
+          <%= item.product.name %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+      
+  <div class='checkout-order-subtotal discounts'>     
+    <%= content_tag :p, "Subtotal: <span>#{@order.subtotal.format}</span>".html_safe %>
+  </div>
+
+
+  <div class='checkout-order-subtotal discounts'>
+    <%= content_tag :p, "Total Shipping: <span>#{@order.shipping_total.format}</span>".html_safe %>    
+  </div>
+
+  <div class="checkout-order-subtotal">
+    <%= content_tag :p, "Grand Total: <span>#{@order.grand_total.format}</span>".html_safe %>
+  </div>
+  
+  <br/>
+  
+  <div class="final-addresses">
+    <div class="final-address">
+      <%= content_tag :h4, "Shipping: " %>
+      <%= display_address(@order.shipping_address).html_safe %>
+    </div>
+
+    <div class="final-address">
+    <%= content_tag :h4, "Billing" %>
+    <%= display_address(@order.billing_address).html_safe %>    
+    </div>
+  </div>
+  
+  <%= link_to 'View Order (need to add viewing orders w/o accounts)', '' %>
+
+<p>- The Site</p>

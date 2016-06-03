@@ -1,5 +1,5 @@
 class Admin::OrdersController < AdminController
-  before_filter :find_order
+  before_action :find_order
 
   def index
     @orders = Order.all
@@ -10,8 +10,8 @@ class Admin::OrdersController < AdminController
 
 
   def ship
-    if @order.ship
-      # email buyer
+    if @order.ship!
+      OrderMailer.order_shipped(@order.id).deliver_later
       redirect_to [:admin, @order], notice: "Order Marked as Shipped and Buyer Notified"
     else
       @resource = @order

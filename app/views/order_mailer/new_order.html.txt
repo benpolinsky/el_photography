@@ -1,0 +1,37 @@
+Elliot - You've Received a New Order from elliotpolinsky.com
+
+  <% @order.line_items.each do |item| %>
+    <%= "#{item.name} x #{item.quantity}" %>
+    <%= "Total: #{item.subtotal.format}" %>
+    <%= item.product.name if item.variant? %>
+  <% end %>
+      
+
+  <%= "Subtotal: #{@order.subtotal.format}" %>
+  <%= "Total Shipping: #{@order.shipping_total.format}" %>    
+  <%= "#{@order.grand_total.format}" %>
+  
+=========================
+
+  Shipping Address:
+ <%= @order.shipping_address.name %>
+ <%= @order.shipping_address.street_line_1 %> 
+ <%= @order.shipping_address.street_line_2 if @order.shipping_address.street_line_2 %>
+ <%= @order.shipping_address.street_line_3 if @order.shipping_address.street_line_3 %>
+ <%= @order.shipping_address.country %>
+ <%= "#{@order.shipping_address.city} #{@order.shipping_address.state} #{@order.shipping_address.zip_code}" %>   
+  
+======
+
+
+  Billing Address:
+ <%= @order.billing_address.name %>
+ <%= @order.billing_address.street_line_1 %> 
+ <%= @order.billing_address.street_line_2 if @order.billing_address.street_line_2 %>
+ <%= @order.billing_address.street_line_3 if @order.billing_address.street_line_3 %>
+ <%= @order.billing_address.country %>
+ <%= "#{@order.billing_address.city} #{@order.billing_address.state} #{@order.billing_address.zip_code}" %> 
+  
+
+
+- The Site

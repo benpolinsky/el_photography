@@ -64,6 +64,7 @@ class Order < ApplicationRecord
   before_create :assign_uid
   after_create :assign_short_uid
   
+  monetize :subtotal_cents, allow_nil: true
   monetize :grand_total_cents, allow_nil: true
   monetize :shipping_total_cents, allow_nil: true  
   
@@ -136,7 +137,7 @@ class Order < ApplicationRecord
   def corresponding_products
     products = []
     self.line_items.each do |item|
-      products << item.product_type.classify.constantize.find(item.product_id)
+      products << item.product_or_variant
     end
     products
   end
@@ -149,6 +150,12 @@ class Order < ApplicationRecord
     save
   end
   
+  
+  # tons of responsibility
+  # calculating_totals..
+  # updating the attributes 
+  # initializing a new payment
+  # and processing/accepting it
   def process_payment(params, card=nil)
     self.calculate_totals
     self.update_attributes(params)

@@ -1,11 +1,11 @@
 <div id="display-cart">
-  <% if @cart.line_items.any? %>
+
   <header id="bag">
     <p>Your Cart</p>
     <%= link_to "Empty Contents", empty_cart_path, remote: true, data: {confirm: "Are you sure?", remote: true} %>
   </header>
 
-  <div id="cart_line_items">
+  <div class='cart-line-items'>
     <% @cart.line_items.each do |item|%>
       <div class="item-slice slice" id="cart_item_<%= item.id %>">
         <%= render :partial => 'cart_item', locals: {cart_item: item, cart: @cart, item_view: ItemView.new(item)} %>
@@ -24,8 +24,8 @@
       <%= link_to "Checkout", checkout_path %>
     </div>
   </div>
-  
-  <% else %>
+
+  <% if @cart.line_items.none? %>
   No Items
   <%= link_to "Keep Shopping", store_path %>
   <% end %>

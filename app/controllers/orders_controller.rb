@@ -42,6 +42,8 @@ class OrdersController < ApplicationController
   def process_payment
     @order.process_payment(order_params, params[:stripeToken])
     if @order.status == 'payment_accepted' 
+      # this further refines the need for some refactoring
+      send_completed_order_mailers(@order) if @order.payment_method == "stripe"
       redirect_to @order.payment.successful_payment_path
     else
       render :enter_payment, notice: "Sorry something went wrong"
@@ -53,6 +55,7 @@ class OrdersController < ApplicationController
     @order = Order.find(session[:order_id])
     Payment.new(@order).complete_paypal(params[:token], params[:PayerID])
     if @order.status == 'payment_accepted'
+      send_completed_order_mailers(@order)
       redirect_to [:payment_accepted, @order]
     else
       redirect_to [:enter_payment, @order], notice: "Sorry, something went wrong with your PayPal Payment."
@@ -71,6 +74,11 @@ class OrdersController < ApplicationController
   
   
   private
+
+  def send_completed_order_mailers(order)
+    OrderMailer.user_purchase(@order.id).deliver_later
+    OrderMailer.new_order(@order.id).deliver_later
+  end
 
   def find_order
     @order = Order.friendly.find(params[:id])
