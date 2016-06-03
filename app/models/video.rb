@@ -7,14 +7,14 @@ class Video < ApplicationRecord
   extend FriendlyId
 
   friendly_id :video_id, use: [:slugged, :history]
-
+  validates_presence_of :video_id
 
   def video_id
     return unless address.present?
     if is_vimeo?
-      address.match(/\/(\d+)/)[1]
+      address.match(/\/(\d+)/).try(:[], 1)
     else
-      address.match(/(?<=v=)(.+)/)[1]
+      address.match(/(?<=v=)(.+)/).try(:[], 1)
     end
   end
   

@@ -5,7 +5,7 @@
 - quick way to add or remove tag
 - and quick way to add/change caption for each
 
-- notices + errors both front end - 
+- notices + errors front end - 
 
 - shop: 
  - order mark as shipped
@@ -13,7 +13,9 @@
  - Fill out totals, quantities, add js for quantities
  - variants to cart is no good...
  - in the above vein(s), you'll have to test out all the quantity/cart/add_to_cart options
-
+ - Organization, wise, any interaction between an Order and a Payment should probably occur through the checkout.  
+   - Process Payment can move
+   
 - Payments: 
   - IPN + Webhooks
   

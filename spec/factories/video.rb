@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :video do
-    address 'http://vimeo.what'
+    address '"https://vimeo.com/87110435"'
   end
 end

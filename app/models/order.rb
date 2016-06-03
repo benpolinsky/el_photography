@@ -25,7 +25,7 @@ class Order < ApplicationRecord
     end
     
     event :add_addresses do
-      transitions from: :email_added, to: :shipping_added, if: :shipping_same, after: :copy_shipping_address
+      transitions from: :email_added, to: :shipping_added, if: :shipping_same_and_billing, after: :copy_shipping_address
       transitions from: :email_added, to: :billing_added, if: :billing_address
       transitions from: :email_added, to: :shipping_added, if: :both_addresses_filled?
       transitions from: :billing_added, to: :shipping_added, if: :shipping_address
@@ -72,6 +72,10 @@ class Order < ApplicationRecord
   monetize :grand_total_cents, allow_nil: true
   monetize :shipping_total_cents, allow_nil: true  
   
+
+  def shipping_same_and_billing
+    shipping_same && billing_address
+  end
 
   def copy_shipping_address
     self.shipping_address = billing_address.dup

@@ -15,7 +15,7 @@ RSpec.describe Order, :type => :model do
       expect{order.add_email}.to change{order.status}.from('empty').to('email_added')
     end
     
-    it "doesn't transition to contact_added after email_added if email is not present", focus: true do
+    it "doesn't transition to contact_added after email_added if email is not present" do
       expect(order.add_email).to eq false
       expect(order).to_not be_valid
       expect(order.errors[:contact_email].size).to eq 1
@@ -78,10 +78,20 @@ RSpec.describe Order, :type => :model do
     it "transitions to payment_initiated if stripe is selected and cc info entered" do
       order = create(:order_with_addresses)
       order.payment_method = "stripe"
-      order.credit_card_number = 100
+      order.credit_card_number = 4242424242424242
       order.credit_card_exp_month = 1
       order.credit_card_exp_year = 2020
       order.credit_card_security_code = 999
+      token = Stripe::Token.create(
+        :card => {
+          :number => order.credit_card_number,
+          :exp_month => order.credit_card_exp_month,
+          :exp_year => order.credit_card_exp_year,
+          :cvc => order.credit_card_security_code
+        }
+      )
+      
+      order.payment = Payment.new(order, token)
       expect{order.initialize_payment}.to change{order.status}.from("shipping_added").to("payment_added")
     end
     
@@ -90,37 +100,50 @@ RSpec.describe Order, :type => :model do
       expect(order.initialize_payment).to eq false
     end
     
-    it "doesnt transition to payment_initiated if all stripe fields are not entered" do
+    it "raises a stripe error if fields are incorrect" do
       order = create(:order_with_addresses)
       order.payment_method = "stripe"
       order.credit_card_number = nil
       order.credit_card_exp_month = nil
       order.credit_card_exp_year = nil
       order.credit_card_security_code = nil
-      expect(order.initialize_payment).to eq false
-      order.credit_card_number = 9999999999999999
-      expect(order.initialize_payment).to eq false
-      order.credit_card_exp_month = 9
-      expect(order.initialize_payment).to eq false
-      order.credit_card_exp_year = 2019
-      expect(order.initialize_payment).to eq false
-      order.credit_card_security_code = 999
-      expect(order.initialize_payment).to eq true
+      
+      expect do
+        token = Stripe::Token.create(
+          :card => {
+            :number => order.credit_card_number,
+            :exp_month => order.credit_card_exp_month,
+            :exp_year => order.credit_card_exp_year,
+            :cvc => order.credit_card_security_code
+          }
+        )
+      end.to raise_error(Stripe::InvalidRequestError)
+
     end
     
     
     it "transitions to payment accepted if a paypal payment is successful" do
       paypal_order = create(:paypal_order)
+      paypal_order.payment = Payment.new(paypal_order)
       expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(true)
       expect{paypal_order.accept_payment}.to change{paypal_order.status}.from('payment_added').to('payment_accepted')
     end
     
     it "transitions to payment accepted if a stripe payment is successful" do
       order = create(:stripe_order)
-      order.credit_card_number = 100
-      order.credit_card_exp_month = 1
+      order.credit_card_number = 4242424242424242
+      order.credit_card_exp_month = 10
       order.credit_card_exp_year = 2020
       order.credit_card_security_code = 999
+      token = Stripe::Token.create(
+        :card => {
+          :number => order.credit_card_number,
+          :exp_month => order.credit_card_exp_month,
+          :exp_year => order.credit_card_exp_year,
+          :cvc => order.credit_card_security_code
+        }
+      )
+      order.payment = Payment.new(order, token)
       order.initialize_payment
       expect_any_instance_of(Payment).to receive(:pay_via_stripe).and_return(true)
       expect{order.accept_payment}.to change{order.status}.from('payment_added').to('payment_accepted')
@@ -128,6 +151,7 @@ RSpec.describe Order, :type => :model do
 
     it "transitions to payment failed after a failed paypal payment" do
       paypal_order = create(:paypal_order)
+      paypal_order.payment = Payment.new(paypal_order)
       expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(false)
       expect{paypal_order.accept_payment}.to change{paypal_order.status}.from('payment_added').to('payment_failed')
     end
@@ -138,6 +162,15 @@ RSpec.describe Order, :type => :model do
       order.credit_card_exp_month = 1
       order.credit_card_exp_year = 2020
       order.credit_card_security_code = 999
+      token = Stripe::Token.new(
+        :card => {
+          :number => order.credit_card_number,
+          :exp_month => order.credit_card_exp_month,
+          :exp_year => order.credit_card_exp_year,
+          :cvc => order.credit_card_security_code
+        }
+      )
+      order.payment = Payment.new(order, token)
       order.initialize_payment
       expect_any_instance_of(Payment).to receive(:pay_via_stripe).and_return(false)
       expect{order.accept_payment}.to change{order.status}.from('payment_added').to('payment_failed')
@@ -145,6 +178,7 @@ RSpec.describe Order, :type => :model do
     
     it "transitions to payment confirmed from payment accepted when recieving confirmation from a paypal ipn" do
       order = create(:paid_paypal_order)
+      order.payment = Payment.new(order)
       expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(true)
       order.accept_payment
       expect_any_instance_of(Payment).to receive(:receive_paypal_ipn).and_return(true)
@@ -153,10 +187,19 @@ RSpec.describe Order, :type => :model do
 
     it "confirmed from payment accepted when recieving confirmation from a stripe webhook" do
       order = create(:stripe_order)
-      order.credit_card_number = 100
-      order.credit_card_exp_month = 1
+      order.credit_card_number = 4242424242424242
+      order.credit_card_exp_month = 10
       order.credit_card_exp_year = 2020
       order.credit_card_security_code = 999
+      token = Stripe::Token.create(
+        :card => {
+          :number => order.credit_card_number,
+          :exp_month => order.credit_card_exp_month,
+          :exp_year => order.credit_card_exp_year,
+          :cvc => order.credit_card_security_code
+        }
+      )
+      order.payment = Payment.new(order, token)
       order.initialize_payment
       expect_any_instance_of(Payment).to receive(:pay_via_stripe).and_return(true)
       expect{order.accept_payment}.to change{order.status}.from('payment_added').to('payment_accepted')
@@ -166,6 +209,7 @@ RSpec.describe Order, :type => :model do
 
     it "isn't confirmed if a failed paypal ipn response is received" do
       order = create(:paid_paypal_order)
+      order.payment = Payment.new(order)
       expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(true)
       order.accept_payment
       expect_any_instance_of(Payment).to receive(:receive_paypal_ipn).and_return(false)
@@ -174,10 +218,19 @@ RSpec.describe Order, :type => :model do
     
     it "isn't confirmed if a failed stripe webhook is received" do
       order = create(:stripe_order)
-      order.credit_card_number = 100
-      order.credit_card_exp_month = 1
+      order.credit_card_number = 4242424242424242
+      order.credit_card_exp_month = 10
       order.credit_card_exp_year = 2020
       order.credit_card_security_code = 999
+      token = Stripe::Token.create(
+        :card => {
+          :number => order.credit_card_number,
+          :exp_month => order.credit_card_exp_month,
+          :exp_year => order.credit_card_exp_year,
+          :cvc => order.credit_card_security_code
+        }
+      )
+      order.payment = Payment.new(order, token)
       order.initialize_payment
       expect_any_instance_of(Payment).to receive(:pay_via_stripe).and_return(true)
       expect{order.accept_payment}.to change{order.status}.from('payment_added').to('payment_accepted')
@@ -185,8 +238,9 @@ RSpec.describe Order, :type => :model do
       expect(order.confirm_payment).to eq false
     end
 
-    it "transitions to shipped from payment confirmed if order ships" do
+    it "transitions to shipped from payment confirmed if order ships", focus: true do
       order = create(:paid_paypal_order)
+      order.payment = Payment.new(order)
       expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(true)
       order.accept_payment
       expect_any_instance_of(Payment).to receive(:receive_paypal_ipn).and_return(true)

@@ -1,3 +1,4 @@
+require 'rails_helper'
 VIDEO_ATTRIBUTES = [:caption, :address, :deleted_at, :slug]
 VALID_VIDEO_ATTRIBUTES = [:address]
 
@@ -5,7 +6,7 @@ VALID_VIDEO_ATTRIBUTES = [:address]
 RSpec.describe Video, type: :model do
   VIDEO_ATTRIBUTES.each do |attr|
     it "has a #{attr}" do
-      video = create(:video)
+      video = build(:video)
       expect(video).to respond_to(attr)
     end
   end
@@ -16,7 +17,7 @@ RSpec.describe Video, type: :model do
         video = build(:video, attr => nil)
         expect(video).to_not be_valid
         expect(video.errors[attr].size).to eq 1
-        video[attr] = "A Valid #{attr}"
+        video[attr] = "https://vimeo.com/87110435"
         expect(video).to be_valid
         expect(video.errors[attr].size).to eq 0
       end
