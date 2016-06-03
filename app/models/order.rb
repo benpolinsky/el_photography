@@ -15,7 +15,6 @@ class Order < ApplicationRecord
     state :payment_added
     state :payment_accepted
     state :payment_failed
-    state :payment_confirmed
     state :order_shipped
     # state :order_received
     # state :return_requested
@@ -44,12 +43,8 @@ class Order < ApplicationRecord
       transitions from: :payment_accepted, to: :payment_failed, after: :update_purchased_at
     end
     
-    event :confirm_payment do
-      transitions from: :payment_accepted, to: :payment_confirmed, if: :payment_confirmed?
-    end
-    
     event :ship do
-      transitions from: :payment_confirmed, to: :order_shipped
+      transitions from: :payment_accepted, to: :order_shipped
     end
     
   end
@@ -102,10 +97,7 @@ class Order < ApplicationRecord
   def payment_successful?
     payment.successful?
   end
-  
-  def payment_confirmed?
-    payment.confirmed?
-  end
+
   
   def calculate_totals
     self.assign_attributes({

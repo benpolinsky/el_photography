@@ -5,20 +5,15 @@
 - quick way to add or remove tag
 - and quick way to add/change caption for each
 
-- notices + errors front end - 
+- notices + errors front end?  Not sure if needed....
 
-- shop: 
+## The Store
  - order mark as shipped
- - order uid to friendly id
  - Fill out totals, quantities, add js for quantities
  - variants to cart is no good...
  - in the above vein(s), you'll have to test out all the quantity/cart/add_to_cart options
- - Organization, wise, any interaction between an Order and a Payment should probably occur through the checkout.  
-   - Process Payment can move
-   
-- Payments: 
-  - IPN + Webhooks
-  
+
+## Theming Support 
 - very basic dynamic css added
   - Perhaps lint or other safety check?
   - Clean up past stylesheets in public directory
@@ -28,15 +23,27 @@
 
 - wysiwig - hopefully trix, medium also an option
 
+
 ### Qs for el
 
 - How are you breaking down your navigation?
 
+# As a Gem.../ Refactoring
 
-## randoms
+ - Organization, wise, any interaction between an Order and a Payment should probably occur through the checkout.  
+   - Just think about it.
+   - Orders don't initiate payments... even invoices don't initiate payments, they merely state how much, how, and by when it needs to be paid by
+   - A Checkout initiates payments.  
+   - A Checkout creates orders.
+   - A Checkout updates orders with payments, etc
 
-Distinct Shop: (with ability to link from photos, so ability to link a product to a photo):
-- No tags in shop to start.
-- List of photos with a few sizes and then each size would have to have a unique photo.
-- So each photo must have a size
-- PayPal to start then move to stripe
+ - Breakdown Payment class into PaypalPayment and StripePayment subclasses so we can add many types of payment. 
+ - move payment processesing to a background job 
+   
+ - Webhooks + IPNs aren't necessary for basic payments...
+   - Subscriptions, yes they are. (both paypal and stripe)
+   - eChecks(paypal)
+   - disputes, etc (stripe)
+   - So, it'd be a plugin, or perhaps there's one out there already. 
+   
+# On Live

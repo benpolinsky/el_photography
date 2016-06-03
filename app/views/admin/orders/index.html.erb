@@ -16,7 +16,7 @@
       <tr>
         <td><%= order.short_or_uid %></td> <%# uid soon %>
         <td><%= order.purchased_at %></td>
-        <td><%= order.grand_total.format %></td>
+        <td><%= order.grand_total.try(:format) %></td>
         <td><%= order.status %></td>
         <td>
           <div class='btn-group'>

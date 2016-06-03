@@ -70,18 +70,8 @@ class Payment
     end
   end
   
-  def receive_paypal_ipn
-  end
-  
-  def receive_stripe_webhook
-  end
-  
   def successful?
     pay
-  end
-  
-  def confirmed?
-    @order.payment_method == 'paypal' ? receive_paypal_ipn : receive_stripe_webhook
   end
   
   def complete_paypal(token, payer_id)

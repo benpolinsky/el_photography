@@ -176,76 +176,14 @@ RSpec.describe Order, :type => :model do
       expect{order.accept_payment}.to change{order.status}.from('payment_added').to('payment_failed')
     end
     
-    it "transitions to payment confirmed from payment accepted when recieving confirmation from a paypal ipn" do
+
+
+    it "transitions to shipped from payment accepted if order ships", focus: true do
       order = create(:paid_paypal_order)
       order.payment = Payment.new(order)
       expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(true)
       order.accept_payment
-      expect_any_instance_of(Payment).to receive(:receive_paypal_ipn).and_return(true)
-      expect{order.confirm_payment}.to change{order.status}.from("payment_accepted").to("payment_confirmed")
-    end
-
-    it "confirmed from payment accepted when recieving confirmation from a stripe webhook" do
-      order = create(:stripe_order)
-      order.credit_card_number = 4242424242424242
-      order.credit_card_exp_month = 10
-      order.credit_card_exp_year = 2020
-      order.credit_card_security_code = 999
-      token = Stripe::Token.create(
-        :card => {
-          :number => order.credit_card_number,
-          :exp_month => order.credit_card_exp_month,
-          :exp_year => order.credit_card_exp_year,
-          :cvc => order.credit_card_security_code
-        }
-      )
-      order.payment = Payment.new(order, token)
-      order.initialize_payment
-      expect_any_instance_of(Payment).to receive(:pay_via_stripe).and_return(true)
-      expect{order.accept_payment}.to change{order.status}.from('payment_added').to('payment_accepted')
-      expect_any_instance_of(Payment).to receive(:receive_stripe_webhook).and_return(true)
-      expect{order.confirm_payment}.to change{order.status}.from("payment_accepted").to("payment_confirmed")
-    end
-
-    it "isn't confirmed if a failed paypal ipn response is received" do
-      order = create(:paid_paypal_order)
-      order.payment = Payment.new(order)
-      expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(true)
-      order.accept_payment
-      expect_any_instance_of(Payment).to receive(:receive_paypal_ipn).and_return(false)
-      expect(order.confirm_payment).to eq false
-    end
-    
-    it "isn't confirmed if a failed stripe webhook is received" do
-      order = create(:stripe_order)
-      order.credit_card_number = 4242424242424242
-      order.credit_card_exp_month = 10
-      order.credit_card_exp_year = 2020
-      order.credit_card_security_code = 999
-      token = Stripe::Token.create(
-        :card => {
-          :number => order.credit_card_number,
-          :exp_month => order.credit_card_exp_month,
-          :exp_year => order.credit_card_exp_year,
-          :cvc => order.credit_card_security_code
-        }
-      )
-      order.payment = Payment.new(order, token)
-      order.initialize_payment
-      expect_any_instance_of(Payment).to receive(:pay_via_stripe).and_return(true)
-      expect{order.accept_payment}.to change{order.status}.from('payment_added').to('payment_accepted')
-      expect_any_instance_of(Payment).to receive(:receive_stripe_webhook).and_return(false)
-      expect(order.confirm_payment).to eq false
-    end
-
-    it "transitions to shipped from payment confirmed if order ships", focus: true do
-      order = create(:paid_paypal_order)
-      order.payment = Payment.new(order)
-      expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(true)
-      order.accept_payment
-      expect_any_instance_of(Payment).to receive(:receive_paypal_ipn).and_return(true)
-      order.confirm_payment
-      expect{order.ship}.to change{order.status}.from('payment_confirmed').to('order_shipped')
+      expect{order.ship}.to change{order.status}.from('payment_accepted').to('order_shipped')
     end
 
    end

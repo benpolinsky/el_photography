@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   respond_to :html, :js
   before_action :find_order, except: [:new, :create, :success, :cancel]
-  
+  protect_from_forgery :except => :webhook
   # create on new.  allows for tracking of abandoned orders
   def new
     @order = Checkout.new(@cart, session).order
@@ -48,7 +48,7 @@ class OrdersController < ApplicationController
     end
   end
   
- # rename to confirm_paypal_payment
+ # rename to finish_paypal_payment ?
   def success
     @order = Order.find(session[:order_id])
     Payment.new(@order).complete_paypal(params[:token], params[:PayerID])
@@ -60,6 +60,7 @@ class OrdersController < ApplicationController
   end
   
   def cancel
+    # mark order as cancelled
   end
   
   def payment_accepted
@@ -85,7 +86,7 @@ class OrdersController < ApplicationController
       :credit_card_number, :credit_card_exp_month, :credit_card_exp_year, 
       :credit_card_security_code, :contact_email, 
       addresses_attributes: [:id, :first_name, 
-      :last_name, :kind, :street_line_1, :street_line_2, :stree_line_3, 
+      :last_name, :kind, :street_line_1, :street_line_2, :street_line_3, 
       :country, :city, :state, :zip_code])
   end
   
