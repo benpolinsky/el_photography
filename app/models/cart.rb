@@ -13,6 +13,7 @@ class Cart < ApplicationRecord
         self.has_items!
       end
     else
+      # TODO: Dependency Injection
       product = product_type == "variant" ? Variant.find(product_id) : Product.find(product_id)  
       current_item = line_items.build({
         product_id:                                            product.id,

@@ -38,7 +38,7 @@ class Checkout
   end
 
   def find_order_from_cart
-    @order = Order.friendly.find(@session[:order_id])
+    @order = Order.friendly.find(@session[:order_id]) # TODO: dependency to inject
     if @order && @order.updated_at > @cart.updated_at
       @order
     elsif @order && @order.updated_at < @cart.updated_at
@@ -47,7 +47,7 @@ class Checkout
   end
   
   def create_order_from_cart
-    transfer_line_items_from_cart_to_order(Order.new)
+    transfer_line_items_from_cart_to_order(Order.new) # TODO: dependency to inject?
   end
   
   def update_order_from_cart

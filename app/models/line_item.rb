@@ -34,7 +34,7 @@ class LineItem < ApplicationRecord
 
   def shipping_total_cents
     destination = itemized.try(:shipping_address).try(:country) ? itemized.shipping_address.country : "US"
-    calculator = ShippingCalculator.new(nil, "US", destination)
+    calculator = ShippingCalculator.new(nil, "US", destination)       # TODO: Dependency Injection
     calculator.determine_shipping_cost(self).to_f > 0 ? calculator.determine_shipping_cost(self).cents : 0
   end
 

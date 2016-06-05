@@ -1,17 +1,26 @@
+# This Class isn't too bad, there are a few easy pickings...
+# The Obvious dependencies are the Paypal and Stripe libraries.
+# Instead of subclassing, consider adding the payment method as 
+# behavior.  It's also a required behavior... there's no Payment
+# without a payment method, Stripe or PayPal
+# So we'll make a StripeProcessor and PayPalProcessor that we can
+# inject to payment.
+
 class Payment  
-  attr_accessor :successful_payment_path, :card
+  attr_accessor :successful_payment_path, :card, :order
   delegate :url_helpers, to: 'Rails.application.routes'
   
   PAYPAL_OPTIONS = {
     no_shipping: false, 
     allow_note: false, 
-    pay_on_paypal: true # if you don't plan on showing your own confirmation step
+    pay_on_paypal: true 
   }
   
-  def initialize(order, card = nil)
-    Paypal.sandbox!
-    @order = order
-    @card = card
+  def initialize(args)
+    sandbox_mode!
+    @order = args[:order]
+    @card = args[:card]
+    @processor = args[:processor] # we could set Stripe as default...
   end
   
   def process
@@ -19,7 +28,12 @@ class Payment
   end
   
   def pay
-    self.method("pay_via_#{@order.payment_method}").call
+    # @processor.pay
+    self.method("pay_via_#{payment_method}").call
+  end
+  
+  def payment_method
+    order.payment_method
   end
 
   def pay_via_paypal
@@ -27,12 +41,17 @@ class Payment
       response = paypal_request.setup(paypal_payment_request, ENV['paypal_success_url'], ENV['paypal_cancel_url'], PAYPAL_OPTIONS)
       @successful_payment_path = response.try(:redirect_uri) if response
     rescue Paypal::Exception::APIError => e
-      @order.fail_payment!
+      failed!
+      
       # TODO: log error if occured 
       # e.message
       # e.response
       # e.response.details
     end    
+  end
+  
+  def failed!
+    order.fail_payment!
   end
   
   def paypal_request
@@ -46,9 +65,13 @@ class Payment
   def paypal_payment_request
     Paypal::Payment::Request.new(
       description: "@order.description",
-      amount: @order.grand_total
+      amount: grand_total
       #:notify_url => '/paypal_notification'
     )
+  end
+  
+  def grand_total
+    order.grand_total
   end
   
   def checkout(token, payer_id)
@@ -57,16 +80,16 @@ class Payment
   
   def pay_via_stripe
     response = Stripe::Charge.create({
-      amount: @order.grand_total_cents,
+      amount: grand_total.cents,
       currency: "usd",
       source: @card,
       description: "@order.description"
     })
     if response
-      @successful_payment_path = url_helpers.payment_accepted_order_path(@order)
+      @successful_payment_path = url_helpers.payment_accepted_order_path(order)
       true
     else
-      @order.fail_payment!
+      failed!
     end
   end
   
@@ -79,7 +102,13 @@ class Payment
     if info.first.payment_status == "Completed"
       true
     else
-      @order.fail_payment!
+      failed!
     end
+  end
+  
+  private
+  
+  def sandbox_mode!
+    Paypal.sandbox!
   end
 end

@@ -91,7 +91,7 @@ RSpec.describe Order, :type => :model do
         }
       )
       
-      order.payment = Payment.new(order, token)
+      order.payment = Payment.new(order: order, card: token)
       expect{order.initialize_payment}.to change{order.status}.from("shipping_added").to("payment_added")
     end
     
@@ -124,7 +124,7 @@ RSpec.describe Order, :type => :model do
     
     it "transitions to payment accepted if a paypal payment is successful" do
       paypal_order = create(:paypal_order)
-      paypal_order.payment = Payment.new(paypal_order)
+      paypal_order.payment = Payment.new(order: paypal_order)
       expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(true)
       expect{paypal_order.accept_payment}.to change{paypal_order.status}.from('payment_added').to('payment_accepted')
     end
@@ -143,7 +143,7 @@ RSpec.describe Order, :type => :model do
           :cvc => order.credit_card_security_code
         }
       )
-      order.payment = Payment.new(order, token)
+      order.payment = Payment.new(order: order, card: token)
       order.initialize_payment
       expect_any_instance_of(Payment).to receive(:pay_via_stripe).and_return(true)
       expect{order.accept_payment}.to change{order.status}.from('payment_added').to('payment_accepted')
@@ -151,7 +151,7 @@ RSpec.describe Order, :type => :model do
 
     it "transitions to payment failed after a failed paypal payment" do
       paypal_order = create(:paypal_order)
-      paypal_order.payment = Payment.new(paypal_order)
+      paypal_order.payment = Payment.new(order: paypal_order)
       expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(false)
       expect{paypal_order.accept_payment}.to change{paypal_order.status}.from('payment_added').to('payment_failed')
     end
@@ -170,7 +170,7 @@ RSpec.describe Order, :type => :model do
           :cvc => order.credit_card_security_code
         }
       )
-      order.payment = Payment.new(order, token)
+      order.payment = Payment.new(order: order, card: token)
       order.initialize_payment
       expect_any_instance_of(Payment).to receive(:pay_via_stripe).and_return(false)
       expect{order.accept_payment}.to change{order.status}.from('payment_added').to('payment_failed')
@@ -180,7 +180,7 @@ RSpec.describe Order, :type => :model do
 
     it "transitions to shipped from payment accepted if order ships", focus: true do
       order = create(:paid_paypal_order)
-      order.payment = Payment.new(order)
+      order.payment = Payment.new(order: order)
       expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(true)
       order.accept_payment
       expect{order.ship}.to change{order.status}.from('payment_accepted').to('order_shipped')

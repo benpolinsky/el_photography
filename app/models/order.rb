@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  include AASM;
+  include AASM
   extend FriendlyId
   
   friendly_id :uid
@@ -113,7 +113,7 @@ class Order < ApplicationRecord
   end
 
   def items_shipping_cents
-    ShippingCalculator.new(self).total_shipping.cents
+    ShippingCalculator.new(self).total_shipping.cents # TODO: dependency to inject 
   end
 
   def items_total_cents
@@ -125,7 +125,7 @@ class Order < ApplicationRecord
   end
   
   def assign_short_uid
-    hashids = Hashids.new(self.created_at.to_i.to_s)
+    hashids = Hashids.new(self.created_at.to_i.to_s) # TODO: dependency to inject 
     self.update_attribute(:short_uid, hashids.encode(self.line_items.size, self.id, Order.all.size))
   end
   
@@ -159,7 +159,7 @@ class Order < ApplicationRecord
   def process_payment(params, card=nil)
     self.calculate_totals
     self.update_attributes(params)
-    self.payment = Payment.new(self, card)
+    self.payment = Payment.new(order: self, card: card) # TODO: dependency to inject 
     self.initialize_payment
     self.accept_payment!
   end
@@ -167,7 +167,7 @@ class Order < ApplicationRecord
   def update_purchased_at
 
     if aasm.to_state == :payment_accepted
-      update(purchased_at: Time.zone.now)
+      update(purchased_at: Time.zone.now) # TODO: dependency to inject?  I think this is okay.
     else
       update(purchased_at: nil)
     end

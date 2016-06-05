@@ -53,7 +53,7 @@ class OrdersController < ApplicationController
  # rename to finish_paypal_payment ?
   def success
     @order = Order.find(session[:order_id])
-    Payment.new(@order).complete_paypal(params[:token], params[:PayerID])
+    Payment.new(order: @order).complete_paypal(params[:token], params[:PayerID])
     if @order.status == 'payment_accepted'
       send_completed_order_mailers(@order)
       redirect_to [:payment_accepted, @order]
