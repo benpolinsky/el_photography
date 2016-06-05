@@ -149,13 +149,31 @@ RSpec.describe LineItem, :type => :model do
       expect(line_item.product_solo?).to eq false
     end
     
-    it "can return the subtotal for a given quantity" do
+    it "can return the subtotal for a given quantity", focus: true do
       line_item = create(:line_item_with_product, price: 2.00)
       line_item.product.update(quantity: 1)
       expect(line_item.subtotal_from(4).format).to eq "$8.00"
       line_item = create(:line_item_with_product, price: 3.10)
       line_item.product.update(quantity: 1)
       expect(line_item.subtotal_from(2).format).to eq "$6.20"
+    end
+    
+    it 'still returns a prediction for an item with 0 quantity' do
+      line_item = create(:line_item_with_product, price: 2.00)
+      line_item.product.update(quantity: 0)
+      expect(line_item.subtotal_from(4).format).to eq "$8.00"
+    end
+    
+    it 'returns 0 for a prediction of 0 quantity' do
+      line_item = create(:line_item_with_product, price: 2.00)
+      line_item.product.update(quantity: 2)
+      expect(line_item.subtotal_from(0).format).to eq "$0.00"
+    end
+    
+    it "returns 0 for an item with no or 0 price" do
+      line_item = create(:line_item_with_product, price: 0)
+      line_item.product.update(quantity: 2)
+      expect(line_item.subtotal_from(5).format).to eq "$0.00"
     end
   end
   

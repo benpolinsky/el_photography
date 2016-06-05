@@ -10,4 +10,6 @@ class Photo < ApplicationRecord
   ranks :row_order
   
   mount_uploader :image, PhotoUploader
+  
+
 end

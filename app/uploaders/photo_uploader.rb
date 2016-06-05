@@ -16,6 +16,10 @@ class PhotoUploader < CarrierWave::Uploader::Base
     "uploads/#{Rails.env}/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
   
+  def default_url(*args)
+    ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
+  end
+  
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
@@ -34,11 +38,15 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb do
-    process :resize_to_fit => [50, 50]
+    process :resize_to_fill => [50, 50]
+  end
+  
+  version :medium do
+    process :resize_to_fill => [600, 600]
   end
   
   version :main do
-    process :resize_to_fill => [1000, 1000]
+    process :resize_to_fit => [1000, 1000]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

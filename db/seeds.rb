@@ -1,10 +1,20 @@
-Product.create({
-  name: "A Product",
-  price_cents: 100,
-  shipping_base_cents: 10,
-  using_inventory: false,
-  published_at: Time.zone.now - 2.days
-})
+require 'faker'
+
+15.times do |i|
+
+  photo = Photo.create({
+    remote_image_url: "https://placehold.it/300x400"
+  })
+  
+  Product.create({
+    name: "#{Faker::Commerce.product_name}_#{i}",
+    price_cents: rand(100..1000),
+    shipping_base_cents: rand(100..300),
+    using_inventory: false,
+    published_at: Time.zone.now - 2.days,
+    photo: photo
+  })
+end
 
 User.create({
   email: 'admin@admin.com',

@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  attr_accessor :sizes_list 
+  attr_accessor :sizes_list, :publishing_service
   
   extend FriendlyId
   friendly_id :name, use: [:slugged, :history]  
@@ -50,9 +50,20 @@ class Product < ApplicationRecord
 
   accepts_nested_attributes_for :variants
   
+  def photo
+    super || NullPhoto.new
+  end
   
-  def primary_image
-    photo.try(:image)
+  def publishing_service
+    # TODO: Possibly make all calls to publishing service external
+    # Dependency Injection: 
+    # PublishingService.new(product)
+    @publishing_service ||= PublishingService.new(self, Product::PUBLISHING_CONDITIONS) 
+  end
+  
+  
+  def primary_image(size=nil)
+    photo.image_url(size)
   end
   
   
@@ -91,10 +102,7 @@ class Product < ApplicationRecord
   def publishable?
     publishing_service.valid?
   end
-  
-  def publishing_service
-    pub_service ||= PublishingService.new(self, Product::PUBLISHING_CONDITIONS)
-  end
+
   
   def price_over_minimum?
     price_cents > 99

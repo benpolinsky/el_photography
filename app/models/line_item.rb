@@ -1,4 +1,6 @@
 class LineItem < ApplicationRecord
+  attr_reader :shipping_calculator, :order
+  
   belongs_to :product
   belongs_to :variant
   
@@ -14,6 +16,18 @@ class LineItem < ApplicationRecord
   monetize :total_cents
   monetize :shipping_total_cents
   # TODO: Custom validation, some of the money fields can be blank, but obviously not all of them.
+  
+  
+  # I guess there's a good case for not calling a line item to get the shipping calculator
+  # but rather to call the shipping caluclator directly.  For now, however
+  # TODO: Externalize ShippingCalculator
+  def shipping_calculator(destination)
+    @shipping_caluclator ||= ShippingCalculator.new(order, "US", destination)
+  end
+  
+  def order
+    @order ||= nil
+  end
   
   def subtotal_cents
     price_cents.to_i * quantity.to_i
@@ -34,9 +48,11 @@ class LineItem < ApplicationRecord
 
   def shipping_total_cents
     destination = itemized.try(:shipping_address).try(:country) ? itemized.shipping_address.country : "US"
-    calculator = ShippingCalculator.new(nil, "US", destination)       # TODO: Dependency Injection
+    calculator = shipping_calculator(destination)
     calculator.determine_shipping_cost(self).to_f > 0 ? calculator.determine_shipping_cost(self).cents : 0
   end
+  
+
 
   def self.calculate_total(items)
     self.calculate_subtotal(items).cents + self.calculate_shipping_total(items)
@@ -96,13 +112,7 @@ class LineItem < ApplicationRecord
   end
   
   def subtotal_from(given_quantity)
-    if price.nil?
-      0
-    elsif given_quantity.nil?
-      0
-    else
-      price * given_quantity
-    end
+    price * given_quantity
   end
   
   def store_product(product)
