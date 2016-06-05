@@ -1,0 +1,53 @@
+// Place all the styles related to the Products controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// product index 
+
+// mobile up!
+
+
+.grid{
+  display:flex;
+  flex-direction: column;
+  flex-wrap:wrap;
+  width:100%;
+}
+
+.grid-item{
+  width:100%;
+  box-sizing:border-box;
+  padding:20px 10px;
+}
+
+.grid-item-container{
+  margin:0 auto;
+  text-align:center;
+}
+
+.grid-item-main-image{
+  width:100%; 
+}
+
+.grid-item-contents{
+  margin-top:10px;
+}
+
+
+@media screen and (min-width: 800px) {
+  .grid{
+    flex-direction: row;
+  }
+  .grid-item{
+    width:50%;
+  }
+}
+
+
+@media screen and (min-width: 1020px) {
+  .grid-item{
+    width:33.333%;
+    width: calc(100% / 3);
+
+  }
+}

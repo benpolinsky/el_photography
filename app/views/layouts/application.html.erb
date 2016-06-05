@@ -14,22 +14,12 @@
   </head>
 
   <body class="<%= theme_class %>">
-    <header class='front-header'>
-      <nav class='front-navigation'>
-        <span class="front-nav-item">
-          <%= link_to "Home", root_path %>
-          <%= link_to "Photography" %>
-          <%= link_to "Video" %>
-          <%= link_to "Store", store_path %>
-          <%= link_to "Cart", cart_path %>
-          <%= link_to "About" %>
-        </span>
-      </nav>
-      <div id="cart-trigger">Trigger Cart</div>
-      <div id="cart-slice">
-        <%= render :partial => 'shopping_cart', locals: {cart: @cart} %>
-      </div>
-    </header>
+    <%= render :partial => 'front_header' %>
+    
+    <div class='cart-slice'>
+      <%= render :partial => 'shopping_cart', locals: {cart: @cart} %>
+    </div>
+
     
     <div class='container-fluid'>
       <%= yield %>

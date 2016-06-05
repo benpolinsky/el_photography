@@ -15,6 +15,8 @@ class LineItem < ApplicationRecord
   monetize :subtotal_cents
   monetize :total_cents
   monetize :shipping_total_cents
+  
+  delegate :primary_image, to: :product
   # TODO: Custom validation, some of the money fields can be blank, but obviously not all of them.
   
   
@@ -119,6 +121,7 @@ class LineItem < ApplicationRecord
     self.product_id = product.id
     self.product_type = "product"
   end
-
+  
+  
   
 end

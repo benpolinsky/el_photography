@@ -1,18 +1,23 @@
 <h1>Welcome to The Spine Tingling Show</h1>
 
 
-<div class='product-grid'>
+<div class='products grid'>
 <% @products.each do |product| %>
-  <div class='product'>
-    <%= image_tag product.primary_image(:medium) %> <!-- Null Object Pattern! -->
-    <div class='listing-quantity-container'> 
-     <%= render :partial => 'display_product_quantity', locals: {product: product, cart: @cart} %>
+  <div class='product grid-item'>
+    <div class='grid-item-container'>
+      <%= image_tag product.primary_image(:medium), class: 'grid-item-main-image' %> 
+      <div class='grid-item-contents'>
+        <div class='listing-quantity-container'> 
+          <!-- This shouldn't be a partial, and the entire product view should be a view -->
+          <%= render :partial => 'display_product_quantity', locals: {product: product, cart: @cart} %>
+        </div>
+  
+        <%= link_to product.name, product_path(product) %>
+        <%= product.price.format %>
+        <%= render :partial => 'add_to_cart', locals: {product: product, cart: @cart} %>        
+      </div>
 
     </div>
-    
-    <%= link_to product.name, product_path(product) %>
-    <%= product.price.format %>
-    <%= render :partial => 'add_to_cart', locals: {product: product, cart: @cart} %>
   </div>
 <% end %>  
 </div>

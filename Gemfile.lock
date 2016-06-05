@@ -466,6 +466,7 @@ DEPENDENCIES
   aasm
   active_link_to
   acts-as-taggable-on!
+  autoprefixer-rails
   bootstrap (~> 4.0.0.alpha3)
   byebug
   carrierwave
@@ -511,3 +512,6 @@ DEPENDENCIES
   trix
   tzinfo-data
   uglifier (>= 1.3.0)
+
+BUNDLED WITH
+   1.11.2

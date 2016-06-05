@@ -61,7 +61,7 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'aasm'
 gem 'hashids'
 gem 'seed_dump'
-
+gem "autoprefixer-rails"
 gem 'acts-as-taggable-on', github: 'cireficc/acts-as-taggable-on' # rails 5 (4/25/16
 
 # images + media

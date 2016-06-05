@@ -18,7 +18,7 @@ $yag: grey;
 }
 
 
-#cart-slice {
+.cart-slice {
   height: 0;
   width: 100%;
   display: block;
@@ -54,8 +54,6 @@ $yag: grey;
     box-sizing: border-box;
   }
   .item-image {
-    width: 70px;
-    height: 70px;
     float: left;
     padding-right: 20px;
   }
@@ -150,7 +148,11 @@ $yag: grey;
     }
   }
 }
-
+.shop-coupon-code-link{
+  label{
+    cursor:pointer;    
+  }
+}
 
 header#main, section.seller-item-group{
   span.cart-shop-name{
@@ -224,12 +226,7 @@ section.seller-item-group{
   position:relative;
   min-height:300px;
 }
-.shop-coupon-code-link{
-  label{
-    cursor:pointer;    
-  }
 
-}
 .item-price-total{
   float:left;
   clear:both;
@@ -298,7 +295,7 @@ header#bag {
 
   }
 }
-#cart-slice.active {
+.cart-slice.active {
   transition: height 100ms;
   -o-transition: height 100ms;
   -moz-transition: height 100ms;
