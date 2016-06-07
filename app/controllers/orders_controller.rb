@@ -8,7 +8,7 @@ class OrdersController < ApplicationController
   # create on new.  allows for tracking of abandoned orders
   
   def new
-    @order = Checkout.new(cart: @cart, session: session).order
+    @order = create_or_find_from_cart
     find_addresses
     if @order.line_items.any?
       session[:order_id] = @order.id
@@ -43,17 +43,18 @@ class OrdersController < ApplicationController
   def enter_payment
   end
 
+  # order.reload is nearly always unnecessary
+  # let's rely on the checkout's response
   def process_payment
     @order.update_with_totals(order_params)
     processor = new_processor(@order, params[:stripeToken])
-    
     checkout_response = checkout(processor).pay!
-    @order.reload
     
-    if @order.status == "payment_accepted"
+    if checkout_response[:status] == "succeeded"
       successful_order
-    elsif @order.status == "payment_pending" 
-      redirect_to checkout_response
+    elsif checkout_response[:status] == "pending_confirmation" 
+      @order.pending_confirmation!
+      redirect_to checkout_response[:second_step_url]
     else
       failed_order
     end
@@ -61,10 +62,8 @@ class OrdersController < ApplicationController
   
   def success
     processor = new_processor(@order)
-    checkout(processor).complete!
-    
-    @order.reload
-    if @order.status == 'payment_accepted'
+    checkout_response = checkout(processor).complete!(token: params[:token], payer_id: params[:PayerID])
+    if checkout_response[:status] == "Success" # standardize these
       successful_order
     else
       failed_order
@@ -76,8 +75,9 @@ class OrdersController < ApplicationController
   end
   
   def payment_accepted
-    checkout = Checkout.new(cart: @cart, session: session)
-    checkout.remove_cart
+    checkout = Checkout.new
+    checkout.finish
+    @session[:cart_id] = nil if session
     checkout.clear_order
   end
   
@@ -91,6 +91,57 @@ class OrdersController < ApplicationController
       @order = Order.find(session[:order_id])
     end
   end
+  
+
+  # The following methods were jammed into the Checkout class
+  # They're all CRUD operations w/r/t orders and carts
+  # Because carts are largely managed through the session (currently)
+  # there's an argument to be made sticking these in a controller is ok...
+  
+  def create_or_find_from_cart
+    @order = session[:order_id].present? ? find_order_from_cart : create_order_from_cart
+    if @order && @order.line_items.any?
+      @order.skip_email_validation = true
+      @order.save
+      @order
+    elsif @order
+      @order.errors.add(:base, "Please check quantity available!")
+      false
+    else
+      false
+    end     
+  end
+  
+
+  def find_order_from_cart
+    @order = Order.friendly.find(session[:order_id]) 
+    if @order && @order.updated_at > @cart.updated_at
+      @order
+    elsif @order && @order.updated_at < @cart.updated_at
+      update_order_from_cart
+    end
+  end
+  
+  def create_order_from_cart
+    transfer_line_items_from_cart_to_order(Order.new)
+  end
+  
+  def update_order_from_cart
+    @order.line_items.delete_all
+    transfer_line_items_from_cart_to_order(@order)
+  end
+  
+  # should be Order#import_items
+  def transfer_line_items_from_cart_to_order(order)
+    @cart.line_items.each do |item|
+      new_item = item.dup
+      new_item.itemized = order
+      new_item.quantity = item.quantity
+      order.line_items << new_item
+    end
+    @order
+  end
+  
   
   def find_addresses
     @billing_address = @order.addresses.find_or_initialize_by(kind: "billing")
@@ -115,19 +166,21 @@ class OrdersController < ApplicationController
   end
   
   def successful_order
+    @order.accept_payment!
+    @order.update_purchased_at
     OrderMailer.send_completed(@order.id)
     redirect_to [:payment_accepted, @order]
   end
   
   def failed_order
+    @order.fail_payment!
     redirect_to [:enter_payment, @order], notice: "Sorry something went wrong"
   end
   
   def checkout(processor)
     Checkout.new({
       cart: @cart, 
-      processor: processor, 
-      session: session
+      processor: processor
     })
   end
 end

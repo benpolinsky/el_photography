@@ -40,7 +40,6 @@
    - A Checkout creates orders.
    - A Checkout updates orders with payments, etc
 
- - Breakdown Payment class into PaypalPayment and StripePayment subclasses so we can add many types of payment. 
  - move payment processesing to a background job 
    
  - Webhooks + IPNs aren't necessary for basic payments...
@@ -49,4 +48,18 @@
    - disputes, etc (stripe)
    - So, it'd be a plugin, or perhaps there's one out there already. 
    
+ - Comparison to other gems:
+   - This is a Rails solution.  
+   - It mounts routes, and deals with both backend processing and front end ux.
+
+   - ActiveMerchant is HUGE - this gem will never support 100+ gateways.  
+     - I probably won't get past 5: a couple of paypal implementations, stripe, braintree, coinbase, maybe open source bitcoin API
+   - ActiveMerchant doesn't support two-step payment gateways that require interaction from the user
+     - i.e. bitcoin, or paypal pay on paypal site.
+  
+   - acts_as_shopping_cart's scope is too narrow
+   
+    
+    
+
 # On Live

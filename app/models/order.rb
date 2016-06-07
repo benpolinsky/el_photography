@@ -7,11 +7,17 @@ class Order < ApplicationRecord
   attr_accessor :credit_card_number, :credit_card_exp_month, :credit_card_exp_year, 
   :credit_card_security_code, :skip_email_validation
     
+    
+  # State machine should only check methods and properties
+  # on an Order... nothing with payments or checkouts unless
+  # they reflect an updated state of the Order itself.
+  
   aasm :column => :status, :whiny_transitions => false do
     state :empty
     state :email_added
     state :billing_added
     state :shipping_added
+    state :awaiting_payment_confirmation
     state :payment_accepted
     state :payment_failed
     state :order_shipped
@@ -29,12 +35,18 @@ class Order < ApplicationRecord
       transitions from: :billing_added, to: :shipping_added, if: :shipping_address
     end
     
+    event :pending_confirmation do
+      transitions from: :shipping_added, to: :awaiting_payment_confirmation
+    end
+    
     event :accept_payment do
       transitions from: :shipping_added, to: :payment_accepted
+      transitions from: :awaiting_payment_confirmation, to: :payment_accepted
     end
     
     event :fail_payment do
-      transitions from: :payment_accepted, to: :payment_failed
+      transitions from: :shipping_added, to: :payment_failed
+      transitions from: :awaiting_payment_confirmation, to: :payment_failed
     end
     
     event :ship do
@@ -139,11 +151,7 @@ class Order < ApplicationRecord
 
   
   def update_purchased_at
-    if aasm.to_state == :payment_accepted
-      update(purchased_at: Time.zone.now) # TODO: dependency to inject?  I think this is okay.
-    else
-      update(purchased_at: nil)
-    end
+    update(purchased_at: Time.zone.now)
   end
   
   def self.find_product_from_item(item)

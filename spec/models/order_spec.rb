@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Order, :type => :model do
   
-  context "order state flow" do
+  context "order state" do
     let(:order) {build(:empty_order)}
     
     it "is empty when new" do
@@ -68,93 +68,39 @@ RSpec.describe Order, :type => :model do
       order = create(:order_with_billing_address)
       expect(order.add_addresses).to eq false
     end
-
     
-    it "raises a stripe error if fields are incorrect" do
-      order = create(:order_with_addresses)
-      order.payment_method = "stripe"
-      order.credit_card_number = nil
-      order.credit_card_exp_month = nil
-      order.credit_card_exp_year = nil
-      order.credit_card_security_code = nil
-      
-      expect do
-        token = Stripe::Token.create(
-          :card => {
-            :number => order.credit_card_number,
-            :exp_month => order.credit_card_exp_month,
-            :exp_year => order.credit_card_exp_year,
-            :cvc => order.credit_card_security_code
-          }
-        )
-      end.to raise_error(Stripe::InvalidRequestError)
-
+    it "transitions to awaiting_payment_confirmation after shipping_added" do
+      order = create(:order_with_billing_address)
+      order.create_shipping_address(attributes_for(:shipping_address))
+      expect(order.add_addresses).to eq true
+      expect{order.pending_confirmation!}.to change{order.status}.from('shipping_added').to('awaiting_payment_confirmation')
     end
     
-    
-    it "transitions to payment accepted if a paypal payment is successful" do
+    it "transitions to payment accepted from shipping added" do
       paypal_order = create(:paypal_order)
-      paypal_order.payment = Payment.new(order: paypal_order)
-      expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(true)
       expect{paypal_order.accept_payment}.to change{paypal_order.status}.from('shipping_added').to('payment_accepted')
     end
-    
-    it "transitions to payment accepted if a stripe payment is successful" do
-      order = create(:stripe_order)
-      order.credit_card_number = 4242424242424242
-      order.credit_card_exp_month = 10
-      order.credit_card_exp_year = 2020
-      order.credit_card_security_code = 999
-      token = Stripe::Token.create(
-        :card => {
-          :number => order.credit_card_number,
-          :exp_month => order.credit_card_exp_month,
-          :exp_year => order.credit_card_exp_year,
-          :cvc => order.credit_card_security_code
-        }
-      )
-      order.payment = Payment.new(order: order, card: token)
-      expect_any_instance_of(Payment).to receive(:pay_via_stripe).and_return(true)
-      expect{order.accept_payment}.to change{order.status}.from('shipping_added').to('payment_accepted')
-    end
 
-    it "transitions to payment failed after a failed paypal payment" do
+    it "transitions to payment failed from shipping added" do
       paypal_order = create(:paypal_order)
-      paypal_order.payment = Payment.new(order: paypal_order)
-      expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(false)
-      expect{paypal_order.accept_payment}.to change{paypal_order.status}.from('shipping_added').to('payment_failed')
+      expect{paypal_order.fail_payment!}.to change{paypal_order.status}.from('shipping_added').to('payment_failed')
     end
 
-    it "transitions to payment failed after a failed stripe payment" do
-      order = create(:stripe_order)
-      order.credit_card_number = 100
-      order.credit_card_exp_month = 1
-      order.credit_card_exp_year = 2020
-      order.credit_card_security_code = 999
-      token = Stripe::Token.new(
-        :card => {
-          :number => order.credit_card_number,
-          :exp_month => order.credit_card_exp_month,
-          :exp_year => order.credit_card_exp_year,
-          :cvc => order.credit_card_security_code
-        }
-      )
-      order.payment = Payment.new(order: order, card: token)
-      expect_any_instance_of(Payment).to receive(:pay_via_stripe).and_return(false)
-      expect{order.accept_payment}.to change{order.status}.from('shipping_added').to('payment_failed')
+    it "transitions to payment failed from awaiting_payment_confirmation" do
+      order = create(:order_with_billing_address)
+      order.create_shipping_address(attributes_for(:shipping_address))
+      order.add_addresses
+      order.pending_confirmation!
+      expect{order.confirm_pending_payment!}.to change{order.status}.from('awaiting_payment_confirmation').to('payment_accepted')
     end
     
-
-
-    it "transitions to shipped from payment accepted if order ships", focus: true do
+    it "transitions to shipped from payment accepted if order ships" do
       order = create(:paid_paypal_order)
-      order.payment = Payment.new(order: order)
-      expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(true)
-      order.accept_payment
-      expect{order.ship}.to change{order.status}.from('payment_accepted').to('order_shipped')
+      order.accept_payment!
+      expect{order.ship!}.to change{order.status}.from('payment_accepted').to('order_shipped')
     end
 
-   end
+  end
  
   context "totals" do
     before do
