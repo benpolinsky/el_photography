@@ -91,7 +91,7 @@ RSpec.describe Order, :type => :model do
       order.create_shipping_address(attributes_for(:shipping_address))
       order.add_addresses
       order.pending_confirmation!
-      expect{order.confirm_pending_payment!}.to change{order.status}.from('awaiting_payment_confirmation').to('payment_accepted')
+      expect{order.accept_payment!}.to change{order.status}.from('awaiting_payment_confirmation').to('payment_accepted')
     end
     
     it "transitions to shipped from payment accepted if order ships" do

@@ -31,13 +31,12 @@ class ItemView
   # This could use a lil work
   def manage_quantities
     quantity do
-      if item.quantity.to_i > 1
+      if item.available_quantity > 1
         concat link_to '-', url_helpers.decrease_item_quantity_cart_path(item), {method: :PUT, class: "decrement-quantity", data: {remote: true}}
         concat content_tag :span, item.quantity, id: "cart-item-#{item.id}", class: "quantity"
         concat link_to '+', url_helpers.increase_item_quantity_cart_path(item), {method: :PUT, class: "increment-quantity", data: {remote: true}}
         concat spinner
       else
-        item.quantity.to_i == 1
         remove
         alert('taken-down', "Sorry, this product has been taken down") if item.product.taken_down?
       end

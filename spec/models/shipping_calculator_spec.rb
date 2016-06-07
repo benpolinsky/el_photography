@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe ShippingCalculator do
-  let(:order) {create(:order_shipping_filled)}
+  let(:order) {create(:order_with_addresses)}
   
   pending "can determine if it is #domestic?" do
     calc = ShippingCalculator.new(order)

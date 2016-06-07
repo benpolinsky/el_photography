@@ -1,20 +1,20 @@
 <div id="display-cart">
 
-  <header id="bag">
-    <p>Your Cart</p>
+  <header class="cart-header">
+    <h2>Cart</h2>
+    <div id="total-slices">
+      <%= render :partial => 'cart_totals', locals: {cart_view: CartView.new(@cart)} %>
+    </div>
     <%= link_to "Empty Contents", empty_cart_path, remote: true, data: {confirm: "Are you sure?", remote: true} %>
   </header>
 
   <div class='cart-line-items'>
+    <h2>Cart Contents</h2>
     <% @cart.line_items.each do |item|%>
       <div class="item-slice slice" id="cart_item_<%= item.id %>">
         <%= render :partial => 'cart_item', locals: {cart_item: item, cart: @cart, item_view: ItemView.new(item)} %>
       </div>
     <% end %>
-  </div>
-
-  <div id="total-slices">
-    <%= render :partial => 'cart_totals', locals: {cart_view: CartView.new(@cart)} %>
   </div>
   
   <div class="bag-checkout-slice slice">

@@ -7,8 +7,6 @@
 - notices + errors front end?  Not sure if needed....
 
 ## The Store
- - Fill out totals, quantities, add js for quantities
-   - totals table is not updating (you knew this)
  - variants to cart is no good...
  - in the above vein(s), you'll have to test out all the quantity/cart/add_to_cart options
  - customer view order/receipt securely

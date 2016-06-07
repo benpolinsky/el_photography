@@ -1,12 +1,12 @@
 require 'faker'
 
-15.times do |i|
+5.times do |i|
 
   photo = Photo.create({
     remote_image_url: "https://placehold.it/300x400"
   })
   
-  Product.create({
+  product = Product.create({
     name: "#{Faker::Commerce.product_name}_#{i}",
     price_cents: rand(100..1000),
     shipping_base_cents: rand(100..300),
@@ -14,6 +14,10 @@ require 'faker'
     published_at: Time.zone.now - 2.days,
     photo: photo
   })
+  
+  if i.odd?
+    
+  end
 end
 
 User.create({

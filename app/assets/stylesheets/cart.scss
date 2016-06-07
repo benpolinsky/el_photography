@@ -285,16 +285,12 @@ section.seller-item-group{
   }
 }
 
-header#bag {
-  color: $lightblue;
-  background: $yag;
+header.cart-header {
+  color: black;
+  background: white;
   padding: 10px 0 12px 20px;
-  border-top: 1px solid $grey;
   border-bottom: 1px solid $grey;
   box-sizing: border-box;
-  p {
-
-  }
 }
 .cart-slice.active {
   transition: height 100ms;
@@ -329,4 +325,13 @@ div.main.cart-open{
   color:white;
   background:$grey;
   border:0px;
+}
+
+.cart-line-items{
+  color: black;
+  background: white;
+  padding: 10px 0 12px 20px;
+  border-bottom: 1px solid grey;
+  box-sizing: border-box;
+  overflow:auto;
 }

@@ -16,9 +16,11 @@
   <body class="<%= theme_class %>">
     <%= render :partial => 'front_header' %>
     
-    <div class='cart-slice'>
-      <%= render :partial => 'shopping_cart', locals: {cart: @cart} %>
-    </div>
+    <% unless body_class == 'carts carts-show' %>
+      <div class='cart-slice'>
+        <%= render :partial => 'shopping_cart', locals: {cart: @cart} %>
+      </div>
+    <% end %>
 
     
     <div class='container-fluid'>
