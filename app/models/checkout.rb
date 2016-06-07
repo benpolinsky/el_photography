@@ -16,15 +16,6 @@ class Checkout
     processor.complete!(args)
   end
 
-  def finish
-    @cart.destroy
-  end
-  
-  # TODO: rename to restart
-  # same with this, unless you can eliminate and move this back into controller
-  def clear_order
-    @session[:order_id] = nil
-  end
   
   
   

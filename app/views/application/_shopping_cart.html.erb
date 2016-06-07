@@ -14,15 +14,11 @@
   </div>
 
   <div id="total-slices">
-    <%= @cart_view.checkout_order_subtotal %>
-
-    <%= @cart_view.checkout_estimated_shipping %>
-
-    <%= @cart_view.checkout_grand_total %>
-
-    <div class="bag-checkout-slice slice">
-      <%= link_to "Checkout", checkout_path %>
-    </div>
+    <%= render :partial => 'cart_totals', locals: {cart_view: CartView.new(@cart)} %>
+  </div>
+  
+  <div class="bag-checkout-slice slice">
+    <%= link_to "Checkout", checkout_path %>
   </div>
 
   <% if @cart.line_items.none? %>

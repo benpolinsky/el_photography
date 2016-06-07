@@ -4,9 +4,11 @@ class CartsController < ApplicationController
     @cart_items = @cart.line_items
     @cart_quantity = @cart.number_of_items
     @product = @cart_item.product
+
     
     respond_to do |format|
       if @cart_item.save
+        @cart.reload
         format.html {redirect_back(fallback_location: store_path, notice: "Item Added to Cart!")}
         format.js 
       else

@@ -20,28 +20,29 @@ modulejs.define('cart', function () {
       $(".item-slice").remove();
     },
     
-    append_item_to_cart: function (cart_item_quantity, cart_item_id, item_partial, add_to_cart_partial, display_quantity_partial) {
+    append_item_to_cart: function (cart_item_quantity, cart_item_id, item_partial, add_to_cart_partial, display_quantity_partial, cart_totals_partials) {
       $('.cart-checkout').removeClass('disabled');
       if (cart_item_quantity > 1) {
-        this.change_quantity(cart_item_id, item_partial, add_to_cart_partial, display_quantity_partial);
+        this.change_quantity(cart_item_id, item_partial, add_to_cart_partial, display_quantity_partial, cart_totals_partial);
       } else {
         $('.cart-line-items').append('<div class="item-slice slice" id="cart_item_'+cart_item_id+'"> ' + item_partial + ' </div>');
+        this.update_counts_and_totals(cart_item_quantity, cart_totals_partial);
       }
-      this.update_counts_and_totals(cart_item_quantity);
     },
     
-    update_counts_and_totals: function (cart_item_quantity) {
+    update_counts_and_totals: function (cart_item_quantity, cart_totals_partial) {
       if (cart_item_quantity == 0) {
         $("#cart-totals").remove();
       } else{
-        console.log("Should we update this?");
+        $('#total-slices').html(cart_totals_partial);
       }
     },
     
-    change_quantity: function (item, cart_item_partial, add_to_cart_partial, display_quantity_partial) {
+    change_quantity: function (item, cart_item_partial, add_to_cart_partial, display_quantity_partial, cart_totals_partial) {
       $("#cart_item_" + item).html(cart_item_partial);
       $('.add-to-cart-container').html(add_to_cart_partial);
       $('.listing-quantity-container').html(display_quantity_partial);
+      this.update_counts_and_totals(cart_item_quantity, cart_totals_partial);
     }
     
   }

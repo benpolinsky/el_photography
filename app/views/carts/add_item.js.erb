@@ -7,10 +7,11 @@ var cart_item = '<%= @cart_item.id %>';
 var item_partial = '<%= j render :partial => "cart_item", locals: {cart_item: @cart_item, cart: @cart, item_view: ItemView.new(@cart_item)} %>';
 var add_to_cart_partial = "<%= j render :partial => 'add_to_cart', locals: {product: @cart_item.product, cart: @cart} %>";
 var quantity_partial = "<%= j render partial: 'display_product_quantity', locals: {product: @product, cart: @cart} %>";
+var cart_totals_partial = "<%= j render partial: 'cart_totals', locals: {cart_view: CartView.new(@cart)} %>";
 var cart_item_quantity = '<%= @cart_item.quantity %>';
 
 $('.bag-item-count').text("<%= @cart_quantity %>");
-Cart.append_item_to_cart(<%= @cart_item.quantity %>, cart_item, item_partial, add_to_cart_partial, quantity_partial);
+Cart.append_item_to_cart(<%= @cart_item.quantity %>, cart_item, item_partial, add_to_cart_partial, quantity_partial, cart_totals_partial);
 
 
 // add cart mumbojumbo

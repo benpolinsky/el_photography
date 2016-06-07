@@ -22,10 +22,10 @@ $yag: grey;
   height: 0;
   width: 100%;
   display: block;
-  position: absolute;
+  position: fixed;
   overflow: hidden;
   right: 0;
-  top: auto;
+  top: 0;
   background: white;
   z-index: 1000;
   border-left: 1px solid $grey;
@@ -134,18 +134,19 @@ $yag: grey;
     bottom: 15px;
     right: 10px;
   }
-  .bag-checkout-slice {
-    background: darkblue;
+}
 
-    font-weight: 300;
-    color: white;
-    letter-spacing: 0.2em;
-    a, a:visited{
-      color:white;
-      &:after{
-      content: "\00BB";
-      };
-    }
+.bag-checkout-slice {
+  background: darkblue;
+
+  font-weight: 300;
+  color: white;
+  letter-spacing: 0.2em;
+  a, a:visited{
+    color:white;
+    &:after{
+    content: "\00BB";
+    };
   }
 }
 .shop-coupon-code-link{

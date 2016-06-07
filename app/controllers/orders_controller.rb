@@ -75,10 +75,9 @@ class OrdersController < ApplicationController
   end
   
   def payment_accepted
-    checkout = Checkout.new
-    checkout.finish
-    @session[:cart_id] = nil if session
-    checkout.clear_order
+    @cart.destroy
+    session[:cart_id] = nil
+    session[:order_id] = nil
   end
   
   
@@ -123,21 +122,22 @@ class OrdersController < ApplicationController
   end
   
   def create_order_from_cart
-    transfer_line_items_from_cart_to_order(Order.new)
+    @order = Order.new
+    transfer_line_items_from_cart_to_order
   end
   
   def update_order_from_cart
     @order.line_items.delete_all
-    transfer_line_items_from_cart_to_order(@order)
+    transfer_line_items_from_cart_to_order
   end
   
   # should be Order#import_items
-  def transfer_line_items_from_cart_to_order(order)
+  def transfer_line_items_from_cart_to_order
     @cart.line_items.each do |item|
       new_item = item.dup
-      new_item.itemized = order
+      new_item.itemized = @order
       new_item.quantity = item.quantity
-      order.line_items << new_item
+      @order.line_items << new_item
     end
     @order
   end
