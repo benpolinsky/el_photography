@@ -4,7 +4,6 @@
 - reorder tags
 - quick way to add or remove tag
 - and quick way to add/change caption for each
-
 - notices + errors front end?  Not sure if needed....
 
 ## The Store
@@ -12,7 +11,6 @@
    - totals table is not updating (you knew this)
  - variants to cart is no good...
  - in the above vein(s), you'll have to test out all the quantity/cart/add_to_cart options
- - cart not populating on first add
  - customer view order/receipt securely
  - validate order uid uniqueness
 
@@ -33,12 +31,6 @@
 
 # As a Gem.../ Refactoring
 
- - Organization, wise, any interaction between an Order and a Payment should probably occur through the checkout.  
-   - Just think about it.
-   - Orders don't initiate payments... even invoices don't initiate payments, they merely state how much, how, and by when it needs to be paid by
-   - A Checkout initiates payments.  
-   - A Checkout creates orders.
-   - A Checkout updates orders with payments, etc
 
  - move payment processesing to a background job 
    
@@ -58,8 +50,3 @@
      - i.e. bitcoin, or paypal pay on paypal site.
   
    - acts_as_shopping_cart's scope is too narrow
-   
-    
-    
-
-# On Live
