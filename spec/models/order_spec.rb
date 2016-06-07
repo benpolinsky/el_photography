@@ -69,36 +69,6 @@ RSpec.describe Order, :type => :model do
       expect(order.add_addresses).to eq false
     end
 
-    it 'transitions to payment_initiated if paypal is selected' do
-      order = create(:order_with_addresses)
-      order.payment_method = "paypal"
-      expect{order.initialize_payment}.to change{order.status}.from("shipping_added").to("payment_added")
-    end
-    
-    it "transitions to payment_initiated if stripe is selected and cc info entered" do
-      order = create(:order_with_addresses)
-      order.payment_method = "stripe"
-      order.credit_card_number = 4242424242424242
-      order.credit_card_exp_month = 1
-      order.credit_card_exp_year = 2020
-      order.credit_card_security_code = 999
-      token = Stripe::Token.create(
-        :card => {
-          :number => order.credit_card_number,
-          :exp_month => order.credit_card_exp_month,
-          :exp_year => order.credit_card_exp_year,
-          :cvc => order.credit_card_security_code
-        }
-      )
-      
-      order.payment = Payment.new(order: order, card: token)
-      expect{order.initialize_payment}.to change{order.status}.from("shipping_added").to("payment_added")
-    end
-    
-    it "doesnt transition to payment_initiated if no payment method selected" do
-      order = create(:order_with_addresses)
-      expect(order.initialize_payment).to eq false
-    end
     
     it "raises a stripe error if fields are incorrect" do
       order = create(:order_with_addresses)
@@ -126,7 +96,7 @@ RSpec.describe Order, :type => :model do
       paypal_order = create(:paypal_order)
       paypal_order.payment = Payment.new(order: paypal_order)
       expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(true)
-      expect{paypal_order.accept_payment}.to change{paypal_order.status}.from('payment_added').to('payment_accepted')
+      expect{paypal_order.accept_payment}.to change{paypal_order.status}.from('shipping_added').to('payment_accepted')
     end
     
     it "transitions to payment accepted if a stripe payment is successful" do
@@ -144,16 +114,15 @@ RSpec.describe Order, :type => :model do
         }
       )
       order.payment = Payment.new(order: order, card: token)
-      order.initialize_payment
       expect_any_instance_of(Payment).to receive(:pay_via_stripe).and_return(true)
-      expect{order.accept_payment}.to change{order.status}.from('payment_added').to('payment_accepted')
+      expect{order.accept_payment}.to change{order.status}.from('shipping_added').to('payment_accepted')
     end
 
     it "transitions to payment failed after a failed paypal payment" do
       paypal_order = create(:paypal_order)
       paypal_order.payment = Payment.new(order: paypal_order)
       expect_any_instance_of(Payment).to receive(:pay_via_paypal).and_return(false)
-      expect{paypal_order.accept_payment}.to change{paypal_order.status}.from('payment_added').to('payment_failed')
+      expect{paypal_order.accept_payment}.to change{paypal_order.status}.from('shipping_added').to('payment_failed')
     end
 
     it "transitions to payment failed after a failed stripe payment" do
@@ -171,9 +140,8 @@ RSpec.describe Order, :type => :model do
         }
       )
       order.payment = Payment.new(order: order, card: token)
-      order.initialize_payment
       expect_any_instance_of(Payment).to receive(:pay_via_stripe).and_return(false)
-      expect{order.accept_payment}.to change{order.status}.from('payment_added').to('payment_failed')
+      expect{order.accept_payment}.to change{order.status}.from('shipping_added').to('payment_failed')
     end
     
 
@@ -201,8 +169,9 @@ RSpec.describe Order, :type => :model do
       @order.save
     end
 
-    it "calculates totals correctly from line items" do
-      @order.calculate_totals
+    # TODO: This test is several tests....
+    it "can update_totals! with new totals correctly from line items" do
+      @order.update_totals!
       expect(@order.subtotal_cents).to eq 500+1100+500
       expect(@order.shipping_total_cents).to eq 250+50+1250
       expect(@order.grand_total_cents).to eq 500+250+1100+50+500+1250
@@ -217,7 +186,7 @@ RSpec.describe Order, :type => :model do
       @order.line_items.delete_all
       @order.line_items << items
       @order.save
-      @order.calculate_totals
+      @order.update_totals!
       expect(@order.subtotal_cents).to eq 0+100+500
       expect(@order.grand_total_cents).to eq 250+200+1750
 
@@ -235,6 +204,19 @@ RSpec.describe Order, :type => :model do
       expect(@order.subtotal_cents).to eq 0+100+500
       expect(@order.grand_total_cents).to eq 250+200+1750
     end
+
+
+    it "updates_totals with new params and new totals" do
+      @order.update_with_totals({contact_email: 'new@new.com'})
+      expect(@order.subtotal_cents).to eq 500+1100+500
+      expect(@order.shipping_total_cents).to eq 250+50+1250
+      expect(@order.grand_total_cents).to eq 500+250+1100+50+500+1250
+      expect(@order.contact_email).to eq 'new@new.com'
+      @order.update_with_totals({contact_email: 'newer@newer.com'})
+      expect(@order.contact_email).to eq 'newer@newer.com'
+    end
+
+
 
     # discounts not implemented yet
     pending "calculates the total with no discounts" do

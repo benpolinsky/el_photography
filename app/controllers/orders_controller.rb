@@ -1,10 +1,14 @@
+# This is a CheckoutController, time to change it....
+# much will make sense
 class OrdersController < ApplicationController
   respond_to :html, :js
-  before_action :find_order, except: [:new, :create, :success, :cancel]
+  before_action :find_order, except: [:new, :create, :cancel]
   protect_from_forgery :except => :webhook
+  
   # create on new.  allows for tracking of abandoned orders
+  
   def new
-    @order = Checkout.new(@cart, session).order
+    @order = Checkout.new(cart: @cart, session: session).order
     find_addresses
     if @order.line_items.any?
       session[:order_id] = @order.id
@@ -40,25 +44,30 @@ class OrdersController < ApplicationController
   end
 
   def process_payment
-    @order.process_payment(order_params, params[:stripeToken])
-    if @order.status == 'payment_accepted' 
-      # this further refines the need for some refactoring
-      send_completed_order_mailers(@order) if @order.payment_method == "stripe"
-      redirect_to @order.payment.successful_payment_path
+    @order.update_with_totals(order_params)
+    processor = new_processor(@order, params[:stripeToken])
+    
+    checkout_response = checkout(processor).pay!
+    @order.reload
+    
+    if @order.status == "payment_accepted"
+      successful_order
+    elsif @order.status == "payment_pending" 
+      redirect_to checkout_response
     else
-      render :enter_payment, notice: "Sorry something went wrong"
+      failed_order
     end
   end
   
- # rename to finish_paypal_payment ?
   def success
-    @order = Order.find(session[:order_id])
-    Payment.new(order: @order).complete_paypal(params[:token], params[:PayerID])
+    processor = new_processor(@order)
+    checkout(processor).complete!
+    
+    @order.reload
     if @order.status == 'payment_accepted'
-      send_completed_order_mailers(@order)
-      redirect_to [:payment_accepted, @order]
+      successful_order
     else
-      redirect_to [:enter_payment, @order], notice: "Sorry, something went wrong with your PayPal Payment."
+      failed_order
     end
   end
   
@@ -67,7 +76,7 @@ class OrdersController < ApplicationController
   end
   
   def payment_accepted
-    checkout = Checkout.new(@cart, session)
+    checkout = Checkout.new(cart: @cart, session: session)
     checkout.remove_cart
     checkout.clear_order
   end
@@ -75,13 +84,12 @@ class OrdersController < ApplicationController
   
   private
 
-  def send_completed_order_mailers(order)
-    OrderMailer.user_purchase(@order.id).deliver_later
-    OrderMailer.new_order(@order.id).deliver_later
-  end
-
   def find_order
-    @order = Order.friendly.find(params[:id])
+    if params[:id]
+      @order = Order.friendly.find(params[:id])
+    else
+      @order = Order.find(session[:order_id])
+    end
   end
   
   def find_addresses
@@ -98,6 +106,28 @@ class OrdersController < ApplicationController
       :country, :city, :state, :zip_code])
   end
   
-  def proceed_to_payment  
+  def new_processor(order, card=nil)
+    "#{order.payment_method}_payment_processor".camelize.safe_constantize.new({
+      amount_to_pay: order.grand_total,
+      description: order.description,
+      card: params[:stripeToken]
+    })
+  end
+  
+  def successful_order
+    OrderMailer.send_completed(@order.id)
+    redirect_to [:payment_accepted, @order]
+  end
+  
+  def failed_order
+    redirect_to [:enter_payment, @order], notice: "Sorry something went wrong"
+  end
+  
+  def checkout(processor)
+    Checkout.new({
+      cart: @cart, 
+      processor: processor, 
+      session: session
+    })
   end
 end

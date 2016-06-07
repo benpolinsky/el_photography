@@ -2,7 +2,14 @@ class OrderMailer < ApplicationMailer
   include AddressesHelper
   helper :addresses
   default from: 'orders@elliotpolinsky.com'
+
+
+  def self.send_completed(order_id)
+    order_shipped(order_id).deliver_later
+    new_order(order_id).deliver_later
+  end
   
+    
   def order_shipped(order_id)
     @order = Order.find(order_id)
     mail(to: @order.contact_email, 

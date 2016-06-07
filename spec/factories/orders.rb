@@ -27,9 +27,6 @@ FactoryGirl.define do
   
   factory :paypal_order, parent: :order_with_addresses do
     payment_method "paypal"
-    after(:create) do |order|
-      order.initialize_payment
-    end
   end
   
   factory :stripe_order, parent: :order_with_addresses do
@@ -38,16 +35,10 @@ FactoryGirl.define do
     credit_card_exp_month = 1
     credit_card_exp_year = 2020
     credit_card_security_code = 999
-    before(:create) do |order|
-      order.initialize_payment
-    end
   end
   
   factory :paid_paypal_order, parent: :order_with_addresses do
     payment_method "paypal"
-    after(:create) do |order|
-      order.initialize_payment
-    end
   end
   
   factory :shipped_order, parent: :order_with_addresses do

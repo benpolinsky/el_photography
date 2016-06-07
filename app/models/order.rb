@@ -5,14 +5,13 @@ class Order < ApplicationRecord
   friendly_id :uid
 
   attr_accessor :credit_card_number, :credit_card_exp_month, :credit_card_exp_year, 
-  :credit_card_security_code, :skip_email_validation, :payment
+  :credit_card_security_code, :skip_email_validation
     
   aasm :column => :status, :whiny_transitions => false do
     state :empty
     state :email_added
     state :billing_added
     state :shipping_added
-    state :payment_added
     state :payment_accepted
     state :payment_failed
     state :order_shipped
@@ -30,17 +29,12 @@ class Order < ApplicationRecord
       transitions from: :billing_added, to: :shipping_added, if: :shipping_address
     end
     
-    event :initialize_payment do
-      transitions from: :shipping_added, to: :payment_added, if: :payment_credentials
-    end
-    
     event :accept_payment do
-      transitions from: :payment_added, to: :payment_accepted, if: :payment_successful?, after: :update_purchased_at
-      transitions from: :payment_added, to: :payment_failed
+      transitions from: :shipping_added, to: :payment_accepted
     end
     
     event :fail_payment do
-      transitions from: :payment_accepted, to: :payment_failed, after: :update_purchased_at
+      transitions from: :payment_accepted, to: :payment_failed
     end
     
     event :ship do
@@ -83,29 +77,21 @@ class Order < ApplicationRecord
     billing_address && (shipping_address || shipping_same)
   end
   
-  
-  def payment_credentials
-    case payment_method
-    when "paypal"
-      true 
-    when "stripe"
-      payment.card.present?
-    else
-      false
-    end
+  def update_with_totals(params)
+    params.reverse_merge!(new_totals)
+    update(params)
   end
   
-  def payment_successful?
-    payment.successful?
+  def update_totals!
+    self.assign_attributes(new_totals)
   end
-
   
-  def calculate_totals
-    self.assign_attributes({
+  def new_totals
+    {
       subtotal_cents: items_subtotal_cents,
       shipping_total_cents: items_shipping_cents,
       grand_total_cents: items_subtotal_cents + items_shipping_cents
-    })
+    }      
   end
   
   def items_subtotal_cents
@@ -142,6 +128,7 @@ class Order < ApplicationRecord
     products
   end
 
+  # again too much responsibility
   def process_addresses(params)
     assign_attributes(params)
     save(validate: false)
@@ -149,23 +136,9 @@ class Order < ApplicationRecord
     add_addresses!
     save
   end
-  
-  
-  # tons of responsibility
-  # calculating_totals..
-  # updating the attributes 
-  # initializing a new payment
-  # and processing/accepting it
-  def process_payment(params, card=nil)
-    self.calculate_totals
-    self.update_attributes(params)
-    self.payment = Payment.new(order: self, card: card) # TODO: dependency to inject 
-    self.initialize_payment
-    self.accept_payment!
-  end
+
   
   def update_purchased_at
-
     if aasm.to_state == :payment_accepted
       update(purchased_at: Time.zone.now) # TODO: dependency to inject?  I think this is okay.
     else
@@ -176,4 +149,8 @@ class Order < ApplicationRecord
   def self.find_product_from_item(item)
     item.product_type.classify.constantize.find(item.product_id)
   end  
+  
+  def description
+    ""
+  end
 end

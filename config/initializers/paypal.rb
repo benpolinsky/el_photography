@@ -1,0 +1,1 @@
+Paypal.sandbox! unless ENV['paypal_live_mode'] == "true"

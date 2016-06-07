@@ -1,22 +1,64 @@
-# A Checkout Object handles:
-# initiating new orders,
-# saving orders,
-# finding and continuing stray orders
-# ensuring an @order progresses in the right @order.
-# cancelling orders
-# emptying carts
-# initiating payments
-# handing successful or unsuccessful payments
-# giving out reciepts
-
+# A Checkout Object handles the interaction between 
+# a Cart, a PaymentProcessor, and an Order
+# Once up to snuff again, I'll really try to get the session outta here
+ 
 class Checkout
-  attr_reader :order
-  def initialize(cart, session)
-    @cart = cart
-    @session = session
-    create_or_find_from_cart
+  attr_reader :order, :cart, :session, :processor
+  
+  def initialize(args)
+    @cart = args[:cart]
+    @processor = args[:processor]
+    @session = args[:session]
   end
   
+  def order
+    @order ||= create_or_find_from_cart
+  end
+  
+  def pay!
+    if processor.requires_confirmation
+      processor.process!
+    else
+      processor.process!
+      mark_as_paid
+    end
+  end
+  
+  def complete!
+    if processor.compelete!
+      mark_as_paid
+    else
+      mark_as_failed
+    end
+  end
+  
+  # change name to: prepare_next or rest or something 
+  # ie. the checkout needs an object that is cartable
+  # but not neccessarily a cart (a basket, or a paper signifying an order)
+  # maybe move back into controller??  at least session part
+  def remove_cart
+    @cart.destroy
+    @session[:cart_id] = nil
+  end
+  
+  # same with this, unless you can eliminate and move this back into controller
+  def clear_order
+    @session[:order_id] = nil
+  end
+  
+  private
+  
+  def mark_as_paid
+    @order.purchased_at = Time.zone.now
+    @order.accept_payment!
+  end
+  
+  def mark_as_failed
+    @order.purchased_at = nil
+    @order.fail_payment!
+  end
+  
+
   def create_or_find_from_cart
     # if this is a user-based system, 
     # we'd want to fetch a user's latest order
@@ -31,12 +73,14 @@ class Checkout
     if @order && @order.line_items.any?
       @order.skip_email_validation = true
       @order.save
+      @order
     else
       @order.errors.add(:base, "Please check quantity available!") if @order
       false
     end     
   end
 
+  # Move this back into Order!
   def find_order_from_cart
     @order = Order.friendly.find(@session[:order_id]) # TODO: dependency to inject
     if @order && @order.updated_at > @cart.updated_at
@@ -64,13 +108,5 @@ class Checkout
     end
     order
   end
-  
-  def remove_cart
-    @cart.destroy
-    @session[:cart_id] = nil
-  end
-  
-  def clear_order
-    @session[:order_id] = nil
-  end
+
 end
