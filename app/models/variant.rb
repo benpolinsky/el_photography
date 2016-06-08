@@ -1,6 +1,7 @@
 class Variant < ApplicationRecord
   using ArrayExtensions
   include RankedModel
+  include Quantifiable
   ranks :row_order
   
   belongs_to :product

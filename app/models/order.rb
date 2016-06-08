@@ -74,6 +74,15 @@ class Order < ApplicationRecord
   monetize :grand_total_cents, allow_nil: true
   monetize :shipping_total_cents, allow_nil: true  
   
+  def import_line_items(container)
+    container.line_items.each do |item|
+      new_item = item.dup
+      new_item.itemized = self
+      new_item.quantity = item.quantity
+      self.line_items << new_item
+    end
+    self
+  end
 
   def shipping_same_and_billing
     shipping_same && billing_address

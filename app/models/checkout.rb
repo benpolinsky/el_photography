@@ -16,8 +16,4 @@ class Checkout
     processor.complete!(args)
   end
 
-  
-  
-  
-
 end

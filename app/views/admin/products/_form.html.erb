@@ -24,7 +24,7 @@
 
   <div class="field form-group">
     <%= f.label :price, (f.object.variants.any? ? "Variants Control Price &#8595;".html_safe : "Price") %>
-    <%= f.number_field :price, {class: "form-control", disabled: (f.object.variants.any?)} %>
+    <%= f.number_field :price, {step: '0.01', class: "form-control", disabled: (f.object.variants.any?)} %>
   </div>
 
   <div class="field form-group">
@@ -40,17 +40,17 @@
 
   <div class="field form-group">
     <%= f.label :quantity %>
-    <%= f.number_field :quantity, class: "form-control" %>
+    <%= f.number_field :quantity, {step: 1, class: "form-control"} %>
   </div>
 
   <div class="field form-group">
     <%= f.label :shipping_base %>
-    <%= f.number_field :shipping_base, class: "form-control" %>
+    <%= f.number_field :shipping_base, {step: '0.01', class: "form-control"} %>
   </div>
   
   <div class="field form-group">
     <%= f.label :additional_shipping_per_item %>
-    <%= f.number_field :additional_shipping_per_item, class: "form-control" %>
+    <%= f.number_field :additional_shipping_per_item, {step: '0.01', class: "form-control"} %>
   </div>
 
 

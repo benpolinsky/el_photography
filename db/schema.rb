@@ -235,6 +235,7 @@ ActiveRecord::Schema.define(version: 20160602191202) do
     t.string   "uid"
     t.datetime "deleted_at"
     t.integer  "product_id"
+    t.boolean  "using_inventory",                                     default: false
     t.integer  "shipping_base_cents"
     t.string   "shipping_base_currency"
     t.integer  "additional_shipping_per_item_cents"
@@ -243,8 +244,8 @@ ActiveRecord::Schema.define(version: 20160602191202) do
     t.string   "international_shipping_base_currency"
     t.integer  "additional_international_shipping_per_item_cents"
     t.string   "additional_international_shipping_per_item_currency"
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.datetime "created_at",                                                          null: false
+    t.datetime "updated_at",                                                          null: false
     t.index ["product_id"], name: "index_variants_on_product_id", using: :btree
   end
 

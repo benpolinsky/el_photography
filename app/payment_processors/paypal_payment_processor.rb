@@ -69,6 +69,13 @@ class PaypalPaymentProcessor
     )
   end
   
+  def payment_request
+    Paypal::Payment::Request.new(
+      description: description,
+      amount: amount_to_pay.to_f
+    )
+  end
+  
   def setup_request
     begin
       response = request.setup(payment_request, success_url, cancel_url, options)
@@ -77,13 +84,6 @@ class PaypalPaymentProcessor
     rescue Paypal::Exception::APIError => e
       format_error_response(e)
     end
-  end
-  
-  def payment_request
-    Paypal::Payment::Request.new(
-      description: description,
-      amount: amount_to_pay.to_f
-    )
   end
   
   def checkout(token, payer_id)

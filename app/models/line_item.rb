@@ -2,7 +2,7 @@ class LineItem < ApplicationRecord
   attr_reader :shipping_calculator, :order
   
   belongs_to :product
-  belongs_to :variant
+  belongs_to :variant, foreign_key: :product_id, class_name: Variant
   
   belongs_to :itemized, polymorphic: true
   
@@ -102,6 +102,7 @@ class LineItem < ApplicationRecord
   end
   
   def product_or_variant_name
+    byebug
     if variant?
       variant.name_with_product
     else

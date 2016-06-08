@@ -13,6 +13,7 @@ class CreateVariants < ActiveRecord::Migration[5.0]
       t.string :uid
       t.datetime :deleted_at
       t.references :product
+      t.boolean :using_inventory, default: false
       
       t.integer :shipping_base_cents
       t.string :shipping_base_currency

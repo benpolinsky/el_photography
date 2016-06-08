@@ -15,9 +15,6 @@ require 'faker'
     photo: photo
   })
   
-  if i.odd?
-    
-  end
 end
 
 User.create({

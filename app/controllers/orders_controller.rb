@@ -18,7 +18,6 @@ class OrdersController < ApplicationController
   end
 
   # handles checkoutflow
-  
   def update
     self.method(params[:current_step]).call if params[:current_step].in? ['process_address', 'process_payment']
   end
@@ -82,7 +81,19 @@ class OrdersController < ApplicationController
   
   
   private
-
+  
+  def successful_order
+    @order.accept_payment!
+    @order.update_purchased_at
+    OrderMailer.send_completed(@order.id)
+    redirect_to [:payment_accepted, @order]
+  end
+  
+  def failed_order
+    @order.fail_payment!
+    redirect_to [:enter_payment, @order], notice: "Sorry something went wrong"
+  end
+  
   def find_order
     if params[:id]
       @order = Order.friendly.find(params[:id])
@@ -90,7 +101,6 @@ class OrdersController < ApplicationController
       @order = Order.find(session[:order_id])
     end
   end
-  
 
   # The following methods were jammed into the Checkout class
   # They're all CRUD operations w/r/t orders and carts
@@ -123,23 +133,12 @@ class OrdersController < ApplicationController
   
   def create_order_from_cart
     @order = Order.new
-    transfer_line_items_from_cart_to_order
+    @order.import_line_items(@cart)
   end
   
   def update_order_from_cart
     @order.line_items.delete_all
-    transfer_line_items_from_cart_to_order
-  end
-  
-  # should be Order#import_items
-  def transfer_line_items_from_cart_to_order
-    @cart.line_items.each do |item|
-      new_item = item.dup
-      new_item.itemized = @order
-      new_item.quantity = item.quantity
-      @order.line_items << new_item
-    end
-    @order
+    @order.import_line_items(@cart)
   end
   
   
@@ -163,18 +162,6 @@ class OrdersController < ApplicationController
       description: order.description,
       card: params[:stripeToken]
     })
-  end
-  
-  def successful_order
-    @order.accept_payment!
-    @order.update_purchased_at
-    OrderMailer.send_completed(@order.id)
-    redirect_to [:payment_accepted, @order]
-  end
-  
-  def failed_order
-    @order.fail_payment!
-    redirect_to [:enter_payment, @order], notice: "Sorry something went wrong"
   end
   
   def checkout(processor)
