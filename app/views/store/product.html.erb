@@ -1,2 +1,2 @@
 <%= @product.primary_image %>
-<%= render :partial => 'display_product_quantity', locals: {product: @product, cart: @cart} %>
+<%= ProductView.new(product: @product, cart: @cart).display_quantity %>

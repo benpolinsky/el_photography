@@ -6,7 +6,7 @@ var Cart = modulejs.require('cart');
 var cart_item = '<%= @cart_item.id %>';
 var item_partial = '<%= j render :partial => "cart_item", locals: {cart_item: @cart_item, cart: @cart, item_view: ItemView.new(@cart_item)} %>';
 var add_to_cart_partial = "<%= j render :partial => 'add_to_cart', locals: {product: @cart_item.product, cart: @cart} %>";
-var quantity_partial = "<%= j render partial: 'display_product_quantity', locals: {product: @product, cart: @cart} %>";
+var quantity_partial = "<%= j ProductView.new(product: @product, cart: @cart).display_quantity %>";
 var cart_totals_partial = "<%= j render partial: 'cart_totals', locals: {cart_view: CartView.new(@cart)} %>";
 var cart_item_quantity = '<%= @cart_item.quantity %>';
 
@@ -15,7 +15,7 @@ Cart.append_item_to_cart(<%= @cart_item.quantity %>, cart_item, item_partial, ad
 
 
 // add cart mumbojumbo
-$('.listing-quantity-container').html("<%= j render partial: 'display_product_quantity', locals: {product: @product, cart: @cart} %>");
+$('.listing-quantity-container').html("<%= j ProductView.new(product: @product, cart: @cart).display_quantity %>");
 $('.add-to-cart-container').html("<%= j render :partial => 'add_to_cart', locals: {product: @cart_item.product, cart: @cart} %>")
 
 if ( Cart.is_closed() ) Cart.open();

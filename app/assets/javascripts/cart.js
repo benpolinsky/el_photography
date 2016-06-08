@@ -46,6 +46,7 @@ modulejs.define('cart', function () {
     },
 
     // I think the variant functionality deserves its own module/class
+    // and also the drop menu
     initialize_variants: function () {
       $('input.add-to-cart.variant').prop('disabled', true);
       var that = this;
@@ -68,6 +69,8 @@ modulejs.define('cart', function () {
     
       // change the select dropdown header text
       $(el).parent().siblings('.drop-menu-header').children('p').text(item_name);
+      
+
       
       // when we select an option we add it's value to the hidden field, if it exists
       // if not, we append the hidden field which we've already populated with our selected value
@@ -94,6 +97,7 @@ modulejs.define('cart', function () {
         $selected_option = $('option[data-unique-key=' + selected_unique_key + ']');
         if ($selected_option.length > 0){
           $selected_option.prop('selected', true);
+          this.append_quantity($selected_option.attr('data-quantity'));
           $('input.add-to-cart.variant').prop('disabled',false);
         } else {
           this.reset_variants();
@@ -103,6 +107,12 @@ modulejs.define('cart', function () {
       }
     
       $(el).parent().parent().removeClass('active');
+    },
+    
+    append_quantity: function (quantity) {
+      var quantity_text = quantity + ' left'
+      $('.listing-quantity-container span.quantity').text(quantity_text);
+      console.log('append' + quantity)
     },
     
     reset_variants: function () {

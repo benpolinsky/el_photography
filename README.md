@@ -7,13 +7,12 @@
 - notices + errors front end?  Not sure if needed....
 
 ## The Store
-- using inventory for variants finish off
  - customer view order/receipt securely
  - validate order uid uniqueness
  - cart not removing item if last quantity removed
  - if empty, cart contents h2 should not display
  - better null/stale_line_item and support for deleted variants.
-
+ - continue to work on ProductView
 ## Theming Support 
 - very basic dynamic css added
   - Perhaps lint or other safety check?

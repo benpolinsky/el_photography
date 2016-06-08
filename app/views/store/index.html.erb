@@ -8,8 +8,7 @@
       <%= image_tag product.primary_image(:medium), class: 'grid-item-main-image' %> 
       <div class='grid-item-contents'>
         <div class='listing-quantity-container'> 
-          <!-- This shouldn't be a partial, and the entire product view should be a view -->
-          <%= render :partial => 'display_product_quantity', locals: {product: product, cart: @cart} %>
+          <%= ProductView.new(product: product, cart: @cart).display_quantity %>
         </div>
   
         <%= link_to product.name, product_path(product) %>
