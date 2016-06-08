@@ -16,13 +16,11 @@ class OrderFinder
     if @order && @order.line_items.any?
       @order.skip_email_validation = true
       @order.save
-      @order
     elsif @order
       @order.errors.add(:base, "Please check quantity available!")
-      false
-    else
-      @order
-    end     
+      @order = NullOrder.new
+    end
+    @order
   end
   
 
