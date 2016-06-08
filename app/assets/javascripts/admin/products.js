@@ -1,23 +1,26 @@
 $(document).ready(function() {
-  if ($('#product_using_inventory').is(":checked")) {
-    enableQuantityField();
-  } else {
-    disableQuantityField();
-  }
-  
-  $('#product_using_inventory').on('click', function () {
+  $('.product_using_inventory').each(function(index) {
     if ($(this).is(":checked")) {
-      enableQuantityField();
+      enableQuantityField(this);
     } else {
-      disableQuantityField();
+      disableQuantityField(this);
+    }
+  });
+
+  
+  $('.product_using_inventory').on('click', function () {
+    if ($(this).is(":checked")) {
+      enableQuantityField(this);
+    } else {
+      disableQuantityField(this);
     }
   })
 });
 
-function disableQuantityField() {
-  $('#product_quantity').attr('disabled', 'disabled')
+function disableQuantityField(field) {
+  $(field).parent().siblings('.field.quantity').children('.quantity-input').attr('disabled', 'disabled')
 }
 
-function enableQuantityField() {
-  $('#product_quantity').removeAttr('disabled');
+function enableQuantityField(field) {
+  $(field).parent().siblings('.field.quantity').children('.quantity-input').removeAttr('disabled');
 }

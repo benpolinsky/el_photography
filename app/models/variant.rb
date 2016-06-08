@@ -15,6 +15,7 @@ class Variant < ApplicationRecord
   monetize :additional_international_shipping_per_item_cents, disable_validation: true
 
   validates_presence_of :product
+  delegate :primary_image, to: :product
   
   # convenience methods
   def only_one?
@@ -36,6 +37,7 @@ class Variant < ApplicationRecord
   def name_with_product
     "#{product.name} #{self.name}"
   end
+
   
   def unique_key
     grouped_variant_values.sort.to_h.values.flatten.map(&:id).join("_")
@@ -55,6 +57,14 @@ class Variant < ApplicationRecord
   
   def deduct_quantity(amount=1)
     quantity > amount ? self.update(quantity: quantity - amount) : self.out_of_stock!
+  end
+  
+  def price_label
+    "Price"
+  end
+  
+  def price_disabled?
+    false
   end
   
 

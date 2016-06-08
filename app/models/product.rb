@@ -123,6 +123,16 @@ class Product < ApplicationRecord
   end
   
   
+  # TODO: Move this (and corresponding Variants methods into a view object of some sorts (could be decorator/presenter too))
+  def price_label
+    variants.any? ? "Variants Control Price &#8595;" : "Price"
+  end
+  
+  
+  def price_disabled?
+    variants.any?
+  end
+  
   def self.create_from_photo(photo_id)
     return unless photo = Photo.find(photo_id)
     product_name = photo.caption.present? ? photo.caption : "Product ##{Product.count + 1}"

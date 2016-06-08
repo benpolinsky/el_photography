@@ -20,11 +20,11 @@
   span.close{
     position:absolute;
     right:3px;
-    top:13px;
-    background:asset-url('small-close.png') no-repeat;
-    width:20px;
-    height:20px;
-    background-size:50%;
+    top:3px;
+    background:asset-url('big-close.png') no-repeat;
+    width: 50px;
+    height: 50px;
+    background-size: 100%;
   }
 }
 

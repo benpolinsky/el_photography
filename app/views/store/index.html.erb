@@ -14,6 +14,25 @@
   
         <%= link_to product.name, product_path(product) %>
         <%= product.price.format %>
+        <% if product.variants.any? %>
+          <div class="item-quantity-and-options">
+            <% product.options.by_id.each do |product_option| %>
+            <div class="drop-menu product-option">
+
+              <header class="drop-menu-header">
+                <p class="subhead drop-menu-heading"><%= product_option.name %></p>
+              </header>
+          
+              <ul class="drop-menu-items">
+                <% product_option.unique_variant_values.each do |variant_value| %>
+                  <li class="drop-menu-item" data-product-option="<%= product_option.name %>" data-item-name="<%= variant_value.value %>" data-item-id="<%= variant_value.id %>"><%= variant_value.value %></li>
+                <% end %>
+              </ul>
+          
+            </div>
+            <% end %>
+          </div>
+        <% end %>
         <%= render :partial => 'add_to_cart', locals: {product: product, cart: @cart} %>        
       </div>
 

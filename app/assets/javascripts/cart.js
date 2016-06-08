@@ -43,6 +43,79 @@ modulejs.define('cart', function () {
       $('.add-to-cart-container').html(add_to_cart_partial);
       $('.listing-quantity-container').html(display_quantity_partial);
       this.update_counts_and_totals(cart_item_quantity, cart_totals_partial);
+    },
+
+    // I think the variant functionality deserves its own module/class
+    initialize_variants: function () {
+      $('input.add-to-cart.variant').prop('disabled', true);
+      var that = this;
+      $('.drop-menu-item').on('click', function(event) {
+        that.select_variant_item(this);
+      });
+    },
+    
+    select_variant_item: function (el) {
+      var item_name = $(el).data("item-name");
+      var item_id = $(el).data("item-id");
+      var product_option_name = $(el).data("product-option");
+      var hidden_field = '<input type="hidden" class="' + product_option_name + '" name="line_item[variant_option_values_ids][]" id="line_item_variant_option_values_ids_' + item_id + '" value="' + item_id + '">';
+    
+      // mark the option as selected
+      $(el).addClass("selected");
+    
+      // remove any selected classes from sibling options
+      $(el).siblings().removeClass('selected');
+    
+      // change the select dropdown header text
+      $(el).parent().siblings('.drop-menu-header').children('p').text(item_name);
+      
+      // when we select an option we add it's value to the hidden field, if it exists
+      // if not, we append the hidden field which we've already populated with our selected value
+    
+      if ($('input.' + product_option_name).length > 0) {
+        $('input.' + product_option_name).val(item_id);
+      } else{
+        $('form.add-item-to-cart').append(hidden_field);      
+      }
+
+      // mark this drop down as selected if not already    
+      if (!$(el).parent().parent().hasClass('selected')) {
+        $(el).parent().parent().addClass('selected');
+      }
+      
+      // enable the add-to-cart button and change the hidden select if all options selected
+      if ($('.drop-menu.product-option:not(.selected)').length == 0) {
+        var selected_unique_key = "";
+        $('.item-quantity-and-options .drop-menu-item.selected').each(function(index) {
+          if (index != 0) {selected_unique_key += "_"};
+          selected_unique_key += $(this).data('item-id');
+        });
+        $('#line_item_variant_id option').prop("selected", false);
+        $selected_option = $('option[data-unique-key=' + selected_unique_key + ']');
+        if ($selected_option.length > 0){
+          $selected_option.prop('selected', true);
+          $('input.add-to-cart.variant').prop('disabled',false);
+        } else {
+          this.reset_variants();
+        }
+        
+      
+      }
+    
+      $(el).parent().parent().removeClass('active');
+    },
+    
+    reset_variants: function () {
+      alert("Sorry, there are no more of this option combo in stock.");
+
+      $('.drop-menu.product-option').each(function () {
+        $('.drop-menu.product-option').removeClass('selected');
+        $menu_items = $(this).find('.drop-menu-item');
+        $first_item = $menu_items.first();
+        $menu_items.removeClass('selected');
+        $first_item.addClass('selected');
+        $(this).find('.drop-menu-heading').text($first_item.data('product-option'));
+      });
     }
     
   }

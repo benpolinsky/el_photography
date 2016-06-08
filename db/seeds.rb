@@ -14,7 +14,6 @@ require 'faker'
     published_at: Time.zone.now - 2.days,
     photo: photo
   })
-  
 end
 
 User.create({

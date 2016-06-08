@@ -8,7 +8,7 @@ class OrdersController < ApplicationController
   # create on new.  allows for tracking of abandoned orders
   
   def new
-    @order = create_or_find_from_cart
+    @order = OrderFinder.new(order_id: session[:order_id], cart: @cart).retrieve
     find_addresses
     if @order.line_items.any?
       session[:order_id] = @order.id
@@ -101,46 +101,6 @@ class OrdersController < ApplicationController
       @order = Order.find(session[:order_id])
     end
   end
-
-  # The following methods were jammed into the Checkout class
-  # They're all CRUD operations w/r/t orders and carts
-  # Because carts are largely managed through the session (currently)
-  # there's an argument to be made sticking these in a controller is ok...
-  
-  def create_or_find_from_cart
-    @order = session[:order_id].present? ? find_order_from_cart : create_order_from_cart
-    if @order && @order.line_items.any?
-      @order.skip_email_validation = true
-      @order.save
-      @order
-    elsif @order
-      @order.errors.add(:base, "Please check quantity available!")
-      false
-    else
-      false
-    end     
-  end
-  
-
-  def find_order_from_cart
-    @order = Order.friendly.find(session[:order_id]) 
-    if @order && @order.updated_at > @cart.updated_at
-      @order
-    elsif @order && @order.updated_at < @cart.updated_at
-      update_order_from_cart
-    end
-  end
-  
-  def create_order_from_cart
-    @order = Order.new
-    @order.import_line_items(@cart)
-  end
-  
-  def update_order_from_cart
-    @order.line_items.delete_all
-    @order.import_line_items(@cart)
-  end
-  
   
   def find_addresses
     @billing_address = @order.addresses.find_or_initialize_by(kind: "billing")

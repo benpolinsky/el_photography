@@ -16,7 +16,6 @@ class LineItem < ApplicationRecord
   monetize :total_cents
   monetize :shipping_total_cents
   
-  delegate :primary_image, to: :product
   # TODO: Custom validation, some of the money fields can be blank, but obviously not all of them.
   
   
@@ -27,6 +26,9 @@ class LineItem < ApplicationRecord
     @shipping_caluclator ||= ShippingCalculator.new(order, "US", destination)
   end
   
+  def primary_image(size=nil)
+    product_or_variant.primary_image(size)
+  end
   def order
     @order ||= nil
   end
@@ -101,8 +103,15 @@ class LineItem < ApplicationRecord
     variant? ? variant : product
   end
   
+  def product
+    product? ? Product.find_by(id: self.product_id) : Variant.find(self.product_id).product
+  end
+  
+  def variant
+    Variant.where(id: self.product_id).first
+  end
+  
   def product_or_variant_name
-    byebug
     if variant?
       variant.name_with_product
     else

@@ -12,7 +12,8 @@
     <h2>Cart Contents</h2>
     <% @cart.line_items.each do |item|%>
       <div class="item-slice slice" id="cart_item_<%= item.id %>">
-        <%= render :partial => 'cart_item', locals: {cart_item: item, cart: @cart, item_view: ItemView.new(item)} %>
+        <% actual_item = item.product_or_variant ? item : StaleLineItem.new(parent_item: item) %>
+        <%= render :partial => 'cart_item', locals: {cart_item: actual_item, cart: @cart, item_view: ItemView.new(actual_item)} %>
       </div>
     <% end %>
   </div>

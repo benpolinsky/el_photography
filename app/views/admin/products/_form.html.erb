@@ -21,66 +21,44 @@
     <%= f.label :description %>
     <%= f.text_area :description, class: "form-control" %>
   </div>
+  
+  <%= render :partial => 'shared_variant_product_fields', locals: {builder: f} %>
 
-  <div class="field form-group">
-    <%= f.label :price, (f.object.variants.any? ? "Variants Control Price &#8595;".html_safe : "Price") %>
-    <%= f.number_field :price, {step: '0.01', class: "form-control", disabled: (f.object.variants.any?)} %>
-  </div>
 
   <div class="field form-group">
     <%= f.label :published_at %>
     <%= f.text_field :published_at, class: "form-control elp-date-field", data: {enabletime: true} %>
   </div>
-  
-  <div class="field form-group">
-    <%= f.label :using_inventory, "Use Inventory? "%>
-    <%= f.check_box :using_inventory, class: "form-control" %>
-    <p class='help-text'>If clicked, product will eventually run 'out-of-stock' and be unavailable.  If not, product will have infinite quantity.</p>
-  </div>
 
-  <div class="field form-group">
-    <%= f.label :quantity %>
-    <%= f.number_field :quantity, {step: 1, class: "form-control"} %>
-  </div>
-
-  <div class="field form-group">
-    <%= f.label :shipping_base %>
-    <%= f.number_field :shipping_base, {step: '0.01', class: "form-control"} %>
-  </div>
-  
-  <div class="field form-group">
-    <%= f.label :additional_shipping_per_item %>
-    <%= f.number_field :additional_shipping_per_item, {step: '0.01', class: "form-control"} %>
-  </div>
 
 
   <hr />
-  <h2>Sizes</h2>
+  <div class='variant-manager'>
+  <h2>Size Manager</h2>
+  <p class='help-text'>Each size creates a variant with the ability to have its own prices/shipping and quantity.</p>
   <div class='field form-group'>
     <%= f.label :sizes_list, 'Enter OR SELECT sizes to create variants from.' %>
     <%= f.text_field :sizes_list, class: "form-control" %>
   </div>
   
-  <div class='field form-group variants'>
+  
+  <h4>Current Variants</h4>
+  <div class='field form-group variants row'>
     <%= f.fields_for :variants do |v| %>
-      
+    <div class='col-xs-6 variant-manager-variant'>
       <div class='field form-group'>
-        <%= v.object.name %>
+        <%= content_tag :h5, v.object.name %>
       </div>
       
-      <div class='field form-group'>
-        <%= v.label :price %>
-        <%= v.text_field :price, class: "form-control" %>
-      </div>
+        <%= render :partial => 'shared_variant_product_fields', locals: {builder: v} %>
       
-      <div class='field form-group'>
-        <%= v.label :shipping_base %>
-        <%= v.text_field :shipping_base, class: "form-control" %>
+      <div class='actions'>
+        <%= link_to "Delete Variant", [:admin, @product, v.object], method: :delete, class: "btn btn-danger" %>
       </div>
-            
+    </div>
     <% end %>
   </div>
-
+</div>
 
   <div class="actions">
     <%= f.button "Save", class: 'btn' %>

@@ -4,8 +4,6 @@ class CartsController < ApplicationController
     @cart_items = @cart.line_items
     @cart_quantity = @cart.number_of_items
     @product = @cart_item.product
-
-    
     respond_to do |format|
       if @cart_item.save
         @cart.reload
@@ -41,7 +39,7 @@ class CartsController < ApplicationController
     @cart.save
     @cart.reload
     @cart_quantity = @cart.number_of_items
-    @product = @cart_item.product
+    @product = @cart_item.product_or_variant
     @cart_items = @cart.line_items
     render :change_item_quantity
   end
@@ -63,7 +61,7 @@ class CartsController < ApplicationController
   private
   
   def product_or_variant_id
-    cart_item_params[:product_id].present? ? cart_item_params[:product_id] : cart_item_params[:variant_id]
+    cart_item_params[:product_type]== 'variant' ? cart_item_params[:variant_id] : cart_item_params[:product_id]
   end
   
   def cart_item_params

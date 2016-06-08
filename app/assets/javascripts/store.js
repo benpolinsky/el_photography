@@ -11,5 +11,5 @@ jQuery(document).ready(function($) {
     Cart.open();
   });
 
-  
+  Cart.initialize_variants();
 });

@@ -12,7 +12,6 @@ class ItemView
   end
   
   def thumb_image
-    # NULL OBJECT PATTERN!
     image_tag(item.primary_image(:thumb), class: "item-image")
   end
   
@@ -37,8 +36,8 @@ class ItemView
         concat link_to '+', url_helpers.increase_item_quantity_cart_path(item), {method: :PUT, class: "increment-quantity", data: {remote: true}}
         concat spinner
       else
-        remove
-        alert('taken-down', "Sorry, this product has been taken down") if item.product.taken_down?
+        concat remove
+        concat alert('taken-down', "Sorry, this product has been taken down") if item.product.taken_down?
       end
     end
   end
@@ -54,7 +53,7 @@ class ItemView
   end
   
   def remove
-    content_tag :span, "Remove", class: "decrement-quantity"
+    link_to "Please Remove", url_helpers.decrease_item_quantity_cart_path(item.id), {method: :PUT, class: "decrement-quantity", data: {remote: true}}
   end
   
   def subtotal

@@ -7,10 +7,12 @@
 - notices + errors front end?  Not sure if needed....
 
 ## The Store
- - variants to cart is no good...
- - in the above vein(s), you'll have to test out all the quantity/cart/add_to_cart options
+- using inventory for variants finish off
  - customer view order/receipt securely
  - validate order uid uniqueness
+ - cart not removing item if last quantity removed
+ - if empty, cart contents h2 should not display
+ - better null/stale_line_item and support for deleted variants.
 
 ## Theming Support 
 - very basic dynamic css added
