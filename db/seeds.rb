@@ -66,3 +66,4 @@ Variant.create!([
     option_values: [OptionValue.last]}
 ])
 
+User.create({email: "admin@admin.com", password: 'password'})

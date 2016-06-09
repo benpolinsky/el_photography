@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(version: 20160602191202) do
     t.string   "itemized_type"
     t.integer  "itemized_id"
     t.integer  "product_id"
-    t.integer  "variant_id"
     t.string   "product_type"
     t.integer  "quantity",                                            default: 0
     t.string   "name"
@@ -78,7 +77,6 @@ ActiveRecord::Schema.define(version: 20160602191202) do
     t.datetime "updated_at",                                                      null: false
     t.index ["itemized_type", "itemized_id"], name: "index_line_items_on_itemized_type_and_itemized_id", using: :btree
     t.index ["product_id"], name: "index_line_items_on_product_id", using: :btree
-    t.index ["variant_id"], name: "index_line_items_on_variant_id", using: :btree
   end
 
   create_table "option_values", force: :cascade do |t|

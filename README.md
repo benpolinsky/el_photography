@@ -5,13 +5,10 @@
 - quick way to add or remove tag
 - and quick way to add/change caption for each
 - notices + errors front end?  Not sure if needed....
+- validate variants
 
 ## The Store
- - customer view order/receipt securely
- - validate order uid uniqueness
- - cart not removing item if last quantity removed
- - if empty, cart contents h2 should not display
- - better null/stale_line_item and support for deleted variants.
+ - better null/stale_line_item and support for deleted variants
  - continue to work on ProductView
 ## Theming Support 
 - very basic dynamic css added

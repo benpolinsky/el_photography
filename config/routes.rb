@@ -69,7 +69,7 @@ Rails.application.routes.draw do
       member do
         get 'enter_address' => 'orders#enter_address'
         get 'enter_payment' => 'orders#enter_payment'
-        get 'payment_accepted' => 'orders#payment_accepted'
+        get 'receipt' => 'orders#payment_accepted', as: :payment_accepted
         get 'cancel_payment' => 'order#cancel_payment'
       end
       get 'success', on: :collection

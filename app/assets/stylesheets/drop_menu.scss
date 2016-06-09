@@ -1,40 +1,33 @@
 // Drop Menu
-$lightblue: lightblue;
-$lightblue-20: lightblue;
+$lightblue: black;
+$lightblue-20: black;
 .drop-menu{
-  border:1px solid $lightblue;
+  border:1px solid black;
   display:inline-block;
-  padding:0px;
-  min-width:125px;
+
+  min-width:50px;
+  width:auto;
   position:relative;
 }
 
 .drop-menu-header{
-  padding:10px 0px 5px 0px;
-  text-align:left;
-  text-indent:15px;
+  padding:5px 0px;
+  text-align:center;
+
   cursor:pointer;
-  border-bottom:0px solid $lightblue;
+  border-bottom:0px solid black;
   background:white;
   position:relative;
   z-index:101;
-
-  &:after{
-    content: '';
-    background:image-url('down.png') no-repeat;
-    position:absolute;
-    right:8px;
-    top:12px;
-    width:15px;
-    height:10px;
-    background-size:65%;
+  &:hover{
+    background-color:#0F0;
   };
 }
 
 .filter-order .drop-menu-header{
   &:after{
     content: '';
-    background:image-url('filter_down.png') no-repeat;
+    background:asset-url('filter_down.png') no-repeat;
     position:absolute;
     right:16px;
     top:12px;
@@ -46,44 +39,49 @@ $lightblue-20: lightblue;
 
 .drop-menu-heading{
   font-size:12px;
-  color:$lightblue;
+  color:black;
   text-transform:uppercase;
   &.subhead{
     font-size:12px;
+    line-height:1;
+    margin:0;
   }
 }
 .drop-menu-items{
   max-height:0px;
+  margin:0;
   position:absolute;
-  left:0;
-  top:31px;
+  left:-1px;
+  top:22px;
   overflow:hidden;
-  transition: all 100ms ease-in;
+  transition: height 100ms ease-in;
   z-index:100;
-  border:1px solid $lightblue;
-  width:99%;
+
+
 }
 
 .drop-menu.active .drop-menu-items{
-  padding:5px 0px;
+  padding:0px;
   max-height:600px;
   overflow:hidden;
   width:100%;
   left:-1px;
-  transition: all 100ms ease-in;
+  transition: height 100ms ease-in;
   background:white;
   z-index:102;
+  border:1px solid black;
+  box-sizing:content-box;
 }
 
 
 .drop-menu-item{
-
-  color:$lightblue;
-  padding:3px 0 3px 7px;
+  color:black;
+  padding:3px 0 3px 0px;
   cursor:pointer;
   width:100%;
   &:hover{
-    background:$lightblue-20;
+    background:lightgrey;
+    color:black;
   };
   a{
     font-size:12px;

@@ -66,6 +66,7 @@ class Order < ApplicationRecord
   validates_associated :billing_address
   validates_associated :shipping_address, unless: :shipping_same
   validates_presence_of :contact_email, unless: :skip_email_validation
+  validates_uniqueness_of :uid
   
   before_create :assign_uid
   after_create :assign_short_uid

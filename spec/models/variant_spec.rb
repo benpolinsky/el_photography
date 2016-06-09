@@ -263,7 +263,7 @@ RSpec.describe Variant, :type => :model do
       }
       @product.variants.create_from_properties_and_options(options)
       expect(Variant.with_quantity.size).to eq 15
-      expect{@product.variants.first.update(quantity: 0)}.to change{Variant.with_quantity.size}.by(-1)
+      expect{@product.variants.first.update_attributes(using_inventory: true, quantity: 0)}.to change{Variant.with_quantity.size}.by(-1)
     end
   end
 

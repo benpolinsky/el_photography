@@ -14,3 +14,25 @@
 select#line_item_variant_id{
   @extend %visuallyhidden;
 }
+
+
+.item-quantity-and-options{
+  float:left;
+  clear:both;
+  margin:5px 0;
+}
+
+.add-to-cart-container{
+  float:left;
+  clear:both;
+}
+
+// product view
+.product-view-name-link{
+  float:left;
+}
+
+.product-view-price{
+  float:right;
+}
+

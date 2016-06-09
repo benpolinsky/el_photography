@@ -5,16 +5,26 @@ class ProductView
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::NumberHelper
   attr_accessor :output_buffer
-  
+  delegate :url_helpers, to: 'Rails.application.routes'
+    
   def initialize(args)
     @product = args[:product]
     @cart = args[:cart]
   end
   
+  def name_and_link
+    link_to product.name, url_helpers.product_path(product), class: "product-view-name-link"
+  end
+  
+  def price
+    content_tag :span, product.price.format, class: "product-view-price"
+  end
   
   def display_quantity
-    content_tag :div, class: 'item-quantity-left' do
-      concat display_remaining_product_count
+    if product.using_inventory?
+      content_tag :div, class: 'item-quantity-left' do
+        concat display_remaining_product_count
+      end
     end
   end
   

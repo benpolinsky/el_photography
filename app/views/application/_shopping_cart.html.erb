@@ -9,7 +9,11 @@
   </header>
 
   <div class='cart-line-items'>
-    <h2>Cart Contents</h2>
+    <% if @cart.line_items.any? %>
+      <h2>Cart Contents</h2>
+    <% else %>
+      <h2>Nothing Here</h2>
+    <% end %>
     <% @cart.line_items.each do |item|%>
       <div class="item-slice slice" id="cart_item_<%= item.id %>">
         <% actual_item = item.product_or_variant ? item : StaleLineItem.new(parent_item: item) %>

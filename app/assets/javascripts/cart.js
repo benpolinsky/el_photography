@@ -20,6 +20,10 @@ modulejs.define('cart', function () {
       $(".item-slice").remove();
     },
     
+    line_items: function () {
+      return $('.item-slice').length;
+    },
+    
     append_item_to_cart: function (cart_item_quantity, cart_item_id, item_partial, add_to_cart_partial, display_quantity_partial, cart_totals_partials) {
       $('.cart-checkout').removeClass('disabled');
       if (cart_item_quantity > 1) {
@@ -32,17 +36,25 @@ modulejs.define('cart', function () {
     
     update_counts_and_totals: function (cart_item_quantity, cart_totals_partial) {
       if (cart_item_quantity == 0) {
-        $("#cart-totals").remove();
+        $("#total-slices").remove();
       } else{
         $('#total-slices').html(cart_totals_partial);
       }
     },
     
     change_quantity: function (item, cart_item_partial, add_to_cart_partial, display_quantity_partial, cart_totals_partial, cart_item_quantity) {
-      $("#cart_item_" + item).html(cart_item_partial);
+      if (cart_item_quantity == 0) {
+        $("#cart_item_" + item).remove();
+      } else {
+        $("#cart_item_" + item).html(cart_item_partial);        
+      }
       $('.add-to-cart-container').html(add_to_cart_partial);
       $('.listing-quantity-container').html(display_quantity_partial);
       this.update_counts_and_totals(cart_item_quantity, cart_totals_partial);
+      if (this.line_items() == 0) {
+        this.close();        
+      }
+
     },
 
     // I think the variant functionality deserves its own module/class
@@ -112,11 +124,9 @@ modulejs.define('cart', function () {
     append_quantity: function (quantity) {
       var quantity_text = quantity + ' left'
       $('.listing-quantity-container span.quantity').text(quantity_text);
-      console.log('append' + quantity)
     },
     
     reset_variants: function () {
-      alert("Sorry, there are no more of this option combo in stock.");
 
       $('.drop-menu.product-option').each(function () {
         $('.drop-menu.product-option').removeClass('selected');

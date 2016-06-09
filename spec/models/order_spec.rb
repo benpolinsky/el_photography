@@ -2,6 +2,15 @@ require 'rails_helper'
 
 RSpec.describe Order, :type => :model do
   
+  context "validations" do
+    it "uid must be unique" do
+      order = create(:paid_paypal_order)
+      order_uid = order.uid
+      copycat_order = create(:paid_paypal_order)
+      expect{copycat_order.update(uid: order_uid)}.to change{copycat_order.valid?}.from(true).to(false)
+    end
+  end
+  
   context "order state" do
     let(:order) {build(:empty_order)}
     
@@ -197,9 +206,6 @@ RSpec.describe Order, :type => :model do
     end
   end
 
-
-
- 
   context "instance methods" do
     it "can find all products corresponding to its lineitems" do
       order = create(:shipped_order)
@@ -237,4 +243,5 @@ RSpec.describe Order, :type => :model do
 
   end
   
+
 end

@@ -20,16 +20,17 @@ $('.add-to-cart-container').html("<%= j render :partial => 'add_to_cart', locals
 
 if ( Cart.is_closed() ) Cart.open();
 
-// Drop Menu for Product Option
+//Drop Menu for Product Option
 
-// $('.drop-menu.product-option').each(function () {
-//   $('.drop-menu.product-option').removeClass('selected');
-//   $menu_items = $(this).find('.drop-menu-item');
-//   $first_item = $menu_items.first();
-//   $menu_items.removeClass('selected');
-//   $first_item.addClass('selected');
-//   $(this).find('.drop-menu-heading').text($first_item.data('product-option'));
-// })
+$('.drop-menu.product-option').each(function () {
+  $('.drop-menu.product-option').removeClass('selected');
+  $menu_items = $(this).find('.drop-menu-item');
+  $first_item = $menu_items.first();
+  $menu_items.removeClass('selected');
+  $first_item.addClass('selected');
+  $(this).find('.drop-menu-heading').text($first_item.data('product-option'));
+  $('input.add-to-cart.variant').prop('disabled', true);
+})
 
 
 // coupons

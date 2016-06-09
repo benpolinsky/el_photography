@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  attr_accessor :sizes_list, :publishing_service
+  attr_accessor :sizes_list, :publishing_service, :product_view
   
   extend FriendlyId
   friendly_id :name, use: [:slugged, :history]  
@@ -52,6 +52,14 @@ class Product < ApplicationRecord
   
   def photo
     super || NullPhoto.new
+  end
+  
+  def method_missing(method, args)
+    if method == :bp_view
+      @product_view ||= ProductView.new(args.merge({product: self}))
+    else
+      super
+    end
   end
   
   def publishing_service
@@ -213,6 +221,7 @@ class Product < ApplicationRecord
   # def self.with_visible_stock(cart)
   #   stocked.reject { |product| cart.number_of_products_inside(product.id, "product") >= product.quantity }
   # end
+
 
   
 end

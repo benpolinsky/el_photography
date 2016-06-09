@@ -3,7 +3,6 @@ class CreateLineItems < ActiveRecord::Migration[5.0]
     create_table :line_items do |t|
       t.references :itemized, polymorphic: true, index: true
       t.references :product
-      t.references :variant
       t.string :product_type
       t.integer :quantity, default: 0
       t.string :name

@@ -17,7 +17,7 @@ FactoryGirl.define do
     after(:build) do |line_item|
       variant = create(:variant)
       line_item.product_type = "variant"
-      line_item.variant_id = variant.id
+      line_item.product_id = variant.id
     end
   end
 end

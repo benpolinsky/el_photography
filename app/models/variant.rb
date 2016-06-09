@@ -15,6 +15,7 @@ class Variant < ApplicationRecord
   monetize :additional_international_shipping_per_item_cents, disable_validation: true
 
   validates_presence_of :product
+  validates :price_cents, numericality: {greater_than: 99}, on: :update
   delegate :primary_image, to: :product
   
   # convenience methods
@@ -70,7 +71,7 @@ class Variant < ApplicationRecord
 
   
   def self.with_quantity(amount=0)
-    where("quantity > ?", amount)
+    where("quantity > ? OR using_inventory = false", amount)
   end
   
   def self.with_value_name(value_name)

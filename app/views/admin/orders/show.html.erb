@@ -13,11 +13,11 @@
 		<%= quick_row "Order Created On", l(@order.created_at, format: :long) %>
 		<%= quick_row "Order Purchased On", l(@order.purchased_at, format: :long) if @order.purchased_at %>
 		<%= quick_row "Order Last Updated", l(@order.updated_at, format: :long) %>
-		<%= quick_row "Subtotal", number_to_currency(@order.items_subtotal_cents/100.00) %>
-		<%= quick_row "Shipping", number_to_currency(@order.shipping_total) %>
-		<%= quick_row "Grand Total", number_to_currency(@order.grand_total_cents/100.00) %>
+    <% # right now, the trys are necessary because the order hasnt caluclated_totals yet... %>
+		<%= quick_row "Subtotal", @order.subtotal.try(:format) %>
+		<%= quick_row "Shipping", @order.shipping_total.try(:format) %>
+		<%= quick_row "Grand Total", @order.grand_total.try(:format) %>
   </div>
-
 	<hr/>  
   <div class="order-contents">
 		<h3>Order Items (<%= @order.line_items.size %>)</h3>
@@ -26,7 +26,7 @@
         <% if item.product || item.variant %>
           <% if item.product %>
     				<%= link_to product_path(item.product) do %>
-    					<%= image_tag item.product.primary_image.image.url(:thumb) if item.product.primary_image %>
+    					<%= image_tag item.product.primary_image %>
     				<% end %>
           <% elsif item.variant %>
     				<%= link_to product_path(item.variant.product) do %>
@@ -41,10 +41,11 @@
   					<%= quick_row "Listing Name", link_to(item.name, product_path(item.product)) %>
   				<% end %>
         <% end %>
+
 				<%= quick_row "Quantity", item.quantity %>
 				<%= quick_row "Price", number_to_currency(item.subtotal) %>
-				<%= quick_row "Shipping", number_to_currency(item.shipping_total_cents/100.00) %>
-				<%= quick_row "Grand Total", number_to_currency(item.total) %>
+				<%= quick_row "Shipping", item.shipping_total.try(:format) %>
+				<%= quick_row "Grand Total", item.total.try(:format) %>
 	    </div>
 
      
