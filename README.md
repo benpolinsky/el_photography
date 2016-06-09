@@ -10,6 +10,8 @@
 ## The Store
  - better null/stale_line_item and support for deleted variants
  - continue to work on ProductView
+ - variant price validation - I suppose skip validation on creation (from_options_and_values)
+ 
 ## Theming Support 
 - very basic dynamic css added
   - Perhaps lint or other safety check?

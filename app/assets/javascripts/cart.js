@@ -110,6 +110,7 @@ modulejs.define('cart', function () {
         if ($selected_option.length > 0){
           $selected_option.prop('selected', true);
           this.append_quantity($selected_option.attr('data-quantity'));
+          this.append_price($selected_option.attr('data-price'));
           $('input.add-to-cart.variant').prop('disabled',false);
         } else {
           this.reset_variants();
@@ -124,6 +125,10 @@ modulejs.define('cart', function () {
     append_quantity: function (quantity) {
       var quantity_text = quantity + ' left'
       $('.listing-quantity-container span.quantity').text(quantity_text);
+    },
+    
+    append_price: function (price) {
+      $('span.product-view-price').text(price);
     },
     
     reset_variants: function () {

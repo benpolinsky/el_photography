@@ -2,7 +2,7 @@
     <%= form_tag(add_item_cart_path(LineItem.new), {class: "add-item-to-cart", data: {remote: true}}) do %>
       <%= hidden_field_tag "line_item[product_id]", product.id  %>
       <%= hidden_field_tag 'line_item[product_type]', "variant"  %>
-      <%= select_tag 'line_item[variant_id]', options_for_select(product.variants.with_quantity.map {|variant| [variant.name, variant.id, {'data-unique-key' => variant.unique_key, 'data-quantity' => variant.available_quantity}] }) %>
+      <%= select_tag 'line_item[variant_id]', list_variants_by_keys(product) %>
       <%= submit_tag "Add To Cart", class: "btn add-to-cart variant" %>
     <% end %>
 <% else %>

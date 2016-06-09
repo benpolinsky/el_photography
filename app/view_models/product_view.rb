@@ -17,7 +17,11 @@ class ProductView
   end
   
   def price
-    content_tag :span, product.price.format, class: "product-view-price"
+    if product_has_variants?
+      content_tag :span, "From #{product.price.format}", class: "product-view-price"      
+    else
+      content_tag :span, product.price.format, class: "product-view-price"
+    end
   end
   
   def display_quantity

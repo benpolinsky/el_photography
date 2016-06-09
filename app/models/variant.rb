@@ -15,7 +15,6 @@ class Variant < ApplicationRecord
   monetize :additional_international_shipping_per_item_cents, disable_validation: true
 
   validates_presence_of :product
-  validates :price_cents, numericality: {greater_than: 99}, on: :update
   delegate :primary_image, to: :product
   
   # convenience methods

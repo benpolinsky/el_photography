@@ -115,7 +115,7 @@ class Product < ApplicationRecord
   def price_over_minimum?
     price_cents > 99
   end
-  
+    
 
   def take_down!
     if self.published? && !taken_down?
