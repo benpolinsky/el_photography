@@ -25,7 +25,16 @@ class Admin::PhotosController < AdminController
   # POST /photos.json
   def create
     @photo = Photo.new(photo_params)
-
+    times ||= 3
+    begin
+      @photo.save
+    rescue
+      if times > 0
+        times -= 1
+        retry
+      end
+    end
+    
     respond_to do |format|
       if @photo.save
         format.html { redirect_to [:admin, @photo], notice: 'Photo was successfully created.' }
