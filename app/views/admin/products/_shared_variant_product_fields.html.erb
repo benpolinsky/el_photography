@@ -11,12 +11,12 @@
 
 <div class="field form-group">
   <%= builder.label :price, builder.object.price_label %>
-  <%= builder.number_field :price, {step: '0.01', class: "form-control", disabled: builder.object.price_disabled?} %>
+  <%= builder.number_field :price, {data: {parsley_required: 'true', parsley_error_message: "Price please."}, class: "form-control", step: '0.01', disabled: builder.object.price_disabled?} %>
 </div>
 
 <div class="field form-group">
   <%= builder.label :shipping_base %>
-  <%= builder.number_field :shipping_base, {step: '0.01', class: "form-control"} %>
+  <%= builder.number_field :shipping_base, {step: '0.01', class: "form-control", data: {parsley_required: 'true', parsley_error_message: "Please enter a base cost for shipping."}} %>
 </div>
 
 <div class="field form-group">

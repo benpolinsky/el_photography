@@ -8,8 +8,8 @@ class Variant < ApplicationRecord
   has_many :options, through: :product
   has_and_belongs_to_many :option_values, dependent: :destroy
   
-  monetize :price_cents, disable_validation: true
-  monetize :shipping_base_cents, disable_validation: true
+  monetize :price_cents
+  monetize :shipping_base_cents
   monetize :international_shipping_base_cents, disable_validation: true
   monetize :additional_shipping_per_item_cents, disable_validation: true
   monetize :additional_international_shipping_per_item_cents, disable_validation: true
@@ -137,7 +137,7 @@ class Variant < ApplicationRecord
   # and return each variant in an array
   def self.construct_from_properties_and_multi_array(array_of_options, array_of_properties)
     array_of_options.first.multiply(*array_of_options[1..-1]).each_with_index do |variation_properties, index|
-      new_variant = self.new(quantity: 1)
+      new_variant = self.new(quantity: 1, price: 1.00, shipping_base: 0.50)
       array_of_properties.size.times do |t|
         property_value = variation_properties[t]
         property = array_of_properties[t]

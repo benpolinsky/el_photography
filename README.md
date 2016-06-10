@@ -1,13 +1,12 @@
 ## README / TODO
 - photos index - it would probably be a good idea to dynamically create each selectize as needed, otherwise you're calling tags a bazillion times.
-- and quick way to add/change caption for each
-- notices + errors front end?  Not sure if needed....
-- validate variants
+- notices + errors front end.
 
+ - variant price validation - I suppose skip validation on creation (from_options_and_values)
 ## The Store
  - better null/stale_line_item and support for deleted variants
  - continue to work on ProductView
- - variant price validation - I suppose skip validation on creation (from_options_and_values)
+
  
 ## Theming Support 
 - very basic dynamic css added
@@ -25,7 +24,8 @@
 - How are you breaking down your navigation?
 
 # As a Gem.../ Refactoring
-
+ - nicer parsley errors
+ - nicer localized slider (for cart etc)
 
  - move payment processesing to a background job 
    
