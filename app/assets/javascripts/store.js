@@ -1,20 +1,20 @@
-(function() {
-  var Cart = modulejs.require('cart');
+var Cart = require('./cart');
+window.Cart = Cart;
 
 
-  $(document).keyup(function (e) {
-    if (e.keyCode == 27) {
-      Cart.close();
-    }
+
+$(document).keyup(function (e) {
+  if (e.keyCode == 27) {
+    Cart.close();
+  }
+});
+
+jQuery(document).ready(function($) {
+
+  $('header.front-header').on('click', '#cart-trigger', function(event) {
+    Cart.open();
   });
 
-  jQuery(document).ready(function($) {
-  
-    $('header.front-header').on('click', '#cart-trigger', function(event) {
-      Cart.open();
-    });
+  Cart.initialize_variants();
+});
 
-    Cart.initialize_variants();
-  });
-  
-}());

@@ -1,8 +1,10 @@
 // if the item exists, we're going to replace the slice
 // otherwise we will append a new slice
 
+var Cart = window.Cart;
+
 var cart = $('.cart-slice');
-var Cart = modulejs.require('cart');
+
 var cart_item = '<%= @cart_item.id %>';
 var item_partial = '<%= j render :partial => "cart_item", locals: {cart_item: @cart_item, cart: @cart, item_view: ItemView.new(@cart_item)} %>';
 var add_to_cart_partial = "<%= j render :partial => 'add_to_cart', locals: {product: @cart_item.product, cart: @cart} %>";

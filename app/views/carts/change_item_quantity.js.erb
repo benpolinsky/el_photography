@@ -1,5 +1,5 @@
 var cart = $('.cart-slice');
-var Cart = modulejs.require('cart');
+var Cart = window.Cart;
 var cart_item = <%= @cart_item.id %>;
 
 var item_partial = '<%= j render :partial => "cart_item", locals: {cart_item: @cart_item, cart: @cart, item_view: ItemView.new(@cart_item)} %>';

@@ -1,5 +1,6 @@
 $(document).ready(function() {
-  var loader = modulejs.require('loader');
+  var loader = require("./loader");
+  window.loader = loader;
   $('form.patience').on('submit', function(event) {
     if (typeof submitting == 'undefined') {
       loader.start();

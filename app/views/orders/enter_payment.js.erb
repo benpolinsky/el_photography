@@ -1,5 +1,5 @@
 $('.wizard-step').removeClass('active').addClass('inactive');
 $('body').append("<%= j render(partial: 'enter_payment') %>");
 $("form").parsley();
-var payments = modulejs.require('payments');
+var payments = window.payments;
 payments.setup();
