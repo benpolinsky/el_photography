@@ -34,7 +34,6 @@ class ItemView
         concat link_to '-', url_helpers.decrease_item_quantity_cart_path(item), {method: :PUT, class: "decrement-quantity", data: {remote: true}}
         concat content_tag :span, item.quantity, id: "cart-item-#{item.id}", class: "quantity"
         concat link_to '+', url_helpers.increase_item_quantity_cart_path(item), {method: :PUT, class: "increment-quantity", data: {remote: true}}
-        concat spinner
       else
         concat remove
         concat alert('taken-down', "Sorry, this product has been taken down") if item.product.taken_down?
@@ -67,12 +66,6 @@ class ItemView
     content_tag :div, class: "item-price-total" do
       content_tag :span, 'Estimated Shipping', class: "label"
       content_tag :span, item.shipping_total.format, class: "value"
-    end
-  end
-  
-  def spinner
-    content_tag :div, class: "quantity-spinner" do
-      content_tag :i, '', class: "fa fa-spinner fa-spin"
     end
   end
   

@@ -52,13 +52,16 @@ class Admin::PhotosController < AdminController
   # PATCH/PUT /photos/1.json
   def update
     respond_to do |format|
-      if @photo.update(photo_params)
+      if params[:photo] && @photo.update(photo_params)
         format.html { redirect_to [:admin, @photo], notice: 'Photo was successfully updated.' }
+        format.json {head :created}
         format.js 
       else
         @resource = @photo
+        @errors = error_list_for(@photo)
         format.html { render :edit }
         format.json { render json: @photo.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -84,7 +87,11 @@ class Admin::PhotosController < AdminController
     # Use callbacks to share common setup or constraints between actions.
     def set_photo
       @photo = Photo.friendly.find(params[:id])
+      if request.path != admin_photo_path(@photo)
+       return redirect_to [:admin, @photo], :status => :moved_permanently
+      end
     end
+    
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params

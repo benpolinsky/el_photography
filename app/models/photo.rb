@@ -11,5 +11,9 @@ class Photo < ApplicationRecord
   
   mount_uploader :image, PhotoUploader
   
+  def should_generate_new_friendly_id?
+    caption_changed? && caption_was.present? 
+  end
+  
 
 end
