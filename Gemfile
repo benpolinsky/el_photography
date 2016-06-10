@@ -71,7 +71,7 @@ gem "fog"
 gem 'dropzonejs-rails'
 
 gem 'active_link_to'
-
+gem 'best_in_place', '~> 3.0.1'
 gem 'ranked-model'
 gem 'kaminari', github: 'amatsuda/kaminari' # until rails 5 fix https://github.com/amatsuda/kaminari/issues/774
 

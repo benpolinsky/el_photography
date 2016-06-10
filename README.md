@@ -1,5 +1,5 @@
 ## README / TODO
-- quick way to add or remove tag
+- photos index - it would probably be a good idea to dynamically create each selectize as needed, otherwise you're calling tags a bazillion times.
 - and quick way to add/change caption for each
 - notices + errors front end?  Not sure if needed....
 - validate variants

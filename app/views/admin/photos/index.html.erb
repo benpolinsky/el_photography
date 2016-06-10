@@ -19,7 +19,7 @@
       <%= content_tag :tr, class: "row-item", data: {item_id: photo.id, post_path: url_for([:update_row_order, :admin, :photos])} do %>
         <td scope='row' class='handle'>&equiv;</td>
         <td><%= image_tag photo.image.url(:thumb) %></td>
-        <td><%= photo.caption %></td>
+        <td><%= best_in_place [:admin, photo], :caption, as: :input %></td>
         <td>
           <%= form_for [:admin, photo], html: {data: {remote: true}, class: "patience"} do |f| %>
             <select name="photo[tag_list][]" class="taggable" multiple="true">

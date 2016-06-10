@@ -1,12 +1,12 @@
 modulejs.define('loader', function () {
   var Loader = {
     start: function () {
-      $('span.loader').addClass('active');      
+      $('#modal-overlay').addClass('open');      
     },
     
     stop: function () {
-      $('span.loader').removeClass('active');
+      $('#modal-overlay').removeClass('open');
     }
   }
   return Loader
-})
+});

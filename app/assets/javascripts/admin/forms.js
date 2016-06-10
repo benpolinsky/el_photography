@@ -10,4 +10,6 @@ $(document).ready(function() {
       delete submitting;
     }
   });
+  
+  $(".best_in_place").best_in_place();
 });

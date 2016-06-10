@@ -1,7 +1,6 @@
 (function() {
   var Cart = modulejs.require('cart');
 
-
   $(document).keyup(function (e) {
     if (e.keyCode == 27) {
       Cart.close();
