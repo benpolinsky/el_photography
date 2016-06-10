@@ -7,7 +7,7 @@ $(document).ready(function() {
       $(this).submit();
       return false      
     } else {
-      delete submitting;
+      submitting = undefined;
     }
   });
 });

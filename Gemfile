@@ -18,6 +18,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 
 gem 'modulejs-rails'
+
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -77,6 +78,8 @@ gem 'kaminari', github: 'amatsuda/kaminari' # until rails 5 fix https://github.c
 
 gem 'devise', git: 'https://github.com/plataformatec/devise.git', tag: "master"
 
+
+gem "browserify-rails"
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "rspec-rails", git: "https://github.com/rspec/rspec-rails.git", branch: "master"
@@ -89,6 +92,8 @@ group :development, :test do
   gem 'faker'
   gem 'timecop'
   gem "factory_girl_rails", "~> 4.0"
+  gem "teaspoon-jasmine"
+  
 end
 
 group :development do
