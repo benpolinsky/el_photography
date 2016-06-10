@@ -1,4 +1,6 @@
+@import 'font-awesome';
 @import 'admin/base';
+@import 'admin/forms';
 @import 'admin/product_form';
 @import "bootstrap";
 @import "dropzone/dropzone";
@@ -8,3 +10,4 @@
 @import 'admin/alerts_and_notices';
 @import 'trix';
 @import 'flatpickr.min';
+@import 'loader';

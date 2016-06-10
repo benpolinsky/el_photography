@@ -18,14 +18,14 @@
         <td><%= "<span class='label label-success'>Active</span>".html_safe if theme.active? %></td>
         <td><%= theme.id %></td>
         <td>
-          <div class='btn-group'>
-            <%= link_to 'Show', [:admin, theme], class: "btn btn-default" %>
-            <%= link_to 'Edit', edit_admin_theme_path(theme), class: "btn btn-default" %>
-            <%= link_to 'Destroy', [:admin, theme], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
+          <div class='btn-group-sm'>
+            <%= link_to 'Show', [:admin, theme], class: "btn btn-secondary" %>
+            <%= link_to 'Edit', edit_admin_theme_path(theme), class: "btn btn-secondary" %>
+            <%= link_to 'Destroy', [:admin, theme], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-secondary" %>
             <% if theme.active? %>
-              <%= link_to "Deactivate", [:deactivate, :admin, theme], method: :PUT, class: "btn btn-default" %>
+              <%= link_to "Deactivate", [:deactivate, :admin, theme], method: :PUT, class: "btn btn-secondary" %>
             <% else %>
-              <%= link_to 'Activate', [:activate, :admin, theme], method: :PUT, class: "btn btn-default" %>
+              <%= link_to 'Activate', [:activate, :admin, theme], method: :PUT, class: "btn btn-secondary" %>
             <% end %>
           </div>
         

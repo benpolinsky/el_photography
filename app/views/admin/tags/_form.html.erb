@@ -1,5 +1,5 @@
 <% breadcrumb :admin_tag, @tag %>
-<%= form_for(admin_tag, url: admin_tags_path) do |f| %>
+<%= form_for(@tag, url: admin_tags_path) do |f| %>
 
 
   <div class='form-group'>
@@ -9,6 +9,6 @@
 
   
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit f.send(:submit_default_value), class: "btn btn-primary" %>
   </div>
 <% end %>

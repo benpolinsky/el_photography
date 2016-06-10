@@ -1,12 +1,13 @@
 <% breadcrumb :admin_tags %>
 <p id="notice"><%= notice %></p>
 
-<h1>Admin Tags</h1>
+<h1>Tags</h1>
 
 <table class='table sortable'>
   <thead>
 
     <tr>
+      <td>move</td>
       <td>Tag Name</td>
       <td>Number of Photos + Videos</td>
       <th colspan="3"></th>
@@ -15,12 +16,17 @@
 
   <tbody>
     <% @tags.each do |tag| %>
-    
       <%= content_tag :tr, class: "item", data: {item_id: tag.id, post_path: url_for([:update_row_order, :admin, :tags])} do %>
+        <td class='handle'>&equiv;</td>
         <td><%= tag.name %></td>
         <td><%= tag.taggings.size %></td>
-        <td><%= link_to 'Edit', edit_admin_tag_path(tag) %></td>
-        <td><%= link_to 'Destroy', admin_tag_path(tag), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <div class='btn-group btn-group-sm'>
+            <%= link_to 'Edit', edit_admin_tag_path(tag), class: "btn btn-secondary" %>
+
+            <%= link_to 'Destroy', admin_tag_path(tag), method: :delete, class: "btn btn-danger", data: {confirm: 'Are you sure?' } %>
+          </div>
+          </td>
         <% end %>
     <% end %>
   </tbody>

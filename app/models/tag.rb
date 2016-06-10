@@ -1,5 +1,10 @@
 # little wrapper module for tags
+ActsAsTaggableOn::Tag.class_eval do
+  include RankedModel
+  ranks :row_order
+end
 module Tag
+  
   TAG = ActsAsTaggableOn::Tag
 
   def self.assets_for_tag(tag)

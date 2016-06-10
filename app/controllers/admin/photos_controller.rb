@@ -1,5 +1,6 @@
 class Admin::PhotosController < AdminController
   before_action :set_photo, only: [:show, :edit, :update, :destroy]
+  respond_to :html, :js
 
   # GET /photos
   # GET /photos.json
@@ -53,7 +54,7 @@ class Admin::PhotosController < AdminController
     respond_to do |format|
       if @photo.update(photo_params)
         format.html { redirect_to [:admin, @photo], notice: 'Photo was successfully updated.' }
-        format.json { render :show, status: :ok, location: [:admin, @photo] }
+        format.js 
       else
         @resource = @photo
         format.html { render :edit }

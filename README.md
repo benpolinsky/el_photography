@@ -1,7 +1,4 @@
 ## README / TODO
-- adding tags with multiple photos problem..
-- clear tag input after upload finished
-- reorder tags
 - quick way to add or remove tag
 - and quick way to add/change caption for each
 - notices + errors front end?  Not sure if needed....

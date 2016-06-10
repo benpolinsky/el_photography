@@ -1,15 +1,16 @@
 jQuery ->
-  if $('.sortable').length > 0
-    table_width = $('.sortable').width()
+  if $('table.sortable').length > 0
+    table_width = $('table.sortable').width()
     cells = $('.table').find('tr')[0].cells.length
     desired_width = table_width / cells + 'px'
     $('.table td').css('width', desired_width)
 
     $('.sortable').sortable(
       axis: 'y'
-      items: '.item'
+      items: '.row-item'
       cursor: 'move'
-
+      handle: '.handle'
+      
       sort: (e, ui) ->
         ui.item.addClass('active-item-shadow')
       stop: (e, ui) ->

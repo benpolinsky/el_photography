@@ -41,6 +41,14 @@ class ProductView
     end
   end
   
+  def published?
+    if product.published?
+      content_tag :span, "Published", class: 'published'
+    else
+      content_tag :span, "Unpublished", class: 'unpublished'
+    end
+  end
+  
   private
   
   def product_has_variants?

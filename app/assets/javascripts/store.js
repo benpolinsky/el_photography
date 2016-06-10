@@ -1,15 +1,20 @@
-var Cart = modulejs.require('cart');
-$(document).keyup(function (e) {
-  if (e.keyCode == 27) {
-    Cart.close();
-  }
-});
+(function() {
+  var Cart = modulejs.require('cart');
 
-jQuery(document).ready(function($) {
-  
-  $('header.front-header').on('click', '#cart-trigger', function(event) {
-    Cart.open();
+
+  $(document).keyup(function (e) {
+    if (e.keyCode == 27) {
+      Cart.close();
+    }
   });
 
-  Cart.initialize_variants();
-});
+  jQuery(document).ready(function($) {
+  
+    $('header.front-header').on('click', '#cart-trigger', function(event) {
+      Cart.open();
+    });
+
+    Cart.initialize_variants();
+  });
+  
+}());

@@ -2,9 +2,7 @@
 $lightblue: black;
 $lightblue-20: black;
 .drop-menu{
-  border:1px solid black;
   display:inline-block;
-
   min-width:50px;
   width:auto;
   position:relative;
@@ -13,12 +11,11 @@ $lightblue-20: black;
 .drop-menu-header{
   padding:5px 0px;
   text-align:center;
-
+  border:1px solid black;
   cursor:pointer;
-  border-bottom:0px solid black;
   background:white;
   position:relative;
-  z-index:101;
+  z-index:104;
   &:hover{
     background-color:#0F0;
   };
@@ -41,36 +38,35 @@ $lightblue-20: black;
   font-size:12px;
   color:black;
   text-transform:uppercase;
+  z-index:103;
   &.subhead{
     font-size:12px;
     line-height:1;
     margin:0;
+      z-index:103;
   }
 }
 .drop-menu-items{
   max-height:0px;
+  width:100%;
   margin:0;
   position:absolute;
-  left:-1px;
-  top:22px;
+  top:23px;
   overflow:hidden;
-  transition: height 100ms ease-in;
+  transition: max-height 200ms ease-out;
   z-index:100;
-
-
+  list-style:none;
+  background:white;
+  padding:0;
+  border:1px solid black;
+  border-top:0px;
+  box-sizing:border-box;
 }
 
 .drop-menu.active .drop-menu-items{
-  padding:0px;
   max-height:600px;
-  overflow:hidden;
-  width:100%;
-  left:-1px;
-  transition: height 100ms ease-in;
-  background:white;
-  z-index:102;
-  border:1px solid black;
-  box-sizing:content-box;
+  transition: max-height 200ms ease-in;
+  z-index:101;
 }
 
 

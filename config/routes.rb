@@ -1,29 +1,26 @@
 Rails.application.routes.draw do
-
+  concern :orderable do
+    collection do
+      post 'update_row_order'
+    end
+  end
+ 
 
   devise_for :users, skip: [:registrations]
   namespace :admin do
     
-    resources :products do
+    resources :products, concerns: :orderable do
       collection do
         post 'create_from_photo/:photo_id' => 'products#create_from_photo', as: :create_from_photo
       end
       resources :variants
     end
     
-    resources :videos do
-      collection do
-        post 'update_row_order'
-      end
-    end
+    resources :videos, concerns: :orderable
     
-    resources :tags do
-      collection do
-        post 'update_row_order'
-      end
-    end
+    resources :tags, concerns: :orderable
 
-    resources :themes do
+    resources :themes, concerns: :orderable do
       member do
         put 'activate'
         put 'deactivate'
@@ -31,9 +28,8 @@ Rails.application.routes.draw do
       end
     end
     
-    resources :photos do
+    resources :photos, concerns: :orderable do
       collection do
-        post 'update_row_order'
         get 'add', to: "photos#new"
       end
     end

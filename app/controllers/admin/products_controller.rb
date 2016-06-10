@@ -2,7 +2,7 @@ class Admin::ProductsController < AdminController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.all
+    @products = Product.rank(:row_order)
   end
 
   def show
@@ -62,6 +62,14 @@ class Admin::ProductsController < AdminController
       format.html { redirect_to admin_products_url, notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  
+  def update_row_order
+    @product = Product.find(params[:item][:item_id])
+    @product.row_order_position = params[:item][:row_order_position]
+    @product.save
+    head :created
   end
 
   private
