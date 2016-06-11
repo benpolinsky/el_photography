@@ -10,3 +10,13 @@ form .actions{
 form trix-editor{
   min-height:400px;
 }
+
+form #ace-editor{
+  position:relative;
+  width:100%;
+  height:960px;
+}
+
+textarea#ace-populate{
+  display:none;
+}

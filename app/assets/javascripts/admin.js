@@ -20,6 +20,11 @@
 //= require admin/dropzone.js
 //= require selectize
 //= require trix
+//= require ace-rails-ap
+//= require ace/ext-language_tools.js
+//= require ace/theme-twilight
+//= require ace/mode-liquid
+//= require ace/mode-css
 //= require admin/update_row_order
 //= require flatpickr.min
 //= require admin/general

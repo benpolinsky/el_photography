@@ -2,7 +2,10 @@
 <%= form_for [:admin, @theme] do |f| %>
   <div class='control-group'>
     <%= f.label :css, "Enter some css:" %>
-    <%= f.text_area :css, class: "form-control code-text-area" %>
+    <div id='ace-editor' data-mode='css'>
+      <%= @theme.css %>
+    </div>
+    <%= f.text_area :css, id: "ace-populate" %>
   </div>
   
   <%= f.button "Submit", class: "btn btn-secondary" %>

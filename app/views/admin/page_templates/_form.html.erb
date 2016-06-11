@@ -1,9 +1,17 @@
 <%= form_for [:admin, @page_template] do |f| %>
+<div class='form-group'>
   <%= f.label :title, "Title" %>
-  <%= f.text_field :title %>
+  <%= f.text_field :title, class: 'form-control' %>
+</div>
+
+<%= f.label :body, "Template" %>
+<div id='ace-editor'>
+  <%= @page_template.body %>
+</div>
   
-  <%= f.label :body, "Template" %>
-  <%= f.text_area :body%>
+
+  <%= f.text_area :body, id: "ace-populate" %>
   
+
   <%= f.submit %>
 <% end %>

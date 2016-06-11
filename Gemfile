@@ -42,6 +42,7 @@ gem 'jbuilder', '~> 2.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'liquid'
+gem 'ace-rails-ap'
 
 gem 'bootstrap', '~> 4.0.0.alpha3'
 #gem 'bootstrap_form'

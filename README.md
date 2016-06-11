@@ -10,6 +10,9 @@
   - test in production env
   - eventually extract theme into gem
 
+- liquid page templates added, though Im not sure exactly how they fit here yet...
+- at least its a nice editor
+
 ### Qs for el
 
 - How are you breaking down your navigation?
