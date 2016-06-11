@@ -1,0 +1,9 @@
+<%= form_for [:admin, @page_template] do |f| %>
+  <%= f.label :title, "Title" %>
+  <%= f.text_field :title %>
+  
+  <%= f.label :body, "Template" %>
+  <%= f.text_area :body%>
+  
+  <%= f.submit %>
+<% end %>

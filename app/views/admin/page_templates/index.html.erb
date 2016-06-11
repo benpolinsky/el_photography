@@ -1,0 +1,11 @@
+<h1>Page Templates</h1>
+
+<ul>
+  <% @page_templates.each do |page_template| %>
+    <%= page_template.title %>
+    <%= link_to "Edit", [:edit, :admin, page_template] %>
+    <%= link_to "Show", [:admin, page_template] %>
+  <% end %>
+</ul>
+
+<%= link_to "new", [:new, :admin, :page_template] %>

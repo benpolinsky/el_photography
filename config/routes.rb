@@ -28,6 +28,8 @@ Rails.application.routes.draw do
       end
     end
     
+    resources :page_templates
+    
     resources :photos, concerns: :orderable do
       collection do
         get 'add', to: "photos#new"
