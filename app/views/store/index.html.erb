@@ -4,7 +4,7 @@
 <% @products.each do |product| %>
   <div class='product grid-item'>
     <div class='grid-item-container'>
-      <%= image_tag product.primary_image(:medium), class: 'grid-item-main-image' %> 
+        <%= product.bp_view(cart: @cart).image %>
       <div class='grid-item-contents'>
         <%= product.bp_view(cart: @cart).name_and_link %>
         <%= product.bp_view(cart: @cart).price %>

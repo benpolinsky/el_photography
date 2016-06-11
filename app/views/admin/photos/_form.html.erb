@@ -19,7 +19,11 @@
       <% if photo.image && photo.persisted? %>
         <%= image_tag photo.image.url(:thumb) %>
       <% end %>
-      <%= f.file_field :image, class: "form-control" %>      
+      <%= f.file_field :image, class: "form-control" %>
+
+      <%= f.label :caption %>      
+      <%= f.text_field :caption, class: 'form-control' %>      
+
     </fieldset>
 
 

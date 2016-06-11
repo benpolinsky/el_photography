@@ -1,2 +1,6 @@
-<%= @product.primary_image %>
-<%= ProductView.new(product: @product, cart: @cart).display_quantity %>
+<%= @product_view.tap do |view| %>
+  <%= view.name_and_link %>
+  <%= view.image %>
+  <%= view.description %>
+  <%= view.display_quantity %>
+<% end %>

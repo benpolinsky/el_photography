@@ -57,7 +57,6 @@ class Product < ApplicationRecord
   
   # you can probably be smarter and keep this out of
   # a model's code entirely
-  
   # obviously at least extract it
   def method_missing(method, args={})
     if method == :bp_view

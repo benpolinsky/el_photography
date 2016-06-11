@@ -4,16 +4,24 @@ class ProductView
   include ActionView::Helpers::TextHelper
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::NumberHelper
+  include ActionView::Helpers::AssetTagHelper
   attr_accessor :output_buffer
   delegate :url_helpers, to: 'Rails.application.routes'
     
   def initialize(args)
     @product = args[:product]
     @cart = args[:cart]
+    if block_given?
+      yield
+    end
   end
   
   def name_and_link
     link_to product.name, url_helpers.product_path(product), class: "product-view-name-link"
+  end
+  
+  def image
+    image_tag product.primary_image(:medium), class: 'grid-item-main-image'
   end
   
   def price
@@ -22,6 +30,10 @@ class ProductView
     else
       content_tag :span, product.price.format, class: "product-view-price"
     end
+  end
+  
+  def description
+    product.description.html_safe
   end
   
   def display_quantity

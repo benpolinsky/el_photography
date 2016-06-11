@@ -6,6 +6,7 @@ class StoreController < ApplicationController
 
   def product
     @product = Product.friendly.find(params[:id])
+    @product_view = ProductView.new(product: @product, cart: @cart)
   end
   
 
