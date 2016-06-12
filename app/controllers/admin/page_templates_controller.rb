@@ -1,6 +1,7 @@
 class Admin::PageTemplatesController < AdminController
   before_filter :find_page_template
   
+  
   def index
     @page_templates = PageTemplate.all
   end
@@ -14,9 +15,8 @@ class Admin::PageTemplatesController < AdminController
   
   def show
     template = Liquid::Template.parse(@page_template.body)
-    products = Product.all.map {|p| {'name' => p.name, 'primary_image' => p.bp_view.image}}
-    
-    @user_template = template.render({"products" => products})
+    product_drop = ProductDrop.new(Product.first)
+    @user_template = template.render({"product" => product_drop})
   end
   
   def update

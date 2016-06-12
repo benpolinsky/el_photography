@@ -17,7 +17,9 @@ ready(function () {
     var editor = ace.edit("ace-editor");
     editor.setTheme('ace/theme/twilight');
     editor.session.setMode(new LiquidMode());
-    editor.setShowPrintMargin(false); 
+    editor.setShowPrintMargin(false);
+    editor.setBehavioursEnabled(true);
+    editor.setWrapBehavioursEnabled(true);
     editor.setOptions({
       enableBasicAutocompletion: true,
       enableSnippets: true,
