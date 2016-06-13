@@ -3,9 +3,8 @@
 
 1. First attempt is okay.  Updating server 1s after last keyup.
 2. Would like to be able to have a fullscreen.
-2. Have no idea how this will work in real world production, let alone a setup with significant traffic
-
-
+3. Have no idea how this will work in real world production, let alone a setup with significant traffic
+4. Make sure to restrict access etc...
 
 
 ## README / TODO
@@ -13,15 +12,10 @@
 - notices + errors front end.
 
 ## Theming Support 
-- very basic dynamic css added
-  - Perhaps lint or other safety check?
-  - Clean up past stylesheets in public directory
-  - namespace everything within a body tag, or at least add the theme to the body
-  - test in production env
-  - eventually extract theme into gem
-
-- liquid page templates added, though Im not sure exactly how they fit here yet...
-- at least its a nice editor
+- Perhaps lint or other safety check?
+- Clean up past stylesheets in public directory
+- namespace everything within a body tag, or at least add the theme to the body
+- test in production env
 
 ### Qs for el
 
