@@ -29,4 +29,5 @@
 //= require flatpickr.min
 //= require admin/general
 //= require admin/forms
+//= require_tree ./channels
 //= require_tree .

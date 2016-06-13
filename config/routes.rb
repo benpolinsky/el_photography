@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  
+  # serve websocket cable requests in-process
+  mount ActionCable.server => '/cable'
+  
+  
+  
   concern :orderable do
     collection do
       post 'update_row_order'
@@ -28,7 +34,12 @@ Rails.application.routes.draw do
       end
     end
     
-    resources :page_templates
+    resources :page_templates do
+      member do
+        get 'live'
+        patch 'live_update'
+      end
+    end
     
     resources :photos, concerns: :orderable do
       collection do
@@ -41,11 +52,13 @@ Rails.application.routes.draw do
         put 'ship'
       end
     end
-    
+
+
+    get 'help/liquid'
     get 'dashboard/index'
     root to: 'dashboard#index'
   end
-  
+
   
   # Store 
   

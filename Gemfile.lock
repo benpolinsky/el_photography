@@ -412,6 +412,7 @@ GEM
       builder
       nokogiri (>= 1.4.1)
       trollop
+    redis (3.3.0)
     responders (2.2.0)
       railties (>= 4.2.0, < 5.1)
     rest-client (1.8.0)
@@ -506,6 +507,7 @@ DEPENDENCIES
   rails-assets-tether (>= 1.1.0)!
   rails-controller-testing
   ranked-model
+  redis (~> 3.0)
   rmagick
   rspec-core!
   rspec-expectations!

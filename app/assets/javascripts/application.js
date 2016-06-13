@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require modulejs
 //= require parsley
+//= require_tree ./channels
 //= require_tree .

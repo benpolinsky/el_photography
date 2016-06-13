@@ -1,0 +1,10 @@
+<div class='row'>
+  <div class='col-xs-6'>
+    <%= render :partial => 'form' %>
+  </div>
+  
+  <div class='col-xs-6'>
+    <%= content_tag :h1, @page_template.title %>
+    <%= content_tag :div, @user_template.html_safe, class: 'page-template-code-container' %>
+  </div>
+</div>

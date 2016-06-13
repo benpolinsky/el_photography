@@ -1,3 +1,13 @@
+
+#### Action Cable Live Templating
+
+1. First attempt is okay.  Updating server 1s after last keyup.
+2. Would like to be able to have a fullscreen.
+2. Have no idea how this will work in real world production, let alone a setup with significant traffic
+
+
+
+
 ## README / TODO
 - admin photos index - it would probably be a good idea to dynamically create each selectize as needed, otherwise you're calling tags a bazillion times.
 - notices + errors front end.
