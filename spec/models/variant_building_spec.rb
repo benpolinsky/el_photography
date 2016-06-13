@@ -76,7 +76,7 @@ RSpec.describe 'Variant Building' do
    
 
    it "doesn't overwrite variants which already exist with the same name", focus: true do
-     existing_variant = Variant.new(price: "999")
+     existing_variant = Variant.new(price: 999, shipping_base: 10)
      existing_variant.option_values << OptionValue.new(option: @color_option, value: "Black")
      existing_variant.option_values << OptionValue.new(option: @size_option, value: "XS")
      @product.variants << existing_variant

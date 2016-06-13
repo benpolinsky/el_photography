@@ -8,8 +8,17 @@
 
 
 ## README / TODO
+- layout front page
+- add trigger for cart
+- prepend dolla signs to all number fields
+- style cart
+- product single page
+- video page
+- custom fields for about etc - TRY IT!
 - admin photos index - it would probably be a good idea to dynamically create each selectize as needed, otherwise you're calling tags a bazillion times.
 - notices + errors front end.
+- local cart loaders
+- the product - variant creation reload (see variant spec needs tobe cleaned up)
 
 ## Theming Support 
 - Perhaps lint or other safety check?
@@ -18,7 +27,7 @@
 - test in production env
 
 ### Qs for el
-
+- Do you want a cart page in addition to the pop up cart
 - How are you breaking down your navigation?
 
 # As a Gem.../ Refactoring

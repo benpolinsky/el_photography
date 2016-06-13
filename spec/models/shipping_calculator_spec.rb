@@ -229,34 +229,34 @@ RSpec.describe ShippingCalculator do
   end
   
   context "calculating for a single line item" do
-    before do
-      @order = order
-      @order.line_items.each do |line_item| 
-        line_item.update(
-          shipping_cents: 999, 
-          international_shipping_cents: 900,
-          quantity: 5)
-        end
-    end
-    
-    pending "can determine if a line items totals are domestic or foreign", focus: true do
-      calc = ShippingCalculator.new(nil, "United States", "United States")
-      expect(calc.domestic?).to eq true
-      calc = ShippingCalculator.new(nil, "United States", "France")
-      expect(calc.domestic?).to eq false
-      expect(calc.international?).to eq true
-      
-    end
-    
-    pending "can calulate a line item's totals without an order (domestic)" do
-      calc = ShippingCalculator.new(nil, "United States", "United States")
-      expect(calc.determine_shipping_cost(@order.line_items.first).cents).to eq 4995
-    end
-    
-    pending "can calulate a line item's totals without an order (international)" do
-      calc = ShippingCalculator.new(nil, "United States", "France")
-      expect(calc.determine_shipping_cost(@order.line_items.first).cents).to eq 4500
-    end
+    # before do
+ #      @order = order
+ #      @order.line_items.each do |line_item|
+ #        line_item.update(
+ #          shipping_cents: 999,
+ #          international_shipping_cents: 900,
+ #          quantity: 5)
+ #        end
+ #    end
+ #
+ #    pending "can determine if a line items totals are domestic or foreign", focus: true do
+ #      calc = ShippingCalculator.new(nil, "United States", "United States")
+ #      expect(calc.domestic?).to eq true
+ #      calc = ShippingCalculator.new(nil, "United States", "France")
+ #      expect(calc.domestic?).to eq false
+ #      expect(calc.international?).to eq true
+ #
+ #    end
+ #
+ #    pending "can calulate a line item's totals without an order (domestic)" do
+ #      calc = ShippingCalculator.new(nil, "United States", "United States")
+ #      expect(calc.determine_shipping_cost(@order.line_items.first).cents).to eq 4995
+ #    end
+ #
+ #    pending "can calulate a line item's totals without an order (international)" do
+ #      calc = ShippingCalculator.new(nil, "United States", "France")
+ #      expect(calc.determine_shipping_cost(@order.line_items.first).cents).to eq 4500
+ #    end
   end
     
 end

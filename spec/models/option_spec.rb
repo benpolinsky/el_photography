@@ -15,7 +15,7 @@ RSpec.describe Option, :type => :model do
     it "has many of them" do
       product = create(:product)
       option = Option.new(name: "Color", products: [product] )
-      variant = Variant.create!(product: product)
+      variant = Variant.create!(product: product, price: 1.11, shipping_base: 1)
       option.option_values.build(value: "Blue", variants: [variant])
       option.option_values.build(value: "Red", variants: [variant])
       option.option_values.build(value: "Green", variants: [variant])

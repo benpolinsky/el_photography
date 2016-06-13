@@ -1,20 +1,32 @@
-App.cable.subscriptions.create({
-    channel: "PageTemplatesChannel",
-    id: 1
-  },
-  {
-    connected: function () {
-      console.log('we are connected');
+if (document.querySelector('.live_code_editor') !== null) {
+  App.cable.subscriptions.create({
+      channel: "PageTemplatesChannel",
+      id: 1
     },
-    rejected: function () {
-      console.log('rejected?');
-    },
-    received: function (data) {
-      console.log('data received');
-      $('.page-template-code-container').html(data["page_template_code"]);
+    {
+      connected: function () {
+        console.log('we are connected');
+      },
+      rejected: function () {
+        console.log('rejected?');
+      },
+      received: function (data) {
+        console.log('data received');
+        $('.page-template-code-container').html(data["page_template_code"]);
+      }
     }
-  }
-)
+  )  
+  
+  ready(function () {
+    var timer = null
+    document.querySelector('.live_code_editor').addEventListener("keydown", function () {
+      clearTimeout(timer)
+      timer = setTimeout(send_off, 1000)
+    })
+  });
+  
+}
+
 
 function ready(fn) {
   if (document.readyState != 'loading') {
@@ -24,13 +36,6 @@ function ready(fn) {
   }
 }
 
-ready(function () {
-  var timer = null
-  document.querySelector('.live_code_editor').addEventListener("keydown", function () {
-    clearTimeout(timer)
-    timer = setTimeout(send_off, 1000)
-  })
-});
 
 
 function send_off() {

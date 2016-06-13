@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Variant, :type => :model do
   before do
     product = create(:product)
-    @variant = Variant.create(price_cents: 100000, product: product)
+    @variant = Variant.create(price_cents: 100000, product: product, shipping_base_cents: 1000)
   end
   
   context "basic attributes" do
@@ -25,8 +25,9 @@ RSpec.describe Variant, :type => :model do
       @variant.product = nil
       expect(@variant.valid?).to be false
       expect(@variant.errors[:product].count).to be 1
-      @variant.product = Product.create(name: "Garnet")
-      expect(@variant).to be_valid
+      @variant.product = create(:published_product)
+      expect(@variant.valid?).to eq true
+      expect(@variant.errors[:product].count).to be 0
     end
   end
   
@@ -85,6 +86,8 @@ RSpec.describe Variant, :type => :model do
         size_option => size_values
       }
       @product.variants.create_from_properties_and_options(options)
+      expect(@product.variants.count).to eq 15
+      @product.reload
       expect(Variant.find_by_product_option(color_option.id)).to match_array @product.variants
     end
 
@@ -93,12 +96,13 @@ RSpec.describe Variant, :type => :model do
       color_option = @product.options.create(name: "Color")
       size_option = @product.options.create(name: "Size")
       option_value = OptionValue.new(value: "Small", option: size_option)
-      variant = @product.variants.new
-      second_variant = @product.variants.new
+      variant = @product.variants.new(price: 0.0, shipping_base: 0.0)
+      second_variant = @product.variants.new(price: 0.0, shipping_base: 0.0)
       variant.option_values << option_value
       second_variant.option_values << option_value
       @product.save
-      expect{@product.variants.clean_up}.to change{@product.variants.size}.from(2).to(1)
+      @product.reload
+      expect{@product.variants.clean_up}.to change{@product.variants.count}.from(2).to(1)
     end
     
     it "can clean up variants that dont belong to any product option anymore" do
@@ -106,12 +110,13 @@ RSpec.describe Variant, :type => :model do
       color_option = @product.options.create(name: "Color")
       size_option = @product.options.create(name: "Size")
       option_value = OptionValue.new(value: "Small", option: size_option)
-      variant = @product.variants.new
-      second_variant = @product.variants.new
+      variant = @product.variants.new(price: 0.0, shipping_base: 0.0)
+      second_variant = @product.variants.new(price: 0.0, shipping_base: 0.0)
       variant.option_values << option_value
       second_variant.option_values << option_value
       @product.save
       @product.options.destroy_all
+      @product.reload
       expect{@product.variants.clean_up_strays(@product.options.size)}.to change{@product.variants.size}.from(2).to(0)
     end
     
@@ -126,6 +131,7 @@ RSpec.describe Variant, :type => :model do
         size_option => size_values
       }
       @product.variants.create_from_properties_and_options(options)
+      @product.reload
       expect(@product.variants.first.name).to eq "Black XS"
     end
     
@@ -140,6 +146,7 @@ RSpec.describe Variant, :type => :model do
         size_option => size_values
       }
       @product.variants.create_from_properties_and_options(options)
+      @product.reload
       expect(@product.variants.first.short_name).to eq "Black..."
     end
     
@@ -154,6 +161,7 @@ RSpec.describe Variant, :type => :model do
         size_option => size_values
       }
       @product.variants.create_from_properties_and_options(options)
+      @product.reload
       expect(@product.variants.first.name_with_product).to eq "T Shirt Black XS"
     end
     
@@ -168,6 +176,7 @@ RSpec.describe Variant, :type => :model do
         size_option => size_values
       }
       @product.variants.create_from_properties_and_options(options)
+      @product.reload
       expect(OptionValue.find(@product.variants.first.unique_key.split("_").first.to_i)).to be_in(OptionValue.all)
       expect(OptionValue.find(@product.variants.first.unique_key.split("_").last.to_i)).to be_in(OptionValue.all)
     end
@@ -247,6 +256,7 @@ RSpec.describe Variant, :type => :model do
         size_option => size_values
       }
       @product.variants.create_from_properties_and_options(options)
+      @product.reload
       expect(@product.variants.deconstitute).to eq options
     end
     
@@ -262,6 +272,7 @@ RSpec.describe Variant, :type => :model do
         size_option => size_values
       }
       @product.variants.create_from_properties_and_options(options)
+      @product.reload
       expect(Variant.with_quantity.size).to eq 15
       expect{@product.variants.first.update_attributes(using_inventory: true, quantity: 0)}.to change{Variant.with_quantity.size}.by(-1)
     end

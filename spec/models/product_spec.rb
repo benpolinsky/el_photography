@@ -92,8 +92,8 @@ RSpec.describe Product, type: :model do
     end
     
     it "can add a bunch of variants" do
-      @product.variants << Variant.new(price_cents: 100000)
-      @product.variants << Variant.new(price_cents: 100000)
+      @product.variants << Variant.new(price_cents: 100000, shipping_base: 2.22)
+      @product.variants << Variant.new(price_cents: 100000, shipping_base: 2.22)
       @product.save
       expect(@product.variants.count).to eq 2
     end
