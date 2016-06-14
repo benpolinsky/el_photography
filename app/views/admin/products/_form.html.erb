@@ -1,5 +1,5 @@
 <% breadcrumb :admin_product, @product %>
-<%= form_for([:admin, product], data: {parsley_validate: true}) do |f| %>
+<%= form_for([:admin, product], data: {parsley_validate: true, parsley_excluded: ".trix"}) do |f| %>
 
 
   <div class="field form-group">
@@ -9,7 +9,7 @@
 
   <div class="field form-group">
     <%= f.label :description %>
-    <%= f.trix_editor :description, class: "form-control" %>
+    <%= f.trix_editor :description, class: "form-control trix" %>
   </div>
   
   <%= render :partial => 'shared_variant_product_fields', locals: {builder: f} %>

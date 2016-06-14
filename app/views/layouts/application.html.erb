@@ -14,7 +14,11 @@
   </head>
 
   <body class="<%= theme_class %>">
-    <%= render :partial => 'front_header' %>
+    <div class='container-fluid'>
+      <div class='elp-container center'>
+        <%= render :partial => 'front_header' %>s
+      </div>
+    </div>
     
     <% unless body_class == 'carts carts-show' %>
       <div class='cart-slice'>
@@ -24,7 +28,9 @@
 
     
     <div class='container-fluid'>
-      <%= yield %>
+      <div class='elp-container center'>
+        <%= yield %>
+      </div>
     </div>
 
   </body>

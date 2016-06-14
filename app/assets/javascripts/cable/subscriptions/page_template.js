@@ -1,4 +1,5 @@
-if (document.querySelector('.live_code_editor') !== null) {
+
+  console.log('ad');
   App.cable.subscriptions.create({
       channel: "PageTemplatesChannel",
       id: 1
@@ -23,9 +24,21 @@ if (document.querySelector('.live_code_editor') !== null) {
       clearTimeout(timer)
       timer = setTimeout(send_off, 1000)
     })
+    
+    document.addEventListener("keydown", function (e) {
+      if((event.ctrlKey || event.metaKey) && event.which == 83) {
+         // Save Function
+         
+         console.log('save');
+         send_off();  
+         clearTimeout(timer);
+         event.preventDefault();
+         return false;
+      }
+    })
   });
   
-}
+
 
 
 function ready(fn) {
@@ -37,7 +50,7 @@ function ready(fn) {
 }
 
 
-
+// add page id
 function send_off() {
   $.ajax({
     url: 'http://localhost:3000/admin/page_templates/1/live_update',
