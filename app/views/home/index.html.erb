@@ -1,12 +1,13 @@
-<ul class='front-asset-list'>
+<div class='grid one-up'>
   <% @tags.each do |tag| %>
     <% if Tag.first_asset_for_tag_with_image(tag) %>
-      <%= content_tag :li, class: 'front-asset-list-item' do %>
-        <%= content_tag :h2, tag.name, class: "front-asset-list-item-name" %>
-          <%= content_tag :div, class: "front-asset-list-item-image-container" do %>
-            <%= image_tag Tag.first_asset_for_tag_with_image(tag) %>
-          <% end %>
-        <% end %>
-      <% end %>
+      <div class='grid-item'>
+        <div class='grid-item-container'>
+          
+          <%= link_to image_tag(Tag.first_asset_for_tag_with_image(tag), class: "grid-item-main-image"), tag_path(tag.slug) %>
+          <%= content_tag :h2, link_to(tag.name.titleize, tag_path(tag.slug)), class: 'front-tag' %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
-</ul>
+</div>

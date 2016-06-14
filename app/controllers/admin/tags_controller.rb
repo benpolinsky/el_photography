@@ -6,7 +6,7 @@ class Admin::TagsController < AdminController
 
   
   def show
-    @tag = ActsAsTaggableOn::Tag.find(params[:id])
+    @tag = ActsAsTaggableOn::Tag.friendly.find(params[:id])
   end
 
   
@@ -15,7 +15,7 @@ class Admin::TagsController < AdminController
   end
 
   def edit
-    @tag = ActsAsTaggableOn::Tag.find(params[:id])
+    @tag = ActsAsTaggableOn::Tag.friendly.find(params[:id])
   end
 
 
@@ -32,7 +32,7 @@ class Admin::TagsController < AdminController
   # PATCH/PUT /admin/tags/1
   # PATCH/PUT /admin/tags/1.json
   def update
-    @tag = ActsAsTaggableOn::Tag.find(params[:id])
+    @tag = ActsAsTaggableOn::Tag.friendly.find(params[:id])
     if @tag.update_attribtues(tag_params)
       redirect_to admin_tags_path
     else

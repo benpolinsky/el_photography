@@ -3,6 +3,7 @@ $error: red;
 $lightblue: lightblue;
 $yag: grey;
 // SHOPPING BAG
+
 #shopping-cart-icon {
   width: 69px;
   height:62px;
@@ -137,7 +138,7 @@ $yag: grey;
 }
 
 .bag-checkout-slice {
-  background: darkblue;
+  background: #23A14D;
 
   font-weight: 300;
   color: white;
@@ -334,4 +335,20 @@ div.main.cart-open{
   border-bottom: 1px solid grey;
   box-sizing: border-box;
   overflow:auto;
+}
+
+.checkout-link{
+  
+}
+
+
+.checkout-order-subtotal p{
+  width:100%;
+  font-size:16px;
+  margin:5px 0;
+  padding-right:10px;
+}
+
+.checkout-order-subtotal p span{
+  float:right;
 }

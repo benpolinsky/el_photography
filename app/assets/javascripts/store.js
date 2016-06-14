@@ -9,8 +9,9 @@
 
   jQuery(document).ready(function($) {
   
-    $('header.front-header').on('click', '#cart-trigger', function(event) {
+    $('header.front-header').on('click', '.cart-trigger', function(event) {
       Cart.open();
+      return false
     });
 
     Cart.initialize_variants();

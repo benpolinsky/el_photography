@@ -26,13 +26,14 @@ class Video < ApplicationRecord
     end
   end
   
-  def image_url
+  def image_url(size=nil)
     if is_vimeo?
      vimeo_json["thumbnail_url"]
     else
       "http://img.youtube.com/vi/#{video_id}/hqdefault.jpg"
     end
   end
+
   
   private
   

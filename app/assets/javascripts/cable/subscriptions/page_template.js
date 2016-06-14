@@ -1,42 +1,50 @@
-
-  console.log('ad');
-  App.cable.subscriptions.create({
-      channel: "PageTemplatesChannel",
-      id: 1
-    },
-    {
-      connected: function () {
-        console.log('we are connected');
-      },
-      rejected: function () {
-        console.log('rejected?');
-      },
-      received: function (data) {
-        console.log('data received');
-        $('.page-template-code-container').html(data["page_template_code"]);
-      }
-    }
-  )  
+  
+  
+  
   
   ready(function () {
-    var timer = null
-    document.querySelector('.live_code_editor').addEventListener("keydown", function () {
-      clearTimeout(timer)
-      timer = setTimeout(send_off, 1000)
-    })
+    if (document.querySelector('.live_code_editor') !== null) {
+      
+      App.cable.subscriptions.create({
+          channel: "PageTemplatesChannel",
+          id: 1
+        },
+        {
+          connected: function () {
+            console.log('we are connected');
+          },
+          rejected: function () {
+            console.log('rejected?');
+          },
+          received: function (data) {
+            console.log('data received');
+            $('.page-template-code-container').html(data["page_template_code"]);
+          }
+        }
+      )  
     
-    document.addEventListener("keydown", function (e) {
-      if((event.ctrlKey || event.metaKey) && event.which == 83) {
-         // Save Function
+      var timer = null
+      document.querySelector('.live_code_editor').addEventListener("keydown", function () {
+        clearTimeout(timer)
+        timer = setTimeout(send_off, 1000)
+      })
+    
+      document.addEventListener("keydown", function (e) {
+        if((event.ctrlKey || event.metaKey) && event.which == 83) {
+           // Save Function
          
-         console.log('save');
-         send_off();  
-         clearTimeout(timer);
-         event.preventDefault();
-         return false;
-      }
-    })
+           console.log('save');
+           send_off();  
+           clearTimeout(timer);
+           event.preventDefault();
+           return false;
+        }
+      })      
+    }
+
   });
+
+
   
 
 

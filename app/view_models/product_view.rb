@@ -20,8 +20,14 @@ class ProductView
     link_to product.name, url_helpers.product_path(product), class: "product-view-name-link"
   end
   
-  def image
-    image_tag product.primary_image(:medium), class: 'grid-item-main-image'
+  def image(size=nil)
+    if size == "full"
+      image_tag product.primary_image, class: 'grid-item-main-image'
+    elsif size
+      image_tag product.primary_image(size.to_sym), class: 'grid-item-main-image'
+    else
+      image_tag product.primary_image(:medium), class: 'grid-item-main-image'
+    end
   end
   
   def price

@@ -9,7 +9,7 @@ class CartView
   end
   
   def estimated_shipping(line_items)
-    content_tag :div, class: 'bag-subtotal-slice' do
+    content_tag :div, class: 'checkout-order-total' do
       concat content_tag :span, "Estimated Shipping", class: "label"
       concat content_tag :span, number_to_currency(calculate_estimated_shipping(line_items)), class: "value"
     end
@@ -26,7 +26,9 @@ class CartView
   
   def checkout_grand_total(line_items=@cart.line_items)
     return if line_items.none?
-    content_tag :p, "Grand total: <span class='grand-total'>#{line_items_grand_total.format} (USD)</span>".html_safe
+    content_tag :div, class: "checkout-order-subtotal" do
+      content_tag :p, "Grand total: <span class='grand-total'>#{line_items_grand_total.format}</span>".html_safe
+    end
   end
   
   def checkout_estimated_shipping(line_items=@cart.line_items)

@@ -1,11 +1,18 @@
-header.front-header{
-  
+header.front-header h1, header.front-header h1 a{
+  text-decoration:none;
+  margin:20px 0;
+  line-height:0.8;
 }
 
-nav.front-navigation{
-  
+nav.front-navigation a{
+  margin:0 3px;  
+  text-decoration:none;
 }
 
-span.front-nav-item{
-  
+nav a:hover, nav a:visited, nav a:active{
+  text-decoration:none; 
+};
+
+nav.front-navigation a.active{
+  color:#23A14D;
 }

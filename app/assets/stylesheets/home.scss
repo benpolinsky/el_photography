@@ -1,3 +1,29 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+h2.front-tag{
+  position:relative;
+  top:-47px;  
+}
+
+h2.front-tag a{
+  font-size:60px;
+  text-transform:lowercase;
+  font-weight:700;
+  text-decoration:none;
+  &:hover{
+    color:#23A14D;
+  }
+}
+
+
+
+// move to contact
+
+form.contact-form{
+  label{
+    text-align:left;
+    margin:0 0 10px 0;
+    float:left;
+  }
+}

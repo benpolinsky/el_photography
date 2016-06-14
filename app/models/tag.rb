@@ -2,6 +2,9 @@
 ActsAsTaggableOn::Tag.class_eval do
   include RankedModel
   ranks :row_order
+  
+  extend FriendlyId
+  friendly_id :name, use: :slugged
 end
 module Tag
   
@@ -12,7 +15,7 @@ module Tag
   end
   
   def self.assets_for_tag_with_images(tag)
-    assets_for_tag(tag).map(&:image_url)
+    assets_for_tag(tag).map{|i|i.image_url(:medium)}
   end
   
   def self.first_asset_for_tag_with_image(tag)

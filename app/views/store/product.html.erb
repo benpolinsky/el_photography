@@ -1,6 +1,23 @@
-<%= @product_view.tap do |view| %>
-  <%= view.name_and_link %>
-  <%= view.image %>
-  <%= view.description %>
-  <%= view.display_quantity %>
-<% end %>
+  <div class='product grid-item'>
+    <div class='grid-item-container grid-split'>
+      <div class='grid-split-left'>
+        <%= @product.bp_view(cart: @cart).image("full") %>
+      </div>
+      <div class='grid-item-contents grid-split-right'>
+        <%= @product.bp_view(cart: @cart).name_and_link %>
+        <%= @product.bp_view(cart: @cart).price %>
+                
+        <div class='listing-quantity-container'> 
+          <%= @product.bp_view(cart: @cart).display_quantity %>
+        </div>
+        
+        <%= render :partial => 'product_variants_options', locals: {product: @product} if @product.variants.any? %>
+        
+        <div class='add-to-cart-container'>
+          <%= render :partial => 'add_to_cart', locals: {product: @product, cart: @cart} %>        
+        </div>
+        
+      </div>
+
+    </div>
+  </div>

@@ -1,0 +1,22 @@
+<%= content_tag :h2, @contact_page_title %>
+
+<%= content_tag :p, @contact_page_content if @contact_page_content %>
+ 
+<%= form_tag send_message_path, data: {parsley_validate: true}, class: "contact-form" do |f| %>
+  <div class='form-group'>
+    <%= label_tag :email, "Email Address" %>
+    <%= email_field_tag :email, nil, {class: "form-control", data: {parsley_required: true, parsley_type: "email", parsley_required_message: "Please enter an Email Address"}} %>  
+  </div>
+
+  <div class='form-group'>
+    <%= label_tag :name, "Name" %>
+    <%= text_field_tag :name, nil, {class: "form-control", data: {parsley_required: true, parsley_required_message: "Please enter a Name"}} %>    
+  </div>
+
+  <div class='form-group'>
+    <%= label_tag :body, "Message" %>
+    <%= text_area_tag :body, nil, {label: "Message", class: "form-control", data: {parsley_required: true, parsley_required_message: "Please enter your Message"}} %>  
+  </div>
+  
+  <%= submit_tag "Contact", class: "btn" %>
+<% end %> 

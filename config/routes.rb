@@ -62,9 +62,9 @@ Rails.application.routes.draw do
   
   # Store 
   
-  get 'store/index' => 'store#index', as: :store
-  get 'store/product/:id' => 'store#product', as: :product
-  get 'store/help' => 'store#help', as: :help
+  get 'prints' => 'store#index', as: :store
+  get 'prints/photo/:id' => 'store#product', as: :product
+  get 'prints/help' => 'store#help', as: :help
   
   scope '/store' do
     resource :cart do
@@ -87,9 +87,14 @@ Rails.application.routes.draw do
       get 'cancel', on: :collection
     end
     get 'checkout' => 'orders#new', as: :checkout
-
   end
   
+
+    
+  get 'work/:id' => 'home#tag', as: :tag
+  get 'about' => 'home#about', as: :about
+  get 'contact' => 'home#contact', as: :contact
+  post 'send_message' => 'home#send_message', as: :send_message
   get 'home/index'
   root to: 'home#index'
 end
