@@ -71,6 +71,7 @@ gem 'rmagick'
 gem 'carrierwave'
 gem "fog"
 gem 'dropzonejs-rails'
+gem 'rails_12factor', group: :production
 
 gem 'active_link_to'
 gem 'best_in_place', '~> 3.0.1'
@@ -101,3 +102,4 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+ruby '2.2.3'
