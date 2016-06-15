@@ -4,8 +4,16 @@ ActsAsTaggableOn::Tag.class_eval do
   ranks :row_order
   
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: [:slugged, :history]  
 end
+
+class ActsAsTaggableOn::Tag
+  def should_generate_new_friendly_id?
+    name_changed? && name_was.present? 
+  end
+end
+
+
 module Tag
   
   TAG = ActsAsTaggableOn::Tag

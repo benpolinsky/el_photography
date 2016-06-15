@@ -221,7 +221,9 @@ class Product < ApplicationRecord
     end.sort.to_h
   end
 
-  
+  def should_generate_new_friendly_id?
+    name_changed? && name_was.present? 
+  end
   # def self.with_visible_stock(cart)
   #   stocked.reject { |product| cart.number_of_products_inside(product.id, "product") >= product.quantity }
   # end
