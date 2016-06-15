@@ -10,7 +10,7 @@
         <% else %>
           <%= render partial: 'shared/embed_video', locals: {address: asset.embed_address} %>
         <% end %>
-        <%= asset.caption.html_safe %>
+        <%= asset.caption.html_safe if asset.caption %>
       </div>
     </div>
   <% end %>

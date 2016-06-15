@@ -26,6 +26,8 @@
 - local cart loaders
 
 #### Admin:
+- product photos constraints
+- null lineitem route...
 - photos filter by tag
 - prepend dolla signs to all number fields
 - custom fields for about etc - TRY IT!
