@@ -1,6 +1,20 @@
 <h1>Editing Tag</h1>
 
-<%= render 'form', admin_tag: @tag %>
+<% breadcrumb :admin_tag, @tag %>
+<%= form_for(@tag, url: admin_tag_path(@tag)) do |f| %>
+
+
+  <div class='form-group'>
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>    
+  </div>
+
+  
+  <div class="actions">
+    <%= f.submit f.send(:submit_default_value), class: "btn btn-primary" %>
+  </div>
+<% end %>
+
 
 <div class='btn-group btn-group-sm'>
   <%= link_to 'Show', admin_tag_path(@tag), class: 'btn btn-secondary' %>

@@ -33,7 +33,7 @@ class Admin::TagsController < AdminController
   # PATCH/PUT /admin/tags/1.json
   def update
     @tag = ActsAsTaggableOn::Tag.friendly.find(params[:id])
-    if @tag.update_attribtues(tag_params)
+    if @tag.update(tag_params)
       redirect_to admin_tags_path
     else
       @resource = @tag

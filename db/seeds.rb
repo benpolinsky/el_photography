@@ -85,3 +85,7 @@ end
     tag_list: (t.odd? ? ['a tag'] : ['a different_tag'])
   })
 end
+
+Tag.all.each do |tag|
+  tag.save
+end
