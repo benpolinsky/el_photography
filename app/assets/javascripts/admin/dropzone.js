@@ -4,7 +4,6 @@ jQuery(document).ready(function($) {
   
   Dropzone.options.newPhoto = {
     paramName: input_name, // The name that will be used to transfer the file
-    maxFilesize: 2, // MB
     drop: function (event) {
       tags_input[0].selectize.disable();
     },
