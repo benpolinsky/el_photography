@@ -54,6 +54,8 @@ modulejs.define('payments', function () {
       
       $('form#submit-payment').submit(function (event) {
         if (!$(this).hasClass('paypal-submit')) {
+          var Loader = modulejs.require('loader');
+          Loader.start();
           var $form = $(this);
           $form.find('input[type="submit"]').prop('disabled', true);
           $form.find('input[type="submit"]').attr('data-disable-with', '<i class="fa fa-spinner fa-spin"></i>Paying…');
@@ -64,6 +66,8 @@ modulejs.define('payments', function () {
   
   
       $('button[name="paypal"]').on('click', function(event) {
+        var Loader = modulejs.require('loader');
+        Loader.start();
         event.preventDefault();
         $('form#submit-payment').addClass('paypal-submit');
         $('form#submit-payment').get(0).submit();
@@ -74,6 +78,8 @@ modulejs.define('payments', function () {
     stripeResponseHandler: function (status, response) {
       var $form = $('form#submit-payment');
       if (response.error) {
+        var Loader = modulejs.require('loader');
+        Loader.stop();
         $form.find(".payment-errors").text(response.error.message);
         $form.find('input[type="submit"]').prop('disabled', false);
       } else {

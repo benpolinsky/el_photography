@@ -36,9 +36,9 @@
           
           
   				<% if item.variant? %>
-  					<%= quick_row "Listing Name", link_to(item.variant.name_with_product, product_path(item.product)) %>	
+  					<%= quick_row "Product Name", link_to(item.variant.name_with_product, product_path(item.product)) %>	
   				<% else %>
-  					<%= quick_row "Listing Name", link_to(item.name, product_path(item.product)) %>
+  					<%= quick_row "Product Name", link_to(item.name, product_path(item.product)) %>
   				<% end %>
         <% end %>
 

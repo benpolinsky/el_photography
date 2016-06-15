@@ -19,29 +19,29 @@ class CartView
   
   def checkout_order_subtotal(line_items=@cart.line_items)
     return if line_items.none?
-    content_tag :div, class: "checkout-order-subtotal" do
-      concat content_tag :p, "Subtotal: <span>#{line_items_subtotal.format}</span>".html_safe 
+    content_tag :div, class: "cart-subtotal" do
+      concat content_tag :p, "<span>Subtotal: </span> <span>#{line_items_subtotal.format}</span>".html_safe 
     end
   end
   
   def checkout_grand_total(line_items=@cart.line_items)
     return if line_items.none?
-    content_tag :div, class: "checkout-order-subtotal" do
-      content_tag :p, "Grand total: <span class='grand-total'>#{line_items_grand_total.format}</span>".html_safe
+    content_tag :div, class: "cart-subtotal grand-total" do
+      content_tag :p, "<span>Grand total:</span> <span class='grand-total'>#{line_items_grand_total.format}</span>".html_safe
     end
   end
   
   def checkout_estimated_shipping(line_items=@cart.line_items)
     return if line_items.none?
-    content_tag :div, class: "checkout-order-subtotal" do
-      content_tag :p, "Estimated Shipping: <span>#{display_shipping line_items_shipping_total}</span>".html_safe
+    content_tag :div, class: "cart-subtotal" do
+      content_tag :p, "<span>Estimated Shipping: </span> <span>#{display_shipping line_items_shipping_total}</span>".html_safe
     end
   end
   
   def checkout_final_shipping(line_items=@cart.line_items)
     return if line_items.none?
-    content_tag :div, class: "checkout-order-subtotal" do
-      content_tag :p, "Shipping: <span>#{display_shipping line_items_shipping_total}</span>".html_safe
+    content_tag :div, class: "cart-subtotal" do
+      content_tag :p, "<span>Shipping: </span><span>#{display_shipping line_items_shipping_total}</span>".html_safe
     end
   end
 

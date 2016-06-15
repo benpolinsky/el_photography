@@ -2,7 +2,7 @@
 # much will make sense
 class OrdersController < ApplicationController
   respond_to :html, :js
-  before_action :find_order, except: [:new, :create, :cancel]
+  before_action :find_order, except: [:new, :create]
   protect_from_forgery :except => :webhook
   
   # create on new.  allows for tracking of abandoned orders
@@ -70,15 +70,19 @@ class OrdersController < ApplicationController
   end
   
   def cancel
-    # mark order as cancelled
+    redirect_to checkout_path, notice: "You've Cancelled Your PayPal Payment"
   end
   
   def payment_accepted
     @cart.destroy
     session[:cart_id] = nil
     session[:order_id] = nil
+    redirect_to [:receipt, @order]
   end
   
+  def receipt
+    redirect_to store_path unless @order.status.in? (["payment_accepted", "order_shipped"])
+  end
   
   private
   
@@ -91,7 +95,7 @@ class OrdersController < ApplicationController
   
   def failed_order
     @order.fail_payment!
-    redirect_to [:enter_payment, @order], notice: "Sorry something went wrong"
+    redirect_to checkout_path, notice: "Sorry something went wrong"
   end
   
   def find_order

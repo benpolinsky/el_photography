@@ -1,6 +1,6 @@
 (function() {
   var Cart = modulejs.require('cart');
-
+  var Loader = modulejs.require('loader');
   $(document).keyup(function (e) {
     if (e.keyCode == 27) {
       Cart.close();
@@ -15,6 +15,14 @@
     });
 
     Cart.initialize_variants();
+    
+    $('.cart-slice').on('click', '.increment-quantity', function () {
+      Loader.start();
+    });
+    
+    $('.cart-slice').on('click', '.decrement-quantity', function () {
+      Loader.start();
+    });
   });
   
 }());

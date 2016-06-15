@@ -20,12 +20,13 @@ modulejs.define('cart', function () {
       $(".item-slice").remove();
     },
     
-    line_items: function () {
+    line_items_count: function () {
       return $('.item-slice').length;
     },
     
     append_item_to_cart: function (cart_item_quantity, cart_item_id, item_partial, add_to_cart_partial, display_quantity_partial, cart_totals_partials) {
       $('.cart-checkout').removeClass('disabled');
+      $('.nothing-here-container').remove();
       if (cart_item_quantity > 1) {
         this.change_quantity(cart_item_id, item_partial, add_to_cart_partial, display_quantity_partial, cart_totals_partial, cart_item_quantity);
       } else {
@@ -35,7 +36,7 @@ modulejs.define('cart', function () {
     },
     
     update_counts_and_totals: function (cart_item_quantity, cart_totals_partial) {
-      if (cart_item_quantity == 0) {
+      if (this.line_items_count() == 0) {
         $("#total-slices").remove();
       } else{
         $('#total-slices').html(cart_totals_partial);
@@ -51,7 +52,8 @@ modulejs.define('cart', function () {
       $('.add-to-cart-container').html(add_to_cart_partial);
       $('.listing-quantity-container').html(display_quantity_partial);
       this.update_counts_and_totals(cart_item_quantity, cart_totals_partial);
-      if (this.line_items() == 0) {
+      if (this.line_items_count() == 0) {
+      $('.cart-line-items').html('<div class="nothing-here-container"><h2>Nothing Here</h2><a href="/prints">Keep Shopping</a></div>');
         this.close();        
       }
 

@@ -82,7 +82,10 @@ $yag: grey;
     width:100%;
     position:relative;
     float:left;
-        clear:left;
+    clear:left;
+    .item-name{
+      float:left;
+    }
   }
   
   .quantity-manager {
@@ -90,9 +93,11 @@ $yag: grey;
 
     margin-right: 15px;
     float: left;
+    clear:left;
     .increment-quantity {
       font-size: 16px;
       cursor: pointer;
+      text-decoration:none;
     }
     .decrement-quantity {
       font-size: 16px;
@@ -100,6 +105,7 @@ $yag: grey;
       position: relative;
       font-size: 14px;
       cursor: pointer;
+      text-decoration:none;
     }
     .quantity {
       padding: 0 15px;
@@ -334,10 +340,12 @@ div.main.cart-open{
 .cart-line-items{
   color: black;
   background: white;
-  padding: 10px 0 12px 20px;
+  padding: 10px 0 12px 0px;
   border-bottom: 1px solid grey;
   box-sizing: border-box;
-  overflow:auto;
+  overflow: hidden;
+  width: 100%;
+
 }
 
 .checkout-link{
@@ -354,4 +362,33 @@ div.main.cart-open{
 
 .checkout-order-subtotal p span{
   float:right;
+}
+.cart-subtotal.grand-total{
+  border-top:1px solid black;
+}
+.cart-subtotal{ 
+  width:300px;
+  float:left;
+  clear:both;
+  span:first-of-type{
+    margin-right:3px;
+    float:left;
+  }
+  span:last-of-type{
+    float:right;
+  }
+  p {
+    float:left;
+    width:100%;
+    margin-bottom:5px;
+  }
+}
+
+.cart-empty-contents{
+  float: right;
+  padding-right: 5px;
+}
+
+.nothing-here-container{
+  padding-left:20px;
 }

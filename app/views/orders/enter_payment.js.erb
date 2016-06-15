@@ -3,3 +3,4 @@ $('.main-content').append("<%= j render(partial: 'enter_payment') %>");
 $("form").parsley();
 var payments = modulejs.require('payments');
 payments.setup();
+$('#order_payment_method_stripe').click();

@@ -1,5 +1,7 @@
 // typograpghy
-
+html, body{
+  height:100%;
+}
 h1, h1 a{
   font-family: "niveau-grotesk";
   font-size: 50px;
@@ -42,8 +44,20 @@ a:hover, a:active, a:visited{
 };
 
 
+.front-wrap {
+  min-height: 100%;
+  position:relative;
+  padding-bottom: 100px;
 
-// formatting
+}
+.font-wrap:after {
+  content: "";
+  display: block;
+}
+
+footer, .front-wrap:after {
+  height: 100px; 
+}
 .elp-container{
   margin: 10px auto;
   box-sizing:border-box;
@@ -54,7 +68,20 @@ a:hover, a:active, a:visited{
 }
 
 footer{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  text-align: center;
   padding:20px;
-  margin:20px 0;
+  margin:20px 0 0 0;
+  background:black;
+  color:white;
 }
 
+
+.pull-right {
+  float: right;
+  text-align: right;
+  clear: right;
+}

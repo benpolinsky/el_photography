@@ -63,15 +63,15 @@ class CheckoutView
   end
   
   def line_items_subtotal
-    order.subtotal ? order.subtotal : calculate_subtotal
+    calculate_subtotal
   end
   
   def line_items_shipping_total
-    order.shipping_total ? order.shipping_total : calculate_estimated_shipping
+    calculate_estimated_shipping
   end
   
   def line_items_grand_total
-    order.grand_total ? order.grand_total : calculate_total_price
+    calculate_total_price
   end
   
   def display_shipping(price)

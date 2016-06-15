@@ -164,6 +164,10 @@ class Order < ApplicationRecord
     update(purchased_at: Time.zone.now)
   end
   
+  def pretty_payment_method
+    payment_method == "paypal" ? "PayPal" : "Card via Stripe"
+  end
+  
   def self.find_product_from_item(item)
     item.product_type.classify.constantize.find(item.product_id)
   end  

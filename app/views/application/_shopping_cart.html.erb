@@ -5,15 +5,14 @@
     <div id="total-slices">
       <%= render :partial => 'cart_totals', locals: {cart_view: CartView.new(@cart)} %>
     </div>
-    <%= link_to "Empty Contents", empty_cart_path, remote: true, data: {confirm: "Are you sure?", remote: true} if @cart.line_items.any? %>
   </header>
 
   <div class='cart-line-items'>
-    <% if @cart.line_items.any? %>
-
-    <% else %>
-      <h2>Nothing Here</h2>
-      <%= link_to "Keep Shopping", store_path %>
+    <% if @cart.line_items.none? %>
+      <div class='nothing-here-container'>
+        <h2>Nothing Here</h2>
+        <%= link_to "Keep Shopping", store_path %>
+      </div>
     <% end %>
     <% @cart.line_items.each do |item|%>
       <div class="item-slice slice" id="cart_item_<%= item.id %>">
@@ -22,8 +21,8 @@
       </div>
     <% end %>
   </div>
-  
   <div class="bag-checkout-slice slice">
     <%= link_to "Checkout", checkout_path, class: ("#{@cart.line_items.none? ? 'checkout-link disabled' : 'checkout-link'}") %>
   </div>
+  <%= link_to "Empty Contents", empty_cart_path,  {class: 'cart-empty-contents', data: {confirm: "Are you sure?", remote: true}} if @cart.line_items.any? %>
 </div>

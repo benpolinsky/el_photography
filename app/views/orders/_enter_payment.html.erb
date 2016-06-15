@@ -3,7 +3,7 @@
   <h3>Choose Payment Method</h3>
   <div class='payment-chooser'>
     <div class='form-group'>
-      <%= f.radio_button :payment_method, "paypal" %> <%= f.label :payment_method, "Paypal", for: "order_payment_method_paypal" %>    
+      <%= f.radio_button :payment_method, "paypal" %> <%= f.label :payment_method, "PayPal", for: "order_payment_method_paypal" %>    
     </div>
   
     <div class='form-group'>
@@ -14,11 +14,10 @@
 
     <div class='payment-method-info'>
       <div class='stripe-info'>
-        <%= image_tag 'powered_by_stripe.png' %>
+        <%= link_to image_tag('powered_by_stripe.png'), "https://stripe.com/about" %>
       </div>
       
       <div class='paypal-info'>
-        <%= content_tag :div, '<i class="fa fa-spinner fa-spin"></i>'.html_safe, class: "payment-spinner inactive" %>
         <div class='paypal-image-container'>
           <table border="0" cellpadding="10" cellspacing="0" align="center">
             <tr>

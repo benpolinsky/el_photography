@@ -16,6 +16,7 @@
   </head>
 
   <body class="<%= theme_class %> <%= body_class %>">
+    <div class='front-wrap'>
     <div class='container-fluid'>
       <div class='elp-container header center'>
         <%= render :partial => 'front_header' %>
@@ -34,10 +35,11 @@
         <%= yield %>
       </div>
     </div>
-
-
     <footer>
       <div class="elp-container center"><p>Copyright <%= Time.zone.now.year %> Elliot Polinsky</p></div>
     </footer>
+    </div>
+    
+    <div id="modal-overlay" class="patience"><i class="fa fa-spinner loader fa-spin"></i><span id="load-spin">Loading...</span></div>
   </body>
 </html>
