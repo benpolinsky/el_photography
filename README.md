@@ -10,24 +10,23 @@
 ## README / TODO
 
 #### Front:
-- contact / form
-- parsley errors nicer.. (absolute probably isn't a good idea..)
-- add to cart not working with two items on a page...
+- add to cart not working with two items on a page - ill get that working later
+- if photo has product - link to that
 - checkout styles
-- local cart loaders
 - aws
-- upload (after tag creatopn)
+- upload
 
 
 # later
 - disable checkout if no items in cart (halfway there)
+
 - reset variant price (from xxx ) after added to card
 - when you click off a size/variant chooser it should collapse (not just reclicking on the header)
 - notices + errors front end. ?
+- local cart loaders
 
 #### Admin:
 - photos filter by tag
-- make sure that tags generate slug on creation... (when created through a taggable obj)
 - prepend dolla signs to all number fields
 - custom fields for about etc - TRY IT!
 - admin photos index - it would probably be a good idea to dynamically create each selectize as needed, otherwise you're calling tags a bazillion times.

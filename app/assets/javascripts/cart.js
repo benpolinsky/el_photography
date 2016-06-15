@@ -72,7 +72,7 @@ modulejs.define('cart', function () {
       var item_id = $(el).data("item-id");
       var product_option_name = $(el).data("product-option");
       var hidden_field = '<input type="hidden" class="' + product_option_name + '" name="line_item[variant_option_values_ids][]" id="line_item_variant_option_values_ids_' + item_id + '" value="' + item_id + '">';
-    
+
       // mark the option as selected
       $(el).addClass("selected");
     
@@ -99,6 +99,7 @@ modulejs.define('cart', function () {
       }
       
       // enable the add-to-cart button and change the hidden select if all options selected
+      var not_selected = $(el).parents('.item-quantity-and-options').children('.drop-menu.product-option:not(.selected)');
       if ($('.drop-menu.product-option:not(.selected)').length == 0) {
         var selected_unique_key = "";
         $('.item-quantity-and-options .drop-menu-item.selected').each(function(index) {
