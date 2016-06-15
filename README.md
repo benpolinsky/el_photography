@@ -11,15 +11,18 @@
 
 #### Front:
 - add to cart not working with two items on a page - ill get that working later
+- remove session if not found
 - if photo has product - link to that
 - checkout styles
 - aws
 - upload
-
+- next tag, top, previous tag at end
 
 # later
 - disable checkout if no items in cart (halfway there)
-
+- product -> add photo retroactively
+- edit photo (actual image)
+- calendar pickr appears to be a bit off.. style update?  check local
 - reset variant price (from xxx ) after added to card
 - when you click off a size/variant chooser it should collapse (not just reclicking on the header)
 - notices + errors front end. ?

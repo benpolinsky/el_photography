@@ -5,6 +5,7 @@
       </div>
       <div class='grid-item-contents grid-split-right'>
         <%= @product.bp_view(cart: @cart).name_and_link %>
+        <%= @product.bp_view(cart: @cart).description %>
         <%= @product.bp_view(cart: @cart).price %>
                 
         <div class='listing-quantity-container'> 

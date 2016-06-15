@@ -30,9 +30,16 @@ select#line_item_variant_id{
 // product view
 .product-view-name-link{
   float:left;
+  text-align:left;
 }
 
 .product-view-price{
-  float:right;
+  float:left;
 }
 
+.product-view-description{
+  margin:10px 0;
+  clear:both;
+  line-height:1.5;
+  text-align:left;
+}
