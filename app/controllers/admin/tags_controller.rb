@@ -44,7 +44,9 @@ class Admin::TagsController < AdminController
   # DELETE /admin/tags/1
   # DELETE /admin/tags/1.json
   def destroy
- 
+    @tag = ActsAsTaggableOn::Tag.friendly.find(params[:id])
+    @tag.destroy
+    redirect_to admin_tags_path, notice: "Tag destroyed"
   end
   
   def update_row_order
