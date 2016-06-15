@@ -8,17 +8,6 @@
       <div class='grid-item-contents'>
         <%= product.bp_view(cart: @cart).name_and_link %>
         <%= product.bp_view(cart: @cart).price %>
-                
-        <div class='listing-quantity-container'> 
-          <%= product.bp_view(cart: @cart).display_quantity %>
-        </div>
-        
-        <%= render :partial => 'product_variants_options', locals: {product: product} if product.variants.any? %>
-        
-        <div class='add-to-cart-container'>
-          <%= render :partial => 'add_to_cart', locals: {product: product, cart: @cart} %>        
-        </div>
-        
       </div>
 
     </div>

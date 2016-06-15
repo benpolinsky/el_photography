@@ -10,7 +10,7 @@
 </div>
 
 <div class="field form-group">
-  <%= builder.label :price, builder.object.price_label %>
+  <%= builder.label :price, builder.object.price_label.html_safe %>
   <%= builder.number_field :price, {data: {parsley_required: 'true', parsley_error_message: "Price please."}, class: "form-control", step: '0.01', disabled: builder.object.price_disabled?} %>
 </div>
 

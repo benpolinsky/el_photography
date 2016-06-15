@@ -38,7 +38,7 @@ class Product < ApplicationRecord
   
   validates_presence_of :name, :price_cents
   validates_uniqueness_of :name
-  validates_length_of :name, minimum: 3, maximum: 100, too_short: "Name is too short (min 3 characters)", too_long: "Name is too long (max 100 characters)"
+  validates_length_of :name, minimum: 3, too_short: "Name is too short (min 3 characters)"
   validates_associated :variants
   
   monetize :price_cents, allow_nil: 'true'
@@ -151,7 +151,8 @@ class Product < ApplicationRecord
     create({
       name: product_name,
       price_cents: 100,
-      quantity: 0,
+      shipping_base_cents: 100,
+      using_inventory: false,
       photo: photo
     })
   end

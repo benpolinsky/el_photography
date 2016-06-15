@@ -9,7 +9,7 @@ end
 
 class ActsAsTaggableOn::Tag
   def should_generate_new_friendly_id?
-    name_changed? && name_was.present? 
+    name.present?
   end
 end
 
@@ -40,6 +40,10 @@ module Tag
 
   def self.first
     TAG.first
+  end
+  
+  def self.last(num=nil)
+    TAG.last(num)
   end
   
   def self.first_or_initialize(params={})

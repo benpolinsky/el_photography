@@ -11,7 +11,9 @@
 
 #### Front:
 - add to cart not working with two items on a page - ill get that working later
-- remove session if not found
+- cart image
+- remove session if not found (done?)
+- store index - crop image?  or somehow fit different sizes in grid
 - if photo has product - link to that
 - checkout styles
 - aws
@@ -19,6 +21,7 @@
 - next tag, top, previous tag at end
 
 # later
+- photo -> product easier
 - disable checkout if no items in cart (halfway there)
 - product -> add photo retroactively
 - edit photo (actual image)
@@ -29,6 +32,7 @@
 - local cart loaders
 
 #### Admin:
+- after sign in path
 - product photos constraints
 - null lineitem route...
 - photos filter by tag

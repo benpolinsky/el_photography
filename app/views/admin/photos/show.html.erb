@@ -8,11 +8,11 @@
 <% end %>
 <div class='row'>
   <div class='col-xs-12'>
-    <%= image_tag @photo.image.url(:main) %>
+    <%= image_tag @photo.image.url(:main), class: "show-image" %>
 
 <p>
   <strong>Caption:</strong>
-  <%= @photo.caption %>
+  <%= @photo.caption.html_safe %>
 </p>
 
 <div class='btn-group'>

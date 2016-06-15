@@ -37,7 +37,7 @@ class Admin::ProductsController < AdminController
           format.json { render :show, status: :created, location: @product }
         else
           @resource = @product
-          format.html { redirect_to admin_photo_path(params[:photo_id]) }
+          format.html { redirect_to admin_photo_path(params[:photo_id]), notice: error_list_for(@product) }
           format.json { render json: @product.errors, status: :unprocessable_entity }
         end
       end 

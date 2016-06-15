@@ -292,6 +292,9 @@ header.cart-header {
   padding: 10px 0 12px 20px;
   border-bottom: 1px solid $grey;
   box-sizing: border-box;
+  clear: both;
+  float: left;
+  width: 100%;
 }
 .cart-slice.active {
   transition: height 100ms;
