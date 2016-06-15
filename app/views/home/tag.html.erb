@@ -10,7 +10,9 @@
         <% else %>
           <%= render partial: 'shared/embed_video', locals: {address: asset.embed_address} %>
         <% end %>
-        <%= asset.caption.html_safe if asset.caption %>
+
+        <%= content_tag(:div, asset.caption.html_safe, class: "caption") if asset.caption %>
+        <%= content_tag(:div, link_to("Buy Print", asset.product), class: "photo-buy-product-link") if asset.try(:product) %>
       </div>
     </div>
   <% end %>

@@ -1,60 +1,72 @@
 <div class='wizard-step active'>
 <%= form_for @order, html: {id: "submit-payment", data: {parsley_validate: "true", remote: true}} do |f| %>
-  <h2>Choose Payment Method</h2>
+  <h3>Choose Payment Method</h3>
   <div class='payment-chooser'>
     <div class='form-group'>
-      <%= f.radio_button :payment_method, "paypal" %> <%= f.label :payment_method, "Paypal" %>    
+      <%= f.radio_button :payment_method, "paypal" %> <%= f.label :payment_method, "Paypal", for: "order_payment_method_paypal" %>    
     </div>
   
     <div class='form-group'>
-      <%= f.radio_button :payment_method, "stripe" %> <%= f.label :payment_method, "Card Via Stripe" %>    
-    </div>    
+      <%= f.radio_button :payment_method, "stripe" %> <%= f.label :payment_method, "Card Via Stripe", for: 'order_payment_method_stripe' %>    
+    </div>
+      
   </div>
 
+    <div class='payment-method-info'>
+      <div class='stripe-info'>
+        <%= image_tag 'powered_by_stripe.png' %>
+      </div>
+      
+      <div class='paypal-info'>
+        <%= content_tag :div, '<i class="fa fa-spinner fa-spin"></i>'.html_safe, class: "payment-spinner inactive" %>
+        <div class='paypal-image-container'>
+          <table border="0" cellpadding="10" cellspacing="0" align="center">
+            <tr>
+              <td align="center"></td>
+            </tr>
+            <tr>
+              <td align="center">
+                <img src="https://www.paypalobjects.com/webstatic/mktg/logo/bdg_secured_by_pp_2line.png" border="0" alt="Secured by PayPal">
+                <div style="text-align:center">
+                  <a href="https://www.paypal.com/webapps/mpp/paypal-popup" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><font size="2" face="Arial" color="#0079CD"><b>How PayPal Works</b></font></a>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
   
   <div class="stripe-fields">
     <div class="payment-errors"></div>
     
-    <div class='field'>
-      <%= f.text_field :credit_card_number, title: "Credit Card Number", :data => {stripe: "number"}, class: "field_1", placeholder: "Card Number" %>
+    <div class='form-group'>
+      <%= f.label :credit_card_number, "Card Number: " %>
+      <%= f.text_field :credit_card_number, title: "Credit Card Number", :data => {stripe: "number"}, class: "field_1" %>
     </div>
 
-    <div class="field">
+    <div class="form-group">
+      <%= label_tag :card_month, "Expiration Month: " %>
       <%= select_month Time.zone.now, {add_month_numbers: true}, {name: nil, id: "card_month", title: "Credit Card Expiration Month", class: "field_2"} %>
     </div>
-    <div class='field'>
+    <div class='form-group'>
+      <%= label_tag :card_year, "Expiration Year: " %>
       <%= select_year Time.zone.now, {start_year: Date.today.year, end_year: Date.today.year+10}, {name: nil, id: "card_year", title: "Credit Card Expiration Year", class: "field_2"} %>
     </div>
 
     <input type="number" size="2" data-stripe="exp-month" id="exp-month" value="<%= Date.today.month %>"/>
     <input type="number" size="4" data-stripe="exp-year" id="exp-year" value="<%= Date.today.year %>"/>
-    <div class='field'>
-      <%= f.label :credit_card_security_code %>
+    <div class='form-group'>
+      <%= f.label :credit_card_security_code, "Card Security Code: " %>
       <%= f.text_field :credit_card_security_code, name: nil, title: "Security Code", data: {stripe: "cvc"}, class: "field_1", placeholder: "Security Code" %>
     </div>
-    <%= f.button "Pay With Card", data: {disable_with: "Processing..."} %>
+    <%= f.button "Pay With Card", class: "btn btn-primary", data: {disable_with: "Processing..."} %>
   </div>
   <%= hidden_field_tag :current_step, "process_payment" %>
   
   <div class='paypal-fields'>
-    <%= f.button "Pay With Paypal", name: "paypal" %>
-    <p>When you click on "Pay With Paypal" you'll be taken to Paypal's site to finish payment.</p>
-    <%= content_tag :div, '<i class="fa fa-spinner fa-spin"></i>'.html_safe, class: "payment-spinner inactive" %>
-    <div class='paypal-image-container'>
-      <table border="0" cellpadding="10" cellspacing="0" align="center">
-        <tr>
-          <td align="center"></td>
-        </tr>
-        <tr>
-          <td align="center">
-            <a href="https://www.paypal.com/webapps/mpp/paypal-popup" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/bdg_secured_by_pp_2line.png" border="0" alt="Secured by PayPal"></a>
-            <div style="text-align:center">
-              <a href="https://www.paypal.com/webapps/mpp/paypal-popup" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><font size="2" face="Arial" color="#0079CD"><b>How PayPal Works</b></font></a>
-            </div>
-          </td>
-        </tr>
-      </table>
-    </div>
+    <%= f.button "Pay With Paypal", name: "paypal", class: 'btn btn-primary' %>
+    <p>When you click the above button, you'll be taken to Paypal's site to finish payment.</p>
   </div>
 
 

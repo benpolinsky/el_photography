@@ -8,17 +8,19 @@
 
 
 ## README / TODO
+## only on production
+- cart image (why isn't it always small?)
+- remove session if not found (done?)
+- null lineitem route... (i think its fixed?)
 
 #### Front:
-- add to cart not working with two items on a page - ill get that working later
-- cart image
-- remove session if not found (done?)
+- totals on cart get removed if one item is removed (last in quantity) but there are still other items remaining
+- cart says "nothing here"... even if something added (sometimes)
 - store index - crop image?  or somehow fit different sizes in grid
-- if photo has product - link to that
-- checkout styles
-- aws
-- upload
 - next tag, top, previous tag at end
+- ability to go back to addresses if on payment step in checkout..
+- local cart loaders + local payment loaders
+- paypal cancel link...
 
 # later
 - photo -> product easier
@@ -29,16 +31,16 @@
 - reset variant price (from xxx ) after added to card
 - when you click off a size/variant chooser it should collapse (not just reclicking on the header)
 - notices + errors front end. ?
-- local cart loaders
-
-#### Admin:
-- after sign in path
-- product photos constraints
-- null lineitem route...
-- photos filter by tag
-- prepend dolla signs to all number fields
 - custom fields for about etc - TRY IT!
 - admin photos index - it would probably be a good idea to dynamically create each selectize as needed, otherwise you're calling tags a bazillion times.
+- clean up checkout view -> checkoutviewmodel
+
+
+#### Admin:
+- product photos constraints (? not sure what this means...)
+- photos filter by tag
+- prepend dolla signs to all number fields
+
 
 ## Theming Support 
 - Perhaps lint or other safety check?

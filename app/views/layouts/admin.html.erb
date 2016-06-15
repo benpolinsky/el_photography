@@ -23,8 +23,10 @@
         <%= active_link_to "Tags", admin_tags_path, class: "nav-item nav-link" %>
         <%= active_link_to "Products", admin_products_path, class: "nav-item nav-link" %>
         <%= active_link_to "Orders", admin_orders_path, class: "nav-item nav-link" %>
+        <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-item nav-link pull-right" %>
         <%# active_link_to "Templates", admin_page_templates_path, class: "nav-item nav-link" %>
         <%# active_link_to "Themes", admin_themes_path, class: "nav-item nav-link" %>
+        
       </ul>
     </nav>
       <div class='crumbs'>

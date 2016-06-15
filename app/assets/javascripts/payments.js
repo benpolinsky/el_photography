@@ -6,8 +6,12 @@ modulejs.define('payments', function () {
     setup: function () {
       $('.paypal-fields').hide();
       $('.stripe-fields').hide();
+      $('.stripe-info').hide();
+      $('.paypal-info').hide();
       $('.payment-chooser input#order_payment_method_paypal').on('click', function(event) {
+        $('.stripe-info').hide();
         $('.stripe-fields').hide();
+        $('.paypal-info').show();
         $('.paypal-fields').show();
         $('html, body').animate({
           scrollTop: $(this).parent().offset().top
@@ -16,7 +20,9 @@ modulejs.define('payments', function () {
   
       $('.payment-chooser input#order_payment_method_stripe').on('click', function(event) {
         $('.stripe-fields').show();
+        $('.stripe-info').show();
         $('.paypal-fields').hide();
+        $('.paypal-info').hide();
         $('html, body').animate({
           scrollTop: $(this).parent().offset().top
           }, 400, function () {
@@ -79,11 +85,16 @@ modulejs.define('payments', function () {
     },
     
     hideShippingAddress: function () {
+      $('a.enter-shipping-address').removeClass('disabled hidden');
+      
+      $('a.ship-to-same').addClass('btn-primary').removeClass('btn-secondary').text('Proceed');
       $('.shipping-address').addClass('hidden');
       $('.shipping-address').find(':input').prop('disabled', true);
     },
 
     showShippingAddress: function () {
+      $('a.ship-to-same').addClass('btn-secondary').removeClass('btn-primary').text('Whoops!  Ship to my billing address, please.');
+      $('a.enter-shipping-address').addClass('disabled hidden');
       $('.shipping-address').removeClass('hidden');  
       $('.shipping-address').find(':input').prop('disabled', false);
     }

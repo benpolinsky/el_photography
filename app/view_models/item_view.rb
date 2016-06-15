@@ -57,15 +57,15 @@ class ItemView
   
   def subtotal
     content_tag :div, class: "item-price-total" do
-      content_tag :span, 'Price', class: "label"
-      content_tag :span, item.subtotal.format, class: "value"
+      concat content_tag :span, 'Price', class: "label"
+      concat content_tag :span, item.subtotal.format, class: "value"
     end
   end
   
   def estimated_shipping
     content_tag :div, class: "item-price-total" do
-      content_tag :span, 'Estimated Shipping', class: "label"
-      content_tag :span, item.shipping_total.format, class: "value"
+      concat content_tag :span, 'Estimated Shipping', class: "label"
+      concat content_tag :span, item.shipping_total.format, class: "value"
     end
   end
   

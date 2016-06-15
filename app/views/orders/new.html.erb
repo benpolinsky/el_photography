@@ -4,37 +4,59 @@
     Stripe.setPublishableKey("<%= ENV['stripe_test_publishable'] %>");
   </script>
 <% end %>
+
 <h1>Checkout</h1>
+
 <div class='order-summary'>
+  <%= content_tag :h3, "Order Summary" %>
   <% @order.line_items.each do |item| %>
+  <div class='checkout-order-item'>
     <%= render partial: 'order_item', locals: {item_view: ItemView.new(item)} %>
+  </div>
+    <hr/>
+  <% end %>
+  <%= content_tag :h3, "Order Totals" %>
+  <% CheckoutView.new(@order).tap do |view| %>
+    <%= view.checkout_order_subtotal %>
+    <%= view.checkout_estimated_shipping %>
+    <%= view.checkout_grand_total %>
   <% end %>
 </div>
 
-<p>You can check out using PayPal or Stripe :)</p>
+<div class='payment-security'>
+  <p>Pay Using <%= link_to "PayPal", "https://www.paypal.com", target: "_new" %> or Credit/Debit Card</p>
+  <p><%= link_to "Stripe", 'https://www.stripe.com', target: "_new" %> handles our card processing safely and securely.</p>  
+</div>
+
+<hr/>
 <div class="wizard-step active">
   <%= form_for @order, data: {parsley_validate: "true", remote: true, parsley_excluded: "input[type=button], input[type=submit], input[type=reset], input[type=hidden], [disabled], :hidden"} do |f| %>
-  <div class='field'>
-    <%= f.label :contact_email, "Your Email Address" %>
-    <%= f.email_field :contact_email, data: {parsley_required: 'true', parsley_error_message: "Please Enter an Email"} %>
+  <div class='row'>
+
+    <div class='field col-xs-6'>
+          <h3>Your Info</h3>
+      <%= f.label :contact_email, "Contact Email Address:" %>
+      <%= f.email_field :contact_email, {class: "checkout-control", data: {parsley_required: 'true', parsley_error_message: "Please Enter an Email"}} %>
+    </div>
   </div>
-    <div class='addresses'>
+  <div class='row'>
+    <div class='addresses col-xs-6'>
       <%= f.fields_for :addresses, [@billing_address, @shipping_address] do |address| %>
         <div class="<%= address.object.kind %>-address">
-          <h2><%= address.object.kind.capitalize %> Address</h2>
+          <h3><%= address.object.kind.capitalize %> Address</h2>
           <%= address.hidden_field :kind %>
           <%= render partial: 'address_fields', locals: {address: address} %>
           <%= hidden_field_tag :current_step, 'process_address' %>
           <% if address.object.kind == "billing" %>
-            <%= link_to "Ship To Billing Address", '', class: 'ship-to-same' %>
-            <%= link_to "Enter Different Shipping Address", '', class: 'enter-shipping-address' %>
+            <%= link_to "Proceed", '', class: 'btn btn-secondary ship-to-same' %>
+            <%= link_to "Enter Different Shipping Address", '', class: 'btn btn-secondary enter-shipping-address' %>
             <%= f.hidden_field :shipping_same %>
           <% elsif address.object.kind == "shipping" %>
-            <%= f.submit "Submit", :disable_with => 'Submiting...' %>  
+            <%= f.submit "Proceed", class: "btn btn-primary", :disable_with => 'Submiting...' %>  
           <% end %>
         </div>
       <% end %>
     </div>
-
+</div>
   <% end %>
 </div>

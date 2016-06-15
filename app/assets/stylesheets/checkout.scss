@@ -1,3 +1,22 @@
+.item-price-total{
+  
+  span.label{
+    color:black;    
+    font-weight:300;
+    padding:4px 4px 4px 0px;
+    font-size:16px;
+  }
+}
+
+.order-summary{
+  overflow:hidden;  
+  margin:10px 0;
+}
+
+.order-summary span.quantity{
+  display:block;
+}
+
 .shipping-address.hidden{
   display:none;
 }
@@ -41,4 +60,84 @@
 
 .stripe-fields .payment-errors{
   color:red;
+}
+
+
+
+.edit_order{
+   label{
+     width:200px;
+     cursor:pointer;
+   } 
+   .billing-address, .shipping-address{
+     margin-top:20px;
+     h2{
+       margin-bottom:8px;
+     }
+   }
+   input[type="text"], input[type="email"]{
+     min-width: 250px;
+   }
+   select{
+     width:250px;
+   }
+}
+.checkout-order-item{
+  overflow:hidden;
+} 
+
+body.orders-new .elp-container.center:not(.header){
+  text-align:left;
+  .checkout-order-subtotal{ 
+    width:300px;
+    float:left;
+    clear:both;
+    span:first-of-type{
+      margin-right:3px;
+      float:left;
+    }
+    span:last-of-type{
+      float:right;
+    }
+    p {
+      float:left;
+    }
+  }
+  .checkout-order-subtotal.grand-total{
+    border-top:1px solid black;
+  }
+}
+.btn.ship-to-same, .btn.enter-shipping-address{
+  margin-top:5px;
+  text-decoration:none;
+}
+
+
+a.btn.disabled.hidden{
+  display:none;
+}
+
+.stripe-fields, .paypal-fields{
+  float:left;
+  clear:both;
+}
+form#submit-payment{
+  margin-top: 20px;
+  padding-bottom: 20px;
+  float:left;
+  clear:both;
+}
+
+.payment-chooser{
+  padding:10px;
+  float:left;
+}
+
+.payment-method-info{
+  float:left;
+  
+}
+
+.stripe-info img{
+  margin-top:21px;
 }

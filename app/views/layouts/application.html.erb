@@ -15,9 +15,9 @@
     <%= yield :extra_js %>
   </head>
 
-  <body class="<%= theme_class %>">
+  <body class="<%= theme_class %> <%= body_class %>">
     <div class='container-fluid'>
-      <div class='elp-container center'>
+      <div class='elp-container header center'>
         <%= render :partial => 'front_header' %>
       </div>
     </div>
@@ -30,7 +30,7 @@
 
     
     <div class='container-fluid'>
-      <div class='elp-container center'>
+      <div class='elp-container center main-content'>
         <%= yield %>
       </div>
     </div>

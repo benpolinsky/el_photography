@@ -59,7 +59,7 @@ class LineItem < ApplicationRecord
 
 
   def self.calculate_total(items)
-    self.calculate_subtotal(items).cents + self.calculate_shipping_total(items)
+    self.calculate_subtotal(items) + self.calculate_shipping_total(items)
   end
 
   def self.calculate_subtotal(items)
@@ -67,7 +67,7 @@ class LineItem < ApplicationRecord
   end
   
   def self.calculate_shipping_total(items)
-    items.to_a.sum(&:shipping_total_cents)
+    items.to_a.sum(&:shipping_total)
   end
   
   def able_to_increment?(cart)
