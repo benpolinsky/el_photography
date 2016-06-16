@@ -13,6 +13,11 @@
       Cart.open();
       return false
     });
+    
+    $('.close-cart').on('click', function () {
+      Cart.close();
+      return false
+    })
 
     Cart.initialize_variants();
     

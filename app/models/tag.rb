@@ -5,11 +5,22 @@ ActsAsTaggableOn::Tag.class_eval do
   
   extend FriendlyId
   friendly_id :name, use: [:slugged, :history]  
+  scope :next, -> id {where("id > ?", id).order("id ASC")}
+  scope :previous, -> id {where("id < ?", id).order("id DESC")}
 end
 
+# dirty...
 class ActsAsTaggableOn::Tag
   def should_generate_new_friendly_id?
     name.present?
+  end
+  
+  def next
+    ActsAsTaggableOn::Tag.next(self.id).first
+  end
+  
+  def previous
+    ActsAsTaggableOn::Tag.previous(self.id).first
   end
 end
 

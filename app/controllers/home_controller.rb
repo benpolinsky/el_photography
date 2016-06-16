@@ -18,7 +18,6 @@ class HomeController < ApplicationController
   end
   
   def send_message
-    byebug
     if ContactMailer.contact_elliot(params).deliver_now
       redirect_to root_path
     else

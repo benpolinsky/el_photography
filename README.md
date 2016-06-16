@@ -14,11 +14,12 @@
 - null lineitem route... (i think its fixed?)
 
 #### Front:
+- about + contact fields
 
-- next tag, top, previous tag at end
-- all times (in receipts) to 12 hr
-- notices
-- about...
+#### Admin:
+- product photos constraints (? not sure what this means...)
+- photos filter by tag
+- prepend dolla signs to all number fields
 
 # later
 - ability to go back to addresses if on payment step in checkout..
@@ -34,11 +35,6 @@
 - admin photos index - it would probably be a good idea to dynamically create each selectize as needed, otherwise you're calling tags a bazillion times.
 - clean up checkout view -> checkoutviewmodel
 - local loaders for cart + payment rather than the large loaders you are using...
-
-#### Admin:
-- product photos constraints (? not sure what this means...)
-- photos filter by tag
-- prepend dolla signs to all number fields
 
 
 ## Theming Support 

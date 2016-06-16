@@ -10,9 +10,9 @@
   <div class="main-order-information">
 		<h3>General Info</h3>
 		<%= quick_row "Order ID: ", @order.short_or_uid %>		
-		<%= quick_row "Order Created On", l(@order.created_at, format: :long) %>
-		<%= quick_row "Order Purchased On", l(@order.purchased_at, format: :long) if @order.purchased_at %>
-		<%= quick_row "Order Last Updated", l(@order.updated_at, format: :long) %>
+		<%= quick_row "Order Created On", l(@order.created_at, format: :amp) %>
+		<%= quick_row "Order Purchased On", l(@order.purchased_at, format: :amp) if @order.purchased_at %>
+		<%= quick_row "Order Last Updated", l(@order.updated_at, format: :amp) %>
     <% # right now, the trys are necessary because the order hasnt caluclated_totals yet... %>
 		<%= quick_row "Subtotal", @order.subtotal.try(:format) %>
 		<%= quick_row "Shipping", @order.shipping_total.try(:format) %>
