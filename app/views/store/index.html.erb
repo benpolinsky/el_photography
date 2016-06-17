@@ -4,12 +4,11 @@
 <% @products.each do |product| %>
   <div class='product grid-item'>
     <div class='grid-item-container'>
-        <%= product.bp_view(cart: @cart).image %>
+        <%= product.bp_view(cart: @cart).image_and_link %>
       <div class='grid-item-contents'>
         <%= product.bp_view(cart: @cart).name_and_link %>
         <%= product.bp_view(cart: @cart).price %>
       </div>
-
     </div>
   </div>
 <% end %>  

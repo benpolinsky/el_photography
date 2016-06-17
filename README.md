@@ -9,6 +9,7 @@
 
 ## README / TODO
 ## only on production
+- Styles are fucked up on produycts (bootstrap shutff)
 - cart image (why isn't it always small?)
 - remove session if not found (done?)
 - null lineitem route... (i think its fixed?)
@@ -21,8 +22,12 @@
 - product photos constraints (? not sure what this means...)
 - photos filter by tag
 - prepend dolla signs to all number fields
-
+- add loader to caption editing
+- adding sizes in products
 # later
+- filters (orders/photos) and tables sortable
+- admin product show -> up it to preview
+- (I’ll add the ability to add an existing photo to a product that doesn’t have one.)
 - ability to go back to addresses if on payment step in checkout..
 - photo -> product easier
 - disable checkout if no items in cart (halfway there)
@@ -36,7 +41,7 @@
 - admin photos index - it would probably be a good idea to dynamically create each selectize as needed, otherwise you're calling tags a bazillion times.
 - clean up checkout view -> checkoutviewmodel
 - local loaders for cart + payment rather than the large loaders you are using...
-
+- test out of stock functionality
 
 ## Theming Support 
 - Perhaps lint or other safety check?

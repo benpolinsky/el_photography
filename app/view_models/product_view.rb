@@ -20,6 +20,10 @@ class ProductView
     link_to product.name, url_helpers.product_path(product), class: "product-view-name-link"
   end
   
+  def image_and_link(size=nil)
+    link_to image(size), url_helpers.product_path(product)
+  end
+  
   def image(size=nil)
     if size == "full"
       image_tag product.primary_image, class: 'grid-item-main-image'
