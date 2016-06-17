@@ -23,9 +23,22 @@
         <%= active_link_to "Tags", main_app.admin_tags_path, class: "nav-item nav-link" %>
         <%= active_link_to "Products", main_app.admin_products_path, class: "nav-item nav-link" %>
         <%= active_link_to "Orders", main_app.admin_orders_path, class: "nav-item nav-link" %>
-        <%= link_to "Sign Out", main_app.destroy_user_session_path, method: :delete, class: "nav-item nav-link pull-right" %>
-        <%# active_link_to "Templates", admin_page_templates_path, class: "nav-item nav-link" %>
-        <%# active_link_to "Themes", admin_themes_path, class: "nav-item nav-link" %>
+        <% BpCustomFields::AbstractResource.where("name = ? OR name = ?", 'about', 'contact').each do |page| %>
+          <%= active_link_to page.name.titleize, bp_custom_fields.edit_abstract_resource_path(page), class: "nav-item nav-link" %>
+        <% end %>
+        <div class='pull-right'>
+          <li class="nav-item dropdown dropdown-menu-right">
+             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Extras</a>
+             <div class="dropdown-menu dropdown-correct">
+               <%= active_link_to "Custom Fields", bp_custom_fields.root_path, active: :exact, class: "dropdown-item" %>
+               <%= active_link_to "Abstract Pages/Resources", bp_custom_fields.abstract_resources_path, active: :exact, class: "dropdown-item" %>
+               <%= active_link_to "Templates", main_app.admin_page_templates_path, class: "dropdown-item" %>
+               <%= active_link_to "Themes", main_app.admin_themes_path, class: "dropdown-item" %>
+             </div>
+           </li>
+          <%= link_to "Sign Out", main_app.destroy_user_session_path, method: :delete, class: "nav-item nav-link" %>
+        </div>
+
         
       </ul>
     </nav>

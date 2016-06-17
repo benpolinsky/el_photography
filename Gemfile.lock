@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: git://github.com/benpolinsky/bp_custom_fields.git
-  revision: d39c3f1f328a071a2633d7fb21ee4870525a6b6d
+  revision: d83fb482dbf3366691783ae75e1f98f2d740569e
   specs:
-    bp_custom_fields (0.1.0)
+    bp_custom_fields (0.1.1)
       carrierwave
       cocoon
       jquery-rails
@@ -548,4 +548,4 @@ RUBY VERSION
    ruby 2.2.3p173
 
 BUNDLED WITH
-   1.12.3
+   1.12.5

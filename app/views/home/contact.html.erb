@@ -1,6 +1,6 @@
-<%= content_tag :h2, @contact_page_title %>
+<%= content_tag :h2, @title.value.html_safe %>
 
-<%= content_tag :p, @contact_page_content if @contact_page_content %>
+<%= content_tag :p, @text.value.html_safe %>
  
 <%= form_tag send_message_path, data: {parsley_validate: true}, class: "contact-form" do |f| %>
   <div class='form-group'>

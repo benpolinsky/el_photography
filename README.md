@@ -14,7 +14,8 @@
 - null lineitem route... (i think its fixed?)
 
 #### Front:
-- about + contact fields
+- about + contact fields - check out el's deal...
+- product grid - click image as well
 
 #### Admin:
 - product photos constraints (? not sure what this means...)
