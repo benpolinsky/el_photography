@@ -26,6 +26,8 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-infinite-pages'
 
+gem 'bp_custom_fields', github: 'benpolinsky/bp_custom_fields' 
+
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 
 #gem 'turbolinks', '~> 5.x'

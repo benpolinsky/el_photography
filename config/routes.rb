@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   devise_for :users, skip: [:registrations]
   namespace :admin do
-    
+    mount BpCustomFields::Engine => "/custom_fields"
     resources :products, concerns: :orderable do
       collection do
         post 'create_from_photo/:photo_id' => 'products#create_from_photo', as: :create_from_photo

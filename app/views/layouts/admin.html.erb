@@ -17,13 +17,13 @@
       <%= link_to "ESP", root_path, class: "navbar-brand" %>
       <ul class="nav navbar-nav">
         
-        <%= active_link_to "Home", admin_root_path, active: :exact, class: "nav-item nav-link" %>
-        <%= active_link_to "Photos", admin_photos_path, class: "nav-item nav-link" %>
-        <%= active_link_to "Videos", admin_videos_path, class: "nav-item nav-link" %>
-        <%= active_link_to "Tags", admin_tags_path, class: "nav-item nav-link" %>
-        <%= active_link_to "Products", admin_products_path, class: "nav-item nav-link" %>
-        <%= active_link_to "Orders", admin_orders_path, class: "nav-item nav-link" %>
-        <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-item nav-link pull-right" %>
+        <%= active_link_to "Home", main_app.admin_root_path, active: :exact, class: "nav-item nav-link" %>
+        <%= active_link_to "Photos", main_app.admin_photos_path, class: "nav-item nav-link" %>
+        <%= active_link_to "Videos", main_app.admin_videos_path, class: "nav-item nav-link" %>
+        <%= active_link_to "Tags", main_app.admin_tags_path, class: "nav-item nav-link" %>
+        <%= active_link_to "Products", main_app.admin_products_path, class: "nav-item nav-link" %>
+        <%= active_link_to "Orders", main_app.admin_orders_path, class: "nav-item nav-link" %>
+        <%= link_to "Sign Out", main_app.destroy_user_session_path, method: :delete, class: "nav-item nav-link pull-right" %>
         <%# active_link_to "Templates", admin_page_templates_path, class: "nav-item nav-link" %>
         <%# active_link_to "Themes", admin_themes_path, class: "nav-item nav-link" %>
         

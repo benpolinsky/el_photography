@@ -29,5 +29,6 @@
 //= require flatpickr.min
 //= require admin/general
 //= require admin/forms
+//= require bp_custom_fields
 //= require_tree ./channels
 //= require_tree .

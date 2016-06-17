@@ -7,6 +7,18 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
+  remote: git://github.com/benpolinsky/bp_custom_fields.git
+  revision: d39c3f1f328a071a2633d7fb21ee4870525a6b6d
+  specs:
+    bp_custom_fields (0.1.0)
+      carrierwave
+      cocoon
+      jquery-rails
+      mini_magick
+      rails (>= 4.2.6)
+      ranked-model
+
+GIT
   remote: git://github.com/cireficc/acts-as-taggable-on.git
   revision: a02f8fdf85952894f74779c80fa891af6415fefe
   specs:
@@ -145,6 +157,7 @@ GEM
       json (>= 1.7)
       mime-types (>= 1.16)
       mimemagic (>= 0.3.0)
+    cocoon (1.2.9)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -342,6 +355,7 @@ GEM
     method_source (0.8.2)
     mime-types (2.99.2)
     mimemagic (0.3.1)
+    mini_magick (4.5.1)
     mini_portile2 (2.0.0)
     minitest (5.9.0)
     modulejs-rails (1.9.0.1)
@@ -481,6 +495,7 @@ DEPENDENCIES
   autoprefixer-rails
   best_in_place (~> 3.0.1)
   bootstrap (~> 4.0.0.alpha3)
+  bp_custom_fields!
   byebug
   carrierwave
   coffee-rails (~> 4.1.0)
@@ -529,5 +544,8 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
 
+RUBY VERSION
+   ruby 2.2.3p173
+
 BUNDLED WITH
-   1.11.2
+   1.12.3
