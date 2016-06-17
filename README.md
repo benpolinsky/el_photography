@@ -9,14 +9,12 @@
 
 ## README / TODO
 ## only on production
+- mobile thingy (viewport)
 - Styles are fucked up on produycts (bootstrap shutff)
 - cart image (why isn't it always small?)
 - remove session if not found (done?)
 - null lineitem route... (i think its fixed?)
-
-#### Front:
-- about + contact fields - check out el's deal...
-- product grid - click image as well
+- contact form working
 
 #### Admin:
 - product photos constraints (? not sure what this means...)
@@ -48,6 +46,7 @@
 - Clean up past stylesheets in public directory
 - namespace everything within a body tag, or at least add the theme to the body
 - test in production env
+- css to aws
 
 ### Qs for el
 - Do you want a cart page in addition to the pop up cart
