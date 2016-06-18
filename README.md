@@ -8,9 +8,13 @@
 
 
 ## README / TODO
+- all variant select related:
+- reset variant price (from xxx ) after added to card
+- when you click off a size/variant chooser it should collapse (not just reclicking on the header)
+- selecting variants, sometimes it doesn't reset the add ot cart (allows you to select even though no variant is selected)
+
 ## only on production
-- mobile thingy (viewport)
-- Styles are fucked up on produycts (bootstrap shutff)
+
 - cart image (why isn't it always small?)
 - remove session if not found (done?)
 - null lineitem route... (i think its fixed?)
@@ -21,7 +25,7 @@
 - photos filter by tag
 - prepend dolla signs to all number fields
 - add loader to caption editing
-- adding sizes in products
+
 # later
 - filters (orders/photos) and tables sortable
 - admin product show -> up it to preview
@@ -32,8 +36,8 @@
 - product -> add photo retroactively
 - edit photo (actual image)
 - calendar pickr appears to be a bit off.. style update?  check local
-- reset variant price (from xxx ) after added to card
-- when you click off a size/variant chooser it should collapse (not just reclicking on the header)
+
+
 - parsley maybe too much?
 - custom fields for about etc - TRY IT! - only going to work if you can load onto a resource without a page.... for now.. maybe code a liquid template?
 - admin photos index - it would probably be a good idea to dynamically create each selectize as needed, otherwise you're calling tags a bazillion times.
@@ -51,10 +55,6 @@
 ### Qs for el
 - Do you want a cart page in addition to the pop up cart
 - store index - crop image?  or somehow fit different sizes in grid
-- How are you breaking down your navigation?
-- max width for site? (ill hook up retina 
-- and we can use caching to speed up the site)
-- I'd like to do some cool stuff for mobile (or otherwise) with sticky headers and or footers
 - under product in indiviidual page?  maybe other prints?
 - is there a different name you'd like used for 'products'  prints?
 
@@ -67,6 +67,9 @@
 
 ### on deploy
 - no index
+- caching
+- look into retina
+
 
 # As a Gem.../ Refactoring
 - Now that you've got a few views, you can extract common logic to a parent class, probably abstract but maybe not.

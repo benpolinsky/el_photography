@@ -11,6 +11,9 @@ $lightblue: lightblue;
 // sort row
 .row-item .handle{
   cursor:move;
+}  
+.btn-bottom{
+  margin-top:5px;
 }
 
 .show-image{
@@ -24,11 +27,15 @@ $lightblue: lightblue;
   border-radius: 0.2rem; 
 }
 
-.btn-bottom{
-  margin-top:5px;
-}
+
 
 .payment-security{
   margin:10px 0;
 }
 
+
+@media screen and (min-width: 1200px) {
+  .btn-bottom{
+    margin-top:0px;
+  }
+}

@@ -31,10 +31,12 @@ select#line_item_variant_id{
 .product-view-name-link{
   float:left;
   text-align:left;
+  width:calc(100% - 100px);
 }
 
 .product-view-price{
   float:right;
+  width:100px;
 }
 
 .product-view-description{
@@ -42,4 +44,8 @@ select#line_item_variant_id{
   clear:both;
   line-height:1.5;
   text-align:left;
+}
+.grid-split-right .product-view-price{
+  float:right;
+  width:auto;
 }

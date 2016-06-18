@@ -43,7 +43,7 @@ class ProductView
   end
   
   def description
-    content_tag :div, product.description.html_safe, class: 'product-view-description'
+    content_tag :div, product.description.try(:html_safe), class: 'product-view-description'
   end
   
   def display_quantity
