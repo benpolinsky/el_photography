@@ -22,7 +22,6 @@
 - photos filter by tag
 - prepend dolla signs to all number fields
 - add loader to caption editing
-- adding sizes in products
 
 # later
 - filters (orders/photos) and tables sortable
