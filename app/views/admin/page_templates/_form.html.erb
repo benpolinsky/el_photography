@@ -5,9 +5,7 @@
 </div>
 
 <%= f.label :body, "Template" %>
-<div id='ace-editor' class='live_code_editor'>
-  <%= @page_template.body %>
-</div>
+  <div id='ace-editor' class='live_code_editor'><%= @page_template.body %></div>
 <%= f.text_area :body, id: "ace-populate" %>
   
 

@@ -14,17 +14,20 @@ class HomeController < ApplicationController
   end
   
   def contact
-    @liquid_template = PageTemplate.find_by(title: "about-page-template")
     @contact_page = BpCustomFields::AbstractResource.find_by(name: "contact")
     @title = @contact_page.find_fields("Contact Page Title").first
     @text = @contact_page.find_fields("Contact Page Text").first
   end
   
   def about
-    @about_page = BpCustomFields::AbstractResource.find_by(name: "about")
-
-    @title = @about_page.find_fields("About Page Title").first
-    @text = @about_page.find_fields("About Page Text").first
+    if @page_template = PageTemplate.find_by(title: "about")
+      template = Liquid::Template.parse(@page_template.body)
+      @liquid_template = template.render
+    else
+      @about_page = BpCustomFields::AbstractResource.find_by(name: "about")
+      @title = @about_page.find_fields("About Page Title").first
+      @text = @about_page.find_fields("About Page Text").first
+    end
   end
   
   def send_message

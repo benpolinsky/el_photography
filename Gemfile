@@ -43,7 +43,7 @@ gem 'redis', '~> 3.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-gem 'liquid'
+gem 'liquid-rails'
 gem 'ace-rails-ap'
 
 gem 'bootstrap', '~> 4.0.0.alpha3'
@@ -78,7 +78,7 @@ gem 'rails_12factor', group: :production
 gem 'active_link_to'
 gem 'best_in_place', '~> 3.0.1'
 gem 'ranked-model'
-gem 'kaminari', github: 'amatsuda/kaminari' # until rails 5 fix https://github.com/amatsuda/kaminari/issues/774
+# gem 'kaminari', github: 'amatsuda/kaminari' # until rails 5 fix https://github.com/amatsuda/kaminari/issues/774
 
 gem 'devise', git: 'https://github.com/plataformatec/devise.git', tag: "master"
 

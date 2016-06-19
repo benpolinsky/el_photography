@@ -45,12 +45,11 @@ class Admin::PageTemplatesController < AdminController
   
   def live
     template = Liquid::Template.parse(@page_template.body)
-    product_drop = ProductDrop.new(Product.first)
-    @user_template = template.render({"product" => product_drop})
+    page_drop = PageDrop.new(@page_template.title)
+    @user_template = template.render({@page_template.title => page_drop})
   end
   
   def live_update
-        sleep 1
     # PageTemplatesChannel.broadcast_to(
     # current_user,
     # title: "The Products Page",
@@ -58,8 +57,8 @@ class Admin::PageTemplatesController < AdminController
     # )
     if @page_template.update_attributes(page_template_params)
       template = Liquid::Template.parse(@page_template.body)
-      product_drop = ProductDrop.new(Product.first)
-      @user_template = template.render({"product" => product_drop})
+      page_drop = PageDrop.new(@page_template.title)
+      @user_template = template.render({@page_template.title => page_drop})
       ActionCable.server.broadcast 'page_templates',
       page_template: @page_template.id,
       page_template_code: @user_template

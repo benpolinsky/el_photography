@@ -1,7 +1,3 @@
-  
-  
-  
-  
   ready(function () {
     if (document.querySelector('.live_code_editor') !== null) {
       

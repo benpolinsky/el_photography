@@ -1,6 +1,3 @@
-# A Drop seems like a slightly souped up view model.  
-# It allows you to blacklist and whitelist which methods are invokable
-
 class ProductDrop < Liquid::Drop
   include ActionView::Helpers::AssetTagHelper
   attr_reader :product
