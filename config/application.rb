@@ -28,7 +28,8 @@ module ElPhotography
     #{config.root}/app/services 
     #{config.root}/app/view_models 
     #{config.root}/app/payment_processors
-    #{config.root}/app/drops  
+    #{config.root}/app/drops
+    #{config.root}/app/uploaders  
     )
     config.time_zone = 'Eastern Time (US & Canada)'
   end

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe ContactMailerMailer, type: :mailer do
+RSpec.describe ContactMailer, type: :mailer do
   describe "contact_elliot" do
     let(:mail) { ContactMailerMailer.contact_elliot }
 

@@ -70,7 +70,7 @@ gem 'acts-as-taggable-on', github: 'cireficc/acts-as-taggable-on' # rails 5 (4/2
 
 # images + media
 gem 'rmagick'
-gem 'carrierwave'
+gem 'carrierwave', require: false
 gem "fog"
 gem 'dropzonejs-rails'
 gem 'rails_12factor', group: :production
