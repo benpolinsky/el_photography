@@ -14,6 +14,7 @@ class HomeController < ApplicationController
   end
   
   def contact
+    @liquid_template = PageTemplate.find_by(title: "about-page-template")
     @contact_page = BpCustomFields::AbstractResource.find_by(name: "contact")
     @title = @contact_page.find_fields("Contact Page Title").first
     @text = @contact_page.find_fields("Contact Page Text").first
