@@ -45,8 +45,11 @@ class Admin::PageTemplatesController < AdminController
   
   def live
     template = Liquid::Template.parse(@page_template.body)
-    page_drop = PageDrop.new(@page_template.title)
-    @user_template = template.render({@page_template.title => page_drop})
+    page = BpCustomFields::AbstractResource.find_by(name: 'about')
+    group = page.groups.first
+    group_drop = BpCustomFields::GroupDrop.new(group)
+    byebug
+    @user_template = template.render({'group' => group_drop})
   end
   
   def live_update
@@ -57,8 +60,10 @@ class Admin::PageTemplatesController < AdminController
     # )
     if @page_template.update_attributes(page_template_params)
       template = Liquid::Template.parse(@page_template.body)
-      page_drop = PageDrop.new(@page_template.title)
-      @user_template = template.render({@page_template.title => page_drop})
+      page = BpCustomFields::AbstractResource.find_by(name: 'about')
+      group = page.groups.first
+      group_drop = BpCustomFields::GroupDrop.new(group)
+      @user_template = template.render({'group' => group_drop})
       ActionCable.server.broadcast 'page_templates',
       page_template: @page_template.id,
       page_template_code: @user_template
