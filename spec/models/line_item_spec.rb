@@ -1,4 +1,4 @@
-  require 'rails_helper'
+require 'rails_helper'
 
 RSpec.describe LineItem, :type => :model do
   before do
@@ -149,7 +149,7 @@ RSpec.describe LineItem, :type => :model do
       expect(line_item.product_solo?).to eq false
     end
     
-    it "can return the subtotal for a given quantity", focus: true do
+    it "can return the subtotal for a given quantity" do
       line_item = create(:line_item_with_product, price: 2.00)
       line_item.product.update(quantity: 1)
       expect(line_item.subtotal_from(4).format).to eq "$8.00"
@@ -200,7 +200,7 @@ RSpec.describe LineItem, :type => :model do
   end
   
   context "class methods" do
-    it "can return a total of all of its line items" do
+    it "can return a total of all of its line items", focus: true do
       LineItem.delete_all
       
       items = [
@@ -208,7 +208,7 @@ RSpec.describe LineItem, :type => :model do
         create(:line_item_with_product, price_cents: 1100, shipping_base_cents: 50, quantity:1),
         create(:line_item_with_product, price_cents: 11020, shipping_base_cents: 1250, quantity:1)
       ]
-      expect(LineItem.calculate_total(items)).to eq 14170
+      expect(LineItem.calculate_total(items)).to eq Money.new(14170)
       # shipping 1550 other = 12620
       
     end
