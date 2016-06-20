@@ -21,9 +21,9 @@ class Admin::PageTemplatesController < AdminController
   
   def update
     if @page_template.update_attributes(page_template_params)
-      redirect_to [:admin, @page_template]
+      redirect_to [:admin, :page_templates]
     else
-      render :edit
+      render :live
     end
   end
   
@@ -45,25 +45,22 @@ class Admin::PageTemplatesController < AdminController
   
   def live
     template = Liquid::Template.parse(@page_template.body)
-    page = BpCustomFields::AbstractResource.find_by(name: 'about')
-    group = page.groups.first
-    group_drop = BpCustomFields::GroupDrop.new(group)
-    byebug
-    @user_template = template.render({'group' => group_drop})
+    setup_custom_fields(@page_template.title.try(:downcase))
+    @user_template = template.render({'group' => @group_drop})
+  end
+  
+  def live_render
+    template = Liquid::Template.parse(@page_template.body)
+    setup_custom_fields(@page_template.title.try(:downcase))
+    @user_template = template.render({'group' => @group_drop})
+    render layout: 'preview'
   end
   
   def live_update
-    # PageTemplatesChannel.broadcast_to(
-    # current_user,
-    # title: "The Products Page",
-    # body: "Some code would go here."
-    # )
     if @page_template.update_attributes(page_template_params)
       template = Liquid::Template.parse(@page_template.body)
-      page = BpCustomFields::AbstractResource.find_by(name: 'about')
-      group = page.groups.first
-      group_drop = BpCustomFields::GroupDrop.new(group)
-      @user_template = template.render({'group' => group_drop})
+      setup_custom_fields(@page_template.title.try(:downcase))
+      @user_template = template.render({'group' => @group_drop})
       ActionCable.server.broadcast 'page_templates',
       page_template: @page_template.id,
       page_template_code: @user_template
@@ -72,11 +69,24 @@ class Admin::PageTemplatesController < AdminController
   end
 
   private
+  
+  def setup_custom_fields(name)
+    page = BpCustomFields::AbstractResource.find_by(name: name)
+    if page
+      @group = page.groups.first
+      @group_drop = BpCustomFields::GroupDrop.new(group)
+    end
+  end
+  
   def find_page_template
-    @page_template = PageTemplate.find(params[:id]) if params[:id]
+    @page_template = if params[:id]
+      PageTemplate.find(params[:id])
+    else
+      PageTemplate.create
+    end
   end
   
   def page_template_params
-    params.require(:page_template).permit(:title, :body, :active, :slug)
+    params.require(:page_template).permit(:title, :body, :active, :slug, :page)
   end
 end

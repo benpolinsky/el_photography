@@ -208,6 +208,7 @@ ActiveRecord::Schema.define(version: 20160617034638) do
     t.text     "body"
     t.boolean  "active"
     t.string   "title"
+    t.string   "page"
     t.string   "slug"
     t.integer  "row_order"
     t.datetime "created_at", null: false

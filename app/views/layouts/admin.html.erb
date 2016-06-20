@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ElPhotography</title>
+    <title>Admin: Elliot Polinsky</title>
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
 
@@ -46,7 +46,7 @@
       <div class='crumbs'>
         <%= breadcrumbs autoroot: false, style: :bootstrap %>
       </div>
-    <div class='container'>
+    <div class="<%= body_class.split(" ").include?('admin-page_templates-live') ? 'container-fluid' : 'container' %>">
       <%= yield %>
     </div>
     <div id="modal-overlay" class="patience"><i class="fa fa-spinner loader fa-spin"></i><span id="load-spin">Updating!</span></div>

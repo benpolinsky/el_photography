@@ -1,11 +1,24 @@
 <h1>Page Templates</h1>
+<table class='table'>
+  <thead>
+    <tr>
+      <th>Template Name</th>
+      <th>For Page</th>
+      <th>Active?</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @page_templates.each do |page_template| %>
+      <tr>
+        <td><%= page_template.title %></td>
+        <td><%= page_template.page %></td>
+        <td><%= page_template.active %></td>
+        <td><%= link_to "Edit", admin_page_templates_live_path(page_template) %></td>
+      </tr>
+    <% end %>
 
-<ul>
-  <% @page_templates.each do |page_template| %>
-    <%= page_template.title %>
-    <%= link_to "Edit", [:edit, :admin, page_template] %>
-    <%= link_to "Show", [:admin, page_template] %>
-  <% end %>
-</ul>
+  </tbody>
+</table>
 
-<%= link_to "new", [:new, :admin, :page_template] %>
+<%= link_to "new", [:admin, :page_templates, :live] %>

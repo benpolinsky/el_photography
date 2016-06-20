@@ -1,13 +1,19 @@
 <%= form_for [:admin, @page_template] do |f| %>
-<div class='form-group'>
-  <%= f.label :title, "Title" %>
-  <%= f.text_field :title, class: 'form-control' %>
-</div>
+  <div class='form-group'>
+    <%= f.label :title, "Title" %>
+    <%= f.text_field :title, class: 'form-control' %>
+    
+    <%= f.label :page, "Page this template will appear on" %>
+    <%= f.select :page, options_for_select(PageTemplate::AVAILABLE_PAGES) %>
+  </div>
 
-<%= f.label :body, "Template" %>
+  <%= f.label :body, "Template" %>
+  
+  <!-- No spaces when filling in current value: -->
   <div id='ace-editor' class='live_code_editor'><%= @page_template.body %></div>
-<%= f.text_area :body, id: "ace-populate" %>
+
+  <%= f.text_area :body, id: "ace-populate" %>
   
 
-  <%= f.submit %>
+  <%= f.submit "Save", class: "btn btn-primary" %>
 <% end %>

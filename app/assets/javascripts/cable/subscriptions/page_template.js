@@ -14,7 +14,7 @@
           },
           received: function (data) {
             console.log('data received');
-            $('.page-template-code-container').html(data["page_template_code"]);
+            $('#live-code-frame').contents().find('body .container.elp-container.center').html(data["page_template_code"]);
           }
         }
       )  

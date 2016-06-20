@@ -20,7 +20,7 @@ class HomeController < ApplicationController
   end
   
   def about
-    if @page_template = PageTemplate.find_by(title: "about")
+    if @page_template = PageTemplate.find_by(title: "About")
       template = Liquid::Template.parse(@page_template.body)
       @liquid_template = template.render
     else

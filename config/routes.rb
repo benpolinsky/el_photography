@@ -34,10 +34,12 @@ Rails.application.routes.draw do
         get 'preview'
       end
     end
-    
+
+    get 'page_templates/live(/:id)' => 'page_templates#live', as: :page_templates_live
+    get 'page_templates/live_render/:id' => 'page_templates#live_render', as: :page_templates_live_render
     resources :page_templates do
+      
       member do
-        get 'live'
         patch 'live_update'
       end
     end

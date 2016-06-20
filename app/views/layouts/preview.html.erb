@@ -1,31 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ElPhotography</title>
+    <title>Elliot Polinsky: Admin Preview</title>
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= favicon_link_tag 'favicon.png' %>
+    <script src="https://use.typekit.net/cpm5szs.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <%= stylesheet_link_tag(Theme.active.css_file) if Theme.active %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= yield :extra_js %>
   </head>
 
   <body>
-    <header class='front-header'>
-      <nav class='front-navigation'>
-        <span class="front-nav-item">
-          <%= link_to "Home" %>
-          <%= link_to "Photography" %>
-          <%= link_to "Video" %>
-          <%= link_to "Shop" %>
-          <%= link_to "About" %>
-        </span>
-      </nav>
-    </header>
-    
-    <div class='container-fluid'>
+    <div class='container elp-container center'>
       <%= yield %>
     </div>
-
   </body>
 </html>

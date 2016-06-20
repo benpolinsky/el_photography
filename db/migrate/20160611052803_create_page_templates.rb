@@ -4,6 +4,7 @@ class CreatePageTemplates < ActiveRecord::Migration[5.0]
       t.text :body
       t.boolean :active
       t.string :title
+      t.string :page
       t.string :slug
       t.integer :row_order
 
