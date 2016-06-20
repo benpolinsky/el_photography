@@ -1,9 +1,89 @@
 iframe#live-code-frame{
   border:1px solid black;
-  margin-top:30px;
+  margin-top:41px;
 }
 
 input[type='submit'].live-code-save{
   float:right;
   margin-top:10px;
+}
+
+
+form .live_code_editor, iframe#live-code-frame{
+  position:relative;
+  width:100%;
+  height:960px;
+}
+
+#code-container{
+  height:100%;
+  float:left;
+  width:100%;
+}
+
+.split{
+  box-sizing:border-box;
+  height:100%;
+  float:left;
+}
+
+form #code-container[data-view_mode='vertical'] .live_code_editor, form #code-container[data-view_mode='vertical'] iframe#live-code-frame{
+  height:100%;
+  width:100%;
+}
+
+textarea#ace-populate, textarea#css-populate{
+  display:none;
+}
+
+form #code-container[data-view_mode='vertical']{
+  .split{
+    clear:both;
+    width:100%;
+  }
+}
+
+.gutter {
+  width:20px;
+  height:500px;
+  position:relative;
+  top:250px;
+  cursor:ew-resize;
+  float:left;
+  display:block;
+  background-color: #3b3b3b;
+}
+.gutter-horizontal{
+  &:after{
+    content: "\2194";
+    display:block;
+    position:relative;
+    text-align:center;
+    top:50%;
+    font-size:15px;
+    margin-top:-5px;
+    height:10px;
+    color:white;
+    width:100%;
+  };
+}
+.gutter-vertical{
+  float:left;
+  width:100%;
+  clear:both;
+  height:20px;
+  top:0;
+  left:0;
+  right:0;
+  &:after{
+    content: "\2195";
+    display:block;
+    position:relative;
+    text-align:center;
+    top:0;
+    font-size:15px;
+    height:10px;
+    color:white;
+    width:100%;
+  };
 }

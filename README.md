@@ -1,13 +1,14 @@
 
-#### Action Cable Live Templating
 
-1. First attempt is okay.  Updating server 1s after last keyup.
-2. Would like to be able to have a fullscreen.
-3. Have no idea how this will work in real world production, let alone a setup with significant traffic
-4. Make sure to restrict access etc...
+
+template editing:
+
+- Have no idea how this will work in real world production, let alone a setup with significant traffic, but should be okay for el.
+- Make sure to restrict access to current_user
 
 
 ## README / TODO
+- replace trix editors with medium (delete all trix)
 - all variant select related:
 - reset variant price (from xxx ) after added to card
 - when you click off a size/variant chooser it should collapse (not just reclicking on the header)
@@ -15,7 +16,7 @@
 
 ## only on production
 
-- cart image (why isn't it always small?)
+- cart image (why isn't it always small?) - FALLBACK IMG!  aha - need each size for this.
 - remove session if not found (done?)
 - null lineitem route... (i think its fixed?)
 - contact form working

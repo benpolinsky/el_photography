@@ -19,17 +19,42 @@
   <%= f.hidden_field :id %>
 
   
-  <div class='row'>
-    <div class='col-xs-12 col-md-6'>
-      <%= f.label :body, "Template" %>
-      <div id='ace-editor' class='live_code_editor'><%= @page_template.body %></div>
-      <%= f.text_area :body, id: "ace-populate" %>
+  <div id="code-container" data-view_mode="horizontal">
+    <div class='code_editor_container split'>
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#html" role="tab">HTML</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#css" role="tab">CSS</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" id="switch-layout" href="">Switch Layout</a>
+        </li>
+        
+      </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div class="tab-pane active" id="html" role="tabpanel">
+        <div id='ace-editor' class='live_code_editor'><%= @page_template.body %></div>
+        <%= f.text_area :body, id: "ace-populate" %>
+      </div>
+      <div class="tab-pane" id="css" role="tabpanel">
+        <div id='css-ace-editor' class='live_code_editor' data-mode="css"><%= @css_theme.css %></div>
+        <%= text_area_tag :body, '', id: "css-populate" %>
+         <% end %>
+      </div>
+    </div>
+
+      
     </div>
    
- <% end %>
+
   
 
-  <div class='col-xs-12 col-md-6'>
+  <div class='live_window split'>
     <iframe id="live-code-frame" src="http://localhost:3000/admin/page_templates/live_render/<%= @page_template.id %>" width="100%" height="800">
       <p>Your browser does not support iframes.</p>
     </iframe>

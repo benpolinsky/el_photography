@@ -48,6 +48,7 @@ class Admin::PageTemplatesController < AdminController
     template = Liquid::Template.parse(@page_template.body)
     setup_custom_fields(@page_template.title.try(:downcase))
     @user_template = template.render(available_drops)
+    @css_theme = Theme.active
   end
   
   # processes new code
@@ -55,18 +56,27 @@ class Admin::PageTemplatesController < AdminController
     template = Liquid::Template.parse(@page_template.body)
     setup_custom_fields(@page_template.title.try(:downcase))
     @user_template = template.render(available_drops)
+    @css_theme = Theme.active    
     render layout: 'preview'
   end
   
   # 'triggers' webhook connection to live-reload
   def live_update
     if @page_template.update_attributes(page_template_params)
+      @css_theme = Theme.active
+      if css_params[:body]
+        @css_theme.update_attribute('css', css_params[:body])
+        @css_theme.compile # this has gotta be overkill.....
+      end
       template = Liquid::Template.parse(@page_template.body)
       setup_custom_fields(@page_template.title.try(:downcase))
       @user_template = template.render(available_drops)
+
       ActionCable.server.broadcast 'page_templates',
       page_template: @page_template.id,
-      page_template_code: @user_template
+      page_template_code: @user_template,
+      css_template: @css_theme.try(:id),
+      css_template_code: @css_theme.try(:css)
     end
     head :ok
   end
@@ -87,6 +97,10 @@ class Admin::PageTemplatesController < AdminController
   
   def page_template_params
     params.require(:page_template).permit(:title, :body, :active, :slug, :page)
+  end
+  
+  def css_params
+    params.require(:css_template).permit(:body)
   end
   
   # obviously, you don't want to load all drops for all templates

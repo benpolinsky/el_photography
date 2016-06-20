@@ -1,9 +1,26 @@
 class ProductDrop < Liquid::Rails::Drop
-  # include ActionView::Helpers::AssetTagHelper
-  attributes :id, :name, :description, :slug, :price, :shipping_base, :additional_shipping_per_item, :image, :image_url
+  include ActionView::Helpers::AssetTagHelper
+  include ActionView::Helpers::UrlHelper
+  attributes :id, :name, :description, :slug, :price, :shipping_base, 
+  :additional_shipping_per_item, :small_image_url, :large_image_url
+  
+  delegate :url_helpers, to: 'Rails.application.routes'
   
   has_many :variants
   
+  
+  def name_and_link
+    link_to name, url_helpers.product_path(id), class: "product-view-name-link"
+  end
+  
+  def image_and_link
+    link_to display_full_image, url_helpers.product_path(id)
+  end
+  
+  def display_full_image
+    image_tag large_image_url, class: 'grid-item-main-image'
+  end
+
   # def name
   #   product.name
   # end

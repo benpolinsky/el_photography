@@ -1,3 +1,16 @@
 .dropdown-menu.dropdown-correct{
   left: -80px;  
 }
+
+.container-fluid{
+  height:100%;
+  position:relative;
+}
+
+
+.tab-content, .tab-pane{
+  height:100%;
+}
+.tab-content{
+  overflow:hidden;
+}

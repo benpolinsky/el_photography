@@ -1,3 +1,6 @@
+<% if @liquid_template %>
+  <%= @liquid_template.html_safe %>
+<% else %>
 <h2>Prints Available For Purchase</h2>
 
 <div class='products grid'>
@@ -13,3 +16,8 @@
   </div>
 <% end %>  
 </div>
+<% end %>
+
+
+
+
