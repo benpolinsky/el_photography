@@ -14,11 +14,11 @@
         <td><%= page_template.title %></td>
         <td><%= page_template.page %></td>
         <td><%= page_template.active %></td>
-        <td><%= link_to "Edit", admin_page_templates_live_path(page_template) %></td>
+        <td><%= link_to "Edit", [:live, :admin, page_template]  %></td>
       </tr>
     <% end %>
 
   </tbody>
 </table>
 
-<%= link_to "new", [:admin, :page_templates, :live] %>
+<%= link_to "new", [:new, :admin, :page_template], class: "btn btn-primary" %>

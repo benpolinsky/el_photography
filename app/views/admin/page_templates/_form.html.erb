@@ -1,10 +1,17 @@
 <%= form_for [:admin, @page_template] do |f| %>
+  <%= f.hidden_field :id %>
   <div class='form-group'>
-    <%= f.label :title, "Title" %>
-    <%= f.text_field :title, class: 'form-control' %>
+    <div class='col-xs-6'>
+      <%= f.label :title, "Title" %>
+      <%= f.text_field :title, class: 'form-control' %>  
+    </div>
     
+    <div class='col-xs-6'>
     <%= f.label :page, "Page this template will appear on" %>
     <%= f.select :page, options_for_select(PageTemplate::AVAILABLE_PAGES) %>
+    <%= f.submit "Save", class: "btn btn-primary" %>      
+    </div>    
+
   </div>
 
   <%= f.label :body, "Template" %>
@@ -15,5 +22,5 @@
   <%= f.text_area :body, id: "ace-populate" %>
   
 
-  <%= f.submit "Save", class: "btn btn-primary" %>
+
 <% end %>

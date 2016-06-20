@@ -11,7 +11,7 @@ ready(function () {
     if (document.querySelector('#ace-editor').dataset.mode == "css") {
       var LiquidMode = ace.require("ace/mode/css").Mode;
     } else {
-      var LiquidMode = ace.require("ace/mode/liquid").Mode;      
+      var LiquidMode = ace.require("ace/mode/html").Mode;      
     }
 
     var editor = ace.edit("ace-editor");

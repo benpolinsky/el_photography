@@ -25,6 +25,7 @@
 //= require ace/theme-twilight
 //= require ace/mode-liquid
 //= require ace/mode-css
+//= require ace/mode-html
 //= require admin/update_row_order
 //= require flatpickr.min
 //= require admin/general

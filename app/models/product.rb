@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  include Liquid::Rails::Droppable
   attr_accessor :sizes_list, :publishing_service, :product_view
   
   extend FriendlyId
