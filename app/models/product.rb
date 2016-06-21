@@ -78,16 +78,7 @@ class Product < ApplicationRecord
   def primary_image(size=nil)
     photo.image_url(size)
   end
-  
-  def small_image_url
-    photo.image_url(:thumb)
-  end
-  
-  def large_image_url
-    photo.image_url(:main) 
-  end
-  
-  
+    
   def sizes_list_present?
     sizes_list.present?
   end

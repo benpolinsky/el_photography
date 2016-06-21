@@ -1,10 +1,8 @@
-
-
-
 template editing:
 
 - Have no idea how this will work in real world production, let alone a setup with significant traffic, but should be okay for el.
 - Make sure to restrict access to current_user
+
 
 
 ## README / TODO

@@ -45,18 +45,12 @@ class Admin::PageTemplatesController < AdminController
   
   # container for code and live-reload-frame
   def live
-    template = Liquid::Template.parse(@page_template.body)
-    setup_custom_fields(@page_template.title.try(:downcase))
-    @user_template = template.render(available_drops)
-    @css_theme = Theme.active
+    setup_liquid
   end
   
   # processes new code
   def live_render
-    template = Liquid::Template.parse(@page_template.body)
-    setup_custom_fields(@page_template.title.try(:downcase))
-    @user_template = template.render(available_drops)
-    @css_theme = Theme.active    
+    setup_liquid
     render layout: 'preview'
   end
   
@@ -68,9 +62,10 @@ class Admin::PageTemplatesController < AdminController
         @css_theme.update_attribute('css', css_params[:body])
         @css_theme.compile # this has gotta be overkill.....
       end
+      @products_remaining = @cart.number_of_products_inside(Product.first.id)
       template = Liquid::Template.parse(@page_template.body)
       setup_custom_fields(@page_template.title.try(:downcase))
-      @user_template = template.render(available_drops)
+      @user_template = template.render(available_drops, registers: {request: request})
 
       ActionCable.server.broadcast 'page_templates',
       page_template: @page_template.id,
@@ -82,6 +77,14 @@ class Admin::PageTemplatesController < AdminController
   end
 
   private
+  
+  def setup_liquid
+    template = Liquid::Template.parse(@page_template.body)
+    setup_custom_fields(@page_template.title.try(:downcase))
+    @user_template = template.render(available_drops, registers: {request: request})
+    @css_theme = Theme.active
+    @products_remaining = @cart.number_of_products_inside(Product.first.id)
+  end
   
   def setup_custom_fields(name)
     page = BpCustomFields::AbstractResource.find_by(name: name)
@@ -108,7 +111,10 @@ class Admin::PageTemplatesController < AdminController
   def available_drops
     {
       'group' => @group_drop,
-      'products' => ProductsDrop.new(Product.all)
+      'products' => ProductsDrop.new(Product.all),
+      'product' => Product.first,
+      'cart' => @cart,
+      'tags' => ActsAsTaggableOn::TagsDrop.new(ActsAsTaggableOn::Tag.all)
     }
   end
 end

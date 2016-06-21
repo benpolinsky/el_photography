@@ -1,4 +1,5 @@
 class Photo < ApplicationRecord
+  include Liquid::Rails::Droppable
   acts_as_taggable
   validates :image, presence: true
   extend FriendlyId

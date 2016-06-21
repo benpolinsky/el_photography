@@ -1,3 +1,3 @@
 class PageTemplate < ApplicationRecord
-  AVAILABLE_PAGES = %w{product_index product_show about contact home tags}
+  AVAILABLE_PAGES = %w{product_index about contact home tags none}
 end

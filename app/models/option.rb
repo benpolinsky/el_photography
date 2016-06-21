@@ -1,4 +1,5 @@
 class Option < ApplicationRecord
+  include Liquid::Rails::Droppable
   has_and_belongs_to_many :products
   has_many :option_values
   

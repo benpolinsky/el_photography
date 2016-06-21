@@ -1,4 +1,5 @@
 class LineItem < ApplicationRecord
+  include Liquid::Rails::Droppable
   attr_reader :shipping_calculator, :order
   
   belongs_to :product

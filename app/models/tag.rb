@@ -1,5 +1,6 @@
 # little wrapper module for tags
 ActsAsTaggableOn::Tag.class_eval do
+  include Liquid::Rails::Droppable
   include RankedModel
   ranks :row_order
   

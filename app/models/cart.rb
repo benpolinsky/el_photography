@@ -1,4 +1,5 @@
 class Cart < ApplicationRecord
+  include Liquid::Rails::Droppable
   has_many :line_items, as: :itemized, dependent: :delete_all
   enum status: [:empty, :has_items, :in_line]
 

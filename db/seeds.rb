@@ -1,4 +1,6 @@
 description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+landscape = "https://placehold.it/2000x1600"
+portrait = "https://placehold.it/1600x2000"
 option = Option.create!([
   {name: "Size"}
 ]).first
@@ -64,21 +66,21 @@ Variant.create!([
     international_shipping_base_currency: nil, 
     additional_international_shipping_per_item_cents: nil, 
     additional_international_shipping_per_item_currency: nil, 
-    option_values: [OptionValue.last]}
+    option_values: [OptionValue.last]
+  }
 ])
 
 User.create({email: "admin@admin.com", password: 'password'})
 
-
-10.times do |t|
+4.times do |t|
   Photo.create({
     caption: "Number: #{t} / Hey I'ma photo caption and you can put links in me. <a href='https://google.com'>Lik dis.</a>",
-    remote_image_url: "https://placehold.it/#{(t.odd? ? '2000x1600' : '1600x2000')}",
+    remote_image_url: t.odd? ? landscape : portrait,
     tag_list: (t.odd? ? ['a tag'] : ['a different_tag'])
   })
 end
 
-5.times do |t|
+2.times do |t|
   Video.create({
     address: "https://vimeo.com/87110435",
     caption: "Placeholder vidya",
@@ -88,4 +90,19 @@ end
 
 Tag.all.each do |tag|
   tag.save
+end
+
+pages = {
+  products: 'product_index',
+  product: 'product',
+  about: 'about',
+  contact: 'contact',
+  home: 'home',
+  tags: 'tags'
+}
+
+pages.each do |key, value|
+  PageTemplate.create({
+    title: key.to_s.titleize, page: value
+  })  
 end

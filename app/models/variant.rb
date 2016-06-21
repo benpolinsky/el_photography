@@ -1,4 +1,5 @@
 class Variant < ApplicationRecord
+    include Liquid::Rails::Droppable
   using ArrayExtensions
   include RankedModel
   include Quantifiable

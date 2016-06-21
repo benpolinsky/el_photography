@@ -10,7 +10,7 @@
       <div class='col-xs-6'>
         <div class='form-group'>
           <%= f.label :page, "Page this template will appear on" %>
-          <%= f.select :page, options_for_select(PageTemplate::AVAILABLE_PAGES), {}, {class: 'form-control'} %>
+          <%= f.select :page, options_for_select(PageTemplate::AVAILABLE_PAGES, @page_template.page), {}, {class: 'form-control'} %>
           <%= f.submit "Save", class: "btn btn-primary live-code-save" %>      
       </div>    
     </div>

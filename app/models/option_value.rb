@@ -1,7 +1,7 @@
 class OptionValue < ApplicationRecord
+  include Liquid::Rails::Droppable
   belongs_to :option
-  has_and_belongs_to_many :variants
-  
+  has_and_belongs_to_many :variants  
   validates :option, presence: true
   
   
