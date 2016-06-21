@@ -14,7 +14,7 @@ class StaleLineItem
   end
   
   def primary_image(size=nil)
-    ActionController::Base.helpers.image_path("fallback/default.png");
+    ActionController::Base.helpers.asset_path("fallback/" + [size, "default.png"].compact.join('_'))
   end
   
   def product_or_variant_name

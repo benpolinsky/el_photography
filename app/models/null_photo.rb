@@ -1,10 +1,10 @@
 class NullPhoto 
   include Liquid::Rails::Droppable
-  def image
-    ActionController::Base.helpers.image_path("fallback/default.png");
+  def image(size=nil)
+    ActionController::Base.helpers.asset_path("fallback/" + [size, "default.png"].compact.join('_'))
   end
   
   def image_url(size=nil)
-    image
+    image(size)
   end
 end

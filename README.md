@@ -14,7 +14,7 @@ template editing:
 
 ## only on production
 
-- cart image (why isn't it always small?) - FALLBACK IMG!  aha - need each size for this.
+
 - remove session if not found (done?)
 - null lineitem route... (i think its fixed?)
 - contact form working
