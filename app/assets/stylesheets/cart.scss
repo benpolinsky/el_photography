@@ -18,21 +18,19 @@ $yag: grey;
   }
 }
 
-
+// cart positioned off screen
 .cart-slice {
-  height: 0;
-  width: 100%;
+  height: 100%;
+  width: 300px;
   display: block;
   position: fixed;
-  overflow: hidden;
-  right: 0;
+  overflow: visible;
+  right: -301px;
   top: 0;
   background: white;
-  z-index: 1000;
+  z-index: 10000;
   border-left: 1px solid $grey;
-  transition: height 100ms;
-  -o-transition: height 100ms;
-  -moz-transition: height 100ms;
+  transition: right 500ms;
 
   .alert{
     width: auto;
@@ -121,8 +119,38 @@ $yag: grey;
       visibility:hidden;
     }
   }
+
+  // closed trigger
+  a.cart-trigger{
+    width:50px;
+    height:50px;
+    position:absolute;
+    float:left;
+    left:-50px;
+    display:block;
+    text-align:right;
+    z-index: 1;
+    transition: left 200ms ease-in;
+    img{
+      width:100%;
+    }
+  }
+  
 }
+
+// cart slice open
+.cart-slice.active {
+  transition: right 500ms;
+  right: 0px;
+  overflow:visible;
+  a.cart-trigger{
+    transition: left 200ms ease-in;
+    left:0;
+  }
+}
+
 #total-slices {
+  padding: 4px;
   position: relative;
   float:left;
   clear:both;
@@ -295,20 +323,14 @@ section.seller-item-group{
 header.cart-header {
   color: black;
   background: white;
-  padding: 10px 0 12px 20px;
+  padding: 0px 0 12px 0px;
   border-bottom: 1px solid $grey;
   box-sizing: border-box;
   clear: both;
   float: left;
   width: 100%;
 }
-.cart-slice.active {
-  transition: height 100ms;
-  -o-transition: height 100ms;
-  -moz-transition: height 100ms;
-  height: 100%;
-  overflow:visible;
-}
+
 
 div.main.cart-open{
   position: absolute;
@@ -367,7 +389,7 @@ div.main.cart-open{
   border-top:1px solid black;
 }
 .cart-subtotal{ 
-  width:300px;
+  width:100%;
   float:left;
   clear:both;
   span:first-of-type{
@@ -392,6 +414,30 @@ div.main.cart-open{
 .nothing-here-container{
   padding-left:20px;
 }
+
+
+.cart-header-top{
+  float:left;
+  text-align:right;
+  box-sizing:border-box;
+  padding-right:10px;
+  width:100%;
+  height:50px;
+  line-height:50px;
+  cursor:pointer;
+  background:black;
+  color:white;
+  position:relative;
+  z-index:100;
+  h2{
+    line-height:50px;
+  }
+}
+
 .close-cart{
-  float:right;
+  float:left;
+  padding:0 6px;
+  font-size:40px;
+  line-height:50px;
+  width:32px;
 }

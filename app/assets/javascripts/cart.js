@@ -1,11 +1,15 @@
 modulejs.define('cart', function () {
   var Cart = {
-    close: function () {
-      $('.cart-slice').removeClass('active');
+    open: function () {
+      var loader = modulejs.require('loader');
+      loader.start(false);
+      $('.cart-slice').addClass('active');
     },
     
-    open: function () {
-      $('.cart-slice').addClass('active');
+    close: function () {
+      var loader = modulejs.require('loader');
+      $('.cart-slice').removeClass('active');
+      loader.stop();
     },
     
     is_open: function () {
@@ -14,6 +18,14 @@ modulejs.define('cart', function () {
     
     is_closed: function () {
       return !this.is_open();
+    },
+    
+    toggle: function () {
+      if (this.is_open()) {
+        this.close();
+      } else {
+        this.open();
+      }
     },
     
     clear: function () {

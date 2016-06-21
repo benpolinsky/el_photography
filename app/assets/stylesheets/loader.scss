@@ -49,5 +49,11 @@ span#load-spin{
     top:50%;
     text-align:center;
     display:block;
+    &.hidden{
+      display:none;
+    }
+  }
+  .loader.hidden{
+    display:none;
   }
 }

@@ -9,8 +9,8 @@
 
   jQuery(document).ready(function($) {
   
-    $('header.front-header').on('click', '.cart-trigger', function(event) {
-      Cart.open();
+    $(document).on('click', '.cart-trigger', function(event) {
+      Cart.toggle();
       return false
     });
     
@@ -22,11 +22,11 @@
     Cart.initialize_variants();
     
     $('.cart-slice').on('click', '.increment-quantity', function () {
-      Loader.start();
+      Loader.start(true);
     });
     
     $('.cart-slice').on('click', '.decrement-quantity', function () {
-      Loader.start();
+      Loader.start(true);
     });
   });
   

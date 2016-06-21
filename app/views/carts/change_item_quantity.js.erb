@@ -9,4 +9,4 @@ var quantity_partial = "<%= j ProductView.new(product: @product, cart: @cart).di
 var cart_totals_partial = "<%= j render partial: 'cart_totals', locals: {cart_view: CartView.new(@cart)} %>";
 
 Cart.change_quantity(cart_item, item_partial, add_to_cart_partial, quantity_partial, cart_totals_partial, "<%= @new_quantity %>");
-Loader.stop();
+Loader.stop(true);

@@ -1,7 +1,13 @@
 <div id="display-cart">
-<div class='close-cart'>Close Cart</div>
+  <%= link_to (image_tag('cart.png')), cart_path, class: 'cart-trigger' %>
+
   <header class="cart-header">
-    <h2>Cart</h2>
+    <div class='cart-header-top'>
+      <div class='close-cart'>&raquo;</div>
+      <h2>Cart</h2>
+    </div>
+
+
     <div id="total-slices">
       <%= render :partial => 'cart_totals', locals: {cart_view: CartView.new(@cart)} %>
     </div>
