@@ -18,6 +18,7 @@
       Cart.close();
       return false
     })
+    
 
     Cart.initialize_variants();
     
@@ -28,6 +29,11 @@
     $('.cart-slice').on('click', '.decrement-quantity', function () {
       Loader.start(true);
     });
+    
+    
+    $('#modal-overlay').on('click', function () {
+      if (!$('body').hasClass('loading') && $('body').hasClass('cart-open')) Cart.close();
+    })
   });
   
 }());

@@ -116,8 +116,12 @@ class LineItem < ApplicationRecord
     if variant?
       variant.name_with_product
     else
-      product.name
+      product_name
     end
+  end
+  
+  def product_name
+    product.name
   end
 
   def product_solo?

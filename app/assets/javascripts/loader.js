@@ -8,9 +8,11 @@ modulejs.define('loader', function () {
       if (spinner == false) {
         $('#modal-overlay .loader').addClass('hidden');
         $('#modal-overlay #load-spin').addClass('hidden');
+        $('body').removeClass('loading');
       } else {
         $('#modal-overlay .loader').removeClass('hidden');
         $('#modal-overlay #load-spin').removeClass('hidden');
+        $('body').addClass('loading');
       }
       
       $('#modal-overlay').addClass('open');          
@@ -26,7 +28,8 @@ modulejs.define('loader', function () {
       } else {
         $('#modal-overlay').removeClass('open');  
       }
-      
+      $('body').removeClass('loading');
+
     }
   }
   return Loader

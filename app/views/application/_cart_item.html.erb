@@ -2,9 +2,11 @@
 
 <%= content_tag :div, class: "item-slice-info" do %>
   <%= item_view.name_and_link %>
-  <%= item_view.manage_quantities %>
 <% end %>
 
-<%= item_view.subtotal %>
-<%= item_view.estimated_shipping %>
+<%= content_tag :div, class: "item-slice-manage" do %>
+  <%= item_view.manage_quantities %>
+  <%= item_view.subtotal %>
+<% end %>
+<%# item_view.estimated_shipping %>
 

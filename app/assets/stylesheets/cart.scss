@@ -46,7 +46,7 @@ $yag: grey;
   .slice {
     width: 100%;
     //border-bottom: 1px solid $grey;
-    padding: 10px 8px 10px 8px;
+    padding: 10px 15px;
     float: left;
     clear: both;
     position: relative;
@@ -56,9 +56,7 @@ $yag: grey;
     float: left;
     padding-right: 20px;
   }
-  .item-name {
-    
-  }
+
   .item-variant-choice {
     font-size: 14px;
     font-style: italic;
@@ -83,15 +81,24 @@ $yag: grey;
     clear:left;
     .item-name{
       float:left;
+      a{
+        display:block;
+      }
+    }
+    .item-name .variant-names{
+      display:block;
+      font-size:14px;
+      font-variant:italic;
     }
   }
+  
   
   .quantity-manager {
     width: auto;
 
     margin-right: 15px;
     float: left;
-    clear:left;
+
     .increment-quantity {
       font-size: 16px;
       cursor: pointer;
@@ -150,7 +157,7 @@ $yag: grey;
 }
 
 #total-slices {
-  padding: 8px;
+  padding: 8px 15px;
   position: relative;
   float:left;
   clear:both;
@@ -178,10 +185,16 @@ $yag: grey;
   color: white;
   letter-spacing: 0.2em;
   a, a:visited{
-    color:white;
-    &:after{
-    content: "\00BB";
-    };
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    text-transform: uppercase;
+    border: 2px solid white;
+    border-radius: 2px;
+    width: 190px;
+    margin: 0 auto;
+    padding: 4px;
   }
 }
 .shop-coupon-code-link{
@@ -264,7 +277,7 @@ section.seller-item-group{
 }
 
 .item-price-total{
-  float:left;
+  float:right;
   clear:both;
 }
 .shop-totals-and-coupons{
@@ -323,12 +336,17 @@ section.seller-item-group{
 header.cart-header {
   color: black;
   background: white;
-  padding: 0px 0 12px 0px;
-  border-bottom: 1px solid $grey;
+  padding:0;
   box-sizing: border-box;
   clear: both;
   float: left;
   width: 100%;
+}
+
+footer.cart-footer{
+  position:absolute;
+  width:100%;
+  bottom:0;
 }
 
 
@@ -365,14 +383,15 @@ div.main.cart-open{
   padding: 10px 0 12px 0px;
   border-bottom: 1px solid grey;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow-y:auto;
   width: 100%;
+  height:calc(100% - 200px);
 
 }
 
-.checkout-link{
-  
-}
+
+
+
 
 
 .checkout-order-subtotal p{
@@ -387,6 +406,7 @@ div.main.cart-open{
 }
 .cart-subtotal.grand-total{
   border-top:1px solid black;
+  padding-top:4px;
 }
 .cart-subtotal{ 
   width:100%;
@@ -402,7 +422,7 @@ div.main.cart-open{
   p {
     float:left;
     width:100%;
-    margin-bottom:5px;
+    margin-bottom:7px;
   }
 }
 
@@ -424,13 +444,15 @@ div.main.cart-open{
   width:100%;
   height:50px;
   line-height:50px;
-  cursor:pointer;
   background:black;
   color:white;
   position:relative;
   z-index:100;
   h2{
     line-height:50px;
+    font-size:20px;
+    text-align:center;
+    text-transform:lowercase;
   }
 }
 
@@ -440,4 +462,27 @@ div.main.cart-open{
   font-size:40px;
   line-height:50px;
   width:32px;
+  cursor:pointer;
+}
+
+
+#display-cart{
+  height:100%;
+}
+
+.item-name a{
+  font-size:14px;
+  text-decoration:none;
+}
+
+.item-slice-manage{
+  width:100%;
+  float:left;
+  clear:both;
+  margin-top:4px;
+  height:20px;
+  .item-price-total{
+    float:right;
+    clear:none;
+  }
 }

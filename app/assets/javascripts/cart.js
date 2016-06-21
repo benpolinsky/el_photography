@@ -4,11 +4,13 @@ modulejs.define('cart', function () {
       var loader = modulejs.require('loader');
       loader.start(false);
       $('.cart-slice').addClass('active');
+      $('body').addClass('cart-open');
     },
     
     close: function () {
       var loader = modulejs.require('loader');
       $('.cart-slice').removeClass('active');
+      $('body').removeClass('cart-open');
       loader.stop();
     },
     

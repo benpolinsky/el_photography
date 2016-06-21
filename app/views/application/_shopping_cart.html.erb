@@ -4,12 +4,7 @@
   <header class="cart-header">
     <div class='cart-header-top'>
       <div class='close-cart'>&raquo;</div>
-      <h2>Cart</h2>
-    </div>
-
-
-    <div id="total-slices">
-      <%= render :partial => 'cart_totals', locals: {cart_view: CartView.new(@cart)} %>
+      <h2>your cart</h2>
     </div>
   </header>
 
@@ -27,8 +22,14 @@
       </div>
     <% end %>
   </div>
+  <footer class='cart-footer'>
+  <div id="total-slices">
+    <%= render :partial => 'cart_totals', locals: {cart_view: CartView.new(@cart)} %>
+  </div>
   <div class="bag-checkout-slice slice">
     <%= link_to "Checkout", checkout_path, class: ("#{@cart.line_items.none? ? 'checkout-link disabled' : 'checkout-link'}") %>
   </div>
-  <%= link_to "Empty Contents", empty_cart_path,  {class: 'cart-empty-contents', data: {confirm: "Are you sure?", remote: true}} if @cart.line_items.any? %>
+  <%# link_to "Empty Contents", empty_cart_path,  {class: 'cart-empty-contents', data: {confirm: "Are you sure?", remote: true}} if @cart.line_items.any? %>  
+  </footer>
+  
 </div>

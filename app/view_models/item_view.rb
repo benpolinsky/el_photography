@@ -17,7 +17,8 @@ class ItemView
   
   def name_and_link
     content_tag :span, class: 'item-name' do
-      link_to item.product_or_variant_name, url_helpers.product_path(item.product)
+      concat link_to item.product_name, url_helpers.product_path(item.product)
+      concat content_tag(:span, item.variant.name, class: "variant-names") if item.variant?
     end
   end
 
@@ -57,7 +58,7 @@ class ItemView
   
   def subtotal
     content_tag :div, class: "item-price-total" do
-      concat content_tag :span, 'Price', class: "label"
+      # concat content_tag :span, 'Price', class: "label"
       concat content_tag :span, item.subtotal.format, class: "value"
     end
   end

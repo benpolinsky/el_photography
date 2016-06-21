@@ -55,7 +55,7 @@ a:hover, a:active, a:visited{
   display: block;
 }
 
-footer, .front-wrap:after {
+footer:not(.cart-footer), .front-wrap:after {
   height: 100px; 
 }
 .elp-container{
@@ -67,7 +67,7 @@ footer, .front-wrap:after {
   text-align:center;
 }
 
-footer{
+footer:not(.cart-footer){
   position:absolute;
   bottom:0;
   left:0;
@@ -79,7 +79,7 @@ footer{
   color:white;
 }
 
-footer p{
+footer:not(.cart-footer) p{
   margin-top: 20px;
 }
 
