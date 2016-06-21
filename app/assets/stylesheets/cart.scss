@@ -30,7 +30,7 @@ $yag: grey;
   background: white;
   z-index: 10000;
   border-left: 1px solid $grey;
-  transition: right 500ms;
+  transition: transform 500ms;
 
   .alert{
     width: auto;
@@ -137,7 +137,7 @@ $yag: grey;
     display:block;
     text-align:right;
     z-index: 1;
-    transition: left 200ms ease-in;
+    transition: transform 200ms ease-in;
     img{
       width:100%;
     }
@@ -147,12 +147,10 @@ $yag: grey;
 
 // cart slice open
 .cart-slice.active {
-  transition: right 500ms;
-  right: 0px;
+  transform: translate3d(-300px, 0px, 0px);
   overflow:visible;
   a.cart-trigger{
-    transition: left 200ms ease-in;
-    left:0;
+    transform: translate3d(50px, 0px, 0px);
   }
 }
 
