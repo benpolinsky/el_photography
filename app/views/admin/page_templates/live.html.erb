@@ -42,7 +42,7 @@
         <%= f.text_area :body, id: "ace-populate" %>
       </div>
       <div class="tab-pane" id="css" role="tabpanel">
-        <div id='css-ace-editor' class='live_code_editor' data-mode="css"><%= @css_theme.css %></div>
+        <div id='css-ace-editor' class='live_code_editor' data-mode="css"><%= @css_theme.try(:css) %></div>
         <%= text_area_tag :body, '', id: "css-populate" %>
          <% end %>
       </div>
