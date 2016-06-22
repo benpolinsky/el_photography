@@ -92,13 +92,17 @@ Tag.all.each do |tag|
   tag.save
 end
 
+# production setup content
+# pages, templates, custom_fields
+
 pages = {
   products: 'product_index',
-  product: 'product',
   about: 'about',
   contact: 'contact',
   home: 'home',
-  tags: 'tags'
+  tags: 'tags',
+  header: "header",
+  footer: "footer"
 }
 
 pages.each do |key, value|
@@ -106,3 +110,8 @@ pages.each do |key, value|
     title: key.to_s.titleize, page: value
   })  
 end
+
+BpCustomFields::AbstractResource.create(name: "about")
+BpCustomFields::AbstractResource.create(name: "contact")
+
+

@@ -1,0 +1,22 @@
+<h2>Users</h2>
+<table class='table'>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <%= content_tag :td, user.email %>
+        <%= content_tag :td do %>
+          <%= link_to "edit", [:edit, :admin, user], class: "btn btn-secondary" %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<%= link_to "Create a New User", [:new, :admin, :user] %>

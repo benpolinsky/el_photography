@@ -1,0 +1,27 @@
+<%= form_for [:admin, @user] do |f| %>
+  <div class='form-group'>
+    <%= f.label :email, "Email" %>
+    <%= f.email_field :email, class: "form-control" %>  
+  </div>
+  
+  <div class='form-group'>
+    <%= f.label :new_password, "New Password" %>
+    <%= f.password_field :new_password, class: "form-control" %>  
+  </div>
+  
+  <div class='form-group'>
+    <%= f.label :new_password_confirmation, "New Password Confirmation" %>
+    <%= f.password_field :new_password_confirmation, class: "form-control" %>  
+  </div>
+  
+  <div class='form-group'>
+    <%= f.label :password, "Old Password for Confirmation" %>
+    <%= f.password_field :password %>
+  </div>
+  
+  <div class='form-group'>
+    <%= f.label :email, "Email" %>
+    <%= f.email_field :email, class: "form-control" %>  
+  </div>
+
+<% end %>

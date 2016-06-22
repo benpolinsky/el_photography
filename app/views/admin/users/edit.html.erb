@@ -1,0 +1,21 @@
+<%= form_for [:admin, @user] do |f| %>
+  <div class='form-group'>
+    <%= f.label :email, "Email" %>
+    <%= f.email_field :email, class: "form-control" %>  
+  </div>
+  
+
+  <div class='form-group'>
+    <%= f.label :password, "New Password" %>
+    <%= f.password_field :password %>
+  </div>
+  
+  <div class='form-group'>
+    <%= f.label :password_confirmation, "New Password Confirm" %>
+    <%= f.password_field :password_confirmation, class: "form-control" %>  
+  </div>
+
+  
+  <%= f.submit "Submit", :disable_with => 'Submiting...' %>
+
+<% end %>

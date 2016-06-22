@@ -23,6 +23,9 @@ Rails.application.routes.draw do
       resources :variants
     end
     
+    resources :users do
+      post 'reset_password', on: :member
+    end
     resources :videos, concerns: :orderable
     
     resources :tags, concerns: :orderable
