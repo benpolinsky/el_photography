@@ -114,10 +114,11 @@
 # BpCustomFields::AbstractResource.create(name: "about")
 # BpCustomFields::AbstractResource.create(name: "contact")
 #
-#
+#\
+
 BpCustomFields::GroupTemplate.create!([
-  {name: "About", visible: nil},
-  {name: "Contact", visible: nil}
+  {name: "About", visible: nil, appearances: [ BpCustomFields::Appearance.create({resource: "BpCustomFields::AbstractResource", resource_id: "about", appears: true, row_order: nil, group_template_id: 1})],
+  {name: "Contact", visible: nil, appearances: [ BpCustomFields::Appearance.create(  {resource: "BpCustomFields::AbstractResource", resource_id: "contact", appears: true, row_order: nil, group_template_id: 2})]},
 ])
 
 BpCustomFields::FieldTemplate.create!([
@@ -133,7 +134,4 @@ BpCustomFields::AbstractResource.create!([
   {name: "contact"}
 ])
 
-BpCustomFields::Appearance.create!([
-  {resource: "BpCustomFields::AbstractResource", resource_id: "about", appears: true, row_order: nil, group_template_id: 1},
-  {resource: "BpCustomFields::AbstractResource", resource_id: "contact", appears: true, row_order: nil, group_template_id: 2}
-])
+
