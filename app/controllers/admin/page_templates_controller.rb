@@ -90,7 +90,7 @@ class Admin::PageTemplatesController < AdminController
     page = BpCustomFields::AbstractResource.find_by(name: name)
     if page
       @group = page.groups.first
-      @group_drop = BpCustomFields::GroupDrop.new(group)
+      @group_drop = BpCustomFields::GroupDrop.new(@group)
     end
   end
   
