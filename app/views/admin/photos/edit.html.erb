@@ -1,6 +1,46 @@
 <h1>Editing Photo</h1>
 
-<%= render 'form', photo: @photo %>
+<% breadcrumb :admin_photo, @photo %>
+<div class='row'>
+  <%= form_for([:admin, @photo]) do |f| %>  
+    <fieldset class='form-group'>
+      <%= f.label :tag_list, "Tags: " %>
+      <select name="photo[tag_list][]" class="taggable" multiple="true">
+        <% Tag.all.each do |tag| %>
+          <%= content_tag :option, value: tag.name, selected: tag_selected?(@photo, tag) do %>
+            <%= tag.name %>
+          <% end %>
+        <% end %>
+      </select>
+    </fieldset>
+
+    <div class="fallback">
+      <fieldset class="form-group">
+        <%= f.label :image %>
+
+        <%= f.label :temporary_slug, "Slug" %>      
+        <%= f.text_field :temporary_slug, value: @photo.slug, class: 'form-control' %>
+
+        <% if @photo.image && @photo.persisted? %>
+          <%= image_tag @photo.image.url(:thumb) %>
+        <% end %>
+        
+        <%= f.file_field :image, class: "form-control" %>
+
+        <%= f.label :caption %>      
+        <%= f.text_field :caption, class: 'form-control' %>      
+        
+       
+      </fieldset>
+
+
+      <div class="actions">
+        <%= f.button nil, class: "btn btn-primary"%>
+      </div>
+    </div>
+  <% end %>  
+</div>
+
 
 <%= link_to 'Show', [:admin, @photo] %> |
 <%= link_to 'Photos', admin_photos_path %>

@@ -1,13 +1,16 @@
-
 <header class='front-header'>
-
   <h1><%= link_to "Elliot Polinsky", root_path %></h1>
-  <nav class='front-navigation'>
+  
+  <nav class='front-navigation category-navigation'>
     <% ActsAsTaggableOn::Tag.all.each do |tag| %>
       <%= active_link_to tag.name.titleize, tag_path(tag.slug) %>
     <% end %>
+  </nav>
+  
+  <nav class='front-navigation main-navigation'>
     <%= active_link_to "Purchase Prints", store_path %>
     <%= active_link_to "About", about_path %>
     <%= active_link_to "Contact", contact_path %>
   </nav>
+
 </header>

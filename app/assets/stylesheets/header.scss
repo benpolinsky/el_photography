@@ -1,3 +1,5 @@
+$kellygreen: #23A14D;
+
 header.front-header h1, header.front-header h1 a{
   text-decoration:none;
   margin:20px 0;
@@ -7,6 +9,10 @@ header.front-header h1, header.front-header h1 a{
 nav.front-navigation a{
   margin:0 3px;  
   text-decoration:none;
+  font-size:12px;
+  &:hover{
+    color:lighten($kellygreen, 5%);
+  };
 }
 
 nav a:hover, nav a:visited, nav a:active{
@@ -14,5 +20,27 @@ nav a:hover, nav a:visited, nav a:active{
 };
 
 nav.front-navigation a.active{
-  color:#23A14D;
+  color:$kellygreen;
+}
+
+
+
+nav.main-navigation{
+  padding-top:10px;
+  border-top:1px solid black;
+  width:300px;
+  margin:0 auto;
+}
+
+nav.main-navigation a{
+  text-transform:uppercase;
+  font-weight: 700;
+}
+
+nav.category-navigation{
+ margin-bottom:10px; 
+}
+
+nav.category-navigation a{
+  font-size:18px;
 }

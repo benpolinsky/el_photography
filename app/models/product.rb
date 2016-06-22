@@ -1,9 +1,9 @@
 class Product < ApplicationRecord
   include Liquid::Rails::Droppable
-  attr_accessor :sizes_list, :publishing_service, :product_view
+  attr_accessor :sizes_list, :publishing_service, :product_view, :temporary_slug
   
   extend FriendlyId
-  friendly_id :name, use: [:slugged, :history]  
+  friendly_id :temporary_slug, use: [:slugged, :history]  
   
   include DateTimeScopes
   include RankedModel
@@ -222,8 +222,17 @@ class Product < ApplicationRecord
     end.sort.to_h
   end
 
+  def temporary_slug=(value)
+    attribute_will_change!('temporary_slug') if temporary_slug != value
+    @temporary_slug = value
+  end
+  
+  def temporary_slug_changed?
+    changed.include?('temporary_slug')
+  end
+  
   def should_generate_new_friendly_id?
-    name_changed?
+    temporary_slug_changed?
   end
   # def self.with_visible_stock(cart)
   #   stocked.reject { |product| cart.number_of_products_inside(product.id, "product") >= product.quantity }

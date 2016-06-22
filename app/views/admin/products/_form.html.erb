@@ -6,6 +6,12 @@
     <%= f.label :name %>
     <%= f.text_field :name, {data: {parsley_required: 'true', parsley_error_message: "Er, we need a name here"}, class: "form-control"} %>
   </div>
+  
+  
+  <div class="field form-group">
+    <%= f.label :temporary_slug, "Slug" %>
+    <%= f.text_field :temporary_slug, {value: @product.slug, data: {parsley_required: 'true', parsley_error_message: "Er, we need a name here"}, class: "form-control"} %>
+  </div>
 
   <div class="field form-group">
     <%= f.label :description %>

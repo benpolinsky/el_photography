@@ -1,4 +1,5 @@
 class Video < ApplicationRecord
+  attr_accessor :temporary_slug
   validates_presence_of :address
   acts_as_taggable
   
@@ -6,7 +7,7 @@ class Video < ApplicationRecord
   ranks :row_order
   extend FriendlyId
 
-  friendly_id :video_id, use: [:slugged, :history]
+  friendly_id :temporary_slug, use: [:slugged, :history]
   validates_presence_of :video_id
 
   def video_id
@@ -32,6 +33,19 @@ class Video < ApplicationRecord
     else
       "http://img.youtube.com/vi/#{video_id}/hqdefault.jpg"
     end
+  end
+  
+  def temporary_slug=(value)
+    attribute_will_change!('temporary_slug') if temporary_slug != value
+    @temporary_slug = value
+  end
+  
+  def temporary_slug_changed?
+    changed.include?('temporary_slug')
+  end
+  
+  def should_generate_new_friendly_id?
+    temporary_slug_changed?
   end
 
   

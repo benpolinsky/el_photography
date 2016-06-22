@@ -1,5 +1,5 @@
 class Admin::PhotosController < AdminController
-  before_action :set_photo, only: [:show, :edit, :update, :destroy]
+  before_action :set_photo, only: [:show, :edit, :destroy]
   respond_to :html, :js
 
   # GET /photos
@@ -11,6 +11,9 @@ class Admin::PhotosController < AdminController
   # GET /photos/1
   # GET /photos/1.json
   def show
+    if request.url != url_for([:admin, @photo])
+     return redirect_to [:admin, @photo], :status => :moved_permanently
+    end
   end
 
   # GET /photos/new
@@ -20,6 +23,9 @@ class Admin::PhotosController < AdminController
 
   # GET /photos/1/edit
   def edit
+    if request.path != edit_admin_photo_path(@photo)
+     return redirect_to [:edit, :admin, @photo], :status => :moved_permanently
+    end
   end
 
   # POST /photos
@@ -51,8 +57,9 @@ class Admin::PhotosController < AdminController
   # PATCH/PUT /photos/1
   # PATCH/PUT /photos/1.json
   def update
+    @photo = Photo.friendly.find(params[:id])
     respond_to do |format|
-      if params[:photo] && @photo.update(photo_params)
+      if params[:photo] && @photo.update_attributes(photo_params)
         format.html { redirect_to [:admin, @photo], notice: 'Photo was successfully updated.' }
         format.json {head :created}
         format.js 
@@ -87,14 +94,11 @@ class Admin::PhotosController < AdminController
     # Use callbacks to share common setup or constraints between actions.
     def set_photo
       @photo = Photo.friendly.find(params[:id])
-      if request.path != admin_photo_path(@photo)
-       return redirect_to [:admin, @photo], :status => :moved_permanently
-      end
     end
     
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
-      params.require(:photo).permit(:caption, :image, :slug, :deleted_at, :tag_list => [])
+      params.require(:photo).permit(:caption, :image, :temporary_slug, :deleted_at, :tag_list => [])
     end
 end

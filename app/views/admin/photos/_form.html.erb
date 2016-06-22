@@ -1,38 +1,39 @@
 <% breadcrumb :admin_photo, @photo %>
 <div class='row'>
-<%= form_for([:admin, photo], html: {class: "#{dropzone_classes}"}) do |f| %>
-  
-  <fieldset class='form-group'>
-    <%= f.label :tag_list, "Tags: " %>
-    <select name="photo[tag_list][]" class="taggable" multiple="true">
-      <% Tag.all.each do |tag| %>
-        <%= content_tag :option, value: tag.name, selected: tag_selected?(photo, tag) do %>
-          <%= tag.name %>
+  <%= form_for([:admin, photo], html: {class: "#{dropzone_classes}"}) do |f| %>  
+    <fieldset class='form-group'>
+      <%= f.label :tag_list, "Tags: " %>
+      <select name="photo[tag_list][]" class="taggable" multiple="true">
+        <% Tag.all.each do |tag| %>
+          <%= content_tag :option, value: tag.name, selected: tag_selected?(photo, tag) do %>
+            <%= tag.name %>
+          <% end %>
         <% end %>
-      <% end %>
-    </select>
-  </fieldset>
-
-  <div class="fallback">
-    <fieldset class="form-group">
-      <%= f.label :image %>
-      <% if photo.image && photo.persisted? %>
-        <%= image_tag photo.image.url(:thumb) %>
-      <% end %>
-      <%= f.file_field :image, class: "form-control" %>
-
-      <%= f.label :caption %>      
-      <%= f.text_field :caption, class: 'form-control' %>      
-
+      </select>
     </fieldset>
 
+    <div class="fallback">
+      <fieldset class="form-group">
+        <%= f.label :image %>
 
-    <div class="actions">
-      <%= f.button nil, class: "btn btn-primary"%>
+        <% if photo.image && photo.persisted? %>
+          <%= image_tag photo.image.url(:thumb) %>
+        <% end %>
+        
+        <%= f.file_field :image, class: "form-control" %>
+
+        <%= f.label :caption %>      
+        <%= f.text_field :caption, class: 'form-control' %>      
+        
+        <%= f.label :slug %>      
+        <%= f.text_field :slug, class: 'form-control' %>
+
+      </fieldset>
+
+
+      <div class="actions">
+        <%= f.button nil, class: "btn btn-primary"%>
+      </div>
     </div>
-  </div>
-
-
-<% end %>
-  
+  <% end %>  
 </div>

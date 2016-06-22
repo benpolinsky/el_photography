@@ -79,7 +79,7 @@ class Admin::ProductsController < AdminController
   end
 
   def product_params
-    params.require(:product).permit(:name, :description, :price, :published_at, :using_inventory,
+    params.require(:product).permit(:name, :temporary_slug, :description, :price, :published_at, :using_inventory,
     :quantity, :weight_in_oz, :row_order, :shipping_base, :slug, :additional_shipping_per_item,
     :deleted_at, :international_shipping_base, :sizes_list, :variants_attributes => [:price, :quantity, :row_order, :shipping_base, :slug, :additional_shipping_per_item, :deleted_at, :id, :using_inventory])
   end

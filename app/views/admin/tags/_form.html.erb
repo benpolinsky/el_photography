@@ -6,6 +6,11 @@
     <%= f.label :name %>
     <%= f.text_field :name, class: "form-control" %>    
   </div>
+  
+  <div class='form-group'>
+    <%= f.label :temporary_slug, "Slug" %>
+    <%= f.text_field :temporary_slug, value: @tag.slug, class: "form-control" %>    
+  </div>
 
   
   <div class="actions">

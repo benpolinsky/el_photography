@@ -63,7 +63,7 @@ class Admin::TagsController < AdminController
     end
     
     def tag_params
-      params.require(:acts_as_taggable_on_tag).permit(:name, :id)
+      params.require(:acts_as_taggable_on_tag).permit(:name, :id, :temporary_slug)
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_tag_params
