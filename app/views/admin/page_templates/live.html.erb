@@ -55,7 +55,7 @@
   
 
   <div class='live_window split'>
-    <iframe id="live-code-frame" src="http://localhost:3000/admin/page_templates/live_render/<%= @page_template.id %>" width="100%" height="800">
+    <iframe id="live-code-frame" src="<%= ENV['iframe_address'] %>/admin/page_templates/live_render/<%= @page_template.id %>" width="100%" height="800">
       <p>Your browser does not support iframes.</p>
     </iframe>
   </div>
