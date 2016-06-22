@@ -2,6 +2,7 @@ $grey: grey;
 $error: red;
 $lightblue: lightblue;
 $yag: grey;
+$kellygreen: #23A14D;
 // SHOPPING BAG
 
 #shopping-cart-icon {
@@ -87,8 +88,10 @@ $yag: grey;
     }
     .item-name .variant-names{
       display:block;
-      font-size:14px;
-      font-variant:italic;
+      font-size:13px;
+      font-style:italic;
+      color:grey;
+      margin-top:2px;
     }
   }
   
@@ -194,6 +197,7 @@ $yag: grey;
     margin: 0 auto;
     padding: 4px;
   }
+  
 }
 .shop-coupon-code-link{
   label{

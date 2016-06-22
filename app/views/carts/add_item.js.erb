@@ -23,12 +23,16 @@ if ( Cart.is_closed() ) Cart.open();
 //Drop Menu for Product Option
 
 $('.drop-menu.product-option').each(function () {
-  $('.drop-menu.product-option').removeClass('selected');
+  var price_field = $(this).parent().siblings('.product-view-price');
+  var old_price = price_field.attr('data-price');
+  $(this).removeClass('selected');
+  $(this).children('.drop-menu-header').removeClass('selected');
   $menu_items = $(this).find('.drop-menu-item');
   $first_item = $menu_items.first();
   $menu_items.removeClass('selected');
-  $first_item.addClass('selected');
-  $(this).find('.drop-menu-heading').text($first_item.data('product-option'));
+  price_field.text(old_price)
+  // $first_item.addClass('selected');
+  $(this).find('.drop-menu-heading').text('Select ' + $first_item.data('product-option') + ": ");
   $('input.add-to-cart.variant').prop('disabled', true);
 })
 

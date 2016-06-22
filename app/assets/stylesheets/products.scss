@@ -1,3 +1,4 @@
+$kellygreen: #23A14D;
 %visuallyhidden {
   margin: -1px;
   padding: 0;
@@ -25,6 +26,8 @@ select#line_item_variant_id{
 .add-to-cart-container{
   float:left;
   clear:both;
+  width:100%;
+  margin:10px auto;
 }
 
 // product view
@@ -50,3 +53,22 @@ select#line_item_variant_id{
   float:right;
   width:auto;
 }
+
+
+form.add-item-to-cart input[type='submit']{
+  width:100%;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  text-transform: uppercase;
+  border: 2px solid white;
+  border-radius: 2px;
+  margin: 0 auto;
+  padding: 4px;
+  background: $kellygreen;
+  &:not([disabled]):hover{
+    background: darken($kellygreen, 5%);
+  };
+}
+

@@ -86,6 +86,7 @@ modulejs.define('cart', function () {
     select_variant_item: function (el) {
       var item_name = $(el).data("item-name");
       var item_id = $(el).data("item-id");
+      var header = $(el).parent().siblings('.drop-menu-header');
       var product_option_name = $(el).data("product-option");
       var hidden_field = '<input type="hidden" class="' + product_option_name + '" name="line_item[variant_option_values_ids][]" id="line_item_variant_option_values_ids_' + item_id + '" value="' + item_id + '">';
 
@@ -94,9 +95,9 @@ modulejs.define('cart', function () {
     
       // remove any selected classes from sibling options
       $(el).siblings().removeClass('selected');
-    
+      header.addClass('selected');
       // change the select dropdown header text
-      $(el).parent().siblings('.drop-menu-header').children('p').text(item_name);
+      // header.text(product_option_name + ": " + item_name);
       
 
       
