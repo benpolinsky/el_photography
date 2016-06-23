@@ -11,15 +11,26 @@
 
 <div class="field form-group">
   <%= builder.label :price, builder.object.price_label.html_safe %>
-  <%= builder.number_field :price, {data: {parsley_required: 'true', parsley_error_message: "Price please."}, class: "form-control", step: '0.01', disabled: builder.object.price_disabled?} %>
+  <div class='input-group'>
+    <span class="input-group-addon">$</span>
+    <%= builder.number_field :price, {data: {parsley_required: 'true', parsley_error_message: "Price please."}, class: "form-control", step: '0.01', disabled: builder.object.price_disabled?} %>
+  </div>
 </div>
 
 <div class="field form-group">
   <%= builder.label :shipping_base %>
-  <%= builder.number_field :shipping_base, {step: '0.01', class: "form-control", data: {parsley_required: 'true', parsley_error_message: "Please enter a base cost for shipping."}} %>
+  <div class='input-group'>
+    <span class="input-group-addon">$</span>
+    <%= builder.number_field :shipping_base, {step: '0.01', class: "form-control", data: {parsley_required: 'true', parsley_error_message: "Please enter a base cost for shipping."}} %>    
+  </div>
+
 </div>
 
 <div class="field form-group">
   <%= builder.label :additional_shipping_per_item %>
-  <%= builder.number_field :additional_shipping_per_item, {step: '0.01', class: "form-control"} %>
+  <div class='input-group'>
+    <span class="input-group-addon">$</span>
+    <%= builder.number_field :additional_shipping_per_item, {step: '0.01', class: "form-control"} %>    
+  </div>
+
 </div>

@@ -1,26 +1,8 @@
-template editing:
-
-- Have no idea how this will work in real world production, let alone a setup with significant traffic, but should be okay for el.
-- Make sure to restrict access to current_user
-
-
 
 ## README / TODO
-- replace trix editors with medium (delete all trix)
-- all variant select related:
-- reset variant price (from xxx ) after added to card
-- when you click off a size/variant chooser it should collapse (not just reclicking on the header)
-- selecting variants, sometimes it doesn't reset the add ot cart (allows you to select even though no variant is selected)
 
-## only on production
-
-
-- remove session if not found (done?)
-- null lineitem route... (i think its fixed?)
-- contact form working
 
 #### Admin:
-- product photos constraints (? not sure what this means...)
 - photos filter by tag
 - prepend dolla signs to all number fields
 - add loader to caption editing

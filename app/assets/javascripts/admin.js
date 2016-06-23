@@ -19,7 +19,6 @@
 //= require dropzone
 //= require admin/dropzone.js
 //= require selectize
-//= require trix
 //= require ace-rails-ap
 //= require ace/ext-language_tools.js
 //= require ace/theme-twilight

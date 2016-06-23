@@ -15,7 +15,7 @@ class Admin::UsersController < AdminController
     if @user.update_attributes(user_params)
       redirect_to [:admin, :users]
     else
-      render :update, notice: error_list_for(@user)
+      render :edit, notice: error_list_for(@user)
     end
   end
   
@@ -24,6 +24,7 @@ class Admin::UsersController < AdminController
     if @user.save
       redirect_to [:admin, :users]
     else
+      p error_list_for(@user)
       render :new, notice: error_list_for(@user)
     end
   end

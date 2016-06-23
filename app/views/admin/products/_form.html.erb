@@ -15,7 +15,7 @@
 
   <div class="field form-group">
     <%= f.label :description %>
-    <%= f.trix_editor :description, class: "form-control trix" %>
+    <%= f.text_area :description, class: "form-control medium-editor" %>
   </div>
   
   <%= render :partial => 'shared_variant_product_fields', locals: {builder: f} %>

@@ -384,6 +384,8 @@ GEM
       rest-client
     pg (0.18.4)
     pkg-config (1.1.7)
+    polyamorous (1.3.0)
+      activerecord (>= 3.0)
     puma (3.4.0)
     rack (2.0.0.rc1)
       json
@@ -428,6 +430,12 @@ GEM
     rake (11.2.2)
     ranked-model (0.4.0)
       activerecord (>= 3.1.12)
+    ransack (1.7.0)
+      actionpack (>= 3.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      i18n
+      polyamorous (~> 1.2)
     rbvmomi (1.8.2)
       builder
       nokogiri (>= 1.4.1)
@@ -467,8 +475,6 @@ GEM
     thread_safe (0.3.5)
     tilt (2.0.5)
     timecop (0.8.1)
-    trix (0.9.7)
-      rails
     trollop (2.1.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -528,6 +534,7 @@ DEPENDENCIES
   rails-controller-testing
   rails_12factor
   ranked-model
+  ransack
   redis (~> 3.0)
   rmagick
   rspec-core!
@@ -540,7 +547,6 @@ DEPENDENCIES
   selectize-rails
   stripe
   timecop
-  trix
   tzinfo-data
   uglifier (>= 1.3.0)
 

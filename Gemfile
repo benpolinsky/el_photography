@@ -38,6 +38,8 @@ gem 'jbuilder', '~> 2.0'
 
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 3.0'
+gem 'ransack'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -55,7 +57,6 @@ gem "selectize-rails"
 gem 'figaro'
 gem 'parsley-rails'
 gem "flutie"
-gem 'trix'
 gem 'country_select'
 
 gem 'paypal-express'
