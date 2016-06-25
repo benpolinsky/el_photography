@@ -51,7 +51,7 @@ set(:symlinks, [
   }
 ]);
 
-set :linked_files, %w{config/database.yml config/application.yml config/puma.rb}
+set :linked_files, %w{config/database.yml config/application.yml config/puma.rb config/secrets.yml}
 set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 
