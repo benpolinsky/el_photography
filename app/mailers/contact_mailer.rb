@@ -1,9 +1,8 @@
 class ContactMailer < ApplicationMailer
   def contact_elliot(email, name, message)
-    @email = params["email"]
-    @name = params["name"]
-    @message = params["body"]    
+    @email = email
+    @name = name
+    @message = message
     mail to: "benjamin.polinsky@gmail.com"
-
   end
 end
