@@ -36,9 +36,9 @@ set :puma_init_active_record, true  # Change to false when not using ActiveRecor
 # set :log_level,     :debug
 # set :keep_releases, 5
 
-## Linked Files & Directories (Default None):
-# set :linked_files, %w{config/database.yml}
-# set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+# Linked Files & Directories (Default None):
+set :linked_files, %w{config/database.yml config/application.yml config/puma.rb}
+set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
