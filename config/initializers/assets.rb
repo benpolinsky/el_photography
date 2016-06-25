@@ -8,5 +8,5 @@ Rails.application.config.assets.version = '1.0'
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w( admin.css admin.js preview fallback ace/ext-language_tools.js ace/theme-twilight ace/mode-liquid ace/mode-css ace/mode-html )
+Rails.application.config.assets.precompile += %w( admin.css admin.js preview fallback ace/ext-language_tools.js ace/theme-twilight ace/mode-liquid ace/mode-css ace/mode-html ace/snippets/html ace/snippets/css)
 Rails.application.config.assets.paths << Rails.root.join("tmp", "generate_css")
