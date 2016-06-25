@@ -69,9 +69,9 @@
 #     option_values: [OptionValue.last]
 #   }
 # ])
-#
-# User.create({email: "admin@admin.com", password: 'password'})
-#
+
+User.create({email: "admin@admin.com", password: 'password'})
+
 # 4.times do |t|
 #   Photo.create({
 #     caption: "Number: #{t} / Hey I'ma photo caption and you can put links in me. <a href='https://google.com'>Lik dis.</a>",
@@ -91,30 +91,27 @@
 # Tag.all.each do |tag|
 #   tag.save
 # end
-#
-# # production setup content
-# # pages, templates, custom_fields
-#
-# pages = {
-#   products: 'product_index',
-#   about: 'about',
-#   contact: 'contact',
-#   home: 'home',
-#   tags: 'tags',
-#   header: "header",
-#   footer: "footer"
-# }
-#
-# pages.each do |key, value|
-#   PageTemplate.create({
-#     title: key.to_s.titleize, page: value
-#   })
-# end
-#
-# BpCustomFields::AbstractResource.create(name: "about")
-# BpCustomFields::AbstractResource.create(name: "contact")
-#
-#\
+
+# production setup content
+# pages, templates, custom_fields
+
+pages = {
+  products: 'product_index',
+  about: 'about',
+  contact: 'contact',
+  home: 'home',
+  tags: 'tags',
+  header: "header",
+  footer: "footer"
+}
+
+pages.each do |key, value|
+  PageTemplate.create({
+    title: key.to_s.titleize, page: value
+  })
+end
+
+
 
 BpCustomFields::GroupTemplate.create!([
   {
