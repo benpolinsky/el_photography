@@ -42,8 +42,14 @@ set(:config_files, %w(
   nginx.conf
   database.example.yml
   application.example.yml
-))
+));
 
+set(:symlinks, [
+  {
+    source: "nginx.conf",
+    link: "/etc/nginx/sites-enabled/#{fetch(:full_app_name)}"
+  }
+]);
 
 set :linked_files, %w{config/database.yml config/application.yml config/puma.rb}
 set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
