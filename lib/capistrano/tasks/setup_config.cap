@@ -1,4 +1,6 @@
+
 namespace :deploy do
+  desc "Setup Config Files"
   task :setup_config do
     on roles(:app) do
       # make the config dir
