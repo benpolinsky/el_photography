@@ -24,12 +24,7 @@ namespace :deploy do
         end
       end
 
-      # which of the above files should be marked as executable
-      executable_files = fetch(:executable_config_files)
-      executable_files.each do |file|
-        execute :chmod, "+x #{shared_path}/config/#{file}"
-      end
-
+   
       # symlink stuff which should be... symlinked
       symlinks = fetch(:symlinks)
 
@@ -40,3 +35,12 @@ namespace :deploy do
   end
 end
 
+
+
+def sub_strings(input_string)
+  output_string = input_string
+  input_string.scan(/{{(\w*)}}/).each do |var|
+    output_string.gsub!("{{#{var[0]}}}", fetch(var[0].to_sym))
+  end
+  output_string
+end
