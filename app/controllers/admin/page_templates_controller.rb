@@ -83,7 +83,7 @@ class Admin::PageTemplatesController < AdminController
     setup_custom_fields(@page_template.title.try(:downcase))
     @user_template = template.render(available_drops, registers: {request: request})
     @css_theme = Theme.active
-    @products_remaining = @cart.number_of_products_inside(Product.first.id)
+    # @products_remaining = @cart.number_of_products_inside(Product.first.id)
   end
   
   def setup_custom_fields(name)
