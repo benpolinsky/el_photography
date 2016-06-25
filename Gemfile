@@ -46,7 +46,7 @@ gem 'ransack'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'liquid-rails'
-gem 'ace-rails-ap'
+gem 'ace-rails-ap', github: 'benpolinsky/ace-rails-ap'
 
 gem 'bootstrap', '~> 4.0.0.alpha3'
 #gem 'bootstrap_form'
