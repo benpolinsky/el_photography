@@ -4,81 +4,68 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+
 gem 'rails', '>= 5.0.0.beta3', '< 5.1'
-# Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
-# Use Puma as the app server
 gem 'puma'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
-
-gem 'modulejs-rails'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
-gem 'jquery-infinite-pages'
-
-gem 'bp_custom_fields', github: 'benpolinsky/bp_custom_fields' 
-
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-
-#gem 'turbolinks', '~> 5.x'
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-
-gem 'jbuilder', '~> 2.0'
-
-# Use Redis adapter to run Action Cable in production
+gem 'sidekiq'
 gem 'redis', '~> 3.0'
+
+# assets
+gem 'sass-rails', '~> 5.0'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.1.0'
+gem 'modulejs-rails'
+gem 'bootstrap', '~> 4.0.0.alpha3'
+gem "font-awesome-rails"
+gem "autoprefixer-rails"
+
+# Setup/config
+gem 'figaro'
+gem "flutie"
+
+# forms
+gem 'country_select'
+gem 'best_in_place', '~> 3.0.1'
 gem 'ransack'
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-gem 'liquid-rails'
-gem 'ace-rails-ap', github: 'benpolinsky/ace-rails-ap'
-
-gem 'bootstrap', '~> 4.0.0.alpha3'
-#gem 'bootstrap_form'
-gem 'gretel', github: 'craig1410/gretel', branch: 'dep_alias_method_chain'
-gem "font-awesome-rails"
-gem "selectize-rails"
-
-gem 'figaro'
-gem 'parsley-rails'
-gem "flutie"
-gem 'country_select'
-
+# Payments/Money
 gem 'paypal-express'
 gem 'stripe'
 gem 'money-rails'
-gem 'friendly_id', '~> 5.1.0'
-gem 'aasm'
-gem 'hashids'
-gem 'seed_dump'
-gem "autoprefixer-rails"
-gem 'acts-as-taggable-on', github: 'cireficc/acts-as-taggable-on' # rails 5 (4/25/16
+
+# js libraries
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'jquery-infinite-pages'
+gem 'parsley-rails'
+gem "selectize-rails"
+
+
+gem 'jbuilder', '~> 2.0'
+
+# templating / user customization
+gem 'liquid-rails'
+gem 'bp_custom_fields', github: 'benpolinsky/bp_custom_fields' 
+gem 'ace-rails-ap', github: 'benpolinsky/ace-rails-ap'
 
 # images + media
 gem 'rmagick'
 gem 'carrierwave', require: false
 gem "fog"
 gem 'dropzonejs-rails'
-gem 'rails_12factor', group: :production
 
-gem 'active_link_to'
-gem 'best_in_place', '~> 3.0.1'
+# Model extends/includes
+gem 'friendly_id', '~> 5.1.0'
+gem 'aasm'
+gem 'acts-as-taggable-on', github: 'cireficc/acts-as-taggable-on' # rails 5 (4/25/16
 gem 'ranked-model'
+gem 'hashids'
+
+gem 'gretel', github: 'craig1410/gretel', branch: 'dep_alias_method_chain'
+gem 'seed_dump'
+gem 'active_link_to'
+
 # gem 'kaminari', github: 'amatsuda/kaminari' # until rails 5 fix https://github.com/amatsuda/kaminari/issues/774
 
 gem 'devise', git: 'https://github.com/plataformatec/devise.git', tag: "master"

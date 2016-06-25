@@ -3,7 +3,7 @@ class ContactMailer < ApplicationMailer
     @email = params["email"]
     @name = params["name"]
     @message = params["body"]    
-    mail to: "elliot@elliot.com"
+    mail to: "benjamin.polinsky@gmail.com"
 
   end
 end
