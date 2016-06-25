@@ -62,7 +62,7 @@ class Admin::PageTemplatesController < AdminController
         @css_theme.update_attribute('css', css_params[:body])
         @css_theme.compile # this has gotta be overkill.....
       end
-      @products_remaining = @cart.number_of_products_inside(Product.first.id)
+      # @products_remaining = @cart.number_of_products_inside(Product.first.id)
       template = Liquid::Template.parse(@page_template.body)
       setup_custom_fields(@page_template.title.try(:downcase))
       @user_template = template.render(available_drops, registers: {request: request})
