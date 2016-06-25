@@ -1,0 +1,11 @@
+namespace :backup do
+  task :db do
+    on primary :db do
+      within release_path do
+        with rails_env: fetch(:stage) do
+          execute :rake, "nothing:nada"
+        end
+      end
+    end
+  end
+end
