@@ -31,7 +31,7 @@ class HomeController < ApplicationController
   end
   
   def send_message
-    if ContactMailer.contact_elliot(params).deliver_later
+    if ContactMailer.contact_elliot(message_params[:email], message_params[:name], message_params[:message]).deliver_later
       redirect_to root_path
     else
       render :contact
@@ -43,6 +43,7 @@ class HomeController < ApplicationController
   private
   
   def message_params
+    params.permit(:email, :name, :message)
   end
   
 end
