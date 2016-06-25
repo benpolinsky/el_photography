@@ -71,7 +71,7 @@ function ready(fn) {
 // add page id
 function send_off(id) {
   $.ajax({
-    url: 'http://localhost:3000/admin/page_templates/' + id + '/live_update',
+    url: '/admin/page_templates/' + id + '/live_update',
     data: {
       page_template: {
         title: $('form.edit_page_template').find('input#page_template_title').val(),
