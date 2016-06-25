@@ -19,7 +19,7 @@ class OrderMailer < ApplicationMailer
   
   def new_order(order_id)
     @order = Order.find(order_id)
-    mail(to: 'elliotpo@gmail.com', 
+    mail(to: 'benjamin.polinsky@gmail.com', 
         from: 'Elliot Polinsky Photography <orders@elliotpolinsky.com>', 
         subject: "New Order Received")
   end
