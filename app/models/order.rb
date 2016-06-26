@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
   include AASM
+  include DateTimeScopes
   extend FriendlyId
   
   friendly_id :uid
@@ -172,7 +173,19 @@ class Order < ApplicationRecord
     item.product_type.classify.constantize.find(item.product_id)
   end  
   
+  def self.by_price
+    order(total_cents: :desc)
+  end
+  
+  def self.by_date
+    order(created_at: :desc)
+  end
+  
   def description
     ""
+  end
+  
+  def self.completed
+    where(:status => [:payment_accepted, :order_shipped])
   end
 end

@@ -5,7 +5,8 @@ class Admin::PhotosController < AdminController
   # GET /photos
   # GET /photos.json
   def index
-    @photos = Photo.rank(:row_order)
+    @q = Photo.ransack(params[:q])
+    @photos = @q.result.rank(:row_order).page(params[:page])
   end
 
   # GET /photos/1

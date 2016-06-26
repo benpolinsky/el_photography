@@ -4,6 +4,7 @@ class Photo < ApplicationRecord
   acts_as_taggable
   validates :image, presence: true
   extend FriendlyId
+  paginates_per 20
   
   friendly_id :temporary_slug, use: [:slugged, :history]  
   has_one :product

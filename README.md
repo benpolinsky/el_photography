@@ -8,7 +8,9 @@
 - add loader to caption editing
 
 # later
-- filters (orders/photos) and tables sortable
+- password protect entire site fpr preview
+- filters ()/photos) and tables sortable
+- cart remove "keep shopping"
 - admin product show -> up it to preview
 - (I’ll add the ability to add an existing photo to a product that doesn’t have one.)
 - ability to go back to addresses if on payment step in checkout..
@@ -17,9 +19,7 @@
 - product -> add photo retroactively
 - edit photo (actual image)
 - calendar pickr appears to be a bit off.. style update?  check local
-
-
-- parsley maybe too much?
+- parsley maybe too much stuff?
 - custom fields for about etc - TRY IT! - only going to work if you can load onto a resource without a page.... for now.. maybe code a liquid template?
 - admin photos index - it would probably be a good idea to dynamically create each selectize as needed, otherwise you're calling tags a bazillion times.
 - clean up checkout view -> checkoutviewmodel
@@ -34,20 +34,12 @@
 - css to aws
 
 ### Qs for el
-- Do you want a cart page in addition to the pop up cart
 - store index - crop image?  or somehow fit different sizes in grid
 - under product in indiviidual page?  maybe other prints?
 - is there a different name you'd like used for 'products'  prints?
 
 
-
-###### Notes For el
-- Stripe Test CC info
-- Paypal Test email info
-
-
 ### on deploy
-- no index
 - caching
 - look into retina
 

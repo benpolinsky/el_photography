@@ -27,7 +27,7 @@ gem "flutie"
 # forms
 gem 'country_select'
 gem 'best_in_place', '~> 3.0.1'
-gem 'ransack'
+gem 'ransack', github: 'activerecord-hackery/ransack'
 
 # Payments/Money
 gem 'paypal-express'
@@ -45,9 +45,9 @@ gem "selectize-rails"
 gem 'jbuilder', '~> 2.0'
 
 # templating / user customization
-gem 'liquid-rails'
+gem 'liquid-rails', github: "benpolinsky/liquid-rails" # until master supports kaminari 0.17.0
 gem 'bp_custom_fields', github: 'benpolinsky/bp_custom_fields' 
-gem 'ace-rails-ap', github: 'benpolinsky/ace-rails-ap'
+gem 'ace-rails-ap', github: 'benpolinsky/ace-rails-ap' # until master fixes 404 errors due to snippets
 
 # images + media
 gem 'rmagick'
@@ -66,7 +66,8 @@ gem 'gretel', github: 'craig1410/gretel', branch: 'dep_alias_method_chain'
 gem 'seed_dump'
 gem 'active_link_to'
 
-# gem 'kaminari', github: 'amatsuda/kaminari' # until rails 5 fix https://github.com/amatsuda/kaminari/issues/774
+gem 'kaminari', :git => "git://github.com/amatsuda/kaminari.git", :branch => 'master'
+
 
 gem 'devise', git: 'https://github.com/plataformatec/devise.git', tag: "master"
 

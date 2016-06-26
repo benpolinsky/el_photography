@@ -2,7 +2,12 @@ class Admin::OrdersController < AdminController
   before_action :find_order
 
   def index
-    @orders = Order.all
+    @q = Order.ransack(params[:q])
+    if params[:only_completed].present?
+      @orders = @q.result.completed.by_date.page(params[:page])
+    else
+      @orders = @q.result.by_date.page(params[:page])
+    end
   end
 
   def show

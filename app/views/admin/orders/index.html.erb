@@ -1,13 +1,51 @@
 <% breadcrumb :orders %>
+
 <h1>Orders</h1>
+
+<div class="btn-group">
+  <%= link_to "Only Completed", {only_completed: true}, class: "btn btn-secondary" %>
+  <%= link_to "Filter + Search", '#admin-search-form', data: {toggle: 'collapse'}, aria: {expanded: 'false', controls: 'search_filters'}, class: "trigger-filters btn btn-secondary" %>  
+  <%= link_to "Reset", [:admin, :orders], class: "trigger-filters btn btn-secondary" %>
+</div>
+
+<div id="admin-search-form" class='collapse'>
+  <%= search_form_for [:admin, @q], class: "form-horizontal" do |f| %>
+    <div class="form-group">
+      <%= f.label :status_eq, "Status: " %>
+      <%= f.select :status_eq, Order.aasm.states, {include_blank: "Select Type"}, { :class => 'form-control' } %>              
+    </div>
+    
+    <div class="form-group search-container">
+      <%= f.label :short_uid_or_uid_cont, "ID: " %>
+      <%= f.search_field :short_uid_or_uid_cont, class: "form-control" %>
+    </div>
+    
+    
+    <div class="form-group search-container">
+      <%= f.label :addresses_first_name_or_addresses_last_name_cont, "Customer Name:" %>
+      <%= f.search_field :addresses_first_name_or_addresses_last_name_cont, class: "form-control" %>
+    </div>
+    
+    <div class="form-group search-container">
+      <%= f.label :contact_email_cont, "Contact Email:" %>
+      <%= f.search_field :contact_email_cont, class: "form-control" %> 
+    </div>
+    
+    <div class="form-group">    
+      <%= f.submit "Search", class: "btn btn-secondary" %>
+     </div>
+  <% end %>
+  <br><br>
+</div>
+
 
 <table class='table'>
   <thead>
     <tr>
-      <th>Order ID</th>
-      <th>Purchase Date</th>
-      <th>Grand Total</th>
-      <th>Status</th>
+      <th><%= sort_link(@q, :short_uid, "ID") %></th>
+      <th><%= sort_link(@q, :purchased_at, "Purchase Date") %></th>
+      <th><%= sort_link(@q, :grand_total_cents, "Grand Total") %></th>
+      <th><%= sort_link(@q, :status, "Status") %></th>
       <th></th>
     </tr>
   </thead>
@@ -27,3 +65,7 @@
     <% end %>
   </tbody>
 </table>
+
+<div class="pagination">
+  <%= paginate @orders %>
+</div>
