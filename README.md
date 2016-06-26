@@ -15,6 +15,7 @@
 - (I’ll add the ability to add an existing photo to a product that doesn’t have one.)
 - ability to go back to addresses if on payment step in checkout..
 - photo -> product easier
+- selectize tags (on photo index) need to be removeable
 - disable checkout if no items in cart (halfway there)
 - product -> add photo retroactively
 - edit photo (actual image)
