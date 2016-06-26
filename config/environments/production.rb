@@ -92,5 +92,7 @@ Rails.application.configure do
     :domain         => ENV["mailgun_domain"],
     :authentication => :plain,
   }
+  config.action_mailer.default_url_options = { :host => "elliotpolinsky.com" }
+
 
 end

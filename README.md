@@ -9,9 +9,9 @@
 - caching
 - look into retina
 - mailchimp and mailing list
+- ssl
 
 # now
-- password protect entire site fpr preview
 - (I’ll add the ability to add an existing photo to a product that doesn’t have one.)
 - ability to go back to addresses if on payment step in checkout..
 - photo -> product easier
