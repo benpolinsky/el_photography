@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Elliot Polinsky</title>
+    <%= csrf_meta_tags %>
+    <%= action_cable_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= favicon_link_tag 'favicon.png' %>
+    <script src="https://use.typekit.net/cpm5szs.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <%= stylesheet_link_tag(Theme.active.css_file) if Theme.active %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= yield :extra_js %>
+  </head>
+
+  <body class="<%= theme_class %> <%= body_class %>">
+    <%# render :partial => 'alerts_and_notices' %>
+    <div class='front-wrap'>
+    <div class='container-fluid'>
+      <div class='elp-container header center'>
+
+      </div>
+    </div>
+      
+    <div class='container-fluid'>
+      <div class='elp-container center main-content'>
+        <%= yield %>
+      </div>
+    </div>
+    <footer>
+      <div class="elp-container center"><p>Copyright <%= Time.zone.now.year %> Elliot Polinsky</p></div>
+    </footer>
+    </div>
+    
+    <div id="modal-overlay" class="patience"><i class="fa fa-spinner loader fa-spin"></i><span id="load-spin">Loading...</span></div>
+  </body>
+</html>

@@ -1,4 +1,13 @@
 class HomeController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:coming_soon]
+  
+  def coming_soon
+    render(layout: 'devise')
+  end
+  
+  def email_sign_up
+  end
+  
   def index
     @tags = ActsAsTaggableOn::Tag.rank(:row_order).latest
     # PageTemplatesChannel.broadcast_to(

@@ -11,8 +11,6 @@
   <div class='cart-line-items'>
     <% if @cart.line_items.none? %>
       <div class='nothing-here-container'>
-        <h2>Nothing Here</h2>
-        <%= link_to "Keep Shopping", store_path %>
       </div>
     <% end %>
     <% @cart.line_items.each do |item|%>

@@ -3,15 +3,15 @@
 
 
 #### Admin:
-- photos filter by tag
-- prepend dolla signs to all number fields
 - add loader to caption editing
 
-# later
+### on deploy
+- caching
+- look into retina
+- mailchimp and mailing list
+
+# now
 - password protect entire site fpr preview
-- filters ()/photos) and tables sortable
-- cart remove "keep shopping"
-- admin product show -> up it to preview
 - (I’ll add the ability to add an existing photo to a product that doesn’t have one.)
 - ability to go back to addresses if on payment step in checkout..
 - photo -> product easier
@@ -26,6 +26,9 @@
 - local loaders for cart + payment rather than the large loaders you are using...
 - test out of stock functionality
 
+# Later
+- admin product show -> up it to preview
+
 ## Theming Support 
 - Perhaps lint or other safety check?
 - Clean up past stylesheets in public directory
@@ -39,9 +42,7 @@
 - is there a different name you'd like used for 'products'  prints?
 
 
-### on deploy
-- caching
-- look into retina
+
 
 
 # As a Gem.../ Refactoring

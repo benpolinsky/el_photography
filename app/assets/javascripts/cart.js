@@ -67,7 +67,6 @@ modulejs.define('cart', function () {
       $('.listing-quantity-container').html(display_quantity_partial);
       this.update_counts_and_totals(cart_item_quantity, cart_totals_partial);
       if (this.line_items_count() == 0) {
-      $('.cart-line-items').html('<div class="nothing-here-container"><h2>Nothing Here</h2><a href="/prints">Keep Shopping</a></div>');
         this.close();        
       }
 
