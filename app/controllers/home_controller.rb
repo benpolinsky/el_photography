@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:coming_soon]
+  prepend_before_action :redirect_to_coming_soon, only: [:index, :tag, :contact, :about, :send_message]
   
   def coming_soon
     render(layout: 'devise')
@@ -46,6 +46,7 @@ class HomeController < ApplicationController
       render :contact
     end  
   end
+
   
   
   
