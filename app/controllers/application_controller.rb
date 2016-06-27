@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   end
   
   def redirect_to_coming_soon
-    if !current_user
+    if !current_user.present?
       redirect_to coming_soon_path
     end
   end
