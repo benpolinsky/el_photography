@@ -4,12 +4,12 @@
 
 #### Admin:
 - add loader to caption editing
+- look into button loader...
 
 ### on deploy
 - caching
 - look into retina
 - mailchimp and mailing list
-- ssl
 
 # now
 - (I’ll add the ability to add an existing photo to a product that doesn’t have one.)

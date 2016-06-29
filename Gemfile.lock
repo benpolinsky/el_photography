@@ -26,7 +26,7 @@ GIT
 
 GIT
   remote: git://github.com/benpolinsky/bp_custom_fields.git
-  revision: b5fd5fad6b08e01ccc794b2692dede0b1459a283
+  revision: ed971b59e2821f56b29e973fcc8f86545348fc78
   specs:
     bp_custom_fields (0.1.1)
       carrierwave
