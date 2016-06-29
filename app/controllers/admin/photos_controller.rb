@@ -33,6 +33,8 @@ class Admin::PhotosController < AdminController
   # POST /photos.json
   def create
     @photo = Photo.new(photo_params)
+    # Evidently, this is the best solution
+    # I've come up with w/r/t tags being created twice quickly...?
     times ||= 3
     begin
       @photo.save
