@@ -3,9 +3,8 @@
     <% if Tag.first_asset_for_tag_with_image(tag) %>
       <div class='grid-item'>
         <div class='grid-item-container'>
-          
-          <%= link_to image_tag(Tag.first_asset_for_tag_with_image(tag), class: "grid-item-main-image"), tag_path(tag.slug) %>
-          <%= content_tag :h2, link_to(tag.name.titleize, tag_path(tag.slug)), class: 'front-tag' %>
+          <%= link_to image_tag(Tag.first_asset_for_tag_with_image(tag), class: "grid-item-main-image"), tag_path(tag) %>
+          <%= content_tag :h2, link_to(tag.name.titleize, tag_path(tag)), class: 'front-tag' %>
         </div>
       </div>
     <% end %>
