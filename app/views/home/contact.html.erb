@@ -15,8 +15,8 @@
   </div>
 
   <div class='form-group'>
-    <%= label_tag :body, "Message" %>
-    <%= text_area_tag :body, nil, {label: "Message", class: "form-control", data: {parsley_required: true, parsley_required_message: "Please enter your Message"}} %>  
+    <%= label_tag :message, "Message" %>
+    <%= text_area_tag :message, nil, {label: "Message", class: "form-control", data: {parsley_required: true, parsley_required_message: "Please enter your Message"}} %>  
   </div>
   
   <%= submit_tag "Contact", class: "btn" %>
