@@ -5,7 +5,7 @@
   <% if ActsAsTaggableOn::Tag.all.any? %>
     <nav class='front-navigation category-navigation'>
       <% ActsAsTaggableOn::Tag.all.each do |tag| %>
-        <%= active_link_to tag.name.titleize, tag_path(tag.slug)%>
+        <%= active_link_to tag.name.titleize, tag_path(tag)%>
       <% end %>
     </nav>
   <% end %>
