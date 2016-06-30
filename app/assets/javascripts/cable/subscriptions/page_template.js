@@ -6,21 +6,15 @@
           id: page_template_id
         },
         {
-          connected: function () {
-            // console.log('we are connected');
-          },
-          rejected: function () {
-            // console.log('rejected?');
-          },
+          // connected: function () {
+          // },
+          // rejected: function () {
+          // },
           received: function (data) {
-            // console.log('data received');
-            console.log(data);
             $('#live-code-frame').contents().find('body .container.elp-container.center').html(data["page_template_code"]);
             if ($('#live-code-frame').contents().find('style#live-styles').length > 0) {
-              console.log('styles found');
               $('#live-code-frame').contents().find('style#live-styles').html(data["css_template_code"]);              
             } else {
-              console.log('styles not found'); 
               $('#live-code-frame').contents().find('head').append("<style type='text/css' id='live-styles'>"+data['css_template_code']+"</style>");
             }
 
@@ -43,7 +37,7 @@
         if((event.ctrlKey || event.metaKey) && event.which == 83) {
            // Save Function
          
-          console.log('saving!'); // perhaps append saving dealy
+           console.log('saving!'); // perhaps append saving dealy
            send_off(page_template_id);  
            clearTimeout(timer);
            event.preventDefault();

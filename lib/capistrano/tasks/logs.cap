@@ -1,4 +1,5 @@
 namespace :logs do
+  desc "Display Logs"
   task :tail, :file do |t, args|
     if args[:file]
       on roles(:app) do
