@@ -19,11 +19,13 @@ class Admin::PhotosController < AdminController
 
   # GET /photos/new
   def new
+
     @photo = Photo.new
   end
 
   # GET /photos/1/edit
   def edit
+
     if request.path != edit_admin_photo_path(@photo)
      return redirect_to [:edit, :admin, @photo], :status => :moved_permanently
     end

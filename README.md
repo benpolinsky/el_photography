@@ -3,8 +3,7 @@
 
 
 #### Admin:
-- add loader to caption editing
-- look into button loader...
+
 
 ### on deploy
 - caching
@@ -13,8 +12,6 @@
 - airbrake
 - corner update/saving thingy for ajax backend rather than big loader
 # now
-- selectize tags (on photo index) need to be removeable - think of a different way than you are currently doing it.
-  - ditch the form... just send via ajax for everything. (maybe even new action)
 - (I’ll add the ability to add an existing photo to a product that doesn’t have one.)
 - ability to go back to addresses if on payment step in checkout..
 - photo -> product easier
@@ -32,6 +29,8 @@
 
 # Later
 - admin product show -> up it to preview
+- add loader to caption editing
+- look into button loader...
 
 ## Theming Support 
 - Perhaps lint or other safety check?

@@ -14,7 +14,15 @@ $(document).ready(function() {
     } else {
       disableQuantityField(this);
     }
-  })
+  });
+  
+  
+  $('.select-product-photos').on('click', '.select-product-photo', function () {
+    $('.select-product-photo').removeClass('active').addClass('inactive');
+    $(this).removeClass('inactive').addClass('active');
+    $('#product_photo_id').val($(this).data('id'));
+  });
+  
 });
 
 function disableQuantityField(field) {
