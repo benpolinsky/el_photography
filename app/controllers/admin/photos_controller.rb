@@ -1,6 +1,6 @@
 class Admin::PhotosController < AdminController
   before_action :set_photo, only: [:show, :edit, :destroy]
-  respond_to :html, :js
+  # respond_to :html, :js, :json
 
   # GET /photos
   # GET /photos.json
@@ -63,10 +63,11 @@ class Admin::PhotosController < AdminController
     @photo = Photo.friendly.find(params[:id])
     respond_to do |format|
       if params[:photo] && @photo.update_attributes(photo_params)
-        format.html { redirect_to [:admin, @photo], notice: 'Photo was successfully updated.' }
-        format.json {head :created}
-        format.js 
+        format.html { redirect_to [:admin, :photos], notice: 'Photo was successfully updated.' }
+        format.json
+        format.js
       else
+        byebug
         @resource = @photo
         @errors = error_list_for(@photo)
         format.html { render :edit }
@@ -102,6 +103,6 @@ class Admin::PhotosController < AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
-      params.require(:photo).permit(:caption, :image, :temporary_slug, :deleted_at, :tag_list => [])
+      params.require(:photo).permit(:caption, :id, :image, :temporary_slug, :deleted_at, :tag_list, :tag_list => [])
     end
 end

@@ -10,12 +10,15 @@
 - caching
 - look into retina
 - mailchimp and mailing list
-
+- airbrake
+- corner update/saving thingy for ajax backend rather than big loader
 # now
+- selectize tags (on photo index) need to be removeable - think of a different way than you are currently doing it.
+  - ditch the form... just send via ajax for everything. (maybe even new action)
 - (I’ll add the ability to add an existing photo to a product that doesn’t have one.)
 - ability to go back to addresses if on payment step in checkout..
 - photo -> product easier
-- selectize tags (on photo index) need to be removeable
+
 - disable checkout if no items in cart (halfway there)
 - product -> add photo retroactively
 - edit photo (actual image)

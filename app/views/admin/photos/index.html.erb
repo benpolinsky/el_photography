@@ -37,16 +37,17 @@
         <td><%= image_tag photo.image.url(:thumb) %></td>
         <td><%= best_in_place [:admin, photo], :caption, as: :input %></td>
         <td>
-          <%= form_for [:admin, photo], html: {data: {remote: true}, class: "patience"} do |f| %>
-            <select name="photo[tag_list][]" class="taggable" multiple="true">
+
+            <select name="photo[tag_list][]" class="taggable" multiple="true" data-id="<%= photo.id %>" data-update-url="<%= admin_photo_path(photo.id) %>">
+              <%= content_tag :option, value: '', selected: 'true' %>
               <% Tag.all.each do |tag| %>
                 <%= content_tag :option, value: tag.name, selected: tag_selected?(photo, tag) do %>
                   <%= tag.name %>
                 <% end %>
               <% end %>
             </select>  
-            <%= f.submit 'update tags', class: "btn btn-sm btn-secondary" %>          
-          <% end %>
+
+
         </td>
         <td>
           <div class='btn-group'>
