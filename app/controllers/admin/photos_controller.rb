@@ -64,7 +64,7 @@ class Admin::PhotosController < AdminController
     respond_to do |format|
       if params[:photo] && @photo.update_attributes(photo_params)
         format.html { redirect_to [:admin, :photos], notice: 'Photo was successfully updated.' }
-        format.json
+        format.json {head :no_content}
         format.js
       else
         byebug
