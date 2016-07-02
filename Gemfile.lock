@@ -20,9 +20,9 @@ GIT
 
 GIT
   remote: git://github.com/benpolinsky/ace-rails-ap.git
-  revision: 40b34ffd05d263e0cfae3954977f58d2962b219c
+  revision: 139095bfa0f76eeca6648ed02512b833f47978a9
   specs:
-    ace-rails-ap (4.0.2)
+    ace-rails-ap (4.0.3)
 
 GIT
   remote: git://github.com/benpolinsky/bp_custom_fields.git
