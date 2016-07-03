@@ -64,8 +64,7 @@ class Admin::PageTemplatesController < AdminController
       end
       # @products_remaining = @cart.number_of_products_inside(Product.first.id)
       template = Liquid::Template.parse(@page_template.body)
-      setup_custom_fields(@page_template.title.try(:downcase))
-      @user_template = template.render(available_drops, registers: {request: request})
+      setup_custom_fields(@page_template.page.try(:downcase))
 
       ActionCable.server.broadcast 'page_templates',
       page_template: @page_template.id,
@@ -80,16 +79,16 @@ class Admin::PageTemplatesController < AdminController
   
   def setup_liquid
     template = Liquid::Template.parse(@page_template.body)
-    setup_custom_fields(@page_template.title.try(:downcase))
-    @user_template = template.render(available_drops, registers: {request: request})
+    setup_custom_fields(@page_template.page.try(:downcase))
+    @user_template = template.render(available_drops, registers: {request: request, current_abstract_resource: @page })
     @css_theme = Theme.active
     # @products_remaining = @cart.number_of_products_inside(Product.first.id)
   end
   
   def setup_custom_fields(name)
-    page = BpCustomFields::AbstractResource.find_by(name: name)
-    if page
-      @group = page.groups.first
+    @page = BpCustomFields::AbstractResource.find_by(name: name)
+    if @page
+      @group = @page.groups.first
       @group_drop = BpCustomFields::GroupDrop.new(@group)
     end
   end
@@ -116,5 +115,9 @@ class Admin::PageTemplatesController < AdminController
       'cart' => @cart,
       'tags' => ActsAsTaggableOn::TagsDrop.new(ActsAsTaggableOn::Tag.all)
     }
+  end
+  
+  def find_current_resource
+    byebug
   end
 end

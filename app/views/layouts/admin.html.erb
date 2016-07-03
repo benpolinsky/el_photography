@@ -18,6 +18,7 @@
       <%= link_to "ESP", root_path, class: "navbar-brand" %>
       <ul class="nav navbar-nav">
         <%= active_link_to "Home", main_app.admin_root_path, active: :exact, class: "nav-item nav-link" %>
+
         <% @nav_names.each do |nav_name| %>
           <%= active_link_to nav_name, main_app.send("admin_#{nav_name.downcase}_path"), class: "nav-item nav-link" %>
         <% end %>

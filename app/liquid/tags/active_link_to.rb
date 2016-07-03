@@ -17,10 +17,10 @@ class ActiveLinkToTag < Liquid::Tag
   
   
   private
-  
-  def request
-    @registers[:request]
-  end
+  #
+  # def request
+  #   @registers[:request]
+  # end
 end
 
 Liquid::Template.register_tag('active_link_to', ActiveLinkToTag)

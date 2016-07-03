@@ -2,6 +2,14 @@
 ## README / TODO
 
 
+- Templating:
+
+I need to make it so the page is not dynamic so that the magic that happens behind the scenes to
+select the resource for custom fields doesn't switch mid-edit.
+
+
+
+
 #### Admin:
 
 
@@ -39,6 +47,7 @@
 
 
 
+---
 
 
 # As a Gem.../ Refactoring
