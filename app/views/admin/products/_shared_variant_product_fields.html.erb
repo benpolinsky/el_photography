@@ -13,7 +13,10 @@
   <%= builder.label :price, builder.object.price_label.html_safe %>
   <div class='input-group'>
     <span class="input-group-addon">$</span>
-    <%= builder.number_field :price, {data: {parsley_required: 'true', parsley_error_message: "Price please."}, class: "form-control", step: '0.01', disabled: builder.object.price_disabled?} %>
+    <%= builder.number_field :price, {data: {parsley_required: 'true', parsley_errors_container: "#price-errors", parsley_error_message: "Price please."}, class: "form-control", step: '0.01', disabled: builder.object.price_disabled?} %>
+  </div>
+  <div id='price-errors'>
+    
   </div>
 </div>
 
@@ -21,9 +24,11 @@
   <%= builder.label :shipping_base %>
   <div class='input-group'>
     <span class="input-group-addon">$</span>
-    <%= builder.number_field :shipping_base, {step: '0.01', class: "form-control", data: {parsley_required: 'true', parsley_error_message: "Please enter a base cost for shipping."}} %>    
+    <%= builder.number_field :shipping_base, {step: '0.01', class: "form-control", data: {parsley_required: 'true', parsley_errors_container: "#shipping-errors", parsley_error_message: "Please enter a base cost for shipping."}} %>    
   </div>
-
+  <div id='shipping-errors'>
+    
+  </div>
 </div>
 
 <div class="field form-group">

@@ -1,8 +1,5 @@
 <% breadcrumb :admin_product, @product %>
-<%= form_for([:admin, product], data: {parsley_validate: true, parsley_excluded: ".link_url_fields input"}) do |f| %>
-
-
-
+<%= form_for([:admin, product], data: {parsley_validate: true, parsley_excluded: ".link_url_fields input, .flatpickr-hour, .flatpickr-minute"}) do |f| %>
 
   <div class="field form-group">
     <%= f.label :name %>

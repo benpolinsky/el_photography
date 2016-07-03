@@ -14,10 +14,7 @@
 # now
 - ability to go back to addresses if on payment step in checkout..
 - disable checkout if no items in cart (halfway there)
-- calendar pickr appears to be a bit off.. style update?  check local
 - parsley maybe too much stuff?
-- parsley on product page (prices looks odd)
-- custom fields for about etc - TRY IT! - only going to work if you can load onto a resource without a page.... for now.. maybe code a liquid template?
 - admin photos index - it would probably be a good idea to dynamically create each selectize as needed, otherwise you're calling tags a bazillion times.
 - clean up checkout view -> checkoutviewmodel
 - local loaders for cart + payment rather than the large loaders you are using...
