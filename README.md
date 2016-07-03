@@ -14,7 +14,6 @@
 # now
 - ability to go back to addresses if on payment step in checkout..
 - disable checkout if no items in cart (halfway there)
-- edit photo (actual image)
 - calendar pickr appears to be a bit off.. style update?  check local
 - parsley maybe too much stuff?
 - parsley on product page (prices looks odd)
