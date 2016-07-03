@@ -117,7 +117,4 @@ class Admin::PageTemplatesController < AdminController
     }
   end
   
-  def find_current_resource
-    byebug
-  end
 end

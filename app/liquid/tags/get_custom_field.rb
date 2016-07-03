@@ -5,7 +5,6 @@ class GetCustomField < Liquid::Tag
   end
   
   def render(context)
-    byebug
     BpCustomFields.find_field(@field_name.gsub('"', '').strip, context.registers[:current_abstract_resource]).display
   end
 end
