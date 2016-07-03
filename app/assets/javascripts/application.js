@@ -14,5 +14,7 @@
 //= require jquery_ujs
 //= require modulejs
 //= require parsley
+//= require spin.min
+//= require ladda.min
 //= require_tree ./channels
 //= require_tree .
