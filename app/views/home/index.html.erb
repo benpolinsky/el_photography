@@ -1,4 +1,5 @@
-<div class='grid one-up'>
+<%= select_tag :change_photo_size, options_for_select(['1200', '1100', '1000', '900', '800', '700', '600']), class: 'change-photo-size' %>
+<div class='grid one-up changeable-grid'>
   <% @tags.each do |tag| %>
     <% if Tag.first_asset_for_tag_with_image(tag) %>
       <div class='grid-item'>
