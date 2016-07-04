@@ -4,10 +4,16 @@
 
 - Templating:
 
-I need to make it so the page is not dynamic so that the magic that happens behind the scenes to
-select the resource for custom fields doesn't switch mid-edit.
+- I need to make it so the page is not dynamic so that the magic that happens behind the scenes to
+  select the resource for custom fields doesn't switch mid-edit.
 
+- About/Contact bootstrap (abstract scaffold - custom fields)
 
+- Show image if it exists in custom fields.
+
+- abstract resources error (admin index)
+
+- contact add form
 
 
 #### Admin:

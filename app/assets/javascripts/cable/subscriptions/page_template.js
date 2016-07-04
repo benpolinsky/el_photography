@@ -37,7 +37,7 @@
         if((event.ctrlKey || event.metaKey) && event.which == 83) {
            // Save Function
          
-           console.log('saving!'); // perhaps append saving dealy
+           console.log('saving!'); // perhaps append saving dealy 
            send_off(page_template_id);  
            clearTimeout(timer);
            event.preventDefault();

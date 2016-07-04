@@ -25,7 +25,6 @@ ready(function () {
 
 
 function update_text_area(textarea, text) {
-  console.log(textarea, text)
   textarea.get(0).textContent = text;
 }
 

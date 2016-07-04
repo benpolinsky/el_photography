@@ -1,7 +1,13 @@
+<% if @user_template %>
+  <%= @user_template.html_safe %>
+<% else %>
+  <%= content_tag :h2, @title.value.html_safe %>
+  <%= content_tag :p, @text.value.html_safe %>
+<% end %>
 
-<%= content_tag :h2, @title.value.html_safe %>
 
-<%= content_tag :p, @text.value.html_safe %>
+
+
  
 <%= form_tag send_message_path, data: {parsley_validate: true}, class: "contact-form" do |f| %>
   <div class='form-group'>

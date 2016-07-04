@@ -23,15 +23,18 @@ class HomeController < ApplicationController
   end
   
   def contact
-    @contact_page = BpCustomFields::AbstractResource.find_by(name: "contact")
-    @title = @contact_page.find_fields("Contact Page Title").first
-    @text = @contact_page.find_fields("Contact Page Text").first
+    if @page_template = PageTemplate.find_by(page: "contact")
+      setup_liquid
+    else
+      @contact_page = BpCustomFields::AbstractResource.find_by(name: "contact")
+      @title = @contact_page.find_fields("Contact Page Title").first
+      @text = @contact_page.find_fields("Contact Page Text").first
+    end
   end
   
   def about
     if @page_template = PageTemplate.find_by(page: "about")
-      template = Liquid::Template.parse(@page_template.body)
-      @liquid_template = template.render
+      setup_liquid
     else
       @about_page = BpCustomFields::AbstractResource.find_by(name: "about")
       @title = @about_page.find_fields("About Page Title").first
@@ -54,6 +57,31 @@ class HomeController < ApplicationController
   
   def message_params
     params.permit(:email, :name, :message)
+  end
+  
+  def setup_liquid
+    template = Liquid::Template.parse(@page_template.body)
+    setup_custom_fields(@page_template.page.try(:downcase))
+    @user_template = template.render(available_drops, registers: {request: request, current_abstract_resource: @page })
+    @css_theme = Theme.active
+  end
+  
+  def setup_custom_fields(name)
+    @page = BpCustomFields::AbstractResource.find_by(name: name)
+    if @page
+      @group = @page.groups.first
+      @group_drop = BpCustomFields::GroupDrop.new(@group)
+    end
+  end
+  
+  def available_drops
+    {
+      'group' => @group_drop,
+      'products' => ProductsDrop.new(Product.all),
+      'product' => Product.first,
+      'cart' => @cart,
+      'tags' => ActsAsTaggableOn::TagsDrop.new(ActsAsTaggableOn::Tag.all)
+    }
   end
   
 end

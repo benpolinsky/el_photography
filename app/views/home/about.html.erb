@@ -1,5 +1,5 @@
-<% if @liquid_template %>
-  <%= @liquid_template.html_safe %>
+<% if @user_template %>
+  <%= @user_template.html_safe %>
 <% else %>
   <%= content_tag :h2, @title.value.html_safe %>
   <%= content_tag :p, @text.value.html_safe %>

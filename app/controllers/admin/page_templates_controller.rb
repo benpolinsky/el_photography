@@ -78,6 +78,7 @@ class Admin::PageTemplatesController < AdminController
 
   private
   
+  # TODO: move these methods to some sort of liquid service object  
   def setup_liquid
     template = Liquid::Template.parse(@page_template.body)
     setup_custom_fields(@page_template.page.try(:downcase))
