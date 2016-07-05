@@ -21,12 +21,13 @@
 
 
 ### on deploy
+- custom css persistence 
 - caching
 - look into retina
-- mailchimp and mailing list
 - airbrake
 - corner update/saving thingy for ajax backend rather than big loader
 - faster typekit
+
 # now
 - ability to go back to addresses if on payment step in checkout..
 - disable checkout if no items in cart (halfway there)
