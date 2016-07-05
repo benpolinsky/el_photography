@@ -46,7 +46,7 @@ module Tag
   end
   
   def self.assets_for_tag_with_images(tag)
-    assets_for_tag(tag).map{|i|i.image_url(:medium)}
+    assets_for_tag(tag).map{|i|i.image_url(:main)}
   end
   
   def self.first_asset_for_tag_with_image(tag)

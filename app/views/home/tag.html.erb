@@ -6,7 +6,7 @@
       <div class='grid-item-container'>
         <!-- TODO: asset shouldn't care whether or not it is a video -->
         <% if asset.try(:image) %>
-          <%= image_tag asset.image, class: "grid-item-main-image" %>
+          <%= image_tag asset.image_url(:main), class: "grid-item-main-image" %>
         <% else %>
           <%= render partial: 'shared/embed_video', locals: {address: asset.embed_address} %>
         <% end %>
