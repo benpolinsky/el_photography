@@ -26,6 +26,7 @@
 - mailchimp and mailing list
 - airbrake
 - corner update/saving thingy for ajax backend rather than big loader
+- faster typekit
 # now
 - ability to go back to addresses if on payment step in checkout..
 - disable checkout if no items in cart (halfway there)
@@ -40,9 +41,10 @@
 - add loader to caption editing
 - look into button loader...
 
-## Theming Support 
+## CSS
 - Perhaps lint or other safety check?
 - Clean up past stylesheets in public directory
+- after deploy, the css file turns up a 404
 - namespace everything within a body tag, or at least add the theme to the body
 - test in production env
 - css to aws
