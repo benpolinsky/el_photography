@@ -93,7 +93,7 @@ Rails.application.configure do
     :authentication => :plain,
   }
   config.action_mailer.default_url_options = { :host => "elliotpolinsky.com" }
-  config.action_mailer.action_host = "https://d32mcea23qtv9h.cloudfront.net/"
+  config.action_mailer.asset_host = "https://d32mcea23qtv9h.cloudfront.net/"
 
 
 end
