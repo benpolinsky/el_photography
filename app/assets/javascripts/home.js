@@ -18,4 +18,10 @@ jQuery(document).ready(function() {
     inst.open();
   });
 
+
+  $(document).on('closing', '.remodal', function (e) {
+    $('.image-modal-container img').attr('src', '');
+    console.log('Modal is closing' + (e.reason ? ', reason: ' + e.reason : ''));
+  });
+
 });
