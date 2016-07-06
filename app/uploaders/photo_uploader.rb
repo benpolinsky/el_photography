@@ -20,6 +20,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
   end
   
 
+
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
   #   # For Rails 3.1+ asset pipeline compatibility:
@@ -35,17 +36,40 @@ class PhotoUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
-  # Create different versions of your uploaded files:
-  version :thumb do
+  version :thumb_3x do
+    process :resize_to_fill => [150, 150]
+  end
+  
+  version :thumb_2x, from_version: :thumb_3x do
+    process :resize_to_fill => [100, 100]
+  end
+  
+  version :thumb, from_version: :thumb_2x do
     process :resize_to_fill => [50, 50]
   end
   
-  version :medium do
-    process :resize_to_fill => [600, 400]
+  version :medium_3x do
+    process :resize_to_fill => [1800, 1200]
   end
   
-  version :main do
-    process :resize_to_fit => [1200, 1200]
+  version :medium_2x, from_version: :medium_3x do
+    process :resize_to_fill => [1200, 800]
+  end
+  
+  version :medium, from_version: :medium_2x do
+    process :resize_to_fill => [600, 400]
+  end
+
+  version :main_3x do
+    process :resize_to_fit => [2400, nil]
+  end
+
+  version :main_2x, from_version: :main_3x do
+    process :resize_to_fit => [1600, nil]
+  end
+  
+  version :main, from_version: :main_2x do
+    process :resize_to_fit => [800, nil]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

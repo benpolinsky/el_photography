@@ -6,7 +6,7 @@ unless Rails.env.test?
       aws_secret_access_key: ENV['aws_access_secret'],                        # required
       region:                'us-west-2'               # optional, defaults to nil
     }
-    config.asset_host = "https://d32mcea23qtv9h.cloudfront.net"
+    config.asset_host = ENV['cdn_asset_host']
     config.fog_directory  = 'elpphotography'                     # required
   end
 end

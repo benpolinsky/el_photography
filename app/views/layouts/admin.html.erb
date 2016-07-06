@@ -23,9 +23,7 @@
           <%= active_link_to nav_name, main_app.send("admin_#{nav_name.downcase}_path"), class: "nav-item nav-link" %>
         <% end %>
         
-        <% @abstract_resource_names.each do |page| %>
-          <%= active_link_to page.name.titleize, bp_custom_fields.edit_abstract_resource_path(page), class: "nav-item nav-link" %>
-        <% end %>
+        <%= abstract_resource_admin_nav %>
         
         <div class='pull-right'>
           <li class="nav-item dropdown dropdown-menu-right">

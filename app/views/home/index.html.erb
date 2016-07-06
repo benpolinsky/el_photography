@@ -4,7 +4,11 @@
     <% if Tag.first_asset_for_tag_with_image(tag) %>
       <div class='grid-item'>
         <div class='grid-item-container'>
-          <%= link_to image_tag(Tag.first_asset_for_tag_with_image(tag), class: "grid-item-main-image"), tag_path(tag) %>
+          <% if Tag.assets_for_tag(tag).first.try(:image) %>
+            <%= link_to retina_image_tag(Tag.assets_for_tag(tag).first.image, :main, class: "grid-item-main-image"), tag_path(tag) %>
+          <% else %>
+            <%= link_to image_tag(Tag.assets_for_tag(tag).first.image_url, class: "grid-item-main-image"), tag_path(tag) %>
+          <% end %>
           <%= content_tag :h2, link_to(tag.name.titleize, tag_path(tag)), class: 'front-tag' %>
         </div>
       </div>

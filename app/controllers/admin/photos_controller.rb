@@ -69,7 +69,6 @@ class Admin::PhotosController < AdminController
         format.json {head :no_content}
         format.js
       else
-        byebug
         @resource = @photo
         @errors = error_list_for(@photo)
         format.html { render :edit }

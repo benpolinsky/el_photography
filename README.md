@@ -21,16 +21,16 @@
 
 
 ### on deploy
-- custom css persistence 
-- caching
-- look into retina
-- airbrake
+- custom css persistence - it's the first time saving after deploy... i dont know.. something liek that
+- finish retina imagesets for everywhere.
+- airbrake (production, working?) - will have to test
 - corner update/saving thingy for ajax backend rather than big loader
 - faster typekit
 
 # now
+- hide take down chooser.
+- foreign key photos product violation!
 - ability to go back to addresses if on payment step in checkout..
-- disable checkout if no items in cart (halfway there)
 - parsley maybe too much stuff?
 - admin photos index - it would probably be a good idea to dynamically create each selectize as needed, otherwise you're calling tags a bazillion times.
 - clean up checkout view -> checkoutviewmodel
