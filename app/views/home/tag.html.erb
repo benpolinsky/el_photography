@@ -1,12 +1,12 @@
 <h2><%= @tag.name.titleize %></h2>
-<%= select_tag :change_photo_size, options_for_select(['1200', '1100', '1000', '900', '800', '700', '600']), class: 'change-photo-size' %>
+<%# select_tag :change_photo_size, options_for_select(['1200', '1100', '1000', '900', '800', '700', '600']), class: 'change-photo-size' %>
 <div class='grid one-up changeable-grid'>
   <% @assets.each do |asset| %>
     <div class='grid-item'>
       <div class='grid-item-container'>
         <!-- TODO: asset shouldn't care whether or not it is a video -->
         <% if asset.try(:image) %>
-          <%= image_tag asset.image_url(:main), class: "grid-item-main-image" %>
+          <%= image_tag asset.image_url(:main), class: "grid-item-main-image photo-modal-trigger", data: {original_image_url: asset.image_url} %>
         <% else %>
           <%= render partial: 'shared/embed_video', locals: {address: asset.embed_address} %>
         <% end %>
@@ -23,3 +23,10 @@
   <%= link_to "Back To Top &uarr;".html_safe, '', class: 'back-to-top' %>
   <%= link_to "#{@tag.next.name.titleize} &raquo;".html_safe, tag_path(@tag.next), class: "next-tag-link" if @tag.next %>
 </nav>
+
+<div class="image-modal" data-remodal-id="modal">
+  <button data-remodal-action="close" class="remodal-close"></button>
+    <div class='image-modal-container'><%= image_tag @assets.first.image_url if @assets.any? %></div>
+  <br>
+  <button data-remodal-action="confirm" class="remodal-confirm">Back</button>
+</div>

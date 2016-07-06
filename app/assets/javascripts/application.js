@@ -16,5 +16,6 @@
 //= require parsley
 //= require spin.min
 //= require ladda.min
+//= require remodal.min
 //= require_tree ./channels
 //= require_tree .
