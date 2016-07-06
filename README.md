@@ -22,25 +22,24 @@
 
 ### on deploy
 - custom css persistence - it's the first time saving after deploy... i dont know.. something liek that
-- finish retina imagesets for everywhere.
+- finish retina imagesets for everywhere + test
 - airbrake (production, working?) - will have to test
 - corner update/saving thingy for ajax backend rather than big loader
 - faster typekit
 
 # now
-- hide take down chooser.
-- foreign key photos product violation!
+- foreign key photos product violation (probably better to warm el)
 - ability to go back to addresses if on payment step in checkout..
 - parsley maybe too much stuff?
 - admin photos index - it would probably be a good idea to dynamically create each selectize as needed, otherwise you're calling tags a bazillion times.
 - clean up checkout view -> checkoutviewmodel
-- local loaders for cart + payment rather than the large loaders you are using...
+- local loaders for cart + payment rather than the large loaders you are using...maybe buttons.
 - test out of stock functionality
 
 # Later
-- admin product show -> up it to preview
-- add loader to caption editing
-- look into button loader...
+- admin product show -> up it to preview?
+- add loader to caption editing?
+- look into button loader... youve got it if you want it
 
 ## CSS
 - Perhaps lint or other safety check?
@@ -51,7 +50,6 @@
 - css to aws
 
 ### Qs for el
-- store index - crop image?  or somehow fit different sizes in grid
 - under product in indiviidual page?  maybe other prints?
 - is there a different name you'd like used for 'products'  prints?
 

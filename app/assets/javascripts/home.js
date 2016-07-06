@@ -8,10 +8,13 @@ jQuery(document).ready(function() {
     $('.changeable-grid').addClass('changed_' + $(this).val());
   });
   
-  var inst = $('[data-remodal-id=modal]').remodal();
+  var inst = $('[data-remodal-id=modal]').remodal({
+    hashTracking: false,
+    closeOnOutsideClick: true
+  });
   
   $('img.photo-modal-trigger').on('click', function(event) {
-    $('.image-modal-container img').attr('src', $(this).data('original_image_url'))
+    $('.image-modal-container img').attr('src', $(this).data('original-image-url'));
     inst.open();
   });
 
