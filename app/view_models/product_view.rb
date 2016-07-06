@@ -5,6 +5,8 @@ class ProductView
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::NumberHelper
   include ActionView::Helpers::AssetTagHelper
+
+  
   attr_accessor :output_buffer
   delegate :url_helpers, to: 'Rails.application.routes'
     
@@ -25,13 +27,8 @@ class ProductView
   end
   
   def image(size=nil)
-    if size == "full"
-      image_tag product.primary_image, class: 'grid-item-main-image'
-    elsif size
-      image_tag product.primary_image(size.to_sym), class: 'grid-item-main-image'
-    else
-      image_tag product.primary_image(:medium), class: 'grid-item-main-image'
-    end
+    size ||= :medium
+    retina_image_tag product.photo.image, size, class: 'grid-item-main-image'
   end
   
   def price
@@ -79,5 +76,20 @@ class ProductView
   
   def number_of_remaining_products
     product.available_quantity - cart.number_of_products_inside(product.id, "product")
+  end
+  
+  def retina_image_tag(uploader, version, options={})
+    options.symbolize_keys!
+    options[:srcset] ||=  (2..3).map do |multiplier|
+                            name = "#{version}_#{multiplier}x"
+                            if uploader.version_exists?(name) &&
+                              source = uploader.url(name).presence
+                              "#{source} #{multiplier}x"
+                            else
+                              nil
+                            end
+                          end.compact.join(', ')
+
+    image_tag(uploader.url(version), options)
   end
 end

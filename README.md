@@ -21,8 +21,8 @@
 
 
 ### on deploy
+- retina to product images
 - custom css persistence - it's the first time saving after deploy... i dont know.. something liek that
-- finish retina imagesets for everywhere + test
 - airbrake (production, working?) - will have to test
 - corner update/saving thingy for ajax backend rather than big loader
 - faster typekit
