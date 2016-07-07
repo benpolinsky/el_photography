@@ -180,6 +180,7 @@ GEM
     bootstrap (4.0.0.alpha3)
       autoprefixer-rails (>= 6.0.3)
       sass (>= 3.4.19)
+    browser (2.2.0)
     builder (3.2.2)
     byebug (9.0.5)
     capistrano (3.5.0)
@@ -556,6 +557,7 @@ DEPENDENCIES
   best_in_place (~> 3.0.1)
   bootstrap (~> 4.0.0.alpha3)
   bp_custom_fields!
+  browser
   byebug
   capistrano
   capistrano-bundler

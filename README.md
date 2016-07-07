@@ -21,13 +21,14 @@
 
 
 ### on deploy
-- retina to product images
 - custom css persistence - it's the first time saving after deploy... i dont know.. something liek that
 - airbrake (production, working?) - will have to test
 - corner update/saving thingy for ajax backend rather than big loader
+- modal mobile fix
 - faster typekit
 
 # now
+- smaller cart?
 - foreign key photos product violation (probably better to warm el)
 - ability to go back to addresses if on payment step in checkout..
 - parsley maybe too much stuff?

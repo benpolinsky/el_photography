@@ -23,6 +23,7 @@ gem "autoprefixer-rails"
 # Setup/config
 gem 'figaro'
 gem "flutie"
+gem 'browser'
 
 # forms
 gem 'country_select'

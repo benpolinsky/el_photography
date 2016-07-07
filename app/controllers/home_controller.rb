@@ -18,6 +18,7 @@ class HomeController < ApplicationController
   end
   
   def tag
+    set_request_variant
     @tag = ActsAsTaggableOn::Tag.friendly.find(params[:id])
     @assets = Tag.assets_for_tag(@tag)
   end
@@ -54,7 +55,10 @@ class HomeController < ApplicationController
   
   
   private
-  
+  def set_request_variant
+    request.variant = :mobile if (browser.device.mobile? || browser.device.tablet?)
+  end
+   
   def message_params
     params.permit(:email, :name, :message)
   end
