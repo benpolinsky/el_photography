@@ -21,14 +21,11 @@
 
 
 ### on deploy
-- airbrake (production, working?) - will have to test
-
-- corner update/saving thingy for ajax backend rather than big loader
-- faster typekit
+- faster typekit?
 
 # now
 - admin mobile nav
-- smaller cart?
+- smaller cart? (mobile)
 - ability to go back to addresses if on payment step in checkout..
 - parsley maybe too much stuff? - check out mobile
 - clean up checkout view -> checkoutviewmodel
@@ -40,20 +37,6 @@
 - admin product show -> up it to preview?
 - add loader to caption editing?
 - look into button loader... youve got it if you want it
-
-## CSS
-- Perhaps lint or other safety check?
-- Clean up past stylesheets in public directory
-- after deploy, the css file turns up a 404
-- namespace everything within a body tag, or at least add the theme to the body
-- test in production env
-- css to aws
-
-### Qs for el
-- under product in indiviidual page?  maybe other prints?
-- is there a different name you'd like used for 'products'  prints?
-
-
 
 ---
 

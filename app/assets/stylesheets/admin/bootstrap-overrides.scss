@@ -14,3 +14,16 @@
 .tab-content{
   overflow:hidden;
 }
+
+@media screen and (max-width: 543px) {
+  .admin-nav .nav-link{
+    width:100%;
+    margin-left:0px !important;
+  }
+  .pull-right{
+    float:left;
+  }
+  .dropdown-menu.dropdown-correct {
+      left: 0;
+  }
+}
