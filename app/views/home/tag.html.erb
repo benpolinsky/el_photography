@@ -12,7 +12,7 @@
         <% end %>
 
         <%= content_tag(:div, asset.caption.html_safe, class: "caption") if asset.caption %>
-        <%= content_tag(:div, link_to("Buy Print", asset.product), class: "photo-buy-product-link") if asset.try(:product) %>
+        <%= content_tag(:div, link_to("Buy Print", asset.product), class: "photo-buy-product-link") if asset.try(:product).try(:published?) %>
       </div>
     </div>
   <% end %>

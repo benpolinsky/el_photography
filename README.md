@@ -24,12 +24,10 @@
 - custom css persistence - it's the first time saving after deploy... i dont know.. something liek that
 - airbrake (production, working?) - will have to test
 - corner update/saving thingy for ajax backend rather than big loader
-- modal mobile fix
 - faster typekit
 
 # now
 - admin mobile nav
-- check product publishing (in photo - purchase print and solo product page)
 - smaller cart?
 - ability to go back to addresses if on payment step in checkout..
 - parsley maybe too much stuff? - check out mobile
