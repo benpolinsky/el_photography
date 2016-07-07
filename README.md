@@ -28,14 +28,14 @@
 - faster typekit
 
 # now
+- admin mobile nav
+- check product publishing (in photo - purchase print and solo product page)
 - smaller cart?
-- foreign key photos product violation (probably better to warm el)
 - ability to go back to addresses if on payment step in checkout..
-- parsley maybe too much stuff?
-- admin photos index - it would probably be a good idea to dynamically create each selectize as needed, otherwise you're calling tags a bazillion times.
+- parsley maybe too much stuff? - check out mobile
 - clean up checkout view -> checkoutviewmodel
 - local loaders for cart + payment rather than the large loaders you are using...maybe buttons.
-- test out of stock functionality
+
 
 # Later
 - admin product show -> up it to preview?
@@ -65,8 +65,9 @@
 - nicer localized slider (for cart etc)
 - better null/stale_line_item and support for deleted variants
 - continue to work on ProductView
+- test out of stock functionality
 - move payment processesing to a background job 
- 
+
 - Webhooks + IPNs aren't necessary for basic payments...
  - Subscriptions, yes they are. (both paypal and stripe)
  - eChecks(paypal)
