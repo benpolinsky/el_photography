@@ -17,5 +17,6 @@
 //= require spin.min
 //= require ladda.min
 //= require remodal.min
+//= require touchpunch.jquery.min
 //= require_tree ./channels
 //= require_tree .
