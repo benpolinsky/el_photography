@@ -31,5 +31,6 @@
 //= require admin/forms
 //= require bp_custom_fields
 //= require split
+//= require tether.min
 //= require_tree ./channels
 //= require_tree .

@@ -81,10 +81,14 @@ class Admin::PhotosController < AdminController
   # DELETE /photos/1
   # DELETE /photos/1.json
   def destroy
-    @photo.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_photos_url, notice: 'Photo was successfully destroyed.' }
-      format.json { head :no_content }
+    if @photo.products.present?
+      redirect_to admin_photos_url, notice: "Sorry, this photo is attached to a product.  Delete that first!"
+    else
+      @photo.destroy
+      respond_to do |format|
+        format.html { redirect_to admin_photos_url, notice: 'Photo was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
   

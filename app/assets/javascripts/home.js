@@ -8,6 +8,8 @@ jQuery(document).ready(function() {
     $('.changeable-grid').addClass('changed_' + $(this).val());
   });
   
+  
+  // Photo Modals
   var inst = $('[data-remodal-id=modal]').remodal({
     hashTracking: false,
     closeOnOutsideClick: true
