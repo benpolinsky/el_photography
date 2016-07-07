@@ -21,8 +21,8 @@
 
 
 ### on deploy
-- custom css persistence - it's the first time saving after deploy... i dont know.. something liek that
 - airbrake (production, working?) - will have to test
+
 - corner update/saving thingy for ajax backend rather than big loader
 - faster typekit
 
@@ -33,6 +33,7 @@
 - parsley maybe too much stuff? - check out mobile
 - clean up checkout view -> checkoutviewmodel
 - local loaders for cart + payment rather than the large loaders you are using...maybe buttons.
+- paper trail for css?
 
 
 # Later

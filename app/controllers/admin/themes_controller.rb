@@ -28,7 +28,6 @@ class Admin::ThemesController < AdminController
   def update
     @theme = Theme.find(params[:id])
     if @theme.update_attributes(theme_params)
-      @theme.compile if @theme.active?
       redirect_to [:admin, :themes]
     else
       @resource = @theme
@@ -49,7 +48,6 @@ class Admin::ThemesController < AdminController
     if @theme.inactive?
       themes = Theme.all.except(@theme)
       themes.update_all(active: false) if themes.any?
-      @theme.compile
       @theme.activate!
     end
     redirect_to [:admin, :themes]

@@ -10,8 +10,12 @@
     <%= favicon_link_tag 'favicon.png' %>
     <script src="https://use.typekit.net/cpm5szs.js"></script>
     <script>try{Typekit.load({ async: true });}catch(e){}</script>
-    <%= stylesheet_link_tag(Theme.active.css_file) if Theme.active %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% if Theme.active %>
+      <style type="text/css" media="screen">
+        <%= Theme.active.css %>
+      </style>
+    <% end %>
     <%= yield :extra_js %>
   </head>
 

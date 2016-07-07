@@ -14,8 +14,4 @@ class Theme < ApplicationRecord
   def deactivate!
     update(active: false)
   end
-  
-  def compile
-    StyleExporter.new(self.id).compile
-  end
 end
