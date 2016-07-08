@@ -1,38 +1,29 @@
 class Admin::PhotosController < AdminController
   before_action :set_photo, only: [:show, :edit, :destroy]
-  # respond_to :html, :js, :json
 
-  # GET /photos
-  # GET /photos.json
   def index
     @q = Photo.ransack(params[:q])
     @photos = @q.result.rank(:row_order).page(params[:page])
   end
 
-  # GET /photos/1
-  # GET /photos/1.json
   def show
     if request.url != url_for([:admin, @photo])
      return redirect_to [:admin, @photo], :status => :moved_permanently
     end
   end
 
-  # GET /photos/new
   def new
-
     @photo = Photo.new
   end
 
-  # GET /photos/1/edit
-  def edit
 
+  def edit
     if request.path != edit_admin_photo_path(@photo)
      return redirect_to [:edit, :admin, @photo], :status => :moved_permanently
     end
   end
 
-  # POST /photos
-  # POST /photos.json
+
   def create
     @photo = Photo.new(photo_params)
     # Evidently, this is the best solution
@@ -59,8 +50,7 @@ class Admin::PhotosController < AdminController
     end
   end
 
-  # PATCH/PUT /photos/1
-  # PATCH/PUT /photos/1.json
+
   def update
     @photo = Photo.friendly.find(params[:id])
     respond_to do |format|
@@ -78,10 +68,9 @@ class Admin::PhotosController < AdminController
     end
   end
 
-  # DELETE /photos/1
-  # DELETE /photos/1.json
+
   def destroy
-    if @photo.products.present?
+    if @photo.product.present?
       redirect_to admin_photos_url, notice: "Sorry, this photo is attached to a product.  Delete that first!"
     else
       @photo.destroy
@@ -92,6 +81,10 @@ class Admin::PhotosController < AdminController
     end
   end
   
+  def reorder
+    @photos = Photo.all.rank(:row_order)
+  end
+  
   def update_row_order
     @photo = Photo.find(params[:item][:item_id])
     @photo.row_order_position = params[:item][:row_order_position]
@@ -100,14 +93,12 @@ class Admin::PhotosController < AdminController
   end
   
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_photo
-      @photo = Photo.friendly.find(params[:id])
-    end
-    
+  def set_photo
+    @photo = Photo.friendly.find(params[:id])
+  end
+  
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def photo_params
-      params.require(:photo).permit(:caption, :id, :image, :temporary_slug, :deleted_at, :tag_list, :tag_list => [])
-    end
+  def photo_params
+    params.require(:photo).permit(:caption, :id, :image, :temporary_slug, :deleted_at, :tag_list, :tag_list => [])
+  end
 end

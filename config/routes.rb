@@ -37,9 +37,10 @@ Rails.application.routes.draw do
         get 'preview'
       end
     end
+
     get 'page_templates/live_render/:id' => 'page_templates#live_render', as: :page_templates_live_render
+
     resources :page_templates do
-      
       member do
         get 'live'
         patch 'live_update'
@@ -48,6 +49,7 @@ Rails.application.routes.draw do
     
     resources :photos, concerns: :orderable do
       collection do
+        get 'reorder', to: "photos#reorder"
         get 'add', to: "photos#new"
       end
     end

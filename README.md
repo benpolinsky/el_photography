@@ -4,14 +4,8 @@
 
 - Templating:
 
-- I need to make it so the page is not dynamic so that the magic that happens behind the scenes to
-  select the resource for custom fields doesn't switch mid-edit.
-
-- About/Contact bootstrap (abstract scaffold - custom fields)
-
-- Show image if it exists in custom fields.
-
-- abstract resources error (admin index)
+- re: the select at the top: I need to make it so the page is not dynamic so that the magic that happens behind the scenes to
+  select the resource for custom fields doesn't switch mid-edit. 
 
 - contact add form
 
@@ -24,7 +18,6 @@
 - faster typekit?
 
 # now
-- admin mobile nav
 - smaller cart? (mobile)
 - ability to go back to addresses if on payment step in checkout..
 - parsley maybe too much stuff? - check out mobile

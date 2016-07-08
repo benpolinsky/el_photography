@@ -52,6 +52,11 @@ crumb :admin_photos do
   parent :admin_home
 end
 
+crumb :reorder_admin_photos do
+  link "Reorder Photos", reorder_admin_photos_path
+  parent :admin_photos
+end
+
 crumb :admin_photo do |photo|
   unless photo.new_record?
     link photo.caption, admin_photo_path(photo)

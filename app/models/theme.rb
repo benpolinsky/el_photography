@@ -1,4 +1,6 @@
 class Theme < ApplicationRecord
+  has_paper_trail
+  
   def self.active
     Theme.where(active: true).first
   end

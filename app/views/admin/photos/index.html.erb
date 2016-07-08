@@ -67,7 +67,11 @@
 
 <br>
 
-<%= link_to 'Add Photos', add_admin_photos_path, class: "btn btn-primary" %>
+<div class='btn-group'>
+  <%= link_to 'Add Photos', add_admin_photos_path, class: "btn btn-primary" %>
+  <%= link_to "Reorder Photos", reorder_admin_photos_path, class: "btn btn-primary" %>  
+</div>
+
 <div class="pagination">
   <%= paginate @photos %>
 </div>

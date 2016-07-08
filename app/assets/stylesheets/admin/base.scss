@@ -12,6 +12,13 @@ $lightblue: lightblue;
 .row-item .handle{
   cursor:move;
 }  
+
+.row-item.reorder-pic{
+  float:left;
+  clear:none;
+  margin:5px;
+}
+
 .btn-bottom{
   margin-top:5px;
 }

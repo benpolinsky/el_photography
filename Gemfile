@@ -70,7 +70,7 @@ gem 'active_link_to'
 gem 'kaminari', :git => "git://github.com/amatsuda/kaminari.git", :branch => 'master'
 
 gem 'devise', git: 'https://github.com/plataformatec/devise.git', tag: "master"
-
+gem 'paper_trail'
 gem 'airbrake', '~> 5.4'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

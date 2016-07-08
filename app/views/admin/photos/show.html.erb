@@ -12,7 +12,7 @@
 
 <p>
   <strong>Caption:</strong>
-  <%= @photo.caption.html_safe %>
+  <%= @photo.caption.try(:html_safe) %>
 </p>
 
 <div class='btn-group'>
