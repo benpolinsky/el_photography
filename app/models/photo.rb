@@ -11,6 +11,7 @@ class Photo < ApplicationRecord
   
   include RankedModel
   ranks :row_order
+  default_scope { order(row_order: :desc) } 
   
   mount_uploader :image, PhotoUploader
   
