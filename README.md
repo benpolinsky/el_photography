@@ -1,3 +1,9 @@
+- TODO
+- ability to switch out fonts
+- why is the product page redirecting to index.
+- upload different versions for each size.
+- touch up page template 
+
 
 ## README / TODO
 

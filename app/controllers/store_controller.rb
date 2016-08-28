@@ -11,7 +11,7 @@ class StoreController < ApplicationController
   end
 
   def product
-    @product = Product.published.friendly.find_by(id: params[:id])
+    @product = Product.published.friendly.find_by(slug: params[:id])
     redirect_back(fallback_location: store_path) and return unless @product
     @product_view = ProductView.new(product: @product, cart: @cart)
   end
