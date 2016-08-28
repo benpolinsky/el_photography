@@ -1,7 +1,6 @@
-- TODO
-- ability to switch out fonts
-- why is the product page redirecting to index.
+- make sure pagination links are up
 - upload different versions for each size.
+- variant photos need to be excluded from most front displaying photo collections
 - touch up page template 
 
 

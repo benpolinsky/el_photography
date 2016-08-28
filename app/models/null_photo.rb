@@ -7,4 +7,12 @@ class NullPhoto
   def image_url(size=nil)
     image(size)
   end
+  
+  def persisted?
+    false
+  end
+  
+  def id
+    0
+  end
 end

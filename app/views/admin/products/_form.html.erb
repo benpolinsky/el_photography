@@ -13,22 +13,21 @@
   </div>
   
   
-  <% if @product.photo_id %>
+  <% if @product.photo.persisted? %>
     <div class="field form-group for-photo">
       <p>Photo: </p>
       <%= image_tag @product.photo.image_url(:medium) %>
     </div>
     
   <% else %>
-  
     <div class='field form-group select-product-photos'>
       <p>Choose a Photo</p>
-      <% @photos.each do |photo| %>
+      <% @photos.unassociated.each do |photo| %>
         <div class='select-product-photo' data-id="<%= photo.id %>">
           <%= image_tag photo.image_url(:thumb) %>
         </div>
       <% end %>
-      <%= f.hidden_field :photo_id %>
+      <%= hidden_field_tag :photo_id %>
     </div>
   <% end %>
   
@@ -66,7 +65,23 @@
       <div class='field form-group'>
         <%= content_tag :h5, v.object.name %>
       </div>
-      
+  
+      <% if v.object.photo.present? %>
+        <div class="field form-group for-photo">
+          <p>Photo: </p>
+          <%= image_tag v.object.photo.image_url(:thumb) %>
+        </div>
+        <%= v.fields_for :photo, v.object.photo do |p| %>
+          <%= p.file_field :image %>
+        <% end %>
+      <% else %>
+        <div class='field form-group select-variant-photos'>
+          <p>Upload a Photo for <%= v.object.name %></p>
+          <%= v.fields_for :photo, v.object.build_photo do |p| %>
+            <%= p.file_field :image %>
+          <% end %>
+        </div>
+      <% end %>
         <%= render :partial => 'shared_variant_product_fields', locals: {builder: v} %>
       
       <div class='actions'>

@@ -2,7 +2,7 @@ class Admin::PhotosController < AdminController
   before_action :set_photo, only: [:show, :edit, :destroy]
 
   def index
-    @q = Photo.ransack(params[:q])
+    @q = Photo.not_variants.ransack(params[:q])
     @photos = @q.result.rank(:row_order).page(params[:page])
   end
 
@@ -70,7 +70,7 @@ class Admin::PhotosController < AdminController
 
 
   def destroy
-    if @photo.product.present?
+    if @photo.photoable.present?
       redirect_to admin_photos_url, notice: "Sorry, this photo is attached to a product.  Delete that first!"
     else
       @photo.destroy

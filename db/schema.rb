@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160707195435) do
+ActiveRecord::Schema.define(version: 20160828203703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -220,9 +220,12 @@ ActiveRecord::Schema.define(version: 20160707195435) do
     t.string   "image"
     t.string   "slug"
     t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "row_order"
+    t.string   "photoable_type"
+    t.integer  "photoable_id"
+    t.index ["photoable_type", "photoable_id"], name: "index_photos_on_photoable_type_and_photoable_id", using: :btree
   end
 
   create_table "products", force: :cascade do |t|
@@ -234,7 +237,6 @@ ActiveRecord::Schema.define(version: 20160707195435) do
     t.integer  "quantity"
     t.integer  "weight_in_oz"
     t.integer  "row_order"
-    t.integer  "photo_id"
     t.boolean  "using_inventory",                                     default: false
     t.integer  "shipping_base_cents"
     t.string   "shipping_base_currency"
@@ -251,7 +253,6 @@ ActiveRecord::Schema.define(version: 20160707195435) do
     t.boolean  "taken_down"
     t.datetime "created_at",                                                          null: false
     t.datetime "updated_at",                                                          null: false
-    t.index ["photo_id"], name: "index_products_on_photo_id", using: :btree
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -354,5 +355,4 @@ ActiveRecord::Schema.define(version: 20160707195435) do
   end
 
   add_foreign_key "option_values", "options"
-  add_foreign_key "products", "photos"
 end

@@ -1,5 +1,5 @@
 class Variant < ApplicationRecord
-    include Liquid::Rails::Droppable
+  include Liquid::Rails::Droppable
   using ArrayExtensions
   include RankedModel
   include Quantifiable
@@ -7,8 +7,8 @@ class Variant < ApplicationRecord
   
   belongs_to :product
   has_many :options, through: :product
+  has_one :photo, as: :photoable, validate: false
   has_and_belongs_to_many :option_values, dependent: :destroy
-  
   monetize :price_cents
   monetize :shipping_base_cents
   monetize :international_shipping_base_cents, disable_validation: true
@@ -16,7 +16,7 @@ class Variant < ApplicationRecord
   monetize :additional_international_shipping_per_item_cents, disable_validation: true
 
   validates_presence_of :product
-  delegate :primary_image, to: :product
+  accepts_nested_attributes_for :photo
   
   # convenience methods
   def only_one?
@@ -37,6 +37,10 @@ class Variant < ApplicationRecord
   
   def name_with_product
     "#{product.name} #{self.name}"
+  end
+  
+  def primary_image(size=:thumb)
+    photo.image_url(size) || product.primary_image(size) || NullPhoto.new
   end
 
   

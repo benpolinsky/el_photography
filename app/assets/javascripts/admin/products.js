@@ -20,7 +20,7 @@ $(document).ready(function() {
   $('.select-product-photos').on('click', '.select-product-photo', function () {
     $('.select-product-photo').removeClass('active').addClass('inactive');
     $(this).removeClass('inactive').addClass('active');
-    $('#product_photo_id').val($(this).data('id'));
+    $('#photo_id').val($(this).data('id'));
   });
   
 });

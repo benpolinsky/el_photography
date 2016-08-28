@@ -18,7 +18,7 @@ class Product < ApplicationRecord
   
   ranks :row_order
     
-  belongs_to :photo
+  has_one :photo, as: :photoable
   has_many :variants do
     def create_from_properties_and_options(properties_and_options, adding=false)
       array_of_properties = properties_and_options.keys
@@ -50,7 +50,7 @@ class Product < ApplicationRecord
 
   after_save :add_sizes, if: :sizes_list_present?
 
-  accepts_nested_attributes_for :variants
+  accepts_nested_attributes_for :variants, :photo
   
   def photo
     super || NullPhoto.new
@@ -59,6 +59,7 @@ class Product < ApplicationRecord
   # you can probably be smarter and keep this out of
   # a model's code entirely
   # obviously at least extract it
+  # SimpleDelegator is probably the way to go
   def method_missing(method, args={})
     if method == :bp_view
       @product_view ||= ProductView.new(args.merge({product: self}))

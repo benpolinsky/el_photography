@@ -26,14 +26,14 @@
 		<h3>Order Items (<%= @order.line_items.size %>)</h3>
  		<% @order.line_items.each do |item| %>
 	    <div class="order-item">
-        <% if item.product || item.variant %>
-          <% if item.product %>
+        <% if item.product? || item.variant? %>
+          <% if item.product? %>
     				<%= link_to product_path(item.product) do %>
     					<%= image_tag item.product.primary_image(:thumb) %>
     				<% end %>
-          <% elsif item.variant %>
+          <% elsif item.variant? %>
     				<%= link_to product_path(item.variant.product) do %>
-    					<%= image_tag item.variant.product.primary_image.image.url(:thumb) if item.variant.product.primary_image %>
+    					<%= image_tag item.variant.primary_image(:thumb) %>
     				<% end %>
           <% end %>
           

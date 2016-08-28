@@ -30,7 +30,7 @@
     				<% end %>
           <% elsif item.variant %>
     				<%= link_to product_path(item.variant.product) do %>
-    					<%= image_tag item.variant.product.primary_image.image.url(:thumb) if item.variant.product.primary_image %>
+    					<%= image_tag item.variant.primary_image(:thumb) %>
     				<% end %>
           <% end %>
           

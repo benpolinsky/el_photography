@@ -7,7 +7,8 @@ class Photo < ApplicationRecord
   paginates_per 20
   
   friendly_id :temporary_slug, use: [:slugged, :history]  
-  has_one :product
+  # has_one :product
+  belongs_to :photoable, polymorphic: true, optional: true
   
   include RankedModel
   ranks :row_order
@@ -28,5 +29,12 @@ class Photo < ApplicationRecord
     temporary_slug_changed?
   end
   
+  def self.unassociated
+    where(photoable_type: nil)
+  end
+  
+  def self.not_variants
+    where("photoable_type IS NULL OR photoable_type != ?", 'Variant')
+  end
 
 end

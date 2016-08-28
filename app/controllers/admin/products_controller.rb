@@ -19,7 +19,7 @@ class Admin::ProductsController < AdminController
 
   def create
     @product = Product.new(product_params)
-
+    add_product_photo if params[:photo_id]
     respond_to do |format|
       if @product.save
         format.html { redirect_to [:edit, :admin, @product], notice: 'Product was successfully created.' }
@@ -38,7 +38,7 @@ class Admin::ProductsController < AdminController
           format.html { redirect_to [:edit, :admin, @product], notice: 'Product was successfully created.' }
           format.json { render :show, status: :created, location: @product }
         else
-          @resource = @product
+          @resource = @product 
           format.html { redirect_to admin_photo_path(params[:photo_id]), notice: error_list_for(@product) }
           format.json { render json: @product.errors, status: :unprocessable_entity }
         end
@@ -46,6 +46,7 @@ class Admin::ProductsController < AdminController
   end
 
   def update
+    add_product_photo if params[:photo_id]
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to [:edit, :admin, @product], notice: 'Product was successfully updated.' }
@@ -75,6 +76,12 @@ class Admin::ProductsController < AdminController
   end
 
   private
+  
+  def add_product_photo
+    unless @product.photo.id == params[:photo_id]
+      @product.photo = Photo.find(params[:photo_id])
+    end
+  end
 
   def set_product
     @product = Product.friendly.find(params[:id])
@@ -83,6 +90,6 @@ class Admin::ProductsController < AdminController
   def product_params
     params.require(:product).permit(:name, :temporary_slug, :description, :price, :published_at, :using_inventory,
     :quantity, :weight_in_oz, :row_order, :shipping_base, :slug, :additional_shipping_per_item,
-    :deleted_at, :international_shipping_base, :sizes_list, :photo_id, :variants_attributes => [:price, :quantity, :row_order, :shipping_base, :slug, :additional_shipping_per_item, :deleted_at, :id, :using_inventory])
+    :deleted_at, :international_shipping_base, :sizes_list, :photo_id, :variants_attributes => [:price, :quantity, :row_order, :shipping_base, :slug, :additional_shipping_per_item, :deleted_at, :id, :using_inventory, :photo_attributes => [:image, :id]])
   end
 end
