@@ -1,12 +1,18 @@
 - touch up about/contact
-- better way of querying front photos
-  - group_by perhaps
-- google analytics
+
+
 - stripe + paypal test on live test.
   - make sure emails are sent.
   - go live and test live when el is ready
-- compile assets locally
+
 - Set mail address (right now going to me)
+
+---- Later ----
+- better way of querying front photos
+  - group_by perhaps
+- compile assets locally 
+- google analytics
+  
 ## README / TODO
 
 

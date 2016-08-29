@@ -21,10 +21,16 @@ h2.front-tag a{
 // move to contact
 
 form.contact-form{
+  max-width: 800px;
+  margin: 40px auto;
+  clear: both;
+  float: none;
   label{
     text-align:left;
     margin:0 0 10px 0;
     float:left;
   }
 }
+
+
 

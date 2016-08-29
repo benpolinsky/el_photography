@@ -1,5 +1,5 @@
 <% if @user_template %>
-  <%= @user_template.html_safe %>
+  <div class='template-container'><%= @user_template.html_safe %></div>
 <% else %>
   <%= content_tag :h2, @title.value.html_safe %>
   <%= content_tag :p, @text.value.html_safe %>
