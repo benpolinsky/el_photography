@@ -73,6 +73,9 @@
    } 
    .billing-address, .shipping-address{
      margin-top:20px;
+     float:left;
+     clear:both;
+     
      h2{
        margin-bottom:8px;
      }

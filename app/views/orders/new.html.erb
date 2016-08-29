@@ -5,6 +5,18 @@
   </script>
 <% end %>
 
+<%= content_for :page_meta do %>
+
+  <% ['googlebot', 'slurp', 'msnbot', 'teoma', 'robots'].each do |bot| %>
+    <meta name="<%= bot %>" content="noindex, nofollow">
+    <meta name="<%= bot %>" content="noarchive">
+    <meta name="<%= bot %>" content="noodp">
+  <% end %>
+  
+  <meta name="googlebot" content="nosnippet">
+  <meta name="slurp" content="noydir">
+<% end %>
+
 <h1>Checkout</h1>
 
 <div class='order-summary'>
@@ -39,20 +51,35 @@
       <%= f.email_field :contact_email, {class: "checkout-control", data: {parsley_required: 'true', parsley_error_message: "Please Enter an Email"}} %>
     </div>
   </div>
+
   <div class='row'>
+
     <div class='addresses col-xs-6'>
+     
       <%= f.fields_for :addresses, [@billing_address, @shipping_address] do |address| %>
+    
         <div class="<%= address.object.kind %>-address">
           <h3><%= address.object.kind.capitalize %> Address</h2>
           <%= address.hidden_field :kind %>
           <%= render partial: 'address_fields', locals: {address: address} %>
           <%= hidden_field_tag :current_step, 'process_address' %>
+          
           <% if address.object.kind == "billing" %>
-            <%= link_to "Proceed", '', class: 'btn btn-secondary ship-to-same' %>
-            <%= link_to "Enter Different Shipping Address", '', class: 'btn btn-secondary enter-shipping-address' %>
+
+            <div class='el-btn checkout-btn'>
+              <%= link_to "Proceed", '', class: 'ship-to-same' %>
+            </div>
+          
+            <div class='el-btn checkout-btn'>
+              <%= link_to "Enter Different Shipping Address", '', class: 'enter-shipping-address' %>
+            </div>
+            
             <%= f.hidden_field :shipping_same %>
+
           <% elsif address.object.kind == "shipping" %>
-            <%= f.submit "Proceed", class: "btn btn-primary", :disable_with => 'Submiting...' %>  
+          <div class='el-btn checkout-btn'>
+            <%= f.submit "Proceed", class: "el-submit", :disable_with => 'Submiting...' %>  
+          </div>
           <% end %>
         </div>
       <% end %>

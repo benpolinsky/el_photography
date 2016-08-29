@@ -93,13 +93,13 @@ modulejs.define('payments', function () {
     hideShippingAddress: function () {
       $('a.enter-shipping-address').removeClass('disabled hidden');
       
-      $('a.ship-to-same').addClass('btn-primary').removeClass('btn-secondary').text('Proceed');
+      $('a.ship-to-same').text('Proceed');
       $('.shipping-address').addClass('hidden');
       $('.shipping-address').find(':input').prop('disabled', true);
     },
 
     showShippingAddress: function () {
-      $('a.ship-to-same').addClass('btn-secondary').removeClass('btn-primary').text('Whoops!  Ship to my billing address, please.');
+      $('a.ship-to-same').text('Whoops!  Ship to my billing address, please.');
       $('a.enter-shipping-address').addClass('disabled hidden');
       $('.shipping-address').removeClass('hidden');  
       $('.shipping-address').find(':input').prop('disabled', false);

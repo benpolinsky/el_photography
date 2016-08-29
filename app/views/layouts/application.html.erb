@@ -15,6 +15,8 @@
         <%= Theme.active.css %>
       </style>
     <% end %>
+    
+    <%= yield :page_meta %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= yield :extra_js %>
   </head>

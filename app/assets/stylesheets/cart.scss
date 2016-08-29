@@ -179,9 +179,8 @@ $kellygreen: #23A14D;
   }
 }
 
-.bag-checkout-slice {
+.el-btn {
   background: #23A14D;
-
   font-weight: 300;
   color: white;
   letter-spacing: 0.2em;
@@ -195,9 +194,50 @@ $kellygreen: #23A14D;
     border-radius: 2px;
     width: 190px;
     margin: 0 auto;
-    padding: 4px;
+    padding: 4px 4px 4px 4px;
+    letter-spacing: 0.1em;
+    line-height: 1.5;
+    font-family: 'niveau-grotesk';
   }
-  
+  a:hover{
+    color: #23A14D;
+    background:#efeeee;
+  }
+}
+
+.el-btn.checkout-btn{
+  float:left;
+  width:455px;
+   background: transparent;
+  a{
+    color:black;
+    background:#d2cece;
+    width:100%;
+  }
+  a:hover{
+    background: #23A14D;
+    color:white;    
+  }
+  input[type='submit']{
+    color: black;
+     background:#d2cece;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    text-transform: uppercase;
+    border: 2px solid white;
+    border-radius: 2px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 4px 4px 4px 4px;
+    letter-spacing: 0.1em;
+    line-height: 1.5;
+    font-family: 'niveau-grotesk';
+    &:hover{
+      background: #23A14D;
+      color:white;    
+    }
+  }
 }
 .shop-coupon-code-link{
   label{

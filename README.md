@@ -1,9 +1,7 @@
-- variant photos need to be excluded from most front displaying photo collections - i think we are good
-- variant/size choice on product page touch ups
-- checkout styles
+- after checkout / during checkout =  add a 'have questions?/concerns' contact link
 - touch up about/contact
 - choose a photo area in admin new product should be scrollable and eventually lazily load images.
-- better way of displaying front photos
+- better way of querying front photos
   - group by perhaps
 - lazily load images on main pages.
 - google analytics
