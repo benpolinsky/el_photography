@@ -4,7 +4,6 @@
 - touch up page template 
 - choose a photo area in new product should be scrollable and eventually lazily load images.
 - lazily load images on main pages.
-- tag slugs...
 - google analytics
 
 ## README / TODO
