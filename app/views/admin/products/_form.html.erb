@@ -24,7 +24,7 @@
       <p>Choose a Photo</p>
       <% @photos.unassociated.each do |photo| %>
         <div class='select-product-photo' data-id="<%= photo.id %>">
-          <%= image_tag photo.image_url(:thumb) %>
+          <%= image_tag photo.image_url(:thumb), lazy: true %>
         </div>
       <% end %>
       <%= hidden_field_tag :photo_id %>

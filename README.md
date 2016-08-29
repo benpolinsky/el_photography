@@ -4,12 +4,13 @@
 - admin product save button should be more explicity "save product + variants" and be bigger - 100% on mobile too
 - better way of querying front photos
   - group_by perhaps
-- lazily load images on main pages.
+- mobile checkout
 - google analytics
 - stripe + paypal test 
-- go live and test when el is ready
+  - go live and test when el is ready
 - emails/sidekiq make sure
 - setup emails and prints@elliotpolinsky.com for support on store stuff
+- compile assetts locally
 ## README / TODO
 
 

@@ -4,6 +4,7 @@ $(document).ready(function() {
   $('.destroy.tooltip-disabled').on('click', function(event) {
     return false
   });
+  $('.select-product-photo img').lazyload();
   // var els = document.getElementsByClassName('destroy');
   // console.log(els);
   // [].forEach.call(document.getElementsByClassName('destroy'), function (el, index, a) {
