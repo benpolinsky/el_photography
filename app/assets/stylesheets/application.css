@@ -12,6 +12,7 @@
  *
  *= require remodal.min
  *= require remodal.theme
+ *= require jquery-ui
  *= require_tree .
  *= require_self
  */

@@ -1,5 +1,7 @@
+- admin responsive - tabkles
 - touch up about/contact
-- 'choose a photo area' in admin lazily load images.
+- 'choose a photo area' in admin lazily load images + also explicit sizes
+- admin product save button should be more explicity "save product + variants" and be bigger - 100% on mobile too
 - better way of querying front photos
   - group_by perhaps
 - lazily load images on main pages.
