@@ -1,4 +1,5 @@
 class ContactMailer < ApplicationMailer
+  default from: 'contact@elliotpolinsky.com'
   def contact_elliot(email, name, message)
     @email = email
     @name = name
