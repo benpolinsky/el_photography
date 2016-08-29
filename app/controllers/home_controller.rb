@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  prepend_before_action :redirect_to_coming_soon, only: [:index, :tag, :contact, :about, :send_message]
+  prepend_before_action :redirect_to_coming_soon, only: [:index, :tag, :contact, :about]
   
   def coming_soon
     render(layout: 'devise')
@@ -44,7 +44,7 @@ class HomeController < ApplicationController
   end
   
   def send_message
-    if ContactMailer.contact_elliot(message_params[:email], message_params[:name], message_params[:message]).deliver_now
+    if ContactMailer.contact_elliot(message_params[:email], message_params[:name], message_params[:message]).deliver_later
       redirect_to root_path
     else
       render :contact
