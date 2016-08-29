@@ -16,7 +16,7 @@
   <% if @product.photo.persisted? %>
     <div class="field form-group for-photo">
       <p>Photo: </p>
-      <%= image_tag @product.photo.image_url(:medium) %>
+      <%= image_tag @product.photo.image_url(:medium), class: "store-form-photo" %>
     </div>
     
   <% else %>
@@ -61,7 +61,7 @@
   <h4>Current Variants</h4>
   <div class='field form-group variants row'>
     <%= f.fields_for :variants do |v| %>
-    <div class='col-xs-6 variant-manager-variant'>
+    <div class='col-xs-12 col-sm-6 variant-manager-variant'>
       <div class='field form-group'>
         <%= content_tag :h5, v.object.name %>
       </div>
@@ -93,6 +93,6 @@
 </div>
 
   <div class="actions">
-    <%= f.button "Save", class: 'btn' %>
+    <%= f.button "Save Product", class: 'btn btn-full' %>
   </div>
 <% end %>

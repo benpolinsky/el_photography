@@ -9,10 +9,11 @@ h1.checkout{
 
 .item-price-total{
     font-size:14px;  
+    float:left;
   span.label{
     color:black;    
     font-weight:300;
-    padding:4px 4px 4px 0px;
+    padding:3px 4px 3px 0px;
     font-size:14px;
   }
 }
@@ -25,6 +26,11 @@ h1.checkout{
 
 .order-summary span.quantity{
   display:block;
+  float:left;
+  color:black;    
+  font-weight:300;
+  padding:10px 4px 3px 0px;
+  font-size:14px;
 }
 
 .shipping-address.hidden{
@@ -150,7 +156,16 @@ h1.checkout{
 
 .checkout-order-item{
   overflow:hidden;
+  max-width:400px;
 } 
+
+.checkout-order-item .variant-names{
+  display:block;
+  font-size:13px;
+  font-style:italic;
+  color:grey;
+  margin-top:2px;
+}
 
 body.orders-new .elp-container.center:not(.header){
   text-align:left;

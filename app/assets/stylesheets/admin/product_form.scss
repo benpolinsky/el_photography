@@ -31,3 +31,19 @@
   width: 100%;
   overflow-y: auto;
 }
+.store-form-photo{
+  max-width:100%;
+}
+
+.btn-full{
+  width:100%;
+  background: #23A14D;
+  color:white;
+  &:active, &:focus, &:visited{
+    background: #23A14D;
+    color:white;
+  }
+  &:hover{
+   background:darken( #23A14D, 20%); 
+  }
+}
