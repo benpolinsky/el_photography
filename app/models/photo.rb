@@ -29,6 +29,10 @@ class Photo < ApplicationRecord
     temporary_slug_changed?
   end
   
+  def purchasable?
+    photoable_type == 'Product' && photoable.published?
+  end
+  
   def self.unassociated
     where(photoable_type: nil)
   end

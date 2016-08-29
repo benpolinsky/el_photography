@@ -47,6 +47,10 @@ class Video < ApplicationRecord
   def should_generate_new_friendly_id?
     temporary_slug_changed?
   end
+  
+  def purchasable?
+    false
+  end
 
   
   private

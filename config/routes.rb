@@ -70,7 +70,7 @@ Rails.application.routes.draw do
   # Store 
   
   get 'prints' => 'store#index', as: :store
-  get 'prints/photo/:id' => 'store#product', as: :product
+  get 'prints/:id' => 'store#product', as: :product
   get 'prints/help' => 'store#help', as: :help
   
   scope '/store' do
