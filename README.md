@@ -1,8 +1,10 @@
-- pagination format 
 - variant photos need to be excluded from most front displaying photo collections - i think we are good
-- variant decision touch ups
-- touch up page template 
-- choose a photo area in new product should be scrollable and eventually lazily load images.
+- variant/size choice on product page touch ups
+- checkout styles
+- touch up about/contact
+- choose a photo area in admin new product should be scrollable and eventually lazily load images.
+- better way of displaying front photos
+  - group by perhaps
 - lazily load images on main pages.
 - google analytics
 

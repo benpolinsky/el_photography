@@ -40,7 +40,13 @@ class Variant < ApplicationRecord
   end
   
   def primary_image(size=:thumb)
-    photo.image_url(size) || product.primary_image(size) || NullPhoto.new
+    if !photo.image_url(size).match('fallback') 
+      photo.image_url(size)
+    elsif !product.primary_image(size).match('fallback') 
+      product.primary_image(size)
+    else
+      NullPhoto.new.image
+    end
   end
 
   

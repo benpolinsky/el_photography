@@ -21,6 +21,8 @@ $kellygreen: #23A14D;
 
 .drop-menu-items{
   float:left;
+  clear:left;
+  margin-top: 8px;
 }
 
 .drop-menu-item{
@@ -32,6 +34,7 @@ $kellygreen: #23A14D;
   margin-left:2px;
   padding:0 10px;
   cursor:pointer;
+  font-family: "garamond";
   &.selected, &:hover{
     background: $kellygreen;
     color:white;
