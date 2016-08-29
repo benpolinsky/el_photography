@@ -5,9 +5,12 @@
       <div class='grid-item'>
         <div class='grid-item-container'>
           <% if Tag.assets_for_tag(tag).first.try(:image) %>
-            <%= link_to retina_image_tag(Tag.assets_for_tag(tag).first.image, :main, class: "grid-item-main-image"), tag_path(tag) %>
+            <%= link_to retina_image_tag(Tag.assets_for_tag(tag).first.image, :main, class: "grid-item-main-image", lazy: true), tag_path(tag) %>
+
           <% else %>
-            <%= link_to image_tag(Tag.assets_for_tag(tag).first.image_url, class: "grid-item-main-image"), tag_path(tag) %>
+            <!--This is for the video-->
+            <%= link_to image_tag(Tag.assets_for_tag(tag).first.image_url, class: "grid-item-main-image", lazy: true), tag_path(tag) %>
+            
           <% end %>
           <%= content_tag :h2, link_to(tag.name.titleize, tag_path(tag)), class: 'front-tag' %>
         </div>

@@ -19,6 +19,7 @@ gem 'modulejs-rails'
 gem 'bootstrap', '~> 4.0.0.alpha3'
 gem "font-awesome-rails"
 gem "autoprefixer-rails"
+gem "lazyload-rails"
 
 # Setup/config
 gem 'figaro'

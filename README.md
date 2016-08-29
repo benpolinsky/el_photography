@@ -1,12 +1,13 @@
-- switch photo out on click with variants.
-- after checkout / during checkout =  add a 'have questions?/concerns' contact link
 - touch up about/contact
-- choose a photo area in admin new product should be scrollable and eventually lazily load images.
+- 'choose a photo area' in admin lazily load images.
 - better way of querying front photos
-  - group by perhaps
+  - group_by perhaps
 - lazily load images on main pages.
 - google analytics
-
+- stripe + paypal test 
+- go live and test when el is ready
+- emails/sidekiq make sure
+- setup emails and prints@elliotpolinsky.com for support on store stuff
 ## README / TODO
 
 
