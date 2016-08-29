@@ -5,6 +5,8 @@
 modulejs.define('payments', function () {
   var Payments = {
     setup: function () {
+      var next_step = $('.wizard-step.active');
+
       $('.paypal-fields').hide();
       $('.stripe-fields').hide();
       $('.stripe-info').hide();
@@ -50,9 +52,11 @@ modulejs.define('payments', function () {
       });
       
       $('.wizard-step.inactive').find('form').find(':input').prop('disabled', true);
-      var next_step = $('.wizard-step.active');
+      
+      
+      
       $('html, body').animate({
-        scrollTop: next_step.offset().top - 50
+        scrollTop: next_step.offset().bottom
         }, 400, function () {
         next_step.focus()      
       });

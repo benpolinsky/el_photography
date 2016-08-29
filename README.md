@@ -1,5 +1,3 @@
-- admin product save button should be more explicity "save product + variants" and be bigger - 100% on mobile too
-- proceed button in checkout goes up and then down for some reason.... (at least in mobile)
 - touch up about/contact
 - better way of querying front photos
   - group_by perhaps
@@ -8,7 +6,7 @@
   - go live and test when el is ready
 - emails/sidekiq make sure
 - setup emails and prints@elliotpolinsky.com for support on store stuff
-- compile assetts locally
+- compile assets locally
 ## README / TODO
 
 
