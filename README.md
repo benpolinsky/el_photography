@@ -1,7 +1,8 @@
+- variant name in cart / checkout (next to product name...)
 - admin responsive - tabkles
-- touch up about/contact
-- 'choose a photo area' in admin lazily load images + also explicit sizes
 - admin product save button should be more explicity "save product + variants" and be bigger - 100% on mobile too
+- proceed button in checkout goes up and then down for some reason.... (at least in mobile)
+- touch up about/contact
 - better way of querying front photos
   - group_by perhaps
 - mobile checkout

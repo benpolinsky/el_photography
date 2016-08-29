@@ -1,3 +1,12 @@
+body.orders-new .cart-slice{
+  display:none;
+}
+h1.checkout{
+  text-align:center;
+  font-size:40px;
+  color:#23A14D;
+}
+
 .item-price-total{
     font-size:14px;  
   span.label{
@@ -24,6 +33,7 @@
 
 .wizard-step.active {
   pointer-events: auto;
+  max-width:100%;
 }
 
 .wizard-step.inactive {
@@ -44,8 +54,9 @@
   line-height: 0.8em;
   opacity: 0;
   width:0;
-  position:absolute;
-  
+  position:relative;
+
+  width:100%;
   transition: all .3s ease-in;
   -o-transition: all .3s ease-in;
   -moz-transition: all .3s ease-in;
@@ -54,10 +65,11 @@
     opacity:1;
     width:auto;
     margin:3px 0;
-    position:absolute;
+    position:relative;
   };
   li{
     color:red;
+    text-align:center;
   }
 }
 
@@ -66,30 +78,76 @@
   text-align: center;
   padding-bottom: 10px;
 }
-
-
-
+.sticky-help{
+  position:fixed;
+  right:0;
+  display:none;
+  bottom:0px;
+  text-align:right;
+  z-index:1000;
+  background:#23A14D;
+  color:black;
+  padding:5px;
+  opacity:0.8;
+  &:hover{
+    background:lighten(#23A14D, 10%);
+    a{
+      color:white;
+    }
+  };
+  a{
+    color:white;
+    text-decoration:none;
+    &:hover{
+      color:white;
+    };
+  }
+}
 .edit_order{
+  .field h3{
+    text-align:center;
+    margin-bottom:5px;
+  }
+  .sticky-help{
+    width:100%;
+  }
    label{
-     width:200px;
+     width:100%;
+     text-align:center;
      cursor:pointer;
    } 
+   
    .billing-address, .shipping-address{
      margin-top:20px;
      float:left;
      clear:both;
-     
+     width:100%;
+     text-align:center;
      h2{
        margin-bottom:8px;
      }
    }
+   
    input[type="text"], input[type="email"]{
-     min-width: 250px;
+     width:100%;
+     text-align:center;
    }
+   
    select{
-     width:250px;
+     width:100%;
+     text-align:center;
+   }
+   
+   .el-btn.checkout-btn{
+     width:100%;
+     
+   }
+   
+   .parsley-custom-error-message{
+     text-align:center;
    }
 }
+
 .checkout-order-item{
   overflow:hidden;
 } 
@@ -125,8 +183,11 @@ a.btn.disabled.hidden{
   display:none;
 }
 
+h3.choose-payment{
+  text-align:center;
+}
 .stripe-fields, .paypal-fields{
-  float:left;
+  float:none;
   clear:both;
 }
 form#submit-payment{
@@ -139,40 +200,144 @@ form#submit-payment{
 .payment-chooser{
   padding:10px 10px 10px 0;
   float:left;
+  width:100%;
+  input{
+    width:0px;
+    height:0px;
+  }
+  label{
+    width:100%;
+
+    padding:4px;
+    color: #868686;
+    background:#efeeee;
+    &.active{
+      background:#23A14D;
+      color:white;
+    }
+  }
 }
 
 .payment-method-info{
-  float:left;
+  float:none;
+  clear:both;
+  text-align:center;
   
 }
 
 .stripe-info img{
-  margin-top:21px;
+  margin-top:0px;
+}
+
+.paypal-info{
+  margin:0 auto;
+}
+.paypal-info table{
+  text-align:center;
+  margin:0 auto;
+}
+
+.checkout-btn{
+  width:100%;
+  background:#23A14D;
+  color:white;
+  border:0px;
+  border-radius:0px;
 }
 
 
-.sticky-help{
-  position:fixed;
-  right:0;
-  width:75px;
-  bottom:0px;
-  text-align:right;
-  z-index:1000;
-  background:#23A14D;
-  color:black;
-  padding:5px;
-  opacity:0.8;
-  &:hover{
-    background:lighten(#23A14D, 10%);
-    a{
-      color:white;
-    }
-  };
-  a{
-    color:white;
-    text-decoration:none;
-    &:hover{
-      color:white;
+@media screen and (min-width: 600px){ 
+  
+  h1.checkout{
+    text-align:left;
+  }
+  
+  .edit_order{
+     label{
+       width:200px;
+       text-align:left;
+     } 
+     .billing-address, .shipping-address{
+       margin-top:20px;
+       float:left;
+       clear:both;
+       text-align:left;
+     
+       h2{
+         margin-bottom:8px;
+       }
+     }
+     input[type="text"], input[type="email"]{
+       width: 250px;
+       text-align:left;
+      
+     }
+     select{
+       width:250px;
+     }
+     .sticky-help{
+       width:75px;
+       display:block;
+     }
+     
+     .field h3{
+       text-align:left;
+     }
+     .el-btn.checkout-btn{
+       width:455px;
+     }
+  }
+  
+  .parsley-errors-list {
+    width:auto;
+    position:absolute;
+    &.filled{
+      opacity:1;
+      width:auto;
+      margin:3px 0;
+      position:relative;
     };
+    li{
+      color:red;
+      text-align:left;
+    }
+  }
+  
+  .payment-chooser{
+    padding:10px 10px 10px 0;
+    float:left;
+    width:auto;
+    input{
+      width:auto;
+      height:auto;
+    }
+    label{
+      color: black;
+      background:white;
+      &.active{
+        color:#23A14D;
+        background:white;
+      }
+    }
+  }
+  
+  .payment-method-info{
+    float:left;
+    clear:none;
+  }
+  
+  .stripe-info img{
+    margin-top:21px;
+    text-align:left;
+  }
+  h3.choose-payment {
+    text-align:left;
+  }
+  .checkout-btn{
+    width:455px;
+  }
+  .paypal-note{
+    margin-top:4px;
+    width:455px;
   }
 }

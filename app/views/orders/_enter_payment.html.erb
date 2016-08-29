@@ -1,6 +1,6 @@
 <div class='wizard-step active'>
 <%= form_for @order, html: {id: "submit-payment", data: {parsley_validate: "true", remote: true}} do |f| %>
-  <h3>Choose Payment Method</h3>
+  <h3 class='choose-payment'>Choose Payment Method</h3>
   <div class='payment-chooser'>
     <div class='form-group'>
       <%= f.radio_button :payment_method, "paypal" %> <%= f.label :payment_method, "PayPal", for: "order_payment_method_paypal" %>    
@@ -59,13 +59,13 @@
       <%= f.label :credit_card_security_code, "Card Security Code: " %>
       <%= f.text_field :credit_card_security_code, name: nil, title: "Security Code", data: {stripe: "cvc"}, class: "field_1", placeholder: "Security Code" %>
     </div>
-    <%= f.button "Pay With Card", class: "btn btn-primary", data: {disable_with: "Processing..."} %>
+    <%= f.button "Pay With Card", class: "btn checkout-btn", data: {disable_with: "Processing..."} %>
   </div>
   <%= hidden_field_tag :current_step, "process_payment" %>
   
   <div class='paypal-fields'>
-    <%= f.button "Pay With Paypal", name: "paypal", class: 'btn btn-primary' %>
-    <p>When you click the above button, you'll be taken to Paypal's site to finish payment.</p>
+    <%= f.button "Pay With Paypal", name: "paypal", class: 'btn checkout-btn' %>
+    <p class='paypal-note'>When you click the above button, you'll be taken to Paypal's site to finish payment.</p>
   </div>
 
 

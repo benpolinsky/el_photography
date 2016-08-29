@@ -1,4 +1,5 @@
 // setup, as a function, is way too big... break IT UP!
+// dry it up too
 // and this should probably be defined as a wizard
 
 modulejs.define('payments', function () {
@@ -9,6 +10,9 @@ modulejs.define('payments', function () {
       $('.stripe-info').hide();
       $('.paypal-info').hide();
       $('.payment-chooser input#order_payment_method_paypal').on('click', function(event) {
+        $('.payment-chooser input#order_payment_method_stripe').next('label').removeClass('active');
+        $(this).next('label').addClass('active');
+        
         $('.stripe-info').hide();
         $('.stripe-fields').hide();
         $('.paypal-info').show();
@@ -19,6 +23,8 @@ modulejs.define('payments', function () {
       });
   
       $('.payment-chooser input#order_payment_method_stripe').on('click', function(event) {
+        $('.payment-chooser input#order_payment_method_paypal').next('label').removeClass('active');
+        $(this).next('label').addClass('active');
         $('.stripe-fields').show();
         $('.stripe-info').show();
         $('.paypal-fields').hide();

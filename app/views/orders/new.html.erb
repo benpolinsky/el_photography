@@ -17,7 +17,8 @@
   <meta name="slurp" content="noydir">
 <% end %>
 
-<h1>Checkout</h1>
+
+<h1 class='checkout'>Checkout</h1>
 
 <div class='order-summary'>
   <%= content_tag :h3, "Order Summary" %>
@@ -45,7 +46,7 @@
   <%= form_for @order, data: {parsley_validate: "true", remote: true, parsley_excluded: "input[type=button], input[type=submit], input[type=reset], input[type=hidden], [disabled], :hidden"} do |f| %>
   <div class='row'>
 
-    <div class='field col-xs-6'>
+    <div class='field col-sm-6 col-xs-12'>
           <h3>Your Info</h3>
       <%= f.label :contact_email, "Contact Email Address:" %>
       <%= f.email_field :contact_email, {class: "checkout-control", data: {parsley_required: 'true', parsley_error_message: "Please Enter an Email"}} %>
@@ -54,7 +55,7 @@
 
   <div class='row'>
 
-    <div class='addresses col-xs-6'>
+    <div class='addresses col-sm-6 col-xs-12'>
      
       <%= f.fields_for :addresses, [@billing_address, @shipping_address] do |address| %>
     

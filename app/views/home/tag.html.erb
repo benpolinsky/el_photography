@@ -20,7 +20,7 @@
 
 <nav class='tag-nav'>
   <%= link_to "&laquo; #{@tag.previous.name.titleize}".html_safe, tag_path(@tag.previous), class: "previous-tag-link" if @tag.previous %>
-  <%= link_to "Back To Top &uarr;".html_safe, '', class: 'back-to-top' %>
+  <%= link_to "Back To Top &uarr;".html_safe, '', class: 'back-to-top' unless @assets.none? %>
   <%= link_to "#{@tag.next.name.titleize} &raquo;".html_safe, tag_path(@tag.next), class: "next-tag-link" if @tag.next %>
 </nav>
 
