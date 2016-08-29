@@ -8,7 +8,12 @@
 
    <ul class="drop-menu-items">
      <% product_option.unique_variant_values.each do |variant_value| %>
-       <li class="drop-menu-item" data-product-option="<%= product_option.name %>" data-item-name="<%= variant_value.value %>" data-item-id="<%= variant_value.id %>"><%= variant_value.value %></li>
+      <li class="drop-menu-item" 
+       data-product-option="<%= product_option.name %>" 
+       data-item-name="<%= variant_value.value %>" 
+       data-item-id="<%= variant_value.id %>">
+       <%= variant_value.value %>
+     </li>
      <% end %>
    </ul>
 

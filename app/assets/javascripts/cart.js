@@ -128,6 +128,7 @@ modulejs.define('cart', function () {
           $selected_option.prop('selected', true);
           this.append_quantity($selected_option.attr('data-quantity'));
           this.append_price($selected_option.attr('data-price'));
+          this.change_image($selected_option.attr('data-image'));
           $('input.add-to-cart.variant').prop('disabled',false);
         } else {
           this.reset_variants();
@@ -146,6 +147,14 @@ modulejs.define('cart', function () {
     
     append_price: function (price) {
       $('span.product-view-price').text(price);
+    },
+    
+    change_image: function (image_src) {
+      var $current_image = $('.grid-item-main-image');
+      
+      if (image_src !== $current_image.attr('src')) {
+        $current_image.attr('src', image_src);        
+      }
     },
     
     reset_variants: function () {

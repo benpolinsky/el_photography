@@ -5,7 +5,8 @@ module ProductsHelper
         variant.name, variant.id, {
         'data-unique-key' => variant.unique_key, 
         'data-quantity' => variant.available_quantity,
-        'data-price' => variant.price.format
+        'data-price' => variant.price.format,
+        'data-image' => variant.primary_image(:main)
         }
       ]
     end

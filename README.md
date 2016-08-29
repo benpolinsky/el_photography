@@ -1,3 +1,4 @@
+- switch photo out on click with variants.
 - after checkout / during checkout =  add a 'have questions?/concerns' contact link
 - touch up about/contact
 - choose a photo area in admin new product should be scrollable and eventually lazily load images.
@@ -42,6 +43,11 @@
 
 
 # As a Gem.../ Refactoring
+- gem ideas: either extend avdi's naught gem to handle rails errors
+or
+- is there a google analytics gem that imports basic reporting into your backend? 
+  - i hate the GA dashboard - it sucks
+
 - In general this seems like a basic enough portfolio-ecommerce site:
   _extract as much as possible__
 

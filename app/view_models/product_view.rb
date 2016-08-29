@@ -33,7 +33,8 @@ class ProductView
   
   def price
     if product_has_variants?
-      content_tag :span, "From #{product.price.format}", class: "product-view-price", data: {price: "From #{product.price.format}"}     
+      content_tag :span, "From #{product.price.format}", class: "product-view-price", 
+      data: {price: "From #{product.price.format}"}     
     else
       content_tag :span, product.price.format, class: "product-view-price"
     end
