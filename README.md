@@ -2,11 +2,11 @@
 - better way of querying front photos
   - group_by perhaps
 - google analytics
-- stripe + paypal test 
-  - go live and test when el is ready
-- emails/sidekiq make sure
-- setup emails and prints@elliotpolinsky.com for support on store stuff
+- stripe + paypal test on live test.
+  - make sure emails are sent.
+  - go live and test live when el is ready
 - compile assets locally
+- Set mail address (right now going to me)
 ## README / TODO
 
 
