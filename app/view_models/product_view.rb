@@ -82,7 +82,7 @@ class ProductView
     options.symbolize_keys!
     options[:srcset] ||=  (2..3).map do |multiplier|
                             name = "#{version}_#{multiplier}x"
-                            if uploader.version_exists?(name) &&
+                            if uploader.try(:version_exists?, name) &&
                               source = uploader.url(name).presence
                               "#{source} #{multiplier}x"
                             else

@@ -1,6 +1,5 @@
 - make sure pagination links are up
-- upload different versions for each size.
-- variant photos need to be excluded from most front displaying photo collections
+- variant photos need to be excluded from most front displaying photo collections - i think we are good
 - touch up page template 
 
 
