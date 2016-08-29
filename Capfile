@@ -7,6 +7,7 @@ require 'capistrano/ssh_doctor'
 require 'capistrano/rails'
 require 'capistrano/bundler'
 require 'capistrano/rvm'
+require 'capistrano/sidekiq'
 require 'capistrano/puma'
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined

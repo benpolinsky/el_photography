@@ -87,6 +87,7 @@ group :development, :test do
   gem "factory_girl_rails", "~> 4.0"
 end
 
+gem 'capistrano-sidekiq', github: 'seuros/capistrano-sidekiq'
 group :development do
   gem 'capistrano',         require: false
   gem 'capistrano-rvm',     require: false

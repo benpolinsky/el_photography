@@ -61,6 +61,14 @@ GIT
       rails (>= 3.2.0)
 
 GIT
+  remote: git://github.com/seuros/capistrano-sidekiq.git
+  revision: 416d1ba6ac29e550b506468c45053b9fe65347b3
+  specs:
+    capistrano-sidekiq (0.5.4)
+      capistrano
+      sidekiq (>= 3.4)
+
+GIT
   remote: https://github.com/plataformatec/devise.git
   revision: ac702843ddaa5652fde7a0050ff2378e7368149e
   tag: master
@@ -570,6 +578,7 @@ DEPENDENCIES
   capistrano-bundler
   capistrano-rails
   capistrano-rvm
+  capistrano-sidekiq!
   capistrano-ssh-doctor (~> 1.0)
   capistrano3-puma
   carrierwave

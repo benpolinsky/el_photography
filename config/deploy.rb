@@ -25,6 +25,9 @@ set :puma_workers,    0
 set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
+
+set :sidekiq_processes, 1
+set :sidekiq_options_per_process, ["-c 10 --q mailers", "-c 10 --q default"]
 # ssh_options[:verbose] = :debug
 # ssh_options[:auth_methods] = "publickey"
 
