@@ -1,7 +1,11 @@
-- make sure pagination links are up
+- pagination format 
 - variant photos need to be excluded from most front displaying photo collections - i think we are good
+- variant decision touch ups
 - touch up page template 
-
+- choose a photo area in new product should be scrollable and eventually lazily load images.
+- lazily load images on main pages.
+- tag slugs...
+- google analytics
 
 ## README / TODO
 
@@ -39,11 +43,13 @@
 
 
 # As a Gem.../ Refactoring
-- Now that you've got a few views, you can extract common logic to a parent class, probably abstract but maybe not.
+- In general this seems like a basic enough portfolio-ecommerce site:
+  _extract as much as possible__
+
+- Think about if your 'views' are useful.
 - nicer parsley errors
-- nicer localized slider (for cart etc)
 - better null/stale_line_item and support for deleted variants
-- continue to work on ProductView
+- continue to work on ProductView - if you're keeping your views at all0
 - test out of stock functionality
 - move payment processesing to a background job 
 
@@ -52,12 +58,3 @@
  - eChecks(paypal)
  - disputes, etc (stripe)
  - So, it'd be a plugin, or perhaps there's one out there already. 
- 
-- Comparison to other gems:
- - ActiveMerchant is HUGE and OLD - this gem will never support 100+ gateways.  
-   - I probably won't get past 5: a couple of paypal implementations, stripe, braintree, coinbase, maybe open source bitcoin API
-   - it also has no dependencies on legacy code or gateways
- - ActiveMerchant doesn't support two-step payment gateways that require interaction from the user
-   - i.e. bitcoin, or paypal pay on paypal site.
-
- - acts_as_shopping_cart's scope is too narrow

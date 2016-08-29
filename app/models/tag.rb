@@ -1,4 +1,4 @@
-# little wrapper module for tags
+# quick n dirty - open em up
 ActsAsTaggableOn::Tag.class_eval do
   attr_accessor :temporary_slug
   include Liquid::Rails::Droppable
@@ -6,26 +6,28 @@ ActsAsTaggableOn::Tag.class_eval do
   ranks :row_order
   
   extend FriendlyId
-  friendly_id :temporary_slug, use: [:slugged, :history]  
+  friendly_id :slug_candidates, use: [:slugged, :history]  
   scope :next, -> id {where("id > ?", id).order("id ASC")}
   scope :previous, -> id {where("id < ?", id).order("id DESC")}
-  
 end
 
-# dirty...
+
+
+# quick n dirty - open em up
 class ActsAsTaggableOn::Tag
   def temporary_slug=(value)
     attribute_will_change!('temporary_slug') if temporary_slug != value
     @temporary_slug = value
   end
   
-  def temporary_slug_changed?
-    changed.include?('temporary_slug')
-  end
-  
   def should_generate_new_friendly_id?
     temporary_slug_changed?
   end
+  
+  def temporary_slug_changed?
+    changed.include?('temporary_slug')
+  end
+ 
   
   def next
     ActsAsTaggableOn::Tag.next(self.id).first
@@ -34,11 +36,21 @@ class ActsAsTaggableOn::Tag
   def previous
     ActsAsTaggableOn::Tag.previous(self.id).first
   end
+  
+  def slug_candidates
+    [
+      :temporary_slug,
+      :name,
+      [:temporary_slug, :id]
+    ]
+  end
 end
 
 
+
+# lil wrapper 
 module Tag
-  
+
   TAG = ActsAsTaggableOn::Tag
 
   def self.assets_for_tag(tag)
