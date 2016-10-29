@@ -1,3 +1,5 @@
+//  first off, we need to make this a class
+
 modulejs.define('cart', function () {
   var Cart = {
     open: function () {

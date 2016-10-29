@@ -80,6 +80,7 @@ group :development, :test do
   gem "rspec-support", git: "https://github.com/rspec/rspec-support.git", branch: "master"
   gem "rspec-expectations", git: "https://github.com/rspec/rspec-expectations.git", branch: "master"
   gem "rspec-mocks", git: "https://github.com/rspec/rspec-mocks.git", branch: "master"
+  gem 'jasmine-rails'
   gem 'rails-controller-testing'
   gem 'byebug'
   gem 'faker'

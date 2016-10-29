@@ -395,6 +395,12 @@ GEM
     i18n_data (0.7.0)
     inflecto (0.0.2)
     ipaddress (0.8.3)
+    jasmine-core (2.5.0)
+    jasmine-rails (0.13.0)
+      jasmine-core (>= 1.3, < 3.0)
+      phantomjs (>= 1.9)
+      railties (>= 3.2.0)
+      sprockets-rails
     jbuilder (2.5.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -455,6 +461,7 @@ GEM
       attr_required (>= 0.0.5)
       rest-client
     pg (0.18.4)
+    phantomjs (2.1.1.0)
     pkg-config (1.1.7)
     polyamorous (1.3.0)
       activerecord (>= 3.0)
@@ -595,6 +602,7 @@ DEPENDENCIES
   friendly_id (~> 5.1.0)
   gretel!
   hashids
+  jasmine-rails
   jbuilder (~> 2.0)
   jquery-infinite-pages
   jquery-rails
