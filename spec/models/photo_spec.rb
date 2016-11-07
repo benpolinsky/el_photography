@@ -36,6 +36,12 @@ RSpec.describe Photo, type: :model do
         expect(photo.errors[attr].size).to eq 0
       end
     end
+    
+    it "can have a caption of 1000 characters" do
+      long_caption = (1..1000).to_a.map(&:to_s).join(", ")
+      photo = create(:photo, caption: long_caption) 
+      expect(photo).to be_valid
+    end
   end
   
   context "polymorphism", focus: true do
