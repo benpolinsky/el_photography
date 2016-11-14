@@ -48,6 +48,9 @@ Rails.application.routes.draw do
     end
     
     resources :photos, concerns: :orderable do
+      member do
+        post :move
+      end
       collection do
         get 'reorder', to: "photos#reorder"
         get 'add', to: "photos#new"

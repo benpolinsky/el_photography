@@ -2,8 +2,8 @@ class Admin::PhotosController < AdminController
   before_action :set_photo, only: [:show, :edit, :destroy]
 
   def index
-    @q = Photo.not_variants.ransack(params[:q])
-    @photos = @q.result.rank(:row_order).page(params[:page])
+    @q = Photo.not_variants.ordered_by_row_order_asc.ransack(params[:q])
+    @photos = @q.result.page(params[:page])
   end
 
   def show
@@ -83,14 +83,15 @@ class Admin::PhotosController < AdminController
   end
   
   def reorder
-    @photos = Photo.all.rank(:row_order)
+    @photos = Photo.ordered_by_row_order_asc
+    @tags = Tag.all
   end
   
-  def update_row_order
-    @photo = Photo.find(params[:item][:item_id])
-    @photo.row_order_position = params[:item][:row_order_position]
-    @photo.save
-    head :created
+  def move
+    @photo = Photo.find(params[:id])
+    @photo.move_to! params[:position]
+    @mini = params[:mini]
+      
   end
   
   private

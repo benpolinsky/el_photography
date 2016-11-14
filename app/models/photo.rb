@@ -9,9 +9,8 @@ class Photo < ApplicationRecord
   friendly_id :temporary_slug, use: [:slugged, :history]  
   # has_one :product
   belongs_to :photoable, polymorphic: true, optional: true
+  acts_as_sortable {|config| config[:position_column] = :row_order}
   
-  include RankedModel
-  ranks :row_order
   default_scope { order(row_order: :asc) } 
   
   mount_uploader :image, PhotoUploader

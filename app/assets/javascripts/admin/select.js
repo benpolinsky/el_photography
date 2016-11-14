@@ -1,3 +1,7 @@
+function getUrl(el) {
+  return el.$input[0].dataset.updateUrl
+}
+
 jQuery(document).ready(function($) {
   var loader = modulejs.require('loader');  
   $(".taggable").selectize({
@@ -28,6 +32,3 @@ jQuery(document).ready(function($) {
 
 });
 
-function getUrl(el) {
-  return el.$input[0].dataset.updateUrl
-}

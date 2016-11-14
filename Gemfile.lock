@@ -167,6 +167,7 @@ GEM
       activemodel (= 5.0.0.rc1)
       activesupport (= 5.0.0.rc1)
       arel (~> 7.0)
+    activerecord-sortable (0.0.8)
     activesupport (5.0.0.rc1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (~> 0.7)
@@ -566,6 +567,7 @@ DEPENDENCIES
   aasm
   ace-rails-ap!
   active_link_to
+  activerecord-sortable
   acts-as-taggable-on!
   airbrake (~> 5.4)
   autoprefixer-rails

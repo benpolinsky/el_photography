@@ -1,0 +1,35 @@
+var node = $('*[data-role="photo<%= @photo.id %>"]');
+
+if (<%= @mini %>) {
+  var new_node_html = '<%= j render(partial: "mini_photo", locals: {photo: @photo}) %>';
+} else {
+  var new_node_html = '<%= j render @photo %>';  
+}
+
+
+node.replaceWith(new_node_html);
+if (!<%= @mini %>) {
+$('*[data-role="photo<%= @photo.id %>"] .taggable').selectize({
+  delimiter: ",",
+  create: true,
+  allowEmptyOption: true,
+  onBlur: function () {
+    var tagList = this.getValue();
+
+    tagList = tagList.length <= 0 ? "" : tagList
+    var photo_id = this.$input[0].dataset.id;
+    $.ajax({
+      method: "PATCH",
+      url: getUrl(this),
+      dataType: "script",
+      data: {
+        photo: {
+          tag_list: tagList,
+          id: photo_id
+        }
+      }
+    })
+  }
+});
+$('*[data-role="photo<%= @photo.id %>"] .best_in_place').best_in_place();
+}

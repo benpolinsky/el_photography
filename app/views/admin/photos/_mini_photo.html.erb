@@ -1,0 +1,3 @@
+<%= content_tag :div, class: "row-item reorder-pic", data: {role: "photo#{photo.id}", position: photo.row_order, move_url: move_admin_photo_url(photo, mini: true)} do %>
+  <%= image_tag photo.image.url(:thumb) %>
+<% end %>

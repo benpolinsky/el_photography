@@ -3,23 +3,19 @@
 
 <h1>Photos</h1>
 
+<% @tags.each do |tag| %>
+  <% if Photo.tagged_with(tag.name).any? %>
+  <div class='photo-tag-group'>
+  <%= content_tag :h2, tag.name  %>
+    <div class='big-grid' data-role="activerecord_sortable">
+	    <% Photo.tagged_with(tag.name).order(row_order: :desc).each_with_index do |photo, index| %>
+	      <%= render :partial => 'mini_photo', locals: {photo: photo, index: index} %>
 
-
-
-  <% Tag.all.each do |tag| %>
-    <% if Photo.tagged_with(tag.name).any? %>
-    <div class='photo-tag-group'>
-    <%= content_tag :h2, tag.name  %>
-    <div class='big-grid sortable'>
-    <% Photo.tagged_with(tag.name).each do |photo| %>
-      <%= content_tag :div, class: "row-item reorder-pic", data: {item_id: photo.id, post_path: url_for([:update_row_order, :admin, :photos])} do %>
-        <%= image_tag photo.image.url(:thumb) %>
-      <% end %>
-    <% end %>
+	    <% end %>
     </div>
-    </div>
-    <% end %>
+  </div>
   <% end %>
+<% end %>
 
 
 

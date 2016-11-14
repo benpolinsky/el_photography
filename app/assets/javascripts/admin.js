@@ -14,6 +14,7 @@
 //= require best_in_place
 //= require jquery_ujs
 //= require jquery-ui
+//= require sortable
 //= require tether
 //= require bootstrap
 //= require dropzone
@@ -34,3 +35,18 @@
 //= require tether.min
 //= require_tree ./channels
 //= require_tree .
+
+$(document).ready(function(){
+  $('tbody[data-role=activerecord_sortable]').activerecord_sortable({
+      axis: 'y',
+      items: '.row-item',
+       cursor: 'move',
+      handle: '.handle'
+  });
+  
+  $('.big-grid[data-role=activerecord_sortable]').activerecord_sortable({
+      axis: '',
+      items: '.row-item',
+      cursor: 'move'
+  });
+});

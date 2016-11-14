@@ -42,7 +42,7 @@ gem 'jquery-ui-rails'
 gem 'jquery-infinite-pages'
 gem 'parsley-rails'
 gem "selectize-rails"
-
+gem 'activerecord-sortable'
 
 gem 'jbuilder', '~> 2.0'
 
