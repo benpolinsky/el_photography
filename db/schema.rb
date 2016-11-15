@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161115172355) do
+ActiveRecord::Schema.define(version: 20161115214212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -234,7 +234,6 @@ ActiveRecord::Schema.define(version: 20161115172355) do
     t.text     "description"
     t.integer  "price_cents"
     t.string   "price_cents_currency"
-    t.datetime "published_at"
     t.integer  "quantity"
     t.integer  "weight_in_oz"
     t.integer  "row_order"
@@ -254,6 +253,7 @@ ActiveRecord::Schema.define(version: 20161115172355) do
     t.boolean  "taken_down"
     t.datetime "created_at",                                                          null: false
     t.datetime "updated_at",                                                          null: false
+    t.boolean  "published",                                           default: false
   end
 
   create_table "taggings", force: :cascade do |t|

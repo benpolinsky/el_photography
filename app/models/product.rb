@@ -98,21 +98,9 @@ class Product < ApplicationRecord
   end
   
   def publish!
-    if self.publishable? && !self.published?
-      self.update_attributes({
-          published_at: Proc.new{Time.zone.now}.call,
-          taken_down: false
-        })
-      true
-    else
-      false
-    end
+    update(published: true, taken_down: false) if !self.published? && self.publishable? 
   end
-  
-  def published?
-    !self.published_at.nil? && self.published_at < Proc.new{Time.zone.now}.call && !taken_down?
-  end
-  
+
   def publishable?
     publishing_service.valid?
   end
@@ -125,7 +113,7 @@ class Product < ApplicationRecord
 
   def take_down!
     if self.published? && !taken_down?
-      self.update(published_at: nil, taken_down: true) 
+      self.update(published: false, taken_down: true)
       true
     else
       false
@@ -168,19 +156,15 @@ class Product < ApplicationRecord
   end
   
   def self.published
-    where("products.published_at <= ?", Proc.new{Time.zone.now}.call)
-  end
-  
-  def self.draft
-    where("published_at IS NULL AND taken_down IS false")
+    where(published: true)
   end
   
   def self.status(state)
-    self.public_send(state) if state.in?(['published', 'draft', 'taken_down', 'all'])
+    self.public_send(state) if state.in?(['published', 'taken_down', 'all'])
   end
   
   def self.by_date
-    order(published_at: :desc)
+    order(updated_at: :desc)
   end  
   
   def self.by_relevance
@@ -215,7 +199,7 @@ class Product < ApplicationRecord
   end 
 
   def self.new_since(time)
-    where("published_at > ?", time)
+    where("updated_at > ?", time)
   end
   
   def self.by_week

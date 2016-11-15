@@ -7,7 +7,7 @@ RSpec.describe Product, type: :model do
     before do
       Product.delete_all
       @product = create(:product, name: "my awesome listing")
-      @basic_attributes = [:name, :price_cents, :description, :published_at, 
+      @basic_attributes = [:name, :price_cents, :description, :published, 
                           :row_order, :weight_in_oz, :quantity]
     end
     
@@ -76,13 +76,6 @@ RSpec.describe Product, type: :model do
       expect(first_product.updated_at).to be > last_product.updated_at  
     end
     
-    it "::recently_published sorts by published_at date" do
-      first_product = @products.recently_published.first
-      second_product = @products.recently_published.second
-      last_product = @products.recently_published.last
-      expect(first_product.published_at.to_i).to be >= second_product.published_at.to_i
-      expect(first_product.published_at.to_i).to be >= last_product.published_at.to_i  
-    end
   end
   
   context "variants" do
@@ -175,7 +168,7 @@ RSpec.describe Product, type: :model do
   end
   
   # come on.. other?
-  context "other", focus: true do
+  context "other" do
     before do
       Product.delete_all
       @product = create(:product, name: "my awesome listing")
@@ -206,7 +199,7 @@ RSpec.describe Product, type: :model do
   
   end
   
-  context "class methods", focus: true do
+  context "class methods" do
     before do
       Product.delete_all
       @product = create(:product, name: "my awesome listing")
@@ -226,30 +219,19 @@ RSpec.describe Product, type: :model do
     it "retrieves published products" do
       Product.destroy_all
       expect{create_list(:published_product, 14)}.to change{Product.published.size}.by(14)
-      expect{Product.published.last.update(published_at: nil)}.to change{Product.published.size}.by(-1)
+      expect{Product.published.last.update(published: false)}.to change{Product.published.size}.by(-1)
     end
     
 
-    it "retrieves products that are drafts" do
-      Product.destroy_all
-      create_list(:published_product, 10)
-      expect(Product.draft.size).to eq 0
-      expect(Product.last.update_attributes(published_at: nil))
-      expect(Product.draft.size).to eq 1
-      expect(Product.first.update_attributes(published_at: nil))
-      expect(Product.draft.size).to eq 2
-      Product.last.publish!
-      expect(Product.draft.size).to eq 1
-    end
+
   
     
     it "retrieves products by status if allowed" do
       Product.destroy_all
       create_list(:published_product, 10)
-      Product.last.update_attributes(published_at: nil)
-      Product.first.update_attributes(published_at: nil)
+      Product.last.update_attributes(published: false)
+      Product.first.update_attributes(published: false)
       expect(Product.status('published').size).to eq 8
-      expect(Product.status('draft').size).to eq 2
       Product.published.last.take_down!
       Product.published.first.take_down!
       expect(Product.status('taken_down').size).to eq 2

@@ -8,7 +8,7 @@ OptionValue.create!([
 ])
 
 product = Product.create!([
-  {name: "Ergonomic Iron Car_0", description: "", price_cents: 566, price_cents_currency: nil, published_at: "2016-06-06 19:33:00", quantity: nil, weight_in_oz: nil, row_order: 0, photo_id: 1, using_inventory: false, shipping_base_cents: 273, shipping_base_currency: "USD", additional_shipping_per_item_cents: nil, additional_shipping_per_item_currency: nil, international_shipping_base_cents: nil, international_shipping_base_currency: nil, additional_international_shipping_per_item_cents: nil, additional_international_shipping_per_item_currency: nil, slug: "ergonomic-iron-car_0", state: nil, deleted_at: nil, uid: nil, taken_down: nil, options: [option.id]}
+  {name: "Ergonomic Iron Car_0", description: "", price_cents: 566, price_cents_currency: nil, published: true, quantity: nil, weight_in_oz: nil, row_order: 0, photo_id: 1, using_inventory: false, shipping_base_cents: 273, shipping_base_currency: "USD", additional_shipping_per_item_cents: nil, additional_shipping_per_item_currency: nil, international_shipping_base_cents: nil, international_shipping_base_currency: nil, additional_international_shipping_per_item_cents: nil, additional_international_shipping_per_item_currency: nil, slug: "ergonomic-iron-car_0", state: nil, deleted_at: nil, uid: nil, taken_down: nil, options: [option.id]}
 ])
 
 Variant.create!([

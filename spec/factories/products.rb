@@ -12,10 +12,6 @@ FactoryGirl.define do
     p.price 150
     p.taken_down false
     p.description Faker::Lorem.paragraph
-    before(:create) do |product|
-      product.save
-      product.publish!
-    end
-
+    p.published true
   end
 end

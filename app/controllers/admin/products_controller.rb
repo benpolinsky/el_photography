@@ -20,9 +20,16 @@ class Admin::ProductsController < AdminController
   def create
     @product = Product.new(product_params)
     add_product_photo if params[:photo_id] && params[:photo_id].present?
+    
+    if @product.published? && !@product.publishable?
+      @product.published = false
+      extra_notice = ", but couldnt publish: #{@product.publishing_service.list_invalid.join(", ")}"
+    elsif @product.published? && @product.published_changed?
+      extra_notice = " and published!"      
+    end
     respond_to do |format|
       if @product.save
-        format.html { redirect_to [:edit, :admin, @product], notice: 'Product was successfully created.' }
+        format.html { redirect_to [:edit, :admin, @product], notice: "Product was successfully created#{extra_notice}" }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new }
@@ -47,9 +54,18 @@ class Admin::ProductsController < AdminController
 
   def update
     add_product_photo if params[:photo_id] && params[:photo_id].present?
+    @product.attributes = product_params
+    
+    if @product.published? && !@product.publishable?
+      @product.published = false
+      extra_notice = ", but couldnt publish: #{@product.publishing_service.list_invalid.join(", ")}"
+    elsif @product.published? && @product.published_changed?
+      extra_notice = " and published!"      
+    end
+    
     respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to [:edit, :admin, @product], notice: 'Product was successfully updated.' }
+      if @product.save
+        format.html { redirect_to [:edit, :admin, @product], notice: "Product was successfully updated#{extra_notice}." }
         format.json { render :show, status: :ok, location: @product }
       else
         @resource = @product
@@ -88,7 +104,7 @@ class Admin::ProductsController < AdminController
   end
 
   def product_params
-    params.require(:product).permit(:name, :temporary_slug, :description, :price, :published_at, :using_inventory,
+    params.require(:product).permit(:name, :temporary_slug, :description, :price, :published, :using_inventory,
     :quantity, :weight_in_oz, :row_order, :shipping_base, :slug, :additional_shipping_per_item,
     :deleted_at, :international_shipping_base, :sizes_list, :photo_id, :variants_attributes => [:price, :quantity, :row_order, :shipping_base, :slug, :additional_shipping_per_item, :deleted_at, :id, :using_inventory, :photo_attributes => [:image, :id]])
   end
