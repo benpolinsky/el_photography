@@ -110,7 +110,10 @@ class Product < ApplicationRecord
     price_cents > 99
   end
     
-
+  def least_expensive_variant
+    variants.order(price_cents: :asc).first
+  end
+  
   def take_down!
     if self.published? && !taken_down?
       self.update(published: false, taken_down: true)
