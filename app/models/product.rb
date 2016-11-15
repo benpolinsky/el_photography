@@ -138,6 +138,18 @@ class Product < ApplicationRecord
     variants.any?
   end
   
+  def quantity_label
+    variants.any? ? "Variants Control Quantity &#8595;" : "Quantity"
+  end
+  
+  def inventory_label
+    variants.any? ? "Variants Control Inventory &#8595;" : "Use Inventory?"
+  end
+  
+  def inventory_disabled?
+    variants.any?
+  end
+  
   def self.create_from_photo(photo_id)
     return unless photo = Photo.find(photo_id)
     product_name = photo.caption.present? ? photo.caption : "Product ##{Product.count + 1}"

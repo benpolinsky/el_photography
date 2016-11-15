@@ -1,12 +1,13 @@
 <div class="field form-group">
-  <%= builder.label :using_inventory, "Use Inventory? "%>
-  <%= builder.check_box :using_inventory, class: "form-control product_using_inventory" %>
-  <p class='help-text'>If clicked, product will eventually run 'out-of-stock' and be unavailable.  If not, product will have infinite quantity.</p>
+  <%= builder.label :using_inventory, builder.object.inventory_label.html_safe%>
+  <%= builder.check_box :using_inventory, class: "form-control product_using_inventory", disabled: builder.object.inventory_disabled? %>
+  <p class='help-text'>If clicked, product will eventually run 'out-of-stock' and be unavailable.  If not, product will have infinite quantity.
+	</p>
 </div>
 
 <div class="field quantity form-group">
-  <%= builder.label :quantity %>
-  <%= builder.number_field :quantity, {step: 1, class: "form-control quantity-input"} %>
+  <%= builder.label :quantity, builder.object.quantity_label.html_safe %>
+  <%= builder.number_field :quantity, {step: 1, class: "form-control quantity-input", disabled: builder.object.inventory_disabled?} %>
 </div>
 
 <div class="field form-group">

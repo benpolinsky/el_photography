@@ -74,7 +74,19 @@ class Variant < ApplicationRecord
     "Price"
   end
   
+  def inventory_label
+    "Use Inventory?"
+  end
+  
+  def quantity_label
+    "Quantity"
+  end
+  
   def price_disabled?
+    false
+  end
+  
+  def inventory_disabled?
     false
   end
   
