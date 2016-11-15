@@ -1,5 +1,7 @@
 jQuery(document).ready(function() {
-  $('.grid-item-main-image').lazyload();
+  $('.grid-item-main-image').lazyload({
+    threshold: 200
+  });
 
   
   
