@@ -13,7 +13,8 @@ class Product < ApplicationRecord
     name_isnt_valid: "valid?",
     needs_a_description: "description.present?",
     check_price: "price_over_minimum?",
-    check_quantity: "has_stock?"
+    check_quantity: "has_stock?",
+    no_photo_present: 'photo.persisted?'
   }
   
   ranks :row_order

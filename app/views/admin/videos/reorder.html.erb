@@ -1,0 +1,21 @@
+<% breadcrumb :reorder_admin_videos %>
+<p id="notice"><%= notice %></p>
+
+<h1>Reorder Videos by Tag</h1>
+
+<% Tag.all.each do |tag| %>
+  <% if Video.tagged_with(tag.name).any? %>
+  <div class='photo-tag-group'>
+ 	 <%= content_tag :h2, tag.name  %>
+	  <div class='big-grid sortable'>
+		<% ActsAsTaggableOn::Tagging.where(tag_id: tag.id, taggable_type: "Video").rank(:row_order).each do |tagging| %>
+	    <%= render :partial => 'video', locals: {video: tagging.taggable, tagging: tagging} %>
+	  <% end %>
+	  </div>
+  </div>
+  <% end %>
+<% end %>
+
+
+
+

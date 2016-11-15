@@ -47,6 +47,11 @@ crumb :admin_video do |video|
   parent :admin_videos
 end
 
+crumb :reorder_admin_videos do
+  link "Reorder Videos", reorder_admin_videos_path
+  parent :admin_videos
+end
+
 crumb :admin_photos do
   link "All Photos", admin_photos_path
   parent :admin_home
@@ -59,12 +64,13 @@ end
 
 crumb :admin_photo do |photo|
   unless photo.new_record?
-    link photo.caption, admin_photo_path(photo)
+    link (photo.caption ? photo.caption : photo.id), admin_photo_path(photo)
   else
     link "New Photo", new_admin_photo_path
   end
   parent :admin_photos
 end
+
 
 crumb :admin_products do
   link "All Products", admin_products_path

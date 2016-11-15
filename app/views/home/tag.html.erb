@@ -1,18 +1,18 @@
 <h2><%= @tag.name.titleize %></h2>
 <%# select_tag :change_photo_size, options_for_select(['1200', '1100', '1000', '900', '800', '700', '600']), class: 'change-photo-size' %>
 <div class='grid one-up changeable-grid'>
-  <% @assets.each do |asset| %>
+  <% @taggings.each do |tagging| %>
+
     <div class='grid-item'>
       <div class='grid-item-container'>
-        <!-- TODO: asset shouldn't care whether or not it is a video -->
-        <% if asset.try(:image) %>
-          <%= retina_image_tag asset.image, :main, {lazy: true, class: "grid-item-main-image photo-modal-trigger", data: {original_image_url: asset.image_url}} %>
+        <% if tagging.taggable_type == "Photo" %>
+          <%= retina_image_tag tagging.taggable.image, :main, {lazy: true, class: "grid-item-main-image photo-modal-trigger", data: {original_image_url: tagging.taggable.image_url}} %>
         <% else %>
-          <%= render partial: 'shared/embed_video', locals: {address: asset.embed_address} %>
+          <%= render partial: 'shared/embed_video', locals: {address: tagging.taggable.embed_address} %>
         <% end %>
 
-        <%= content_tag(:div, asset.caption.html_safe, class: "caption") if asset.caption %>
-        <%= content_tag(:div, link_to("Buy Print", asset.photoable), class: "photo-buy-product-link") if asset.purchasable? %>
+        <%= content_tag(:div, tagging.taggable.caption.html_safe, class: "caption") if tagging.taggable.caption %>
+        <%= content_tag(:div, link_to("Buy Print", tagging.taggable.photoable), class: "photo-buy-product-link") if tagging.taggable.purchasable? %>
       </div>
     </div>
   <% end %>
@@ -20,7 +20,7 @@
 
 <nav class='tag-nav'>
   <%= link_to "&laquo; #{@tag.previous.name.titleize}".html_safe, tag_path(@tag.previous), class: "previous-tag-link" if @tag.previous %>
-  <%= link_to "Back To Top &uarr;".html_safe, '', class: 'back-to-top' unless @assets.none? %>
+  <%= link_to "Back To Top &uarr;".html_safe, '', class: 'back-to-top' unless @taggings.none? %>
   <%= link_to "#{@tag.next.name.titleize} &raquo;".html_safe, tag_path(@tag.next), class: "next-tag-link" if @tag.next %>
 </nav>
 

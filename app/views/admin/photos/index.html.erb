@@ -2,6 +2,10 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Photos</h1>
+<div class='btn-group menu'>
+  <%= link_to 'Add Photos', add_admin_photos_path, class: "btn btn-primary" %>
+  <%= link_to "Reorder Photos", reorder_admin_photos_path, class: "btn btn-primary" %>  
+</div>
 
 
 <!-- <div id="admin-search-form">
@@ -37,9 +41,9 @@
   </tbody>
 </table>
 
-<br>
 
-<div class='btn-group'>
+
+<div class='btn-group menu'>
   <%= link_to 'Add Photos', add_admin_photos_path, class: "btn btn-primary" %>
   <%= link_to "Reorder Photos", reorder_admin_photos_path, class: "btn btn-primary" %>  
 </div>

@@ -2,8 +2,6 @@ jQuery(document).ready(function() {
   $('.grid-item-main-image').lazyload({
     threshold: 1000
   });
-
-  
   
   // Photo Modals
   var inst = $('[data-remodal-id=modal]').remodal({

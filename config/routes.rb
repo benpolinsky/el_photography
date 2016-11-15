@@ -26,7 +26,12 @@ Rails.application.routes.draw do
     resources :users do
       post 'reset_password', on: :member
     end
-    resources :videos, concerns: :orderable
+    
+    resources :videos, concerns: :orderable do
+      collection do
+        get 'reorder', to: "videos#reorder"
+      end
+    end
     
     resources :tags, concerns: :orderable
 

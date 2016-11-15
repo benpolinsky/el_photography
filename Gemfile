@@ -73,6 +73,9 @@ gem 'kaminari', :git => "git://github.com/amatsuda/kaminari.git", :branch => 'ma
 gem 'devise', git: 'https://github.com/plataformatec/devise.git', tag: "master"
 gem 'paper_trail'
 gem 'airbrake', '~> 5.4'
+
+gem "spring", group: :development
+gem 'spring-commands-rspec', group: :development
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "rspec-rails", git: "https://github.com/rspec/rspec-rails.git", branch: "master"

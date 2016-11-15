@@ -91,6 +91,7 @@ class ProductView
                             end
                           end.compact.join(', ')
 
-    image_tag(uploader.url(version), options)
+    image_url = uploader.try(:url) ? uploader.url(version) : uploader
+    image_tag(image_url, options)
   end
 end

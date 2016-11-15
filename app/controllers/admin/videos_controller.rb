@@ -62,12 +62,22 @@ class Admin::VideosController < AdminController
       format.json { head :no_content }
     end
   end
+  
+  def reorder
+    
+  end
 
   def update_row_order
-    @video = Video.find(params[:item][:item_id])
-    @video.row_order_position = params[:item][:row_order_position]
-    @video.save
-    head :created
+    if @mini = params[:mini]
+      @tagging = ActsAsTaggableOn::Tagging.find(params[:item][:item_id])
+      @tagging.update(row_order_position: params[:item][:row_order_position])
+      @video = @tagging.taggable
+    else
+      @video = Video.find(params[:item][:item_id])
+      @video.row_order_position = params[:item][:row_order_position]
+      @video.save
+      head :created
+    end
   end
   
   private

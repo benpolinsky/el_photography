@@ -34,4 +34,45 @@ RSpec.describe "Tagging" do
     end
   end
   
+  context "tagging rankings", focus: true do
+    let(:yoga_one){create(:photo, caption: "Yoga One")}
+    let(:yoga_two){create(:photo, caption: "Yoga Two")}
+    let(:yoga_three){create(:photo, caption: "Yoga Three")}
+  
+    let(:oil_one){create(:photo, caption: "Oil One")}
+    let(:oil_two){create(:photo, caption: "Oil Two")}
+    let(:oil_three){create(:photo, caption: "Oil Three")}
+    
+    it "each tagged model has an independent ranking by tag" do
+
+      [yoga_one, yoga_two, yoga_three].each do |photo|
+        photo.tag_list.add('yoga')
+        photo.save
+      end
+      
+      [oil_one, oil_two, oil_three].each do |photo|
+        oil_tag = photo.tag_list.add('oil')
+        photo.save
+      end
+      
+      oil_tag = Tag.all.find_by(name: "oil")
+      yoga_tag = Tag.all.find_by(name: "yoga")
+
+      oil_one_tagging = oil_one.taggings.find_by(tag_id: oil_tag.id) 
+      oil_one_tagging.update(row_order_position: 2)
+      expect(ActsAsTaggableOn::Tagging.where(tag_id: oil_tag).rank(:row_order).last).to eq oil_one_tagging
+      
+      oil_two_tagging = oil_two.taggings.find_by(tag_id: oil_tag.id) 
+      oil_two_tagging.update(row_order_position: 1)
+      expect(ActsAsTaggableOn::Tagging.where(tag_id: oil_tag).rank(:row_order).last).to eq oil_one_tagging
+            
+      oil_three_tagging = oil_three.taggings.find_by(tag_id: oil_tag.id) 
+      oil_three_tagging.update(row_order_position: 2)
+      expect(ActsAsTaggableOn::Tagging.where(tag_id: oil_tag).rank(:row_order).last).to eq oil_three_tagging
+      
+      ranked_taggings = ActsAsTaggableOn::Tagging.where(tag_id: oil_tag).rank(:row_order)
+      expect(ranked_taggings).to match [oil_two_tagging, oil_one_tagging, oil_three_tagging]
+    end
+  end
+  
 end

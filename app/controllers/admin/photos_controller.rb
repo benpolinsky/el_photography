@@ -87,14 +87,17 @@ class Admin::PhotosController < AdminController
   end
   
   def update_row_order
-    @photo = Photo.find(params[:item][:item_id])
     if @mini = params[:mini]
-      @photo.row_order = params[:item][:row_order_position]
+      @tagging = ActsAsTaggableOn::Tagging.find(params[:item][:item_id])
+      @tagging.update(row_order_position: params[:item][:row_order_position])
+      @photo = @tagging.taggable
     else
+      @photo = Photo.find(params[:item][:item_id])
       @photo.row_order_position = params[:item][:row_order_position]
       @mini = false
+      @photo.save
     end
-    @photo.save
+
 
   end
   

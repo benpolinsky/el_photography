@@ -1,15 +1,15 @@
 <% breadcrumb :reorder_admin_photos %>
 <p id="notice"><%= notice %></p>
 
-<h1>Photos</h1>
+<h1>Reorder Photos By Tag</h1>
 
-<% Tag.by_position.each do |tag| %>
+<% Tag.all.each do |tag| %>
   <% if Photo.tagged_with(tag.name).any? %>
   <div class='photo-tag-group'>
  	 <%= content_tag :h2, tag.name  %>
 	  <div class='big-grid sortable'>
-		<% @photos.select{|photo| photo.taggings.map{|tagging| tagging.tag.name}.include?(tag.name)}.each do |photo| %>
-	    <%= render :partial => 'mini_photo', locals: {photo: photo} %>
+		<% ActsAsTaggableOn::Tagging.where(tag_id: tag.id, taggable_type: "Photo").rank(:row_order).each do |tagging| %>
+	    <%= render :partial => 'mini_photo', locals: {photo: tagging.taggable, tagging: tagging} %>
 	  <% end %>
 	  </div>
   </div>

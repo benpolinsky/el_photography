@@ -1,0 +1,9 @@
+<%= content_tag :div, 
+		class: "row-item reorder-pic reorder-video", 
+		data: {
+			rank: tagging.row_order, 
+			item_id: tagging.id,
+			post_path: url_for([:update_row_order, :admin, :videos, {mini: true}])
+} do %>
+  	<%= image_tag video.image_url(:thumb) %>
+<% end %>

@@ -2,12 +2,14 @@ function getUrl(el) {
   return el.$input[0].dataset.updateUrl
 }
 
-var previous_entry = $('.row-item[data-item-id="<%= @photo.id  %>"]');
+
 if (<%= @mini %>) {
-  var new_entry = '<%= j render(partial: "mini_photo", locals: {photo: @photo}) %>'; 
+  var previous_entry = $('.row-item[data-item-id="<%= @tagging.id  %>"]');
+  var new_entry = '<%= j render(partial: "mini_photo", locals: {photo: @photo, tagging: @tagging}) %>'; 
   previous_entry.replaceWith(new_entry);
   
 } else {
+  var previous_entry = $('.row-item[data-item-id="<%= @photo.id  %>"]');
   var new_entry = '<%= j render @photo  %>';  
   previous_entry.replaceWith(new_entry);
   

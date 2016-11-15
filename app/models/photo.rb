@@ -7,11 +7,14 @@ class Photo < ApplicationRecord
   paginates_per 20
   
   friendly_id :temporary_slug, use: [:slugged, :history]  
+
   # has_one :product
   belongs_to :photoable, polymorphic: true, optional: true
   
   include RankedModel
+  
   ranks :row_order
+  
   default_scope { order(row_order: :asc) } 
   
   mount_uploader :image, PhotoUploader

@@ -19,7 +19,7 @@ class Admin::ProductsController < AdminController
 
   def create
     @product = Product.new(product_params)
-    add_product_photo if params[:photo_id]
+    add_product_photo if params[:photo_id] && params[:photo_id].present?
     respond_to do |format|
       if @product.save
         format.html { redirect_to [:edit, :admin, @product], notice: 'Product was successfully created.' }
@@ -46,7 +46,7 @@ class Admin::ProductsController < AdminController
   end
 
   def update
-    add_product_photo if params[:photo_id]
+    add_product_photo if params[:photo_id] && params[:photo_id].present?
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to [:edit, :admin, @product], notice: 'Product was successfully updated.' }

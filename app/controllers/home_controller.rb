@@ -20,7 +20,7 @@ class HomeController < ApplicationController
   def tag
     set_request_variant
     @tag = ActsAsTaggableOn::Tag.friendly.find(params[:id])
-    @assets = Tag.assets_for_tag(@tag)
+    @taggings = ActsAsTaggableOn::Tagging.where(tag_id: @tag.id).rank(:row_order)
   end
   
   def contact
