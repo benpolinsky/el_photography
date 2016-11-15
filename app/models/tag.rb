@@ -108,5 +108,9 @@ module Tag
   def self.latest
     all.includes(:taggings).order("taggings.created_at ASC")
   end
+  
+  def self.by_position
+    all.includes(:taggings).rank(:row_order)
+  end
 
 end

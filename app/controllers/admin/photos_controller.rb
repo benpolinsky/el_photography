@@ -83,14 +83,19 @@ class Admin::PhotosController < AdminController
   end
   
   def reorder
-    @photos = Photo.all.rank(:row_order)
+    @photos = Photo.with_absolute_position
   end
   
   def update_row_order
     @photo = Photo.find(params[:item][:item_id])
-    @photo.row_order_position = params[:item][:row_order_position]
+    if @mini = params[:mini]
+      @photo.row_order = params[:item][:row_order_position]
+    else
+      @photo.row_order_position = params[:item][:row_order_position]
+      @mini = false
+    end
     @photo.save
-    head :created
+
   end
   
   private

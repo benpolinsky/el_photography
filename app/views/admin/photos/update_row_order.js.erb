@@ -1,0 +1,36 @@
+function getUrl(el) {
+  return el.$input[0].dataset.updateUrl
+}
+
+var previous_entry = $('.row-item[data-item-id="<%= @photo.id  %>"]');
+if (<%= @mini %>) {
+  var new_entry = '<%= j render(partial: "mini_photo", locals: {photo: @photo}) %>'; 
+  previous_entry.replaceWith(new_entry);
+  
+} else {
+  var new_entry = '<%= j render @photo  %>';  
+  previous_entry.replaceWith(new_entry);
+  
+  $(".taggable[data-id='<%= @photo.id %>']").selectize({
+    delimiter: ",",
+    create: true,
+    allowEmptyOption: true,
+    onBlur: function () {
+      var tagList = this.getValue();
+      tagList = (tagList.length <= 0) ? "" : tagList;
+      $.ajax({
+        method: "PATCH",
+        url: getUrl(this),
+        dataType: "script",
+        data: {
+          photo: {
+            tag_list: tagList,
+            id: '<%= @photo.id %>'
+          }
+        }
+      })
+    }
+  });
+
+  $("#best_in_place_photo_<%= @photo.id %>_caption").best_in_place();
+}

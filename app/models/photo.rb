@@ -1,5 +1,5 @@
 class Photo < ApplicationRecord
-  attr_accessor :temporary_slug
+  attr_accessor :temporary_slug, :absolute_position
   include Liquid::Rails::Droppable
   acts_as_taggable
   validates :image, presence: true
@@ -41,4 +41,8 @@ class Photo < ApplicationRecord
     where("photoable_type IS NULL OR photoable_type != ?", 'Variant')
   end
 
+  def self.with_absolute_position
+    # Inefficient: I'll turn to sql later
+    includes(:taggings).rank(:row_order)
+  end
 end
