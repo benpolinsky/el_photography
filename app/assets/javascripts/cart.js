@@ -1,4 +1,5 @@
 modulejs.define('cart', function () {
+  var Loader = modulejs.require('loader');
   var Cart = {
     open: function () {
       var loader = modulejs.require('loader');
@@ -72,9 +73,18 @@ modulejs.define('cart', function () {
 
     },
 
+    initialize_variant_images: function () {
+      var image_srcs = $('#line_item_variant_id').children().map(function (index, el) {
+        return $(el).data('image');
+      }).each(function (index, src) {
+        var img = new Image();
+        img.src = src;
+      })
+    },
     // I think the variant functionality deserves its own module/class
     // and also the drop menu
     initialize_variants: function () {
+      this.initialize_variant_images();
       $('input.add-to-cart.variant').prop('disabled', true);
       var that = this;
       $('.drop-menu-item').on('click', function(event) {
