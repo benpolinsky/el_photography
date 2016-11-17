@@ -20,5 +20,6 @@
 //= require remodal.min
 //= require touchpunch.jquery.min
 //= require jquery.lazyload
+//= require jquery.sticky
 //= require_tree ./channels
 //= require_tree .

@@ -15,6 +15,13 @@ class ItemView
     image_tag(item.primary_image(:thumb), class: "item-image")
   end
   
+  def name
+    content_tag :span, class: 'item-name' do
+      concat content_tag(:span, item.product_name, class: 'product-name')
+      concat content_tag(:span, item.variant.name, class: "variant-names") if item.variant?
+    end
+  end
+  
   def name_and_link
     content_tag :span, class: 'item-name' do
       concat link_to item.product_name, url_helpers.product_path(item.product)

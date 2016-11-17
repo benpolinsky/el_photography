@@ -1,3 +1,4 @@
+
 body.orders-new .cart-slice{
   display:none;
 }
@@ -28,12 +29,17 @@ h1.checkout{
   padding: 10px 0;
 }
 
+.order-summary h3{
+  text-align:center;
+  margin-bottom:20px;
+}
+
 .order-summary span.quantity{
   display:block;
   float:left;
   color:black;    
   font-weight:300;
-  padding:10px 4px 3px 0px;
+  padding:0px 4px 3px 0px;
   font-size:14px;
 }
 
@@ -47,6 +53,7 @@ h1.checkout{
 }
 
 .wizard-step.inactive {
+    max-width:100%;
   pointer-events: none;
   opacity:0.4;
   clear: both;
@@ -116,15 +123,16 @@ h1.checkout{
 .edit_order{
   .field h3{
     text-align:center;
-    margin-bottom:5px;
+    margin-bottom:15px;
   }
   .sticky-help{
     width:100%;
   }
    label{
      width:100%;
-     text-align:center;
+     text-align:left;
      cursor:pointer;
+     margin-bottom:3px;
    } 
    
    .billing-address, .shipping-address{
@@ -140,7 +148,7 @@ h1.checkout{
    
    input[type="text"], input[type="email"]{
      width:100%;
-     text-align:center;
+     text-align:left;
    }
    
    select{
@@ -154,13 +162,33 @@ h1.checkout{
    }
    
    .parsley-custom-error-message{
-     text-align:center;
+     text-align:left;
    }
 }
 
 .checkout-order-item{
   overflow:hidden;
-  max-width:400px;
+} 
+.checkout-order-item .item-slice-info{
+  float:left;
+  width:50%;
+  box-sizing:border-box;
+}
+.checkout-order-item .item-slice-pricing{
+  float:left;
+  padding-left:10px;
+  width:50%;
+  box-sizing:border-box;
+}
+
+.checkout-order-item .item-slice-pricing{
+  .quantity{
+    float:right;
+    padding-right:0;
+  }
+  .item-price-total{
+    float:right;
+  }
 } 
 
 .checkout-order-item .variant-names{
@@ -174,9 +202,11 @@ h1.checkout{
 body.orders-new .elp-container.center:not(.header){
   text-align:left;
   .checkout-order-subtotal{ 
-    width:300px;
+    max-width:800px;
+    width:100%;
     float:left;
     clear:both;
+    margin: 2px 0;
     span:first-of-type{
       margin-right:3px;
       float:left;
@@ -185,23 +215,34 @@ body.orders-new .elp-container.center:not(.header){
       float:right;
     }
     p {
+      font-size:13px;
       float:left;
+      margin:0;
+      padding:0;
     }
   }
   .checkout-order-subtotal.grand-total{
     border-top:1px solid black;
+    padding-top:4px;
   }
+  
 }
 .btn.ship-to-same, .btn.enter-shipping-address{
   margin-top:5px;
   text-decoration:none;
 }
 
+.payment-security{
+  font-size:12px;
+  text-align:right;
+  a{
+    font-size:12px;
+  }
+}
 
 a.btn.disabled.hidden{
   display:none;
 }
-
 h3.choose-payment{
   text-align:center;
 }
@@ -231,7 +272,7 @@ form#submit-payment{
     color: #868686;
     background:#efeeee;
     &.active{
-      background:#23A14D;
+      background:#64d055;
       color:white;
     }
   }
@@ -261,11 +302,13 @@ form#submit-payment{
   background:#23A14D;
   color:white;
   border:0px;
+  margin-bottom:10px;
   border-radius:0px;
 }
 
 
-@media screen and (min-width: 600px){ 
+body.not-mobile{ 
+  min-width: 800px;
   
   h1.checkout{
     text-align:left;
@@ -273,7 +316,7 @@ form#submit-payment{
   
   .edit_order{
      label{
-       width:200px;
+       width:180px;
        text-align:left;
      } 
      .billing-address, .shipping-address{
@@ -287,12 +330,12 @@ form#submit-payment{
        }
      }
      input[type="text"], input[type="email"]{
-       width: 250px;
+       max-width:calc(100% - 206px);
        text-align:left;
       
      }
      select{
-       width:250px;
+       max-width:calc(100% - 206px);
      }
      .sticky-help{
        width:75px;
@@ -303,7 +346,9 @@ form#submit-payment{
        text-align:left;
      }
      .el-btn.checkout-btn{
-       width:455px;
+       width:100%;
+       
+       padding-right:20px;
      }
   }
   
@@ -340,10 +385,7 @@ form#submit-payment{
     }
   }
   
-  .payment-method-info{
-    float:left;
-    clear:none;
-  }
+
   
   .stripe-info img{
     margin-top:21px;
@@ -352,11 +394,44 @@ form#submit-payment{
   h3.choose-payment {
     text-align:left;
   }
-  .checkout-btn{
-    width:455px;
-  }
+
   .paypal-note{
     margin-top:4px;
     width:455px;
   }
+  
+  .sticky-wrapper{
+    width:40%;
+  }
+  .order-form-right{
+    float:right;
+    width:100%;
+    box-sizing:border-box;
+    margin-left:0;
+    margin-right:0;
+  }
+  
+  
+  .wizard-step{
+    max-width:60%;
+    width:60%;
+    float:left;
+    box-sizing:border-box;
+    padding-right:20px;
+  }
+  .wizard-step.inactive{
+    clear:none;
+  }
+  .payment-method-info {
+    float:left;
+    clear:none;
+  }
+  button.checkout-btn{
+    width: calc(100% - 22px);
+  }
 }
+
+.grand-total{
+  font-weight:bold;  
+}
+

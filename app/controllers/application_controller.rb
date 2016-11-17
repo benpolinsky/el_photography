@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :find_cart
+  before_action :determine_browser
   
   def find_cart
     @cart = Cart.includes(line_items: :itemized).find(session[:cart_id])
@@ -27,5 +28,10 @@ class ApplicationController < ActionController::Base
       redirect_to coming_soon_path
     end
   end
-   
+  
+  def determine_browser
+    @mobile = true if (browser.device.mobile? || browser.device.tablet?)
+  end
+
+
 end

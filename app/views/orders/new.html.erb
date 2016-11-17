@@ -20,33 +20,37 @@
 
 <h1 class='checkout'>Checkout</h1>
 
-<div class='order-summary'>
-  <%= content_tag :h3, "Order Summary" %>
-  <% @order.line_items.each do |item| %>
-  <div class='checkout-order-item'>
-    <%= render partial: 'order_item', locals: {item_view: ItemView.new(item)} %>
-  </div>
-    <hr/>
-  <% end %>
-  <%= content_tag :h3, "Order Totals" %>
-  <% CheckoutView.new(@order).tap do |view| %>
-    <%= view.checkout_order_subtotal %>
-    <%= view.checkout_estimated_shipping %>
-    <%= view.checkout_grand_total %>
-  <% end %>
+<div class='order-form-right'>
+	<div class='order-summary'>
+	  <%= content_tag :h3, "Order Summary" %>
+	
+	  <% @order.line_items.each do |item| %>
+		  <div class='checkout-order-item'>
+		    <%= render partial: 'order_item', locals: {item_view: ItemView.new(item)} %>
+		  </div>
+		  <hr/>
+	  <% end %>
+	
+	  <%= content_tag :h3, "Order Totals" %>
+	
+	  <% CheckoutView.new(@order).tap do |view| %>
+	    <%= view.checkout_order_subtotal %>
+	    <%= view.checkout_estimated_shipping %>
+	    <%= view.checkout_grand_total %>
+	  <% end %>
+	</div>
+
+	<div class='payment-security'>
+	  <p>Pay Using <%= link_to "PayPal", "https://www.paypal.com", target: "_new" %> or Credit/Debit Card</p>
+	  <p><%= link_to "Stripe", 'https://www.stripe.com/about', target: "_new" %> handles our card processing safely and securely.</p>  
+	</div>
 </div>
 
-<div class='payment-security'>
-  <p>Pay Using <%= link_to "PayPal", "https://www.paypal.com", target: "_new" %> or Credit/Debit Card</p>
-  <p><%= link_to "Stripe", 'https://www.stripe.com/about', target: "_new" %> handles our card processing safely and securely.</p>  
-</div>
-
-<hr/>
 <div class="wizard-step active">
   <%= form_for @order, data: {parsley_validate: "true", remote: true, parsley_excluded: "input[type=button], input[type=submit], input[type=reset], input[type=hidden], [disabled], :hidden"} do |f| %>
   <div class='row'>
 
-    <div class='field col-sm-6 col-xs-12'>
+    <div class='field col-xs-12'>
           <h3>Your Info</h3>
       <%= f.label :contact_email, "Contact Email Address:" %>
       <%= f.email_field :contact_email, {class: "checkout-control", data: {parsley_required: 'true', parsley_error_message: "Please Enter an Email"}} %>
@@ -55,7 +59,7 @@
 
   <div class='row'>
 
-    <div class='addresses col-sm-6 col-xs-12'>
+    <div class='addresses col-xs-12'>
      
       <%= f.fields_for :addresses, [@billing_address, @shipping_address] do |address| %>
     
