@@ -75,10 +75,10 @@ modulejs.define('cart', function () {
 
     initialize_variant_images: function () {
       var image_srcs = $('#line_item_variant_id').children().map(function (index, el) {
-        return $(el).data('image');
-      }).each(function (index, src) {
+        return $($(el).data('image'));
+      }).each(function (index, image) {
         var img = new Image();
-        img.src = src;
+        img.src = image.src;
       })
     },
     // I think the variant functionality deserves its own module/class
@@ -105,9 +105,6 @@ modulejs.define('cart', function () {
       // remove any selected classes from sibling options
       $(el).siblings().removeClass('selected');
       header.addClass('selected');
-      // change the select dropdown header text
-      // header.text(product_option_name + ": " + item_name);
-      
 
       
       // when we select an option we add it's value to the hidden field, if it exists
@@ -161,14 +158,13 @@ modulejs.define('cart', function () {
     
     change_image: function (image_src) {
       var $current_image = $('.grid-item-main-image');
-      
-      if (image_src !== $current_image.attr('src')) {
-        $current_image.attr('src', image_src);        
+      var $new_image = $(image_src).addClass('grid-item-main-image');
+      if ($new_image !== $current_image) {
+        $current_image.replaceWith($new_image);
       }
     },
     
     reset_variants: function () {
-
       $('.drop-menu.product-option').each(function () {
         $('.drop-menu.product-option').removeClass('selected');
         $menu_items = $(this).find('.drop-menu-item');
