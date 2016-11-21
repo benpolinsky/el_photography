@@ -54,7 +54,7 @@ module Tag
   TAG = ActsAsTaggableOn::Tag
 
   def self.assets_for_tag(tag)
-    tag.taggings.map(&:taggable).sort_by(&:row_order)
+    tag.taggings.order(:row_order).map(&:taggable)
   end
   
   def self.assets_for_tag_with_images(tag)
