@@ -33,4 +33,32 @@ form.contact-form{
 }
 
 
+// About PAGE
+body.home-about{
+  .my-about-page-content{
+    float:left;
+    max-width:920px;
+    margin-right:50px;
+    text-align:left;
+    h2{
+      font-size:70px;
+    }
+    p{
+      letter-spacing: 0.035em;
+      line-height: 1.35;
+    }
+  }
+  .my-about-page-image-section{
+    float:left;
+    clear:left;
+    margin-top: 20px;
+    
+  }
+}
 
+
+// CONTACT PAGE
+body.home-contact{
+  
+  
+}
