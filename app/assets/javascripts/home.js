@@ -1,6 +1,6 @@
 jQuery(document).ready(function() {
   $('.grid-item-main-image').lazyload({
-    threshold: 1000
+    threshold: 1600
   });
   
   // Photo Modals
