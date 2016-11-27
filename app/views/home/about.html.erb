@@ -1,6 +1,13 @@
-<% if @user_template %>
-  <%= @user_template.html_safe %>
-<% else %>
-  <%= content_tag :h2, @title.value.html_safe %>
-  <%= content_tag :p, @text.value.html_safe %>
-<% end %>
+<div class="my-about-page">
+
+	<div class='my-about-page-content'>
+	  <%= content_tag :h2, @title.value.html_safe %>		
+		<%= content_tag :p, @text.value.html_safe %>
+	</div>
+
+	<div class='my-about-page-image-section'>
+		<%= image_tag @image.value %>
+		<p>circa 1981</p>
+	</div>
+	
+</div>

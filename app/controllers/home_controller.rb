@@ -34,13 +34,10 @@ class HomeController < ApplicationController
   end
   
   def about
-    if @page_template = PageTemplate.find_by(page: "about")
-      setup_liquid
-    else
-      @about_page = BpCustomFields::AbstractResource.find_by(name: "about")
-      @title = @about_page.find_fields("About Page Title").first
-      @text = @about_page.find_fields("About Page Text").first
-    end
+    @about_page = BpCustomFields::AbstractResource.find_by(name: "about")
+    @title = @about_page.find_fields("About Page Title").first
+    @text = @about_page.find_fields("About Page Text").first
+    @image = @about_page.find_fields("About Image").first
   end
   
   def send_message

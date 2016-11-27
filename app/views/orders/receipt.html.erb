@@ -9,27 +9,29 @@
   <meta name="slurp" content="noydir">
 <% end %>
 
-<h1>Your payment has been accepted, thanks!</h1>
 
-<div class='page-header'>
+
+<div class='receipt page-header'>
+	<h1>Your payment has been accepted, thanks!</h1>
+  <%= link_to "Link To This Page", "/store/orders/#{@order.uid}/receipt", class: 'receipt-link'  %>
+	
   <h2>Order Details</h2>
-	<p class='label label-default'><%= @order.status.titleize %></p>
-  <h3><%= link_to("Link To This Page", "/store/orders/#{@order.uid}/receipt")  %></h3>
+
 
 </div>
 
 <div class='col-xs-12 col-sm-6 left-order-side'>
-  <div class="main-order-information">
+  <div class="main-order-information receipt">
 		<h3>General Info</h3>
 		<%= quick_row "Order ID: ", @order.short_or_uid %>		
 		<%= quick_row "Purchased On:", l(@order.purchased_at, format: :amp) if @order.purchased_at %>
 		<%= quick_row "Order Last Updated:", l(@order.updated_at, format: :amp) %>
-		<%= quick_row "Payment Method", @order.pretty_payment_method %>
+		<%= quick_row "Payment Method:", @order.pretty_payment_method %>
     <hr/>
     <h3>Totals</h3>
-		<%= quick_row "Subtotal", number_to_currency(@order.items_subtotal_cents/100.00) %>
-		<%= quick_row "Shipping", number_to_currency(@order.shipping_total) %>
-		<%= quick_row "Grand Total", number_to_currency(@order.grand_total_cents/100.00) %>
+		<%= quick_row "Subtotal:", number_to_currency(@order.items_subtotal_cents/100.00) %>
+		<%= quick_row "Shipping:", number_to_currency(@order.shipping_total) %>
+		<%= quick_row "Grand Total:", number_to_currency(@order.grand_total_cents/100.00) %>
   </div>
 
 	<hr/>  
@@ -69,7 +71,7 @@
 
 <div class='col-xs-12 col-sm-5 col-sm-offset-1 right-order-side'>
 
-	<div class='buyer-information'>
+	<div class='buyer-information receipt'>
 			<h3>Your Info: </h3>
 			<%= quick_row "Email:", @order.contact_email %>
       <%= display_admin_address(@order.billing_address, "Billing Address").html_safe if @order.billing_address %>  
@@ -79,6 +81,6 @@
 </div>
 
 
-<div class='sticky-help'>
-  <%= link_to "Questions? Concerns? Email me!", 'mailto:prints@elliotpolinsky.com' %>
+<div class='order-concerns'>
+  <%= link_to "For any order concerns, send a message to orders@elliotpolinsky.com", 'mailto:orders@elliotpolinsky.com' %>
 </div>
