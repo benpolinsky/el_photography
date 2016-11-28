@@ -77,6 +77,7 @@ class OrdersController < ApplicationController
   
   def payment_accepted
     @cart.destroy
+    @order.deduct_quantities_from_products #should be moved elsewhere
     session[:cart_id] = nil
     session[:order_id] = nil
     redirect_to [:receipt, @order]

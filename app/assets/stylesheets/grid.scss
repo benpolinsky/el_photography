@@ -22,7 +22,7 @@
 .grid-item{
   width:100%;
   box-sizing:border-box;
-  padding:60px 10px;
+  padding:30px 10px;
   overflow:hidden;
 }
 
@@ -81,6 +81,10 @@
     .grid-item{
       width:50%;
     }
+  }
+  
+  .grid-item{
+    padding:60px 10px;
   }
   
   .grid-split .grid-split-left{

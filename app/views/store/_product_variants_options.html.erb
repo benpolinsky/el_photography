@@ -26,6 +26,12 @@
 		     </li>
 				 <% end %>
      <% end %>
+		 
+		 <% if product_option.unique_variant_values.none? %>
+			<li class="drop-menu-item disabled out-of-stock">
+				Oh no!  Out of Stock!
+     	</li>
+		 <% end %>
    </ul>
 
  </div>

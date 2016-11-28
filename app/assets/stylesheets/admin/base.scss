@@ -50,13 +50,25 @@ $lightblue: lightblue;
   border-radius: 0.2rem; 
 }
 
-
-
 .payment-security{
   margin:10px 0;
 }
 
 
+.status-label{
+ display:inline-block;
+}
+
+.text-right{
+  float:right;
+}
+
+@media screen and (max-width:720px) {
+  .text-right{
+    float:none;
+    margin-left:4px;
+  }
+}
 @media screen and (min-width: 1200px) {
   .btn-bottom{
     margin-top:0px;
@@ -71,3 +83,4 @@ $lightblue: lightblue;
     font-size:15px;
   }
 }
+

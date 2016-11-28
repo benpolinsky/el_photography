@@ -8,16 +8,20 @@
     </div>
   </header>
 
-  <div class='cart-line-items'>
+  <div class="cart-line-items <%= @cart.line_items.none? ? 'no-items' : 'items' %>">
     <% if @cart.line_items.none? %>
       <div class='nothing-here-container'>
+				Nothing here!
       </div>
     <% end %>
-    <% @cart.line_items.each do |item|%>
+		
+    <% @cart.line_items.group_by{|item| item.product }.each do |products, items|%>
+			<% items.each do |item| %>
       <div class="item-slice slice" id="cart_item_<%= item.id %>">
         <% actual_item = item.product_or_variant ? item : StaleLineItem.new(parent_item: item) %>
         <%= render :partial => 'cart_item', locals: {cart_item: actual_item, cart: @cart, item_view: ItemView.new(actual_item)} %>
       </div>
+			<% end %>
     <% end %>
   </div>
   <footer class='cart-footer'>

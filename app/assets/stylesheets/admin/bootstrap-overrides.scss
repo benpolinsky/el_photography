@@ -7,7 +7,9 @@
   position:relative;
 }
 
-
+.container{
+  max-width:90%;
+}
 .tab-content, .tab-pane{
   height:100%;
 }
@@ -21,6 +23,11 @@
   margin-bottom: 1rem;
   border-radius: 0.25rem;
   float: right;
+}
+
+p{
+  font-size:12px;
+  margin-bottom: 5px;
 }
 @media screen and (max-width: 543px) {
   .admin-nav .nav-link{

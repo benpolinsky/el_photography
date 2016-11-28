@@ -3,6 +3,7 @@
 <% end %>
 
 <%= mail_module(table_align: 'left') do %>
+	<p>Order via: <%= @order.payment_method %></p>
   <% @order.line_items.each do |item| %>
     <div class="checkout-order-item">
       <%= image_tag item.product.primary_image(:thumb), class: "item-image" if item.product.primary_image %>
@@ -28,6 +29,7 @@
 	  <br/>
   
 	  <div class="final-addresses">
+			
 	    <div class="final-address">
 	      <%= content_tag :h4, "Shipping: " %>
 	      <%= display_address(@order.shipping_address).html_safe %>

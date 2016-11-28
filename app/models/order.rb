@@ -170,6 +170,13 @@ class Order < ApplicationRecord
     payment_method == "paypal" ? "PayPal" : "Card via Stripe"
   end
   
+  # not the resp. of an order...
+  def deduct_quantities_from_products
+    line_items.each do |item|
+      item.product_or_variant.deduct_quantity(item.quantity)
+    end
+  end
+  
   def self.find_product_from_item(item)
     item.product_type.classify.constantize.find(item.product_id)
   end  
@@ -190,6 +197,7 @@ class Order < ApplicationRecord
   end
   
   def self.completed
-    where(:status => [:payment_accepted, :order_shipped])
+    where(:status => [:payment_accepted, :order_shipped, :payment_failed])
   end
+
 end

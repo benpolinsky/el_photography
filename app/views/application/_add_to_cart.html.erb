@@ -8,7 +8,7 @@
 <% else %>
   <% if !product.has_stock? %>
     <%= form_tag('', {:class => "form", data: {remote: true}}) do %>    
-      <%= link_to "Unavailable", '', class: "btn no-click" %>    
+      <%= link_to "Oh no, product is out of stock!", '', class: "btn no-click" %>    
     <% end %>
   <% elsif product.available_quantity - cart.number_of_products_inside(product.id, "product") < 1 %>
     <%= form_tag('', {class: "add-item-to-cart form", data: {remote: true}}) do %>    

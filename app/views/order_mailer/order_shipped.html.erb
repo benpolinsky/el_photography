@@ -28,6 +28,7 @@
   <br/>
   
   <div class="final-addresses">
+		<%= content_tag :h4, "Paid via: #{@order.payment_method}" %>
     <div class="final-address">
       <%= content_tag :h4, "Shipping: " %>
       <%= display_address(@order.shipping_address).html_safe %>

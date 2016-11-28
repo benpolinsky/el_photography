@@ -3,10 +3,10 @@ class Admin::OrdersController < AdminController
 
   def index
     @q = Order.ransack(params[:q])
-    if params[:only_completed].present?
-      @orders = @q.result.completed.by_date.page(params[:page])
-    else
+    if params[:all].present?
       @orders = @q.result.by_date.page(params[:page])
+    else
+      @orders = @q.result.completed.by_date.page(params[:page])
     end
   end
 

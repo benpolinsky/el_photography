@@ -28,7 +28,15 @@ if (product_variant_options.length > 0) {
   Cart.initialize_variants();
 }
 
+if (Cart.line_items_count() == 0) {
+  $('.checkout-link').addClass('disabled');
+} else {
+  $('.checkout-link').removeClass('disabled');
+}
+
 if ( Cart.is_closed() ) Cart.open();
+
+
 
 //Drop Menu for Product Option
 //

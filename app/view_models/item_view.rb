@@ -64,7 +64,7 @@ class ItemView
   
   def subtotal
     content_tag :div, class: "item-price-total" do
-      concat content_tag :span, 'Price', class: "label"
+      concat content_tag :span, "Price for #{item.quantity}:", class: "label"
       concat content_tag :span, item.subtotal.format, class: "value"
     end
   end

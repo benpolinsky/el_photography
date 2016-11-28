@@ -10,34 +10,48 @@
   padding:8px 0px;
   text-align:center;
   font-size:12px;
-  z-index:9999;
+  z-index:10001;
 //  @include transition(top 150ms ease-in);
-
+  div{
+    height: 100%;
+  }
   p{
     max-width:90%;
     margin:0 auto;
+    height: 100%;
+    font-size: 20px;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
   }
   span.close{
     position:absolute;
     right:3px;
     top:3px;
     background:asset-url('big-close.png') no-repeat;
-    width: 50px;
-    height: 50px;
+    width: 25px;
+    height: 25px;
     background-size: 100%;
+    opacity: 0.8;
+    color:white;
+  }
+  span.close:focus, span.close:hover {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    opacity: 1;
   }
 }
 
 #alerts_and_notices.active{
   top:0px;
-  height:50px;
+  height:auto;
   animation:
      alert-notification 1s 1;
      -webkit-animation:alert-notification 1s 1;
      animation-fill-mode: forwards;
 
-     animation-delay:8s;
-     -webkit-animation-delay:8s; /* Safari and Chrome */
+     animation-delay:5s;
+     -webkit-animation-delay:5s; /* Safari and Chrome */
      -webkit-animation-fill-mode: forwards;
 }
 

@@ -41,6 +41,11 @@ $disabled: #D0D0D0;
   };
 }
 
+.drop-menu-item.disabled.out-of-stock{
+  &:after{
+    display:none;
+  }
+}
 
 .drop-menu-item.disabled{
   background: $disabled;

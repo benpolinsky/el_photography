@@ -265,6 +265,7 @@ form#submit-payment{
   input{
     width:0px;
     height:0px;
+    border:0px;
   }
   label{
     width:100%;
@@ -437,3 +438,19 @@ body.not-mobile{
   font-weight:bold;  
 }
 
+.wizard-back-link{
+  color:blue;
+}
+
+body.mobile{
+  .wizard-back-link{
+    color: blue;
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    margin-top: 10px;
+    clear: both;
+    float: left;
+  }  
+}

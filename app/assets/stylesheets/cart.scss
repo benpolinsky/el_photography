@@ -30,13 +30,12 @@ $kellygreen: #23A14D;
   top: 0;
   background: white;
   z-index: 10000;
-  border-left: 1px solid $grey;
   transition: transform 500ms;
 
   .alert{
     width: auto;
     margin-top: 10px;
-    margin-right: 15px;
+    margin-right: de5px;
     float: left;
   }
   .change-quantity-to{
@@ -428,9 +427,22 @@ div.main.cart-open{
   overflow-y:auto;
   width: 100%;
   height:calc(100% - 200px);
-
 }
 
+.cart-line-items.no-items{
+  border-bottom:0px;
+}
+.checkout-link{
+ pointer-events:auto; 
+}
+
+.checkout-link.disabled{
+  pointer-events:none;
+}
+
+.btn.no-click{
+  pointer-events:none;
+}
 
 
 
@@ -475,6 +487,10 @@ div.main.cart-open{
 
 .nothing-here-container{
   padding-left:20px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100%;
 }
 
 

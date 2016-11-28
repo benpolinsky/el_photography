@@ -16,5 +16,9 @@ if (product_variant_options.length > 0) {
   $('.product-variant-options-container').html(product_variant_options);  
   Cart.initialize_variants();
 }
-
+if (Cart.line_items_count() == 0) {
+  $('.checkout-link').addClass('disabled');
+} else {
+  $('.checkout-link').removeClass('disabled');
+}
 Loader.stop(true);

@@ -33,6 +33,14 @@ class HomeController < ApplicationController
     end
   end
   
+  def send_message
+    if ContactMailer.contact_elliot(message_params[:email], message_params[:name], message_params[:message]).deliver_later
+      redirect_to root_path, notice: "Thanks, your message is off!"
+    else
+      render :contact
+    end  
+  end
+  
   def about
     @about_page = BpCustomFields::AbstractResource.find_by(name: "about")
     @title = @about_page.find_fields("About Page Title").first
@@ -40,13 +48,7 @@ class HomeController < ApplicationController
     @image = @about_page.find_fields("About Image").first
   end
   
-  def send_message
-    if ContactMailer.contact_elliot(message_params[:email], message_params[:name], message_params[:message]).deliver_later
-      redirect_to root_path
-    else
-      render :contact
-    end  
-  end
+
 
   
   
