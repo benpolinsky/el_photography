@@ -91,7 +91,8 @@ class OrdersController < ApplicationController
   def successful_order
     @order.accept_payment!
     @order.update_purchased_at
-    OrderMailer.send_completed(@order.id)
+    OrderMailer.user_purchase(@order.id).deliver_later
+    OrderMailer.new_order(@order.id).deliver_later
     redirect_to [:payment_accepted, @order]
   end
   

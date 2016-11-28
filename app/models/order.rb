@@ -42,6 +42,7 @@ class Order < ApplicationRecord
     
     event :accept_payment do
       transitions from: :shipping_added, to: :payment_accepted
+      transitions from: :billing_added, to: :payment_accepted
       transitions from: :awaiting_payment_confirmation, to: :payment_accepted
     end
     
