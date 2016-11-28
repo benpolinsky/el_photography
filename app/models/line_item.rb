@@ -72,7 +72,7 @@ class LineItem < ApplicationRecord
   end
   
   def able_to_increment?(cart)
-    true # for now we aren't using stock... I should make this an option when I gemify
+    !(self.quantity >= available_quantity)
   end
   
   def available_quantity

@@ -3,6 +3,7 @@ class StaleLineItem
   
   def initialize(args)
     @parent_item = args[:parent_item]
+    @parent_item.destroy
   end
   
   def product
@@ -18,7 +19,7 @@ class StaleLineItem
   end
   
   def product_or_variant_name
-    "The Product or Variant You Added to Your Cart is No Longer Available"
+    "The Product You Added to Your Cart is No Longer Available"
   end
   
   def id
@@ -40,7 +41,15 @@ class StaleLineItem
   def decrement_quantity
     @parent_item.try(:destroy)
   end
-
+  
+  def product_name
+    "Product is no longer available"
+  end
+  
+  def variant?
+    false
+  end
+  
 end
 
 class NullProduct

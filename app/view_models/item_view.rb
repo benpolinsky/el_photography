@@ -43,8 +43,7 @@ class ItemView
         concat content_tag :span, item.quantity, id: "cart-item-#{item.id}", class: "quantity"
         concat link_to '+', url_helpers.increase_item_quantity_cart_path(item), {method: :PUT, class: "increment-quantity", data: {remote: true}}
       else
-        concat remove
-        concat alert('taken-down', "Sorry, this product has been taken down") if item.product.taken_down?
+        remove
       end
     end
   end
@@ -60,7 +59,7 @@ class ItemView
   end
   
   def remove
-    link_to "Please Remove", url_helpers.decrease_item_quantity_cart_path(item.id), {method: :PUT, class: "decrement-quantity", data: {remote: true}}
+    link_to "Remove", url_helpers.decrease_item_quantity_cart_path(item.id), {method: :PUT, class: "decrement-quantity", data: {remote: true}}
   end
   
   def subtotal

@@ -12,6 +12,8 @@ class Cart < ApplicationRecord
       if current_item.able_to_increment?(self)
         current_item.quantity += 1
         self.has_items!
+      else
+        return false
       end
     else
       # TODO: Dependency Injection

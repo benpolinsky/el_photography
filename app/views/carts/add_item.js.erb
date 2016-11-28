@@ -1,5 +1,8 @@
+//  anddd we quickly see why ujs gets ridiculous, quick...
+
 // if the item exists, we're going to replace the slice
 // otherwise we will append a new slice
+
 
 var cart = $('.cart-slice');
 var Cart = modulejs.require('cart');
@@ -9,6 +12,7 @@ var add_to_cart_partial = "<%= j render :partial => 'add_to_cart', locals: {prod
 var quantity_partial = "<%= j ProductView.new(product: @product, cart: @cart).display_quantity %>";
 var cart_totals_partial = "<%= j render partial: 'cart_totals', locals: {cart_view: CartView.new(@cart)} %>";
 var cart_item_quantity = '<%= @cart_item.quantity %>';
+var product_variant_options = "<%= j render partial: 'store/product_variants_options', locals: {product: @product} if @product.variants.any? %>";
 
 $('.bag-item-count').text("<%= @cart_quantity %>");
 Cart.append_item_to_cart(<%= @cart_item.quantity %>, cart_item, item_partial, add_to_cart_partial, quantity_partial, cart_totals_partial);
@@ -18,23 +22,29 @@ Cart.append_item_to_cart(<%= @cart_item.quantity %>, cart_item, item_partial, ad
 $('.listing-quantity-container').html("<%= j ProductView.new(product: @product, cart: @cart).display_quantity %>");
 $('.add-to-cart-container').html("<%= j render :partial => 'add_to_cart', locals: {product: @cart_item.product, cart: @cart} %>")
 
+
+if (product_variant_options.length > 0) {
+  $('.product-variant-options-container').html(product_variant_options);  
+  Cart.initialize_variants();
+}
+
 if ( Cart.is_closed() ) Cart.open();
 
 //Drop Menu for Product Option
-
-$('.drop-menu.product-option').each(function () {
-  var price_field = $(this).parent().siblings('.product-view-price');
-  var old_price = price_field.attr('data-price');
-  $(this).removeClass('selected');
-  $(this).children('.drop-menu-header').removeClass('selected');
-  $menu_items = $(this).find('.drop-menu-item');
-  $first_item = $menu_items.first();
-  $menu_items.removeClass('selected');
-  price_field.text(old_price)
-  // $first_item.addClass('selected');
-  $(this).find('.drop-menu-heading').text('Select ' + $first_item.data('product-option') + ": ");
-  $('input.add-to-cart.variant').prop('disabled', true);
-})
+//
+// $('.drop-menu.product-option').each(function () {
+//   var price_field = $(this).parent().siblings('.product-view-price');
+//   var old_price = price_field.attr('data-price');
+//   $(this).removeClass('selected');
+//   $(this).children('.drop-menu-header').removeClass('selected');
+//   $menu_items = $(this).find('.drop-menu-item');
+//   $first_item = $menu_items.first();
+//   $menu_items.removeClass('selected');
+//   price_field.text(old_price)
+//   // $first_item.addClass('selected');
+//   $(this).find('.drop-menu-heading').text('Select ' + $first_item.data('product-option') + ": ");
+//   $('input.add-to-cart.variant').prop('disabled', true);
+// })
 
 
 // coupons

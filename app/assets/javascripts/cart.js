@@ -1,3 +1,6 @@
+// how much of this actually deals with the cart..
+
+
 modulejs.define('cart', function () {
   var Loader = modulejs.require('loader');
   var Cart = {
@@ -81,14 +84,22 @@ modulejs.define('cart', function () {
         img.src = image.src;
       })
     },
+ 
     // I think the variant functionality deserves its own module/class
-    // and also the drop menu
+    // as it relates to drop downs
     initialize_variants: function () {
       this.initialize_variant_images();
       $('input.add-to-cart.variant').prop('disabled', true);
+
       var that = this;
-      $('.drop-menu-item').on('click', function(event) {
+
+      $('.drop-menu-item:not(.disabled)').on('click', function(event) {
         that.select_variant_item(this);
+      });
+      
+      // if the item is disabled, we should let the user know
+      $('.drop-menu-item.disabled').on('click', function(event) {
+        that.item_out_of_stock(this);
       });
     },
     
@@ -147,9 +158,20 @@ modulejs.define('cart', function () {
       $(el).parent().parent().removeClass('active');
     },
     
+    item_out_of_stock: function (el) {
+      // $(el).parent().siblings('.drop-menu-header').children('drop-menu-heading').text('blrugh')
+      // $('.drop-menu-heading')
+    },
+    
     append_quantity: function (quantity) {
-      var quantity_text = quantity + ' left'
-      $('.listing-quantity-container span.quantity').text(quantity_text);
+      var quantity_text = quantity + ' left';
+
+      if (quantity == 'Infinity') {
+        // we don't want to say 'infinity left...' sounds cool, but...
+        $('.listing-quantity-container span.quantity').text("");
+      } else {
+        $('.listing-quantity-container span.quantity').text(quantity_text);
+      }    
     },
     
     append_price: function (price) {

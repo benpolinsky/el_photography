@@ -2,7 +2,7 @@
     <%= form_tag(add_item_cart_path(LineItem.new), {class: "add-item-to-cart", data: {remote: true}}) do %>
       <%= hidden_field_tag "line_item[product_id]", product.id  %>
       <%= hidden_field_tag 'line_item[product_type]', "variant"  %>
-      <%= select_tag 'line_item[variant_id]', list_variants_by_keys(product) %>
+      <%= select_tag 'line_item[variant_id]', list_variants_by_keys(product, cart) %>
       <%= submit_tag "Add To Cart", class: "btn add-to-cart variant" %>
     <% end %>
 <% else %>
@@ -11,8 +11,8 @@
       <%= link_to "Unavailable", '', class: "btn no-click" %>    
     <% end %>
   <% elsif product.available_quantity - cart.number_of_products_inside(product.id, "product") < 1 %>
-    <%= form_tag('', {:class => "form", data: {remote: true}}) do %>    
-      <%= link_to "Already In Cart", '', class: "btn no-click" %>    
+    <%= form_tag('', {class: "add-item-to-cart form", data: {remote: true}}) do %>    
+      <%= submit_tag "Add To Cart", class: "btn add-to-cart", disabled: true %>
     <% end %>
   <% elsif !(product.only_one? && cart.has_product(product.id, "product")) %>
     <%= form_tag(add_item_cart_path(LineItem.new), {class: "add-item-to-cart", data: {remote: true}}) do %>

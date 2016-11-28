@@ -6,14 +6,25 @@
      <p class="subhead drop-menu-heading">Select <%= product_option.name %>: </p>
    </header>
 
+<%# TODO: REFACTOR THIS PLEASE %>
    <ul class="drop-menu-items">
      <% product_option.unique_variant_values.each do |variant_value| %>
-      <li class="drop-menu-item" 
-       data-product-option="<%= product_option.name %>" 
-       data-item-name="<%= variant_value.value %>" 
-       data-item-id="<%= variant_value.id %>">
-       <%= variant_value.value %>
-     </li>
+		 		<% variant = variant_value.variants.first %>
+				<% quantity_in_cart = @cart.number_of_products_inside(variant.id, 'variant') %>
+				<% if variant.using_inventory? && variant.quantity <= quantity_in_cart  %>
+	      
+					<li class="drop-menu-item disabled">
+		      	<%= variant_value.value %>
+		     	</li>
+				
+				<% else %>
+		      <li class="drop-menu-item " 
+		       data-product-option="<%= product_option.name %>" 
+		       data-item-name="<%= variant_value.value %>" 
+		       data-item-id="<%= variant_value.id %>">
+		       <%= variant_value.value %>
+		     </li>
+				 <% end %>
      <% end %>
    </ul>
 

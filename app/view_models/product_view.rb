@@ -45,19 +45,21 @@ class ProductView
   end
   
   def display_quantity
-    if product.using_inventory?
+    if product.using_inventory? || product_has_variants?
       content_tag :div, class: 'item-quantity-left' do
-        concat display_remaining_product_count
+        display_remaining_product_count
       end
     end
   end
   
   def display_remaining_product_count
+    # if there are variants, we'll manage the view with js
+    # when the user makes a selectionxc
     if product_has_variants?
-      content_tag :span, "Select Variant to View Quantity", class: "quantity"
+      content_tag :span, "", class: "quantity"
     else
-      content_tag :span, number_of_remaining_products, class: "quantity"
-      content_tag :span, " Available", class: "left"
+      concat content_tag :span, number_of_remaining_products, class: "quantity"
+      concat content_tag :span, " Available", class: "left"
     end
   end
   

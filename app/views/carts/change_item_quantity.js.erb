@@ -8,5 +8,13 @@ var add_to_cart_partial = "<%= j render :partial => 'add_to_cart', locals: {prod
 var quantity_partial = "<%= j ProductView.new(product: @product, cart: @cart).display_quantity %>";
 var cart_totals_partial = "<%= j render partial: 'cart_totals', locals: {cart_view: CartView.new(@cart)} %>";
 
+var product_variant_options = "<%= j render partial: 'store/product_variants_options', locals: {product: @product} if @product.variants.any? %>";
+
 Cart.change_quantity(cart_item, item_partial, add_to_cart_partial, quantity_partial, cart_totals_partial, "<%= @new_quantity %>");
+
+if (product_variant_options.length > 0) {
+  $('.product-variant-options-container').html(product_variant_options);  
+  Cart.initialize_variants();
+}
+
 Loader.stop(true);

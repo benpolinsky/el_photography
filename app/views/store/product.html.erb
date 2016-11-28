@@ -12,7 +12,9 @@
           <%= @product.bp_view(cart: @cart).display_quantity %>
         </div>
         
-        <%= render :partial => 'product_variants_options', locals: {product: @product} if @product.variants.any? %>
+       <div class='product-variant-options-container'> 
+				 <%= render :partial => 'product_variants_options', locals: {product: @product} if @product.variants.any? %>
+			 </div>
         
         <div class='add-to-cart-container'>
           <%= render :partial => 'add_to_cart', locals: {product: @product, cart: @cart} %>        

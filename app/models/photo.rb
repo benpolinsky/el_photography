@@ -33,7 +33,7 @@ class Photo < ApplicationRecord
   end
   
   def purchasable?
-    photoable_type == 'Product' && photoable.published?
+    photoable_type == 'Product' && photoable.try(:published?)
   end
   
   def self.unassociated
