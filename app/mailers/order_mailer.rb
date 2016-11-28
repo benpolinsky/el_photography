@@ -1,4 +1,5 @@
 class OrderMailer < ApplicationMailer
+  layout 'mailer'
   include MailHelper
   include AddressesHelper
 
@@ -21,7 +22,7 @@ class OrderMailer < ApplicationMailer
         subject: "Your Order Has Shipped!")
   end
   
-  def new_order(order_id)
+  def new_order_submitted(order_id)
     @order = Order.find(order_id)
     mail(to: 'elliotpo@gmail.com', 
         from: 'Elliot Polinsky Photography <orders@elliotpolinsky.com>', 

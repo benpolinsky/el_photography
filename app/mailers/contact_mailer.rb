@@ -1,4 +1,5 @@
 class ContactMailer < ApplicationMailer
+  layout 'mailer'
   include MailHelper
   include AddressesHelper
 

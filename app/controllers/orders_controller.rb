@@ -92,7 +92,7 @@ class OrdersController < ApplicationController
     @order.accept_payment!
     @order.update_purchased_at
     OrderMailer.user_purchase(@order.id).deliver_later
-    OrderMailer.new_order(@order.id).deliver_later
+    OrderMailer.new_order_submitted(@order.id).deliver_later
     redirect_to [:payment_accepted, @order]
   end
   
