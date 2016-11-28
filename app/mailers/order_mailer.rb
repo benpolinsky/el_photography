@@ -11,7 +11,7 @@ class OrderMailer < ApplicationMailer
 
   def self.send_completed(order_id)
     user_purchase(order_id).deliver_later
-    new_order(order_id).deliver_later
+    new_order_submitted(order_id).deliver_later
   end
   
     
