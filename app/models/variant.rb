@@ -67,7 +67,9 @@ class Variant < ApplicationRecord
   end
   
   def deduct_quantity(amount=1)
-    quantity > amount ? self.update(quantity: quantity - amount) : self.out_of_stock!
+    if using_inventory?
+      quantity > amount ? self.update(quantity: quantity - amount) : self.out_of_stock!
+    end
   end
   
   def price_label

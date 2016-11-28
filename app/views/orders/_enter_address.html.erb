@@ -23,20 +23,19 @@
           
           <% if address.object.kind == "billing" %>
 
-            <div class='el-btn checkout-btn'>
-              <%= link_to "Proceed", '', class: 'ship-to-same' %>
-            </div>
-          
-            <div class='el-btn checkout-btn'>
-              <%= link_to "Enter Different Shipping Address", '', class: 'enter-shipping-address' %>
-            </div>
+
+              <%= link_to "Proceed", '', class: 'ship-to-same checkout-btn button' %>
+
+         
+
+              <%= link_to "Enter Different Shipping Address", '', class: 'checkout-btn button enter-shipping-address' %>
+
             
             <%= f.hidden_field :shipping_same %>
 
           <% elsif address.object.kind == "shipping" %>
-          <div class='el-btn checkout-btn'>
-            <%= f.submit "Proceed", class: "el-submit", :disable_with => 'Submiting...' %>  
-          </div>
+
+            <%= f.button "Proceed to Payment", class: "button checkout-btn el-submit", :disable_with => 'Submiting...' %>  
           <% end %>
         </div>
       <% end %>

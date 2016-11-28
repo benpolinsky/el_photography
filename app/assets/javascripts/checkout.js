@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
   
   $('body.not-mobile .order-form-right').sticky({topSpacing: 10})
-  
+
   modulejs.require('payments').hideShippingAddress();
   $('a.enter-shipping-address').on('click', function () {
     modulejs.require('payments').showShippingAddress();
