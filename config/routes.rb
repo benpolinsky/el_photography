@@ -16,7 +16,9 @@ Rails.application.routes.draw do
   devise_for :users, skip: [:registrations]
   mount BpCustomFields::Engine => "admin/custom_fields", as: "bp_custom_fields"
   namespace :admin do
-    mount Sidekiq::Web => '/sidekiq'
+    authenticate :user do
+      mount Sidekiq::Web => '/sidekiq'
+    end
     resources :products, concerns: :orderable do
       collection do
         post 'create_from_photo/:photo_id' => 'products#create_from_photo', as: :create_from_photo
