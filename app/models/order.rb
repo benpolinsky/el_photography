@@ -182,7 +182,10 @@ class Order < ApplicationRecord
   end
   
   def description
-    ""
+    %{
+      ID: #{self.short_or_uid}
+      Customer Email: #{self.contact_email}
+    }
   end
   
   def self.completed
