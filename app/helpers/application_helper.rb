@@ -29,4 +29,13 @@ module ApplicationHelper
 
     image_tag(uploader.url(version), options)
   end
+  #https://gist.github.com/henrik/2ddcc6ab8c66e7c49305
+  def image_set_tag_3x(source, options = {})
+    srcset = [ 2, 3 ].map { |num|
+      name = source.sub("_1x.", "_#{num}x.")
+      "#{path_to_image(name)} #{num}x"
+    }.join(", ")
+
+    image_tag(source, options.merge(srcset: srcset))
+  end
 end

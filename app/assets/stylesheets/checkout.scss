@@ -53,7 +53,7 @@ h1.checkout{
 }
 
 .wizard-step.inactive {
-    max-width:100%;
+  max-width:100%;
   pointer-events: none;
   opacity:0.4;
   clear: both;
@@ -406,7 +406,7 @@ body.not-mobile{
 
   
   .stripe-info img{
-    margin-top:21px;
+    margin-top:5px;
     text-align:left;
   }
   h3.choose-payment {
@@ -482,6 +482,9 @@ body.mobile{
   }  
   a.button{
     width:100%;
+  }
+  .wizard-step.inactive{
+        width:100%;
   }
 }
 
