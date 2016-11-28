@@ -31,7 +31,5 @@ Your Order from Elliot Polinsky Has Shipped!
  <%= @order.billing_address.street_line_3 if @order.billing_address.street_line_3 %>
  <%= @order.billing_address.country %>
  <%= "#{@order.billing_address.city} #{@order.billing_address.state} #{@order.billing_address.zip_code}" %> 
-  
-
 
 Thanks so much!

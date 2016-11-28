@@ -1,4 +1,10 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'elsite@elliotpolinsky.com'
+  include MailHelper
+  include AddressesHelper
+
+  helper :mail  
+  helper :addresses
+  
+  default from: 'contact@elliotpolinsky.com'
   layout 'mailer'
 end

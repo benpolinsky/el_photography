@@ -3,7 +3,7 @@
 class OrdersController < ApplicationController
   respond_to :html, :js
   prepend_before_action :redirect_to_coming_soon
-  before_action :find_order, except: [:new, :create]
+  before_action :find_order, except: [:new, :create, :enter_address]
   protect_from_forgery :except => :webhook
   
   # create on new.  allows for tracking of abandoned orders
@@ -25,7 +25,8 @@ class OrdersController < ApplicationController
   
   # Setup + Render
   def enter_address
-
+    @order = OrderFinder.new(order_id: session[:order_id], cart: @cart).retrieve
+    find_addresses
   end
   
   # Receive + Process

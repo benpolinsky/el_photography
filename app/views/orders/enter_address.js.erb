@@ -1,0 +1,24 @@
+var payments = modulejs.require('payments');
+
+$('.wizard-step.active').removeClass('active').addClass('inactive');
+$('.wizard-step.addresses').removeClass('inactive').addClass('active');
+$('.wizard-step.addresses').replaceWith("<%= j render(partial: 'enter_address', locals: {order: @order, billing_address: @billing_address, shipping_address: @shipping_address}) %>");
+$("form").parsley();
+
+payments.setup();
+payments.hideShippingAddress();
+$('a.enter-shipping-address').on('click', function () {
+  payments.showShippingAddress();
+  return false
+});
+
+$('a.ship-to-same').on('click', function () {
+  payments.hideShippingAddress();
+  $('input#order_shipping_same').val('true');
+  $(this).parents('form').submit();
+  return false
+});
+
+$('html, body').animate({
+  scrollTop: 0
+  }, 100);

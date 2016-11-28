@@ -1,15 +1,13 @@
-<h1>Thanks for Your Purchase from Elliotpolinsky.com</h1>
+<%= mail_module do %>
+	<h1>Thanks for Your Purchase from Elliot Polinsky Photography</h1>
+<% end %>
 
+<%= mail_module(table_align: 'left') do %>
   <% @order.line_items.each do |item| %>
     <div class="checkout-order-item">
-      <%= image_tag item.product.primary_image.image.url(:thumb), class: "item-image" if item.product.primary_image %>
-      <%= content_tag :div, "#{item.name} x #{item.quantity}", class: "item-name" %>
+      <%= image_tag item.product.primary_image(:thumb), class: "item-image" if item.product.primary_image %>
+      <%= content_tag :div, "#{item.product_or_variant_name} x #{item.quantity}", class: "item-name" %>
       <%= content_tag :div, "Total: #{item.subtotal.format}", class: "slice-value" %>
-      <% if item.variant? %>
-        <div class="item-variant-choice">
-          <%= item.product.name %>
-        </div>
-      <% end %>
     </div>
   <% end %>
       
@@ -40,6 +38,8 @@
     </div>
   </div>
   
-  <%= link_to 'View Order (need to add viewing orders w/o accounts)', '' %>
+  <%= link_to "View Order", receipt_order_url(@order.uid), class: 'receipt-link'  %>
 
-<p>- El</p>
+<p> - Elliot (elliotpolinsky.com)</p>
+
+<% end %>

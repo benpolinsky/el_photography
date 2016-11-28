@@ -1,4 +1,5 @@
-<div class='wizard-step active'>
+<div class='wizard-step active enter-payment'>
+<%= link_to "&uarr; Change Shipping/Billing Address".html_safe, enter_address_order_path(@order), remote: true, class: "wizard-back-link" %>
 <%= form_for @order, html: {id: "submit-payment", data: {parsley_validate: "true", remote: true}} do |f| %>
   <h3 class='choose-payment'>Choose Payment Method</h3>
   <div class='payment-chooser'>

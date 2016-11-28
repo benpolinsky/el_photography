@@ -12,7 +12,9 @@
 
 
 <div class='receipt page-header'>
-	<h1>Your payment has been accepted, thanks!</h1>
+	<h1>Your payment has been accepted!</h1>
+	<p>We've sent a confirmation to <%= @order.contact_email %></p>
+	
   <%= link_to "Link To This Page", "/store/orders/#{@order.uid}/receipt", class: 'receipt-link'  %>
 	
   <h2>Order Details</h2>

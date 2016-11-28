@@ -1,11 +1,15 @@
 class OrderMailer < ApplicationMailer
+  include MailHelper
   include AddressesHelper
+
+  helper :mail  
   helper :addresses
+
   default from: 'orders@elliotpolinsky.com'
 
 
   def self.send_completed(order_id)
-    order_shipped(order_id).deliver_later
+    user_purchase(order_id).deliver_later
     new_order(order_id).deliver_later
   end
   

@@ -5,7 +5,7 @@ class LineItem < ApplicationRecord
   belongs_to :product
   belongs_to :variant, foreign_key: :product_id, class_name: Variant
   
-  belongs_to :itemized, polymorphic: true
+  belongs_to :itemized, polymorphic: true, touch: true
   
   monetize :price_cents, allow_nil: 'true'
   monetize :shipping_base_cents, allow_nil: 'true'

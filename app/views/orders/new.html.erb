@@ -1,7 +1,7 @@
 <%= content_for :extra_js do %>
   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
   <script type='text/javascript'>
-    Stripe.setPublishableKey("<%= ENV['stripe_test_publishable'] %>");
+    Stripe.setPublishableKey("<%= ENV['stripe_publishable_key'] %>");
   </script>
 <% end %>
 
@@ -45,54 +45,50 @@
 	  <p><%= link_to "Stripe", 'https://www.stripe.com/about', target: "_new" %> handles our card processing safely and securely.</p>  
 	</div>
 </div>
+	<%= render partial: 'enter_address', locals: {order: @order, billing_address: @billing_address, shipping_address: @shipping_address} %>
 
-<div class="wizard-step active">
-  <%= form_for @order, data: {parsley_validate: "true", remote: true, parsley_excluded: "input[type=button], input[type=submit], input[type=reset], input[type=hidden], [disabled], :hidden"} do |f| %>
-  <div class='row'>
+	<div class='wizard-step inactive enter-payment'>
 
-    <div class='field col-xs-12'>
-          <h3>Your Info</h3>
-      <%= f.label :contact_email, "Contact Email Address:" %>
-      <%= f.email_field :contact_email, {class: "checkout-control", data: {parsley_required: 'true', parsley_error_message: "Please Enter an Email"}} %>
-    </div>
-  </div>
+	<%= form_for @order, html: {id: "submit-payment", data: {parsley_validate: "true", remote: true}} do |f| %>
+	  <h3 class='choose-payment'>Choose Payment Method</h3>
+	  <div class='payment-chooser'>
+	    <div class='form-group'>
+	      <%= f.radio_button :payment_method, "paypal" %> <%= f.label :payment_method, "PayPal", for: "order_payment_method_paypal" %>    
+	    </div>
+  
+	    <div class='form-group'>
+	      <%= f.radio_button :payment_method, "stripe" %> <%= f.label :payment_method, "Card Via Stripe", for: 'order_payment_method_stripe' %>    
+	    </div>
+      
+	  </div>
 
-  <div class='row'>
-
-    <div class='addresses col-xs-12'>
-     
-      <%= f.fields_for :addresses, [@billing_address, @shipping_address] do |address| %>
+  
+	  <div class="stripe-fields">
+	    <div class="payment-errors"></div>
     
-        <div class="<%= address.object.kind %>-address">
-          <h3><%= address.object.kind.capitalize %> Address</h2>
-          <%= address.hidden_field :kind %>
-          <%= render partial: 'address_fields', locals: {address: address} %>
-          <%= hidden_field_tag :current_step, 'process_address' %>
-          
-          <% if address.object.kind == "billing" %>
+	    <div class='form-group'>
+	      <%= f.label :credit_card_number, "Card Number: " %>
+	      <%= f.text_field :credit_card_number, title: "Credit Card Number", :data => {stripe: "number"}, class: "field_1" %>
+	    </div>
 
-            <div class='el-btn checkout-btn'>
-              <%= link_to "Proceed", '', class: 'ship-to-same' %>
-            </div>
-          
-            <div class='el-btn checkout-btn'>
-              <%= link_to "Enter Different Shipping Address", '', class: 'enter-shipping-address' %>
-            </div>
-            
-            <%= f.hidden_field :shipping_same %>
+	    <div class="form-group">
+	      <%= label_tag :card_month, "Expiration Month: " %>
+	      <%= select_month Time.zone.now, {add_month_numbers: true}, {name: nil, id: "card_month", title: "Credit Card Expiration Month", class: "field_2"} %>
+	    </div>
+	    <div class='form-group'>
+	      <%= label_tag :card_year, "Expiration Year: " %>
+	      <%= select_year Time.zone.now, {start_year: Date.today.year, end_year: Date.today.year+10}, {name: nil, id: "card_year", title: "Credit Card Expiration Year", class: "field_2"} %>
+	    </div>
 
-          <% elsif address.object.kind == "shipping" %>
-          <div class='el-btn checkout-btn'>
-            <%= f.submit "Proceed", class: "el-submit", :disable_with => 'Submiting...' %>  
-          </div>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-</div>
-  <% end %>
-</div>
+	   
+	    <%= f.button "Pay With Card", class: "btn checkout-btn", data: {disable_with: "Processing..."}, disabled: true %>
+	  </div>
+	  <%= hidden_field_tag :current_step, "process_payment" %>
+  
 
+
+	<% end %>
+	</div>
 <div class='sticky-help'>
   <%= link_to "Questions? Concerns? Email me!", 'mailto:prints@elliotpolinsky.com' %>
 </div>

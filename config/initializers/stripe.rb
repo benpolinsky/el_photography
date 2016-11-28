@@ -1,1 +1,1 @@
-Stripe.api_key = ENV['stripe_test_secret']
+Stripe.api_key = ENV['stripe_secret']

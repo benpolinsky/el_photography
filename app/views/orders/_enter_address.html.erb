@@ -1,0 +1,46 @@
+<div class="wizard-step addresses active">
+  <%= form_for order, data: {parsley_validate: "true", remote: true, parsley_excluded: "input[type=button], input[type=submit], input[type=reset], input[type=hidden], [disabled], :hidden"} do |f| %>
+  <div class='row'>
+
+    <div class='field col-xs-12'>
+          <h3>Your Info</h3>
+      <%= f.label :contact_email, "Contact Email Address:" %>
+      <%= f.email_field :contact_email, {class: "checkout-control", data: {parsley_required: 'true', parsley_error_message: "Please Enter an Email"}} %>
+    </div>
+  </div>
+
+  <div class='row'>
+
+    <div class='addresses col-xs-12'>
+     
+      <%= f.fields_for :addresses, [billing_address, shipping_address] do |address| %>
+    
+        <div class="<%= address.object.kind %>-address">
+          <h3><%= address.object.kind.capitalize %> Address</h2>
+          <%= address.hidden_field :kind %>
+          <%= render partial: 'address_fields', locals: {address: address} %>
+          <%= hidden_field_tag :current_step, 'process_address' %>
+          
+          <% if address.object.kind == "billing" %>
+
+            <div class='el-btn checkout-btn'>
+              <%= link_to "Proceed", '', class: 'ship-to-same' %>
+            </div>
+          
+            <div class='el-btn checkout-btn'>
+              <%= link_to "Enter Different Shipping Address", '', class: 'enter-shipping-address' %>
+            </div>
+            
+            <%= f.hidden_field :shipping_same %>
+
+          <% elsif address.object.kind == "shipping" %>
+          <div class='el-btn checkout-btn'>
+            <%= f.submit "Proceed", class: "el-submit", :disable_with => 'Submiting...' %>  
+          </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+</div>
+  <% end %>
+</div>
