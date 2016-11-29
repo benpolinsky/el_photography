@@ -20,6 +20,8 @@ module Quantifiable
   def has_stock?
     if variants.none? 
       !using_inventory || quantity.to_i > 0
+    else
+      true
     end
   end
   
