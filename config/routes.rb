@@ -111,8 +111,9 @@ Rails.application.routes.draw do
   get 'about' => 'home#about', as: :about
   get 'contact' => 'home#contact', as: :contact
   post 'send_message' => 'home#send_message', as: :send_message
+  
   get 'home/index'
-  get 'coming_soon' => 'home#coming_soon', as: :coming_soon
+  
   post 'email_sign_up' => 'home#email_sign_up', as: :email_sign_up
   root to: 'home#index'
 end

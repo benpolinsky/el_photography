@@ -1,6 +1,4 @@
 class StoreController < ApplicationController
-  prepend_before_action :redirect_to_coming_soon
-  
   def index
     if @page_template = PageTemplate.find_by(page: "store_index")
       template = Liquid::Template.parse(@page_template.body)
@@ -21,11 +19,6 @@ class StoreController < ApplicationController
   end
   
   private
-  def redirect_to_coming_soon
-    if !current_user
-      redirect_to coming_soon_path
-    end
-  end
   
   def available_drops
     {

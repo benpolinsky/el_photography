@@ -2,7 +2,6 @@
 # much will make sense
 class OrdersController < ApplicationController
   respond_to :html, :js
-  prepend_before_action :redirect_to_coming_soon
   before_action :find_order, except: [:new, :create, :enter_address]
   protect_from_forgery :except => :webhook
   

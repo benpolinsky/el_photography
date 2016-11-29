@@ -23,12 +23,6 @@ class ApplicationController < ActionController::Base
     request.env['omniauth.origin'] || stored_location_for(resource) || admin_root_path
   end
   
-  def redirect_to_coming_soon
-    if !current_user.present?
-      redirect_to coming_soon_path
-    end
-  end
-  
   def determine_browser
     @mobile = true if (browser.device.mobile? || browser.device.tablet?)
   end

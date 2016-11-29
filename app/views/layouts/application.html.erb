@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Elliot Polinsky</title>
+    <title>
+			<% if content_for :page_title %>
+				<%= yield :page_title %>
+			<% else %>
+				Elliot Polinsky Photography: Philadelphia Freelance Photographer
+			<% end %>
+		</title>
+		<meta name="description" content="Philadelphia-based Photography.  Weddings, Music Videos, Head Shots, Yoga Photography.">
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
 
@@ -31,7 +38,9 @@
     
     <%= yield :page_meta %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+		
     <%= yield :extra_js %>
+		
   </head>
 
   <body class="<%= theme_class %> <%= body_class %> <%= @mobile ? 'mobile' : 'not-mobile'  %>">

@@ -1,3 +1,7 @@
+<%= content_for :page_title do %>
+	<%= "#{@tag.name.titleize}" %>
+<% end %>
+
 <h2><%= @tag.name.titleize %></h2>
 <%# select_tag :change_photo_size, options_for_select(['1200', '1100', '1000', '900', '800', '700', '600']), class: 'change-photo-size' %>
 <div class='grid one-up changeable-grid'>

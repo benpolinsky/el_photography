@@ -1,26 +1,30 @@
-  <div class='product grid-item'>
-    <div class='grid-item-container grid-split'>
-      <div class='grid-split-left'>
-        <%= @product.bp_view(cart: @cart).image("main") %>
-      </div>
-      <div class='grid-item-contents grid-split-right'>
-        <%= @product.bp_view(cart: @cart).name_and_link %>
-        <%= @product.bp_view(cart: @cart).description %>
-        <%= @product.bp_view(cart: @cart).price %>
-                
-        <div class='listing-quantity-container'> 
-          <%= @product.bp_view(cart: @cart).display_quantity %>
-        </div>
-        
-       <div class='product-variant-options-container'> 
-				 <%= render :partial => 'product_variants_options', locals: {product: @product} if @product.variants.any? %>
-			 </div>
-        
-        <div class='add-to-cart-container'>
-          <%= render :partial => 'add_to_cart', locals: {product: @product, cart: @cart} %>        
-        </div>
-        
-      </div>
+<%= content_for :page_title do %>	
+	<%= "Purchase #{@product.bp_view(cart: @cart).name} by Elliot Polinsky" %>
+<% end %>
 
+<div class='product grid-item'>
+  <div class='grid-item-container grid-split'>
+    <div class='grid-split-left'>
+      <%= @product.bp_view(cart: @cart).image("main") %>
     </div>
+    <div class='grid-item-contents grid-split-right'>
+      <%= @product.bp_view(cart: @cart).name_and_link %>
+      <%= @product.bp_view(cart: @cart).description %>
+      <%= @product.bp_view(cart: @cart).price %>
+              
+      <div class='listing-quantity-container'> 
+        <%= @product.bp_view(cart: @cart).display_quantity %>
+      </div>
+      
+     <div class='product-variant-options-container'> 
+			 <%= render :partial => 'product_variants_options', locals: {product: @product} if @product.variants.any? %>
+		 </div>
+      
+      <div class='add-to-cart-container'>
+        <%= render :partial => 'add_to_cart', locals: {product: @product, cart: @cart} %>        
+      </div>
+      
+    </div>
+
   </div>
+</div>

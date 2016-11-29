@@ -1,6 +1,4 @@
 class HomeController < ApplicationController
-  prepend_before_action :redirect_to_coming_soon, only: [:index, :tag, :contact, :about]
-  
   def coming_soon
     render(layout: 'devise')
   end

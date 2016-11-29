@@ -18,6 +18,10 @@ class ProductView
     end
   end
   
+  def name
+    product.name
+  end
+  
   def name_and_link
     link_to product.name, url_helpers.product_path(product), class: "product-view-name-link"
   end
