@@ -52,6 +52,10 @@ body.home-about{
     float:left;
     clear:left;
     margin: 20px 0 50px 0;
+    max-width:920px;
+    img{
+      width:100%;
+    }
     p{
       text-align:center;
     }
