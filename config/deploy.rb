@@ -10,6 +10,7 @@ set :user,            'elliot'
 # Don't change these unless you know what you're doing
 set :pty,             true
 set :rvm_ruby_version, '2.3.1'
+set :rvm_map_bins, fetch(:rvm_map_bins).to_a.concat(%w(sidekiq sidekiqctl))
 set :use_sudo,        false
 set :stage,           :production
 set :deploy_via,      :remote_cache
