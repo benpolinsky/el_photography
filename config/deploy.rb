@@ -10,7 +10,6 @@ set :user,            'elliot'
 # Don't change these unless you know what you're doing
 set :pty,             true
 set :rvm_ruby_version, '2.3.1'
-set :rvm_map_bins, fetch(:rvm_map_bins).to_a.concat(%w(sidekiq sidekiqctl))
 set :use_sudo,        false
 set :stage,           :production
 set :deploy_via,      :remote_cache
@@ -28,7 +27,7 @@ set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
 set :sidekiq_processes, 1
-# set :sidekiq_options_per_process, ["-c 10 --q mailers", "-c 10 --q default"]
+set :sidekiq_options_per_process, ["-c 10 --q mailers", "-c 10 --q default"]
 # ssh_options[:verbose] = :debug
 # ssh_options[:auth_methods] = "publickey"
 
