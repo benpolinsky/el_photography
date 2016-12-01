@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :grab_facebook_image
   
   def grab_facebook_image
-    @tag = ActsAsTaggableOn::Tag.friendly.find('berries')
+    @tag = ActsAsTaggableOn::Tag.friendly.find('yoga')
     @taggings = ActsAsTaggableOn::Tagging.where(tag_id: @tag.id).rank(:row_order)
     @facebook_image = @taggings.first.taggable
   end
