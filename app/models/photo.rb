@@ -48,4 +48,8 @@ class Photo < ApplicationRecord
     # Inefficient: I'll turn to sql later
     includes(:taggings).rank(:row_order)
   end
+  
+  def self.latest
+    includes(:taggings).order(created_at: :desc)
+  end
 end

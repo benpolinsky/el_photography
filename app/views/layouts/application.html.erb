@@ -8,6 +8,7 @@
 				Elliot Polinsky Photography
 			<% end %>
 		</title>
+		
 		<meta name="description" content="Philadelphia Based Photo and Video">
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
@@ -15,6 +16,12 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= favicon_link_tag 'favicon.png' %>
+	
+		<meta property="og:url"                content="https://elliotpolinsky.com" />
+		<meta property="og:title"              content="Elliot Polinsky Photography" />
+		<meta property="og:description"        content="Philadelphia Based Photo and Video" />
+		<meta property="og:image"              content="<%= @facebook_image.image_url %>" />
+		
     <script src="https://use.typekit.net/cpm5szs.js"></script>
     <script>try{Typekit.load({ async: true });}catch(e){}</script>
     <% if Theme.active %>

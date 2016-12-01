@@ -4,6 +4,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :find_cart
   before_action :determine_browser
+  before_action :grab_facebook_image
+  
+  def grab_facebook_image
+    @tag = ActsAsTaggableOn::Tag.friendly.find('berries')
+    @taggings = ActsAsTaggableOn::Tagging.where(tag_id: @tag.id).rank(:row_order)
+    @facebook_image = @taggings.first.taggable
+  end
   
   def find_cart
     @cart = Cart.includes(line_items: :itemized).find(session[:cart_id])
