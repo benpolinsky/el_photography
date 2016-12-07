@@ -6,7 +6,7 @@ end
 
 
 gem 'rails', '>= 5.0.0.beta3', '< 5.1'
-gem 'pg', '~> 0.18'
+gem 'pg', '~> 0.19'
 gem 'puma'
 gem 'sidekiq'
 gem 'sinatra', github: 'sinatra'
@@ -65,7 +65,7 @@ gem 'acts-as-taggable-on', github: 'cireficc/acts-as-taggable-on' # rails 5 (4/2
 gem 'ranked-model'
 gem 'hashids'
 
-gem 'gretel', github: 'craig1410/gretel', branch: 'dep_alias_method_chain'
+# gem 'gretel', github: 'craig1410/gretel', branch: 'dep_alias_method_chain'
 gem 'seed_dump'
 gem 'active_link_to'
 
