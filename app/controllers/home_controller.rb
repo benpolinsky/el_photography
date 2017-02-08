@@ -32,7 +32,7 @@ class HomeController < ApplicationController
   end
   
   def send_message
-    if ContactMailer.contact_elliot(message_params[:email], message_params[:name], message_params[:message]).deliver_later
+    if ContactMailer.contact_elliot(message_params[:email], message_params[:name], message_params[:message]).deliver_now
       redirect_to root_path, notice: "Thanks, your message is off!"
     else
       render :contact

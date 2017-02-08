@@ -16,7 +16,7 @@ class Admin::OrdersController < AdminController
 
   def ship
     if @order.ship!
-      OrderMailer.order_shipped(@order.id).deliver_later
+      OrderMailer.order_shipped(@order.id).deliver_now
       redirect_to [:admin, @order], notice: "Order Marked as Shipped and Buyer Notified"
     else
       @resource = @order
