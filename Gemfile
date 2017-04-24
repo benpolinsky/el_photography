@@ -65,7 +65,7 @@ gem 'acts-as-taggable-on', github: 'cireficc/acts-as-taggable-on' # rails 5 (4/2
 gem 'ranked-model'
 gem 'hashids'
 
-# gem 'gretel', github: 'craig1410/gretel', branch: 'dep_alias_method_chain'
+gem 'gretel'# , github: 'craig1410/gretel', branch: 'dep_alias_method_chain'
 gem 'seed_dump'
 gem 'active_link_to'
 

@@ -97,8 +97,6 @@ class Admin::PhotosController < AdminController
       @mini = false
       @photo.save
     end
-
-
   end
   
   private
